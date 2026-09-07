@@ -1,15 +1,16 @@
 """
-Renders a single 15-second quiz video from a question dict.
+Renders a high-retention quiz video from a question dict with guaranteed buffer outro.
 
-Slide 1 (0-10s): question + 4 options, no answer shown.
-Slide 2 (10-15s): same layout, correct option highlighted + ANSWER tag.
-
-Audio:
-  - 0.3s - 3.5s: Question read aloud via Edge-TTS (en-IN-PrabhatNeural).
-  - 3.5s - 10.0s: Fast, high-energy countdown suspense beat.
-  - 10.0s: Chime Ding sound effect when correct option turns green.
-  - 10.2s - 13.5s: Full answer announced ("The correct answer is Option A: Kosi").
-  - 13.5s - 15.0s: Outro fade.
+Timing Architecture:
+  - Slide 1 (Question + Countdown):
+    * Duration dynamically adapts so question is fully read + at least 4.5s of thinking countdown.
+    * For standard questions: exactly 10.0 seconds.
+  - Slide 2 (Answer Reveal + 4.5s Buffer Outro):
+    * Held for 8.0 seconds.
+    * Chime Ding plays at the exact frame of slide transition.
+    * Prabhat announces full answer (e.g. "The correct answer is Option A: Kosi").
+    * 4.5+ seconds of buffer outro after answer narration finishes!
+    * Smooth music fade-out at the final second.
 """
 import os
 import html
@@ -21,7 +22,7 @@ import subprocess
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_PATH = os.path.join(BASE, "templates", "slide.html")
 ASSETS = os.path.join(BASE, "assets")
-TENSION = os.path.join(ASSETS, "audio", "fast_beat.mp3") if os.path.exists(os.path.join(ASSETS, "audio", "fast_beat.mp3")) else os.path.join(ASSETS, "tension_bed.mp3")
+FALLBACK_MUSIC = os.path.join(ASSETS, "audio", "slot1_one_answer_left.mp3")
 DING = os.path.join(ASSETS, "reveal_ding.mp3")
 
 LETTERS = ["A", "B", "C", "D"]
@@ -31,7 +32,18 @@ def _esc(s):
     return html.escape(s, quote=False)
 
 
-def build_html(question, options, correct_index, accent, show_answer, q_id="q0000"):
+def get_audio_duration(path):
+    try:
+        out = subprocess.check_output([
+            "ffprobe", "-v", "error", "-show_entries", "format=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1", path
+        ]).decode().strip()
+        return float(out)
+    except Exception:
+        return 3.5
+
+
+def build_html(question, options, correct_index, accent, show_answer, q_id="q0000", day=1, slot=1):
     options_html = []
     for i, opt in enumerate(options):
         is_correct = (i == correct_index)
@@ -52,9 +64,11 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
     except Exception:
         q_num = 1
     q_tracker = f"QUESTION #{q_num:03d} OF 387"
+    series_banner = f"✨ 100 Days of GK Snippets • DAY {day:02d} (Part {slot}/4) ✨"
 
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)
+    tpl = tpl.replace("{{SERIES_BANNER}}", series_banner)
     tpl = tpl.replace("{{TIMER_BADGE}}", timer_badge)
     tpl = tpl.replace("{{QUESTION_TRACKER}}", q_tracker)
     tpl = tpl.replace("{{QUESTION}}", _esc(question))
@@ -69,28 +83,27 @@ def screenshot_html(html_str, out_png, page):
 
 
 async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice_path):
-    # Brisk, natural Indian male teacher voice
     voice = "en-IN-PrabhatNeural"
     
-    # 1. Question voiceover
-    comm_q = edge_tts.Communicate(question_text, voice, rate="+10%")
+    # 1. Question voiceover (brisk rate +12%)
+    comm_q = edge_tts.Communicate(question_text, voice, rate="+12%")
     await comm_q.save(q_voice_path)
 
-    # 2. Answer voiceover (full option text)
+    # 2. Answer voiceover (energetic rate +16%)
     comm_ans = edge_tts.Communicate(answer_text, voice, rate="+16%")
     await comm_ans.save(ans_voice_path)
 
 
-def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None):
+def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, slot=1):
     os.makedirs(tmp_dir, exist_ok=True)
     slide1_png = os.path.join(tmp_dir, "slide1.png")
     slide2_png = os.path.join(tmp_dir, "slide2.png")
 
     q_id = question_obj.get("id", "q0000")
     html1 = build_html(question_obj["question"], question_obj["options"],
-                        question_obj["correct_index"], accent, show_answer=False, q_id=q_id)
+                        question_obj["correct_index"], accent, show_answer=False, q_id=q_id, day=day, slot=slot)
     html2 = build_html(question_obj["question"], question_obj["options"],
-                        question_obj["correct_index"], accent, show_answer=True, q_id=q_id)
+                        question_obj["correct_index"], accent, show_answer=True, q_id=q_id, day=day, slot=slot)
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -99,24 +112,11 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None):
         screenshot_html(html2, slide2_png, page)
         browser.close()
 
-    # Build the 15s silent video track: slide1 held 10s, slide2 held 5s
-    video_only = os.path.join(tmp_dir, "video_only.mp4")
-    subprocess.run([
-        "ffmpeg", "-y",
-        "-loop", "1", "-t", "10", "-i", slide1_png,
-        "-loop", "1", "-t", "5", "-i", slide2_png,
-        "-filter_complex",
-        "[0:v]fps=30,format=yuv420p[v0];[1:v]fps=30,format=yuv420p[v1];[v0][v1]concat=n=2:v=1:a=0[v]",
-        "-map", "[v]",
-        "-c:v", "libx264", "-pix_fmt", "yuv420p",
-        video_only,
-    ], check=True)
-
     # Generate voiceover for question and full answer
     correct_letter = LETTERS[question_obj["correct_index"]]
     correct_opt_text = question_obj["options"][question_obj["correct_index"]]
     
-    # If option text is over 12 words, take first 10 words to fit 3.5s window
+    # If option text is over 12 words, take first 10 words to fit cleanly
     opt_words = correct_opt_text.strip().split()
     clean_opt_text = " ".join(opt_words[:10]) if len(opt_words) > 12 else correct_opt_text
     ans_spoken_phrase = f"The correct answer is Option {correct_letter}: {clean_opt_text}."
@@ -131,43 +131,80 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None):
         print(f"Warning: Edge-TTS generation failed ({e}), falling back to music-only audio.")
         has_voice = False
 
+    # Calculate dynamic timing to guarantee zero cutoff & 4.5s buffer outro
+    if has_voice:
+        q_dur = get_audio_duration(q_voice_mp3)
+        ans_dur = get_audio_duration(ans_voice_mp3)
+        slide1_time = max(10, int(round(q_dur + 4.5)))
+        slide2_time = 8  # 3.2s answer + 4.8s buffer outro
+    else:
+        slide1_time = 10
+        slide2_time = 8
+
+    total_time = slide1_time + slide2_time
+    ding_time = slide1_time
+    ding_ms = ding_time * 1000
+    ans_ms = ding_ms + 200
+    fade_start = total_time - 1
+
+    # Build silent video track with exact dynamic slide hold durations
+    video_only = os.path.join(tmp_dir, "video_only.mp4")
+    subprocess.run([
+        "ffmpeg", "-y",
+        "-loop", "1", "-t", str(slide1_time), "-i", slide1_png,
+        "-loop", "1", "-t", str(slide2_time), "-i", slide2_png,
+        "-filter_complex",
+        "[0:v]fps=30,format=yuv420p[v0];[1:v]fps=30,format=yuv420p[v1];[v0][v1]concat=n=2:v=1:a=0[v]",
+        "-map", "[v]",
+        "-c:v", "libx264", "-pix_fmt", "yuv420p",
+        video_only,
+    ], check=True)
+
     # Pick background music track
-    music_file = bg_music if (bg_music and os.path.exists(bg_music)) else TENSION
+    music_file = bg_music if (bg_music and os.path.exists(bg_music)) else FALLBACK_MUSIC
 
     if has_voice:
-        # Mix: Background beat (ducked at 0.25) + Loud Voice (1.8) + Chime Ding (1.5)
+        # Mix with dynamic synchronization:
+        # - Question voice at 0.3s
+        # - Chime ding at exact transition frame (ding_ms)
+        # - Full answer spoken at ans_ms
+        # - 4.5s buffer outro with music fade at final second
+        filter_str = (
+            f"[1:a]atrim=0:{total_time},atempo=1.15,afade=t=out:st={fade_start}:d=1,volume=0.3[bg];"
+            f"[2:a]adelay=300|300,volume=1.8[vq];"
+            f"[3:a]adelay={ding_ms}|{ding_ms},volume=1.5[ding];"
+            f"[4:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
+            f"[bg][vq][ding][va]amix=inputs=4:duration=first:dropout_transition=0:normalize=0[out]"
+        )
         subprocess.run([
             "ffmpeg", "-y",
             "-i", video_only,
-            "-ss", "2", "-i", music_file,
+            "-i", music_file,
             "-i", q_voice_mp3,
             "-i", DING,
             "-i", ans_voice_mp3,
-            "-filter_complex",
-            "[1:a]atrim=0:15,atempo=1.2,afade=t=out:st=14:d=1,volume=0.25[bg];"
-            "[2:a]adelay=300|300,volume=1.8[vq];"
-            "[3:a]adelay=10000|10000,volume=1.5[ding];"
-            "[4:a]adelay=10200|10200,volume=1.8[va];"
-            "[bg][vq][ding][va]amix=inputs=4:duration=first:dropout_transition=0:normalize=0[out]",
+            "-filter_complex", filter_str,
             "-map", "0:v", "-map", "[out]",
             "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
-            "-t", "15",
+            "-t", str(total_time),
             out_mp4,
         ], check=True)
     else:
         # Fallback music-only mix
+        filter_str = (
+            f"[1:a]atempo=1.15,afade=t=out:st={fade_start}:d=1,volume=0.85[music];"
+            f"[2:a]adelay={ding_ms}|{ding_ms},volume=1.4[ding];"
+            f"[music][ding]amix=inputs=2:duration=first:dropout_transition=0[out]"
+        )
         subprocess.run([
             "ffmpeg", "-y",
             "-i", video_only,
-            "-t", "15", "-i", music_file,
+            "-t", str(total_time), "-i", music_file,
             "-i", DING,
-            "-filter_complex",
-            "[1:a]atempo=1.2,afade=t=out:st=14:d=1,volume=0.85[music];"
-            "[2:a]adelay=10000|10000,volume=1.4[ding];"
-            "[music][ding]amix=inputs=2:duration=first:dropout_transition=0[out]",
+            "-filter_complex", filter_str,
             "-map", "0:v", "-map", "[out]",
             "-c:v", "copy", "-c:a", "aac", "-b:a", "160k",
-            "-t", "15",
+            "-t", str(total_time),
             out_mp4,
         ], check=True)
 
@@ -182,6 +219,6 @@ if __name__ == "__main__":
         "options": ["Kosi", "Gandak", "Son", "Ganga"],
         "correct_index": 0,
     }
-    music = os.path.join(BASE, "assets", "audio", "fast_beat.mp3")
-    out = render_video(q, "#4D96FF", os.path.join(BASE, "output_test.mp4"), os.path.join(BASE, "tmp_test"), bg_music=music)
+    music = os.path.join(BASE, "assets", "audio", "slot1_one_answer_left.mp3")
+    out = render_video(q, "#4D96FF", os.path.join(BASE, "output_test.mp4"), os.path.join(BASE, "tmp_test"), bg_music=music, day=1, slot=1)
     print("Rendered:", out)

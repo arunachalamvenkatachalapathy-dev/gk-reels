@@ -9,6 +9,12 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
-  "audio_cursor": 1
+  "palette_cursor": 1,
+  "audio_cursor": 1,
+  "current_day": 1,
+  "current_slot": 2,
+  "total_published": 1,
+  "published_ids": [
+    "q0000"
+  ]
 }

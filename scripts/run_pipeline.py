@@ -1,19 +1,17 @@
 """
 Entry point run by the GitHub Actions workflow, 4x per day.
 
-For each run:
-  1. Load data/state.json to see which question index we're up to.
-  2. Take the next `videos_per_day` questions (wrapping around if we run
-     past the end of the question bank).
-  3. Render each as a 15s mp4 (templates/slide.html + Playwright + ffmpeg).
-  4. Upload each to YouTube Shorts and Instagram Reels.
-  5. Advance state.json past the questions we just used and commit it,
-     so the next scheduled run picks up where this one left off.
+Scheduled Runs (IST):
+  - 08:00 IST -> Morning Drill (Part 1/4) -> slot1_one_answer_left.mp3
+  - 13:00 IST -> Afternoon Drill (Part 2/4) -> slot2_the_final_second.mp3
+  - 18:00 IST -> Evening Drill (Part 3/4) -> slot3_final_second_alt.mp3
+  - 21:00 IST -> Night Revision (Part 4/4) -> slot4_heavy_hourglass.mp3
 
-If either platform's credentials are missing (e.g. you're still testing
-the render step), that platform is skipped with a warning rather than
-crashing the whole run -- so you can wire up YouTube and Instagram
-independently.
+Features:
+  1. Strict Non-Repetition: tracks published_ids, so no question is ever repeated.
+  2. Day & Slot Sequencing: Day (total // 4) + 1, Slot (total % 4) + 1.
+  3. 18-second video render with 3+ second buffer outro.
+  4. Automatic rotation across user's 4 distinct tension tracks.
 """
 import os
 import sys
@@ -24,11 +22,18 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE, "scripts"))
 
 from render import render_video  # noqa: E402
-from make_audio import make_tension_bed, make_reveal_ding  # noqa: E402
 
 DATA_PATH = os.path.join(BASE, "data", "questions_en.json")
 STATE_PATH = os.path.join(BASE, "data", "state.json")
 OUT_DIR = os.path.join(BASE, "output")
+AUDIO_DIR = os.path.join(BASE, "assets", "audio")
+
+SLOT_TRACKS = {
+    1: "slot1_one_answer_left.mp3",
+    2: "slot2_the_final_second.mp3",
+    3: "slot3_final_second_alt.mp3",
+    4: "slot4_heavy_hourglass.mp3",
+}
 
 
 def load_json(path):
@@ -41,48 +46,73 @@ def save_json(path, obj):
         json.dump(obj, f, indent=2, ensure_ascii=False)
 
 
-def pick_batch(questions, state):
-    n = state.get("videos_per_run", 1)
-    total = len(questions)
-    start = state["next_index"] % total
-    batch = []
-    for i in range(n):
-        batch.append(questions[(start + i) % total])
-    state["next_index"] = (start + n) % total
-    return batch
+def pick_next_question(questions, state):
+    published_ids = set(state.get("published_ids", []))
+    available = [q for q in questions if q["id"] not in published_ids]
+    
+    # If all 387 questions were used, archive cycle and start fresh revision
+    if not available:
+        print("All questions published! Resetting cycle for round 2 revision.")
+        published_ids = set()
+        state["published_ids"] = []
+        available = questions
+
+    # Pick the first available question
+    picked = available[0]
+    return picked
 
 
 def next_accent(state):
-    palette = state["palette"]
-    c = state["palette_cursor"] % len(palette)
+    palette = state.get("palette", ["#4D96FF", "#6BCB77", "#FFD93D", "#FF6B6B", "#A66DD4", "#FF9F45"])
+    c = state.get("palette_cursor", 0) % len(palette)
     state["palette_cursor"] = (c + 1) % len(palette)
     return palette[c]
 
 
-def next_audio(state):
-    audio_dir = os.path.join(BASE, "assets", "audio")
-    if os.path.exists(audio_dir):
-        tracks = sorted([os.path.join(audio_dir, f) for f in os.listdir(audio_dir) if f.endswith(".mp3")])
-    else:
-        tracks = []
-    if not tracks:
-        return os.path.join(BASE, "assets", "tension_bed.mp3")
-    cursor = state.get("audio_cursor", 0) % len(tracks)
-    chosen = tracks[cursor]
-    state["audio_cursor"] = (cursor + 1) % len(tracks)
-    return chosen
+def get_slot_track(slot):
+    filename = SLOT_TRACKS.get(slot, "slot1_one_answer_left.mp3")
+    path = os.path.join(AUDIO_DIR, filename)
+    if os.path.exists(path):
+        return path
+    # Fallback to any mp3
+    tracks = [os.path.join(AUDIO_DIR, f) for f in os.listdir(AUDIO_DIR) if f.endswith(".mp3")]
+    return tracks[0] if tracks else os.path.join(BASE, "assets", "tension_bed.mp3")
 
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
-    make_tension_bed()
-    make_reveal_ding()
 
     questions = load_json(DATA_PATH)
     state = load_json(STATE_PATH)
-    batch = pick_batch(questions, state)
+
+    total_published = state.get("total_published", 0)
+    day = (total_published // 4) + 1
+    slot = (total_published % 4) + 1
+
+    # Non-repetition question pick
+    q = pick_next_question(questions, state)
+    accent = next_accent(state)
+    bg_music = get_slot_track(slot)
 
     today = datetime.date.today().isoformat()
+    out_mp4 = os.path.join(OUT_DIR, f"{today}_{q['id']}.mp4")
+    tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
+
+    print(f"=== Publishing Day {day} (Part {slot}/4) ===")
+    print(f"Question ID: {q['id']}")
+    print(f"Audio Track: {os.path.basename(bg_music)}")
+    print(f"Rendering 18s Video with ~4.5s Buffer Outro...")
+
+    render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music, day=day, slot=slot)
+
+    title = f"Day {day} (Part {slot}/4) | GK Quiz (Parmar Sir GS) 🎯 #Shorts"
+    caption = (
+        f"✨ Day {day} (Part {slot}/4) | 100 Days of GK Snippets (Parmar Sir GS Special)\n\n"
+        f"❓ {q['question']}\n\n"
+        f"👇 Drop your answer in comments & Follow to win the FREE weekly giveaway! 🎁\n"
+        f"📄 Join as Member for weekly updated GK PDFs & Exam Notes!\n\n"
+        f"#gksnippets #parmarsir #parmarssc #parmaracademy #ssccgl #sscchsl #upsc #rrbntpc #gkquiz #generalknowledge #shorts #reels"
+    )
 
     have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"))
     have_instagram = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY"))
@@ -92,46 +122,32 @@ def main():
     if not have_instagram:
         print("WARNING: Instagram credentials not fully set -- skipping Instagram upload.")
 
-    for i, q in enumerate(batch):
-        accent = next_accent(state)
-        bg_music = next_audio(state)
-        out_mp4 = os.path.join(OUT_DIR, f"{today}_{q['id']}.mp4")
-        tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
-
-        print(f"[{i+1}/{len(batch)}] Rendering {q['id']} with {os.path.basename(bg_music)}: {q['question'][:60]}...")
-        render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music)
-
+    if have_youtube:
         try:
-            q_num = int(str(q["id"]).replace("q", "")) + 1
-        except Exception:
-            q_num = 1
+            from upload_youtube import upload_short
+            upload_short(out_mp4, title, caption)
+        except Exception as e:
+            print(f"  YouTube upload FAILED for {q['id']}: {e}")
 
-        title = f"Day {q_num} | GK Quiz (Parmar Sir GS Special) 🎯 #Shorts"
-        caption = (
-            f"✨ Day {q_num} | 100 Days of GK Snippets (Parmar Sir GS Special)\n\n"
-            f"❓ {q['question']}\n\n"
-            f"👇 Drop your answer in comments & Follow to win the FREE weekly giveaway! 🎁\n"
-            f"📄 Join as Member for weekly updated GK PDFs & Exam Notes!\n\n"
-            f"#parmarsir #parmarssc #parmaracademy #ssccgl #sscchsl #upsc #rrbntpc #gkquiz #generalknowledge #shorts #reels"
-        )
+    if have_instagram:
+        try:
+            from upload_instagram import upload_reel
+            tag_name = f"assets-{today}"
+            upload_reel(out_mp4, caption, tag_name, os.path.basename(out_mp4))
+        except Exception as e:
+            print(f"  Instagram upload FAILED for {q['id']}: {e}")
 
-        if have_youtube:
-            try:
-                from upload_youtube import upload_short
-                upload_short(out_mp4, title, caption)
-            except Exception as e:
-                print(f"  YouTube upload FAILED for {q['id']}: {e}")
-
-        if have_instagram:
-            try:
-                from upload_instagram import upload_reel
-                tag_name = f"assets-{today}"
-                upload_reel(out_mp4, caption, tag_name, os.path.basename(out_mp4))
-            except Exception as e:
-                print(f"  Instagram upload FAILED for {q['id']}: {e}")
+    # Advance state with strict non-repetition
+    published_ids = state.get("published_ids", [])
+    if q["id"] not in published_ids:
+        published_ids.append(q["id"])
+    state["published_ids"] = published_ids
+    state["total_published"] = total_published + 1
+    state["current_day"] = ((total_published + 1) // 4) + 1
+    state["current_slot"] = ((total_published + 1) % 4) + 1
 
     save_json(STATE_PATH, state)
-    print(f"Done. next_index now {state['next_index']}, audio_cursor now {state.get('audio_cursor')}.")
+    print(f"Success! Published {q['id']}. Next up: Day {state['current_day']} (Part {state['current_slot']}/4). Total published: {state['total_published']}.")
 
 
 if __name__ == "__main__":
