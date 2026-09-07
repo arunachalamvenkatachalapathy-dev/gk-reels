@@ -40,7 +40,7 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
             f'</div>'
         )
     answer_tag = '<div class="answer-tag"><span>Answer Revealed</span></div>' if show_answer else ""
-    timer_badge = '<span style="color: #F87171;">🔥 Time\'s Up!</span>' if show_answer else '<span>⏳ 10s Timer</span>'
+    timer_badge = '<span style="color: #F87171;">🔥 Time\'s Up!</span>' if show_answer else '<span>⏳ 10s Challenge</span>'
 
     try:
         q_num = int(str(q_id).replace("q", "")) + 1
