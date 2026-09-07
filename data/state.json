@@ -1,5 +1,5 @@
 {
-  "next_index": 1,
+  "next_index": 2,
   "videos_per_run": 1,
   "palette": [
     "#FF6B6B",
@@ -9,5 +9,5 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 1
+  "palette_cursor": 2
 }
