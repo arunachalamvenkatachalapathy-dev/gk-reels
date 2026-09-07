@@ -202,60 +202,65 @@
     text-shadow: 0 0 15px #10B981;
   }
 
-  /* Dedicated Giveaway CTA Box */
-  .giveaway-cta-card {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(217, 119, 6, 0.06) 100%);
-    border: 2.5px dashed rgba(245, 158, 11, 0.6);
-    border-radius: 28px;
-    padding: 28px 36px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    box-shadow: 0 12px 30px rgba(245, 158, 11, 0.15);
-    margin-bottom: 30px;
-  }
-
-  .giveaway-icon {
-    flex: 0 0 auto;
-    width: 72px;
-    height: 72px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 38px;
-    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);
-  }
-
-  .giveaway-content {
+  /* Clean Community & Member Perk Card */
+  .community-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1.5px solid rgba(255, 255, 255, 0.14);
+    border-radius: 26px;
+    padding: 24px 32px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    margin-bottom: 24px;
   }
 
-  .giveaway-title {
-    font-size: 24px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #FBBF24;
+  .community-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 20px;
   }
 
-  .giveaway-subtitle {
-    font-size: 30px;
+  .community-pill {
+    flex: 0 0 auto;
+    font-size: 18px;
     font-weight: 800;
-    color: #FFFFFF;
-    line-height: 1.25;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #F1F5F9;
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
-  .giveaway-highlight {
-    color: #FDE047;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  .community-pill.perk {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+    color: #FFFFFF;
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  .community-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: #CBD5E1;
+    line-height: 1.3;
+  }
+
+  .community-text strong {
+    color: #FFFFFF;
+    font-weight: 900;
+  }
+
+  .community-text .highlight {
+    color: #FBBF24;
+    font-weight: 800;
+  }
+
+  .community-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    width: 100%;
   }
 
   /* Answer Tag Banner (Slide 2) */
@@ -333,13 +338,19 @@
       {{ANSWER_TAG}}
     </div>
 
-    <!-- Dedicated Giveaway CTA Box -->
-    <div class="giveaway-cta-card">
-      <div class="giveaway-icon">🎁</div>
-      <div class="giveaway-content">
-        <div class="giveaway-title">MONTHLY GIVEAWAY CONTEST</div>
-        <div class="giveaway-subtitle">
-          Comment your answer to <span class="giveaway-highlight">win monthly giveaway!</span> 💬
+    <!-- Clean Community & Member Perk Box -->
+    <div class="community-card">
+      <div class="community-row">
+        <div class="community-pill">💬 ACTION</div>
+        <div class="community-text">
+          Comment your answer & <strong>Follow</strong> for daily GK
+        </div>
+      </div>
+      <div class="community-divider"></div>
+      <div class="community-row">
+        <div class="community-pill perk">📄 WEEKLY PDF</div>
+        <div class="community-text">
+          Become a <strong>Member</strong> for <span class="highlight">exclusive weekly updated PDFs</span>
         </div>
       </div>
     </div>

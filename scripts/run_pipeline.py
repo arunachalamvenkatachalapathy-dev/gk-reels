@@ -88,8 +88,9 @@ def main():
 
         caption = (
             f"{q['question']}\n\n"
-            f"Comment your answer before it reveals \U0001F447\n"
-            f"Send this to someone who thinks they're smart \U0001F440\n\n"
+            f"Comment your answer below \U0001F447\n"
+            f"Follow for daily SSC GK questions \U0001F514\n"
+            f"Become a member for exclusive weekly updated PDFs \U0001F4C4\n\n"
             f"#GK #GeneralKnowledge #SSC #SSCCGL #QuizTime #Shorts"
         )
 
