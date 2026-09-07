@@ -18,12 +18,16 @@ import asyncio
 import edge_tts
 from playwright.sync_api import sync_playwright
 import subprocess
+import re
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_PATH = os.path.join(BASE, "templates", "slide.html")
 ASSETS = os.path.join(BASE, "assets")
 FALLBACK_MUSIC = os.path.join(ASSETS, "audio", "slot1_one_answer_left.mp3")
-DING = os.path.join(ASSETS, "reveal_ding.mp3")
+CELEBRATION_POP = os.path.join(ASSETS, "audio", "celebration_pop.mp3")
+if not os.path.exists(CELEBRATION_POP):
+    CELEBRATION_POP = os.path.join(ASSETS, "celebration_pop.mp3")
+DING = CELEBRATION_POP if os.path.exists(CELEBRATION_POP) else os.path.join(ASSETS, "reveal_ding.mp3")
 
 LETTERS = ["A", "B", "C", "D"]
 
@@ -48,15 +52,24 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
     for i, opt in enumerate(options):
         is_correct = (i == correct_index)
         cls = "option correct" if (show_answer and is_correct) else "option"
-        check = '<span class="checkmark">&#10003;</span>' if (show_answer and is_correct) else ""
+        if show_answer and is_correct:
+            badge = '<div class="correct-badge"><span>🎉</span> CORRECT</div><span class="checkmark">&#10003;</span>'
+        else:
+            badge = ""
         options_html.append(
             f'<div class="{cls}">'
             f'<div class="letter">{LETTERS[i]}</div>'
             f'<div class="text">{_esc(opt)}</div>'
-            f'{check}'
+            f'{badge}'
             f'</div>'
         )
-    answer_tag = '<div class="answer-tag"><span>Answer Revealed</span></div>' if show_answer else ""
+    answer_tag = (
+        '<div class="celebration-pop-banner">'
+        '<span class="pop-emoji">🎉</span>'
+        '<span>CORRECT ANSWER REVEALED</span>'
+        '<span class="pop-emoji">✨</span>'
+        '</div>'
+    ) if show_answer else ""
     timer_badge = "<span style=\"color: #F87171;\">🔥 Time's Up!</span>" if show_answer else "<span>⏳ 10s Challenge</span>"
 
     try:
@@ -88,6 +101,20 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
 def screenshot_html(html_str, out_png, page):
     page.set_content(html_str, wait_until="load")
     page.screenshot(path=out_png)
+
+
+def format_question_for_speech(text):
+    s = text.strip()
+    s = re.sub(r'\(s\)', 's', s)
+    s = re.sub(r'\(es\)', 'es', s)
+    # Ensure closing directive/question has a period pause before it
+    s = re.sub(r'([a-zA-Z0-9])\s+(Which\b|Choose\b|Select\b|What\b|In the context\b)', r'\1. \2', s, flags=re.IGNORECASE)
+    # Reformat numbered items: " 1. " -> ", 1: " to force clean micro-pauses in TTS
+    s = re.sub(r'\s*(\d+)\.\s*', r', \1: ', s)
+    s = re.sub(r'^,\s*', '', s)
+    s = re.sub(r'[,:\s]+([,.])', r'\1', s)
+    s = re.sub(r'\s{2,}', ' ', s)
+    return s.strip()
 
 
 async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice_path):
@@ -132,8 +159,10 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
     q_voice_mp3 = os.path.join(tmp_dir, "q_voice.mp3")
     ans_voice_mp3 = os.path.join(tmp_dir, "ans_voice.mp3")
 
+    speech_q_text = format_question_for_speech(question_obj["question"])
+
     try:
-        asyncio.run(generate_voiceover(question_obj["question"], ans_spoken_phrase, q_voice_mp3, ans_voice_mp3))
+        asyncio.run(generate_voiceover(speech_q_text, ans_spoken_phrase, q_voice_mp3, ans_voice_mp3))
         has_voice = True
     except Exception as e:
         print(f"Warning: Edge-TTS generation failed ({e}), falling back to music-only audio.")
@@ -152,7 +181,7 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
     total_time = slide1_time + slide2_time
     ding_time = slide1_time
     ding_ms = ding_time * 1000
-    ans_ms = ding_ms + 200
+    ans_ms = ding_ms + 350
     fade_start = total_time - 1
 
     # Build silent video track with exact dynamic slide hold durations
@@ -174,13 +203,13 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
     if has_voice:
         # Mix with dynamic synchronization:
         # - Question voice at 0.3s
-        # - Chime ding at exact transition frame (ding_ms)
+        # - Celebration pop & chime at exact transition frame (ding_ms)
         # - Full answer spoken at ans_ms
         # - 4.5s buffer outro with music fade at final second
         filter_str = (
             f"[1:a]atrim=0:{total_time},atempo=1.15,afade=t=out:st={fade_start}:d=1,volume=0.3[bg];"
             f"[2:a]adelay=300|300,volume=1.8[vq];"
-            f"[3:a]adelay={ding_ms}|{ding_ms},volume=1.5[ding];"
+            f"[3:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
             f"[4:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
             f"[bg][vq][ding][va]amix=inputs=4:duration=first:dropout_transition=0:normalize=0[out]"
         )
