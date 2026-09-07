@@ -1,0 +1,6 @@
+output/
+assets/*.mp3
+__pycache__/
+*.pyc
+output_test.mp4
+tmp_test/

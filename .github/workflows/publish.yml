@@ -1,0 +1,53 @@
+name: Publish GK Reels
+
+on:
+  schedule:
+    # 08:00, 13:00, 18:00, 21:00 IST = 02:30, 07:30, 12:30, 15:30 UTC
+    - cron: "30 2 * * *"
+    - cron: "30 7 * * *"
+    - cron: "30 12 * * *"
+    - cron: "30 15 * * *"
+  workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
+
+permissions:
+  contents: write   # needed to commit data/state.json and create releases
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browser
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run pipeline (render + upload)
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/run_pipeline.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name "gk-reels-bot"
+          git config user.email "actions@github.com"
+          git add data/state.json
+          git diff --staged --quiet || git commit -m "Advance question index [skip ci]"
+          git push
