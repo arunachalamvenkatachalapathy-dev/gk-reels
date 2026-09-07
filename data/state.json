@@ -1,6 +1,13 @@
 {
-  "next_index": 0,
+  "next_index": 1,
   "videos_per_run": 1,
-  "palette": ["#FF6B6B", "#4D96FF", "#6BCB77", "#FFD93D", "#A66DD4", "#FF9F45"],
-  "palette_cursor": 0
+  "palette": [
+    "#FF6B6B",
+    "#4D96FF",
+    "#6BCB77",
+    "#FFD93D",
+    "#A66DD4",
+    "#FF9F45"
+  ],
+  "palette_cursor": 1
 }
