@@ -44,6 +44,14 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/run_pipeline.py
 
+      - name: Upload Video Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gk-reels-video
+          path: output/*.mp4
+          retention-days: 7
+
       - name: Commit updated state
         run: |
           git config user.name "gk-reels-bot"
