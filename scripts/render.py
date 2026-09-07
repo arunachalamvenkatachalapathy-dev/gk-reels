@@ -222,9 +222,9 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
         # - Question voice at 0.3s
         # - Celebration pop & chime at exact transition frame (ding_ms)
         # - Full answer spoken at ans_ms
-        # - 4.5s buffer outro with music fade at final second
+        # - Background music plays continuously until the end of the video
         filter_str = (
-            f"[1:a]atrim=0:{total_time},atempo=1.15,afade=t=out:st={fade_start}:d=1,volume=0.3[bg];"
+            f"[1:a]atempo=1.15,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.35[bg];"
             f"[2:a]adelay=300|300,volume=1.8[vq];"
             f"[3:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
             f"[4:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
@@ -244,9 +244,9 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
             out_mp4,
         ], check=True)
     else:
-        # Fallback music-only mix
+        # Fallback music-only mix (plays until the end of the video)
         filter_str = (
-            f"[1:a]atempo=1.15,afade=t=out:st={fade_start}:d=1,volume=0.85[music];"
+            f"[1:a]atempo=1.15,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.85[music];"
             f"[2:a]adelay={ding_ms}|{ding_ms},volume=1.4[ding];"
             f"[music][ding]amix=inputs=2:duration=first:dropout_transition=0[out]"
         )
