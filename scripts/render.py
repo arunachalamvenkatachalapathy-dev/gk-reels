@@ -64,7 +64,7 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
     except Exception:
         q_num = 1
     q_tracker = f"QUESTION #{q_num:03d} OF 387"
-    series_banner = f"✨ 100 Days of GK Snippets • DAY {day:02d} (Part {slot}/4) ✨"
+    series_banner = f"✨ 100 Days of GK Snippets • DAY {day:02d} ✨"
 
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)

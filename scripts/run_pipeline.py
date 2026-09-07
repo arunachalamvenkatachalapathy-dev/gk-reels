@@ -48,18 +48,21 @@ def save_json(path, obj):
 
 def pick_next_question(questions, state):
     published_ids = set(state.get("published_ids", []))
-    available = [q for q in questions if q["id"] not in published_ids]
     
-    # If all 387 questions were used, archive cycle and start fresh revision
-    if not available:
-        print("All questions published! Resetting cycle for round 2 revision.")
+    # If all questions were used, reset cycle and start fresh revision
+    if len(published_ids) >= len(questions):
+        print("All questions in the bank published! Resetting cycle for round 2 revision.")
         published_ids = set()
         state["published_ids"] = []
-        available = questions
+        state["next_index"] = 0
 
-    # Pick the first available question
-    picked = available[0]
-    return picked
+    # Strictly sequential: iterate through the question bank in order (0 to 386)
+    for i, q in enumerate(questions):
+        if q["id"] not in published_ids:
+            state["next_index"] = (i + 1) % len(questions)
+            return q
+
+    return questions[0]
 
 
 def next_accent(state):
@@ -105,9 +108,9 @@ def main():
 
     render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music, day=day, slot=slot)
 
-    title = f"Day {day} (Part {slot}/4) | GK Quiz (Parmar Sir GS) 🎯 #Shorts"
+    title = f"Day {day} | SSC GK Challenge 🎯 Parmar Sir GS #Shorts"
     caption = (
-        f"✨ Day {day} (Part {slot}/4) | 100 Days of GK Snippets (Parmar Sir GS Special)\n\n"
+        f"✨ Day {day} | 100 Days of GK Snippets (Parmar Sir GS Special)\n\n"
         f"❓ {q['question']}\n\n"
         f"👇 Drop your answer in comments & Follow to win the FREE weekly giveaway! 🎁\n"
         f"📄 Join as Member for weekly updated GK PDFs & Exam Notes!\n\n"
