@@ -64,7 +64,15 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
     except Exception:
         q_num = 1
     q_tracker = f"QUESTION #{q_num:03d} OF 387"
-    series_banner = f"✨ 100 Days of GK Snippets • DAY {day:02d} ✨"
+    series_banner = (
+        f'<div class="series-capsule">'
+        f'<span class="series-sparkle">✨</span>'
+        f'<span class="series-title-text">100 Days of GK Snippets</span>'
+        f'<span class="series-divider">•</span>'
+        f'<span class="series-day-pill">DAY {day:02d}</span>'
+        f'<span class="series-sparkle">✨</span>'
+        f'</div>'
+    )
 
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)
