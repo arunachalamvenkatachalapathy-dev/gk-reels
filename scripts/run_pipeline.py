@@ -42,7 +42,7 @@ def save_json(path, obj):
 
 
 def pick_batch(questions, state):
-    n = state["videos_per_day"]
+    n = state.get("videos_per_run", 1)
     total = len(questions)
     start = state["next_index"] % total
     batch = []
