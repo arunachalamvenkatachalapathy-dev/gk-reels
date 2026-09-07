@@ -5,8 +5,8 @@ Slide 1 (0-10s): question + 4 options, no answer shown.
 Slide 2 (10-15s): same layout, correct option highlighted + ANSWER tag.
 
 Pure HTML/CSS -> PNG screenshot via Playwright (no image-generation API,
-so nothing here can fail on an external API outage). Audio is the
-pre-generated tension bed (looped/trimmed to 10s) + a ding at the 10s mark.
+so nothing here can fail on an external API outage). Audio supports rotation
+across 4 royalty-free tension/countdown tracks + a ding at the 10s mark.
 """
 import os
 import html
@@ -26,7 +26,7 @@ def _esc(s):
     return html.escape(s, quote=False)
 
 
-def build_html(question, options, correct_index, accent, show_answer):
+def build_html(question, options, correct_index, accent, show_answer, q_id="q0000"):
     options_html = []
     for i, opt in enumerate(options):
         is_correct = (i == correct_index)
@@ -40,11 +40,18 @@ def build_html(question, options, correct_index, accent, show_answer):
             f'</div>'
         )
     answer_tag = '<div class="answer-tag"><span>Answer Revealed</span></div>' if show_answer else ""
-    timer_badge = '<span style="color: #F87171;">🎯 Time\'s Up!</span>' if show_answer else '<span>⏱️ 10s Timer</span>'
+    timer_badge = '<span style="color: #F87171;">🔥 Time\'s Up!</span>' if show_answer else '<span>⏳ 10s Timer</span>'
+
+    try:
+        q_num = int(str(q_id).replace("q", "")) + 1
+    except Exception:
+        q_num = 1
+    q_tracker = f"QUESTION #{q_num:03d} OF 387"
 
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)
     tpl = tpl.replace("{{TIMER_BADGE}}", timer_badge)
+    tpl = tpl.replace("{{QUESTION_TRACKER}}", q_tracker)
     tpl = tpl.replace("{{QUESTION}}", _esc(question))
     tpl = tpl.replace("{{OPTIONS}}", "\n".join(options_html))
     tpl = tpl.replace("{{ANSWER_TAG}}", answer_tag)
@@ -56,15 +63,16 @@ def screenshot_html(html_str, out_png, page):
     page.screenshot(path=out_png)
 
 
-def render_video(question_obj, accent, out_mp4, tmp_dir):
+def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None):
     os.makedirs(tmp_dir, exist_ok=True)
     slide1_png = os.path.join(tmp_dir, "slide1.png")
     slide2_png = os.path.join(tmp_dir, "slide2.png")
 
+    q_id = question_obj.get("id", "q0000")
     html1 = build_html(question_obj["question"], question_obj["options"],
-                        question_obj["correct_index"], accent, show_answer=False)
+                        question_obj["correct_index"], accent, show_answer=False, q_id=q_id)
     html2 = build_html(question_obj["question"], question_obj["options"],
-                        question_obj["correct_index"], accent, show_answer=True)
+                        question_obj["correct_index"], accent, show_answer=True, q_id=q_id)
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -86,16 +94,19 @@ def render_video(question_obj, accent, out_mp4, tmp_dir):
         video_only,
     ], check=True)
 
-    # Build audio track: tension bed for 10s, ding right at 10s, silence-ish tail for 5s
+    # Pick background music track
+    music_file = bg_music if (bg_music and os.path.exists(bg_music)) else TENSION
     audio_track = os.path.join(tmp_dir, "audio_track.mp3")
+
+    # Build audio track: 15s tension music with fade out at 14s, ding at 10s
     subprocess.run([
         "ffmpeg", "-y",
-        "-i", TENSION,
+        "-t", "15", "-i", music_file,
         "-i", DING,
         "-filter_complex",
-        "[1:a]adelay=10000|10000[ding];"
-        "[0:a][ding]amix=inputs=2:duration=longest:dropout_transition=0[out]",
-        "-t", "15",
+        "[0:a]afade=t=out:st=14:d=1,volume=0.85[music];"
+        "[1:a]adelay=10000|10000,volume=1.4[ding];"
+        "[music][ding]amix=inputs=2:duration=first:dropout_transition=0[out]",
         "-map", "[out]",
         audio_track,
     ], check=True)
@@ -115,9 +126,11 @@ def render_video(question_obj, accent, out_mp4, tmp_dir):
 if __name__ == "__main__":
     import json, sys
     q = {
+        "id": "q0001",
         "question": "Which river is known as the 'Sorrow of Bihar'?",
         "options": ["Kosi", "Gandak", "Son", "Ganga"],
         "correct_index": 0,
     }
-    out = render_video(q, "#4D96FF", os.path.join(BASE, "output_test.mp4"), os.path.join(BASE, "tmp_test"))
+    music = os.path.join(BASE, "assets", "audio", "track1_simplex.mp3")
+    out = render_video(q, "#4D96FF", os.path.join(BASE, "output_test.mp4"), os.path.join(BASE, "tmp_test"), bg_music=music)
     print("Rendered:", out)

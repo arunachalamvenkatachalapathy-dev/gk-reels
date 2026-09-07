@@ -59,6 +59,20 @@ def next_accent(state):
     return palette[c]
 
 
+def next_audio(state):
+    audio_dir = os.path.join(BASE, "assets", "audio")
+    if os.path.exists(audio_dir):
+        tracks = sorted([os.path.join(audio_dir, f) for f in os.listdir(audio_dir) if f.endswith(".mp3")])
+    else:
+        tracks = []
+    if not tracks:
+        return os.path.join(BASE, "assets", "tension_bed.mp3")
+    cursor = state.get("audio_cursor", 0) % len(tracks)
+    chosen = tracks[cursor]
+    state["audio_cursor"] = (cursor + 1) % len(tracks)
+    return chosen
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     make_tension_bed()
@@ -80,24 +94,31 @@ def main():
 
     for i, q in enumerate(batch):
         accent = next_accent(state)
+        bg_music = next_audio(state)
         out_mp4 = os.path.join(OUT_DIR, f"{today}_{q['id']}.mp4")
         tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
 
-        print(f"[{i+1}/{len(batch)}] Rendering {q['id']}: {q['question'][:60]}...")
-        render_video(q, accent, out_mp4, tmp_dir)
+        print(f"[{i+1}/{len(batch)}] Rendering {q['id']} with {os.path.basename(bg_music)}: {q['question'][:60]}...")
+        render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music)
 
+        try:
+            q_num = int(str(q["id"]).replace("q", "")) + 1
+        except Exception:
+            q_num = 1
+
+        title = f"Day {q_num} | GK Quiz (Parmar Sir GS Special) 🎯 #Shorts"
         caption = (
-            f"{q['question']}\n\n"
-            f"Comment your answer below \U0001F447\n"
-            f"Follow for daily SSC GK questions \U0001F514\n"
-            f"Become a member for exclusive weekly updated PDFs \U0001F4C4\n\n"
-            f"#GK #GeneralKnowledge #SSC #SSCCGL #QuizTime #Shorts"
+            f"✨ Day {q_num} | 100 Days of GK Snippets (Parmar Sir GS Special)\n\n"
+            f"❓ {q['question']}\n\n"
+            f"👇 Drop your answer in comments & Follow to win the FREE weekly giveaway! 🎁\n"
+            f"📄 Join as Member for weekly updated GK PDFs & Exam Notes!\n\n"
+            f"#parmarsir #parmarssc #parmaracademy #ssccgl #sscchsl #upsc #rrbntpc #gkquiz #generalknowledge #shorts #reels"
         )
 
         if have_youtube:
             try:
                 from upload_youtube import upload_short
-                upload_short(out_mp4, q["question"][:95], caption)
+                upload_short(out_mp4, title, caption)
             except Exception as e:
                 print(f"  YouTube upload FAILED for {q['id']}: {e}")
 
@@ -110,7 +131,7 @@ def main():
                 print(f"  Instagram upload FAILED for {q['id']}: {e}")
 
     save_json(STATE_PATH, state)
-    print(f"Done. next_index now {state['next_index']}.")
+    print(f"Done. next_index now {state['next_index']}, audio_cursor now {state.get('audio_cursor')}.")
 
 
 if __name__ == "__main__":
