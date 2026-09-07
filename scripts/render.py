@@ -40,9 +40,11 @@ def build_html(question, options, correct_index, accent, show_answer):
             f'</div>'
         )
     answer_tag = '<div class="answer-tag"><span>Answer Revealed</span></div>' if show_answer else ""
+    timer_badge = '<span style="color: #F87171;">🎯 Time\'s Up!</span>' if show_answer else '<span>⏱️ 10s Timer</span>'
 
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)
+    tpl = tpl.replace("{{TIMER_BADGE}}", timer_badge)
     tpl = tpl.replace("{{QUESTION}}", _esc(question))
     tpl = tpl.replace("{{OPTIONS}}", "\n".join(options_html))
     tpl = tpl.replace("{{ANSWER_TAG}}", answer_tag)
