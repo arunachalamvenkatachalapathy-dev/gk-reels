@@ -15,6 +15,7 @@ Timing Architecture:
 import os
 import html
 import asyncio
+import base64
 import edge_tts
 from playwright.sync_api import sync_playwright
 import subprocess
@@ -93,9 +94,14 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
         f'</div>'
     )
 
-    # Resolve logo as a file:// URI so Playwright/Chromium can load it locally
+    # Embed logo as Base64 data URI to guarantee 100% reliable rendering
     logo_path = os.path.join(ASSETS, "logo.jpg")
-    logo_uri = "file:///" + logo_path.replace("\\", "/").lstrip("/")
+    if os.path.exists(logo_path):
+        with open(logo_path, "rb") as lf:
+            logo_b64 = base64.b64encode(lf.read()).decode("utf-8")
+        logo_uri = f"data:image/jpeg;base64,{logo_b64}"
+    else:
+        logo_uri = ""
 
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)
