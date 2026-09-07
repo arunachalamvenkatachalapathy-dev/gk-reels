@@ -51,10 +51,15 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
     options_html = []
     for i, opt in enumerate(options):
         is_correct = (i == correct_index)
-        cls = "option correct" if (show_answer and is_correct) else "option"
-        if show_answer and is_correct:
-            badge = '<div class="correct-badge"><span>🎉</span> CORRECT</div><span class="checkmark">&#10003;</span>'
+        if show_answer:
+            if is_correct:
+                cls = "option correct"
+                badge = '<div class="correct-badge"><span>🎉</span> CORRECT</div><span class="checkmark">&#10003;</span>'
+            else:
+                cls = "option wrong"
+                badge = ""
         else:
+            cls = "option"
             badge = ""
         options_html.append(
             f'<div class="{cls}">'
@@ -69,6 +74,7 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
         '<span>CORRECT ANSWER REVEALED</span>'
         '<span class="pop-emoji">✨</span>'
         '</div>'
+        '<div class="share-cta">Tap Share &amp; Tag a Friend! 👥</div>'
     ) if show_answer else ""
     timer_badge = "<span style=\"color: #F87171;\">🔥 Time's Up!</span>" if show_answer else "<span>⏳ 10s Challenge</span>"
 
@@ -87,6 +93,10 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
         f'</div>'
     )
 
+    # Resolve logo as a file:// URI so Playwright/Chromium can load it locally
+    logo_path = os.path.join(ASSETS, "logo.jpg")
+    logo_uri = "file:///" + logo_path.replace("\\", "/").lstrip("/")
+
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)
     tpl = tpl.replace("{{SERIES_BANNER}}", series_banner)
@@ -95,6 +105,7 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
     tpl = tpl.replace("{{QUESTION}}", _esc(question))
     tpl = tpl.replace("{{OPTIONS}}", "\n".join(options_html))
     tpl = tpl.replace("{{ANSWER_TAG}}", answer_tag)
+    tpl = tpl.replace("{{LOGO_URI}}", logo_uri)
     return tpl
 
 

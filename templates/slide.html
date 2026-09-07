@@ -6,31 +6,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  * { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
-  
+
   html, body {
     width: 1080px;
     height: 1920px;
-    background: #090D16;
+    background: #0A1628;
     color: #FFFFFF;
     overflow: hidden;
     position: relative;
   }
 
-  /* Authentic Corporate Studio Lighting (Subtle Midnight-Sapphire Depth, No AI Slop) */
   .corporate-studio-glow {
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
     width: 1080px;
-    height: 750px;
-    background: radial-gradient(ellipse 950px 480px at 50% 0%, rgba(30, 58, 138, 0.18) 0%, rgba(15, 23, 42, 0) 70%);
+    height: 1920px;
+    background:
+      radial-gradient(ellipse 950px 500px at 50% 0%, rgba(13, 27, 62, 0.55) 0%, rgba(10, 22, 40, 0) 65%),
+      radial-gradient(ellipse 700px 500px at 10% 100%, rgba(245, 166, 35, 0.08) 0%, rgba(10, 22, 40, 0) 70%);
     pointer-events: none;
     z-index: 1;
   }
@@ -44,7 +44,6 @@
     flex-direction: column;
   }
 
-  /* Vibrant Top Series Banner */
   .series-banner {
     text-align: center;
     margin-bottom: 24px;
@@ -54,8 +53,11 @@
     display: inline-flex;
     align-items: center;
     gap: 16px;
-    background: linear-gradient(90deg, rgba(245, 158, 11, 0.20) 0%, rgba(244, 63, 94, 0.15) 50%, rgba(56, 189, 248, 0.16) 100%);
-    border: 1.5px solid rgba(245, 158, 11, 0.5);
+    background: linear-gradient(90deg,
+      rgba(245, 166, 35, 0.22) 0%,
+      rgba(244, 63, 94, 0.12) 50%,
+      rgba(56, 189, 248, 0.14) 100%);
+    border: 1.5px solid rgba(245, 166, 35, 0.55);
     padding: 10px 36px;
     border-radius: 9999px;
   }
@@ -68,7 +70,7 @@
     font-family: 'Caveat', cursive;
     font-size: 52px;
     font-weight: 700;
-    color: #FDE047;
+    color: #F5A623;
     letter-spacing: 1px;
     line-height: 1;
   }
@@ -79,7 +81,7 @@
   }
 
   .series-day-pill {
-    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    background: linear-gradient(135deg, #F5A623 0%, #D97706 100%);
     color: #0B0F19;
     font-size: 22px;
     font-weight: 900;
@@ -89,7 +91,6 @@
     text-transform: uppercase;
   }
 
-  /* Header Bar */
   .header-bar {
     display: flex;
     align-items: center;
@@ -97,21 +98,25 @@
     margin-bottom: 28px;
   }
 
-  /* Channel Name Alone (Clean Rounded Pill, No Icon, No Glow) */
   .channel-brand-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #141B29;
-    border: 1.5px solid rgba(255, 255, 255, 0.18);
-    border-bottom: 3.5px solid #0B0F18;
-    padding: 14px 36px;
-    border-radius: 9999px;
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #FFFFFF;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3.5px solid #F5A623;
+    box-shadow: 0 0 0 1.5px rgba(245, 166, 35, 0.35), 0 4px 20px rgba(245, 166, 35, 0.25);
+    overflow: hidden;
+    background: #0D1B3E;
+    flex-shrink: 0;
+  }
+
+  .channel-brand-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
   }
 
   .badge-timer {
@@ -128,12 +133,11 @@
     color: #F1F5F9;
   }
 
-  /* Question Card - Prioritized Hero with Anti-Theft Brand Protection */
   .question-card {
     position: relative;
     background: #111827;
     border: 1.5px solid rgba(255, 255, 255, 0.14);
-    border-bottom: 6px solid #080C14;
+    border-bottom: 6px solid rgba(245, 166, 35, 0.18);
     border-radius: 30px;
     padding: 44px 42px;
     box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -141,18 +145,23 @@
     overflow: hidden;
   }
 
-  /* Discreet Anti-Theft Watermark */
   .card-watermark {
     position: absolute;
-    right: 32px;
-    bottom: 22px;
-    font-size: 22px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.06);
-    text-transform: uppercase;
+    right: 28px;
+    bottom: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    opacity: 0.07;
     pointer-events: none;
     z-index: 1;
+    overflow: hidden;
+  }
+
+  .card-watermark img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .question-meta-row {
@@ -167,17 +176,16 @@
   .question-number-badge {
     display: inline-flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1.5px solid rgba(255, 255, 255, 0.16);
+    background: rgba(245, 166, 35, 0.10);
+    border: 1.5px solid rgba(245, 166, 35, 0.30);
     padding: 8px 20px;
     border-radius: 9999px;
     font-size: 20px;
     font-weight: 800;
     letter-spacing: 2px;
-    color: #94A3B8;
+    color: #F5A623;
     text-transform: uppercase;
   }
-
 
   .question-text {
     position: relative;
@@ -189,7 +197,6 @@
     letter-spacing: -0.5px;
   }
 
-  /* Options */
   .options {
     display: flex;
     flex-direction: column;
@@ -201,22 +208,23 @@
     display: flex;
     align-items: center;
     gap: 22px;
-    padding: 24px 28px;
+    padding: 22px 28px;
     border-radius: 20px;
     background: #111827;
-    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    border: 1.5px solid rgba(255, 255, 255, 0.10);
+    border-left: 4px solid rgba(245, 166, 35, 0.28);
     border-bottom: 5px solid #080C14;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .option .letter {
     flex: 0 0 auto;
-    width: 58px;
-    height: 58px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1.5px solid rgba(255, 255, 255, 0.18);
-    color: #FFFFFF;
+    width: 62px;
+    height: 62px;
+    border-radius: 9999px;
+    background: rgba(245, 166, 35, 0.12);
+    border: 2px solid rgba(245, 166, 35, 0.35);
+    color: #F5A623;
     font-size: 28px;
     font-weight: 900;
     display: flex;
@@ -232,12 +240,12 @@
     flex: 1;
   }
 
-  /* Celebratory Correct Answer Pop */
   .option.correct {
     position: relative;
     background: linear-gradient(90deg, #065F46 0%, #047857 100%);
     border: 2.5px solid #10B981;
     border-bottom: 5px solid #064E3B;
+    border-left: 4px solid #34D399;
     transform: scale(1.02);
     box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
   }
@@ -251,6 +259,18 @@
   .option.correct .text {
     color: #FFFFFF;
     font-weight: 800;
+  }
+
+  .option.wrong {
+    opacity: 0.38;
+    border-left: 4px solid rgba(239, 68, 68, 0.45);
+    filter: grayscale(30%);
+  }
+
+  .option.wrong .letter {
+    background: rgba(239, 68, 68, 0.10);
+    border-color: rgba(239, 68, 68, 0.25);
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .correct-badge {
@@ -275,36 +295,43 @@
     font-weight: 900;
   }
 
-  /* Celebratory Confetti & Pop Banner Slot (Slide 2) */
   .answer-tag-slot {
     min-height: 54px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 22px;
+    gap: 10px;
+    margin-bottom: 18px;
   }
 
   .celebration-pop-banner {
     display: inline-flex;
     align-items: center;
     gap: 14px;
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    border: 2px solid #34D399;
-    color: #FFFFFF;
+    background: linear-gradient(135deg, #F5A623 0%, #D97706 100%);
+    border: 2px solid #FBBF24;
+    color: #0B0F19;
     font-size: 26px;
     font-weight: 900;
     letter-spacing: 2px;
     padding: 10px 38px;
     border-radius: 9999px;
     text-transform: uppercase;
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 8px 22px rgba(245, 166, 35, 0.45);
   }
 
   .pop-emoji {
     font-size: 28px;
   }
 
-  /* High-Value Community Action Card */
+  .share-cta {
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
+  }
+
   .community-card {
     background: #111827;
     border: 1.5px solid rgba(255, 255, 255, 0.14);
@@ -318,14 +345,13 @@
     margin-bottom: 18px;
   }
 
-  /* Sunday Giveaway Row */
   .community-row.giveaway-row {
     display: flex;
     align-items: center;
     gap: 18px;
-    background: linear-gradient(90deg, rgba(245, 158, 11, 0.18) 0%, rgba(234, 88, 12, 0.06) 100%);
-    border: 1.5px solid rgba(245, 158, 11, 0.45);
-    border-left: 6px solid #F59E0B;
+    background: linear-gradient(90deg, rgba(245, 166, 35, 0.18) 0%, rgba(234, 88, 12, 0.06) 100%);
+    border: 1.5px solid rgba(245, 166, 35, 0.45);
+    border-left: 6px solid #F5A623;
     border-radius: 16px;
     padding: 14px 20px;
   }
@@ -338,7 +364,7 @@
     text-transform: uppercase;
     padding: 8px 16px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+    background: linear-gradient(135deg, #F5A623 0%, #D97706 100%);
     color: #0F172A;
     display: inline-flex;
     align-items: center;
@@ -353,11 +379,10 @@
   }
 
   .giveaway-highlight {
-    color: #FDE047;
+    color: #F5A623;
     font-weight: 900;
   }
 
-  /* Telegram Community Row */
   .community-row.telegram-row {
     display: flex;
     align-items: center;
@@ -398,15 +423,19 @@
   .footer {
     margin-top: auto;
     text-align: center;
-    padding-bottom: 12px;
+    padding-bottom: 14px;
   }
 
   .footer-text {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
-    letter-spacing: 1.5px;
-    color: rgba(255, 255, 255, 0.4);
-    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.38);
+  }
+
+  .footer-gold {
+    color: rgba(245, 166, 35, 0.6);
+    font-weight: 900;
   }
 </style>
 </head>
@@ -420,7 +449,7 @@
 
     <div class="header-bar">
       <div class="channel-brand-badge">
-        <span>GK SNIPPETS</span>
+        <img src="{{LOGO_URI}}" alt="GK Snippets">
       </div>
       <div class="badge-timer">
         {{TIMER_BADGE}}
@@ -428,7 +457,9 @@
     </div>
 
     <div class="question-card">
-      <div class="card-watermark">GK SNIPPETS</div>
+      <div class="card-watermark">
+        <img src="{{LOGO_URI}}" alt="">
+      </div>
       <div class="question-meta-row">
         <div class="question-number-badge">
           <span>{{QUESTION_TRACKER}}</span>
@@ -448,19 +479,19 @@
     <div class="community-card">
       <div class="community-row giveaway-row">
         <div class="community-chip giveaway">🎁 SUNDAY GIVEAWAY</div>
-        <div class="community-text">Follow & comment to win the <span class="giveaway-highlight">FREE study gift on Sunday</span> 🎁</div>
+        <div class="community-text">Follow &amp; comment to win the <span class="giveaway-highlight">FREE study gift on Sunday</span> 🎁</div>
       </div>
       <div class="community-row telegram-row">
         <div class="community-chip telegram">
           <svg class="telegram-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
           TELEGRAM
         </div>
-        <div class="community-text">Join Telegram link below for <span class="telegram-highlight">Exclusive Current Affairs PDFs & Easy GK Memorization Tricks 📄</span></div>
+        <div class="community-text">Join Telegram link below for <span class="telegram-highlight">Exclusive Current Affairs PDFs &amp; Easy GK Memorization Tricks 📄</span></div>
       </div>
     </div>
 
     <div class="footer">
-      <div class="footer-text">GK Snippets</div>
+      <div class="footer-text">💡 <span class="footer-gold">GK Snippets</span> • Big Knowledge. Short Videos.</div>
     </div>
   </div>
 </body>
