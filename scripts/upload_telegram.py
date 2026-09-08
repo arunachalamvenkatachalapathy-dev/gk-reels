@@ -15,11 +15,6 @@ def send_telegram_update(day, slot, q, yt_url=None, ig_url=None, fb_url=None):
         return False
 
     q_text = html.escape(q.get("question", ""))
-    options = q.get("options", {})
-    opt_a = html.escape(str(options.get("A", "")))
-    opt_b = html.escape(str(options.get("B", "")))
-    opt_c = html.escape(str(options.get("C", "")))
-    opt_d = html.escape(str(options.get("D", "")))
 
     links = []
     if yt_url:
@@ -34,11 +29,7 @@ def send_telegram_update(day, slot, q, yt_url=None, ig_url=None, fb_url=None):
     msg = (
         f"🎯 <b>100 Days of GK Snippets • Day {day:02d} (Part {slot}/4)</b>\n\n"
         f"❓ <b>{q_text}</b>\n\n"
-        f"<b>A)</b> {opt_a}\n"
-        f"<b>B)</b> {opt_b}\n"
-        f"<b>C)</b> {opt_c}\n"
-        f"<b>D)</b> {opt_d}\n\n"
-        f"👇 <b>Watch the 18-second video & reveal:</b>\n"
+        f"👇 <b>Watch the 18-second video to find the answer:</b>\n"
         f"{links_str}\n\n"
         f"🎁 <i>Comment your answer & follow to win the Sunday study gift!</i>\n"
         f"💡 <b>GK Snippets</b> • Big Knowledge. Short Videos."
