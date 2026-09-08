@@ -125,10 +125,16 @@ def main():
     if not have_instagram:
         print("WARNING: Instagram credentials not fully set -- skipping Instagram upload.")
 
+    yt_url = None
+    ig_url = None
+    fb_url = None
+
     if have_youtube:
         try:
             from upload_youtube import upload_short
-            upload_short(out_mp4, title, caption)
+            yt_id = upload_short(out_mp4, title, caption)
+            if yt_id:
+                yt_url = f"https://youtube.com/shorts/{yt_id}"
         except Exception as e:
             print(f"  YouTube upload FAILED for {q['id']}: {e}")
 
@@ -138,16 +144,26 @@ def main():
             tag_name = f"assets-{today}"
             public_url = upload_to_github_release(out_mp4, tag_name, os.path.basename(out_mp4))
             print(f"  Hosted at: {public_url}")
-            publish_reel(public_url, caption)
+            _, ig_url = publish_reel(public_url, caption)
 
             # Also publish directly to Facebook Page
             try:
                 from upload_facebook import publish_facebook_video
-                publish_facebook_video(public_url, title, caption)
+                fb_id = publish_facebook_video(public_url, title, caption)
+                if fb_id:
+                    page_id = os.environ.get("FB_PAGE_ID", "1268289243039491")
+                    fb_url = f"https://www.facebook.com/{page_id}/videos/{fb_id}"
             except Exception as fe:
                 print(f"  Facebook upload FAILED for {q['id']}: {fe}")
         except Exception as e:
             print(f"  Instagram upload FAILED for {q['id']}: {e}")
+
+    # Send instant update to Telegram channel
+    try:
+        from upload_telegram import send_telegram_update
+        send_telegram_update(day, slot, q, yt_url=yt_url, ig_url=ig_url, fb_url=fb_url)
+    except Exception as te:
+        print(f"  Telegram notification FAILED: {te}")
 
     # Advance state with strict non-repetition
     published_ids = state.get("published_ids", [])

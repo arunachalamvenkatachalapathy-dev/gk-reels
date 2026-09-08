@@ -101,7 +101,17 @@ def publish_reel(video_url, caption):
     publish.raise_for_status()
     media_id = publish.json()["id"]
     print(f"  Instagram Reel published: media id {media_id}")
-    return media_id
+
+    permalink = "https://www.instagram.com/gksnippets/reels/"
+    try:
+        time.sleep(2)
+        p_resp = requests.get(f"{GRAPH}/{media_id}", params={"fields": "permalink", "access_token": token})
+        if p_resp.ok and p_resp.json().get("permalink"):
+            permalink = p_resp.json()["permalink"]
+    except Exception:
+        pass
+
+    return media_id, permalink
 
 
 def upload_reel(video_path, caption, tag_name, asset_name):
