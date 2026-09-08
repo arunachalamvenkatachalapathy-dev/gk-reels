@@ -1,5 +1,5 @@
 {
-  "next_index": 6,
+  "next_index": 7,
   "videos_per_run": 1,
   "palette": [
     "#FF6B6B",
@@ -9,17 +9,18 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 0,
+  "palette_cursor": 1,
   "audio_cursor": 0,
   "current_day": 2,
-  "current_slot": 3,
-  "total_published": 6,
+  "current_slot": 4,
+  "total_published": 7,
   "published_ids": [
     "q0000",
     "q0001",
     "q0002",
     "q0003",
     "q0004",
-    "q0005"
+    "q0005",
+    "q0006"
   ]
 }
