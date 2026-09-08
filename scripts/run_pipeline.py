@@ -134,9 +134,18 @@ def main():
 
     if have_instagram:
         try:
-            from upload_instagram import upload_reel
+            from upload_instagram import upload_to_github_release, publish_reel
             tag_name = f"assets-{today}"
-            upload_reel(out_mp4, caption, tag_name, os.path.basename(out_mp4))
+            public_url = upload_to_github_release(out_mp4, tag_name, os.path.basename(out_mp4))
+            print(f"  Hosted at: {public_url}")
+            publish_reel(public_url, caption)
+
+            # Also publish directly to Facebook Page
+            try:
+                from upload_facebook import publish_facebook_video
+                publish_facebook_video(public_url, title, caption)
+            except Exception as fe:
+                print(f"  Facebook upload FAILED for {q['id']}: {fe}")
         except Exception as e:
             print(f"  Instagram upload FAILED for {q['id']}: {e}")
 
