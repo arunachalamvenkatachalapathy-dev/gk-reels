@@ -108,13 +108,13 @@ def main():
 
     render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music, day=day, slot=slot)
 
-    title = f"Day {day} | SSC GK Challenge 🎯 Parmar Sir GS #Shorts"
+    title = f"Day {day:02d} | 100 Days of GK Snippets 🎯 Daily Quiz #Shorts"
     caption = (
-        f"✨ Day {day} | 100 Days of GK Snippets (Parmar Sir GS Special)\n\n"
+        f"✨ Day {day:02d} | 100 Days of GK Snippets\n\n"
         f"❓ {q['question']}\n\n"
-        f"👇 Drop your answer in comments & Follow to win the FREE weekly giveaway! 🎁\n"
-        f"📄 Join as Member for weekly updated GK PDFs & Exam Notes!\n\n"
-        f"#gksnippets #parmarsir #parmarssc #parmaracademy #ssccgl #sscchsl #upsc #rrbntpc #gkquiz #generalknowledge #shorts #reels"
+        f"👇 Drop your answer in comments & Follow to win the Sunday Study Giveaway! 🎁\n"
+        f"📄 Join Telegram for Exclusive Current Affairs PDFs & Memorization Tricks!\n\n"
+        f"#gksnippets #gkquiz #generalknowledge #currentaffairs #dailygk #shorts #reels #quiz"
     )
 
     have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"))
