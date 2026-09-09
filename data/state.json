@@ -1,6 +1,7 @@
 {
   "next_index": 7,
   "videos_per_run": 1,
+  "videos_per_day": 2,
   "palette": [
     "#FF6B6B",
     "#4D96FF",
@@ -11,8 +12,8 @@
   ],
   "palette_cursor": 1,
   "audio_cursor": 0,
-  "current_day": 2,
-  "current_slot": 4,
+  "current_day": 4,
+  "current_slot": 2,
   "total_published": 7,
   "published_ids": [
     "q0000",
@@ -22,5 +23,22 @@
     "q0004",
     "q0005",
     "q0006"
+  ],
+  "published_history": [
+    {
+      "id": "q0000",
+      "yt_id": "ajJxwNznCwo",
+      "title": "Day 01 | 100 Days of GK Snippets 🎯 Daily Quiz #Shorts"
+    },
+    {
+      "id": "q0005",
+      "yt_id": "XjotZ9tXI2c",
+      "title": "Day 02 | 100 Days of GK Snippets 🎯 Daily Quiz #Shorts"
+    },
+    {
+      "id": "q0006",
+      "yt_id": "NIFqZNCcCA0",
+      "title": "Day 02 | 100 Days of GK Snippets 🎯 Daily Quiz #Shorts"
+    }
   ]
 }

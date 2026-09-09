@@ -88,9 +88,10 @@ def main():
     questions = load_json(DATA_PATH)
     state = load_json(STATE_PATH)
 
+    videos_per_day = state.get("videos_per_day", 2)
     total_published = state.get("total_published", 0)
-    day = (total_published // 4) + 1
-    slot = (total_published % 4) + 1
+    day = (total_published // videos_per_day) + 1
+    slot = (total_published % videos_per_day) + 1
 
     # Non-repetition question pick
     q = pick_next_question(questions, state)
@@ -101,24 +102,59 @@ def main():
     out_mp4 = os.path.join(OUT_DIR, f"{today}_{q['id']}.mp4")
     tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
 
-    print(f"=== Publishing Day {day} (Part {slot}/4) ===")
+    print(f"=== Publishing Day {day} (Part {slot}/{videos_per_day}) ===")
     print(f"Question ID: {q['id']}")
     print(f"Audio Track: {os.path.basename(bg_music)}")
     print(f"Rendering 18s Video with ~4.5s Buffer Outro...")
 
     render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music, day=day, slot=slot)
 
-    title = f"Day {day:02d} | 100 Days of GK Snippets 🎯 Daily Quiz #Shorts"
-    caption = (
-        f"✨ Day {day:02d} | 100 Days of GK Snippets\n\n"
-        f"❓ {q['question']}\n\n"
-        f"👇 Drop your answer in comments & Follow to win the Sunday Study Giveaway! 🎁\n"
-        f"📄 Join Telegram for Exclusive Current Affairs PDFs & Memorization Tricks!\n\n"
-        f"#gksnippets #gkquiz #generalknowledge #currentaffairs #dailygk #shorts #reels #quiz"
-    )
-
     have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"))
     have_instagram = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY"))
+
+    # ── SEO SUPER AGENT: Dynamic Optimization & History Retrieval ─────────
+    seo_data = None
+    try:
+        from seo_agent import generate_seo
+        yt_client = None
+        if have_youtube:
+            try:
+                from upload_youtube import get_youtube_client
+                yt_client = get_youtube_client()
+            except Exception as ye:
+                print(f"  [SEO Agent] Notice: YouTube client init skipped ({ye})")
+
+        seo_data = generate_seo(
+            q, day, slot,
+            videos_per_day=videos_per_day,
+            yt_client=yt_client,
+            published_history=state.get("published_history", [])
+        )
+        print(f"  [SEO Agent] Topic: {seo_data['topic']}")
+        print(f"  [SEO Agent] Optimized Title: {seo_data['title']}")
+        print(f"  [SEO Agent] Tags: {len(seo_data['tags'])} tags generated")
+    except Exception as se:
+        print(f"  [SEO Agent] Fallback to standard metadata due to: {se}")
+
+    if seo_data:
+        title = seo_data["title"]
+        caption = seo_data["description"]
+        tags = seo_data["tags"]
+        ig_caption = seo_data["ig_caption"]
+        fb_caption = seo_data["fb_caption"]
+    else:
+        # High quality static fallback
+        title = f"Day {day:02d} (Part {slot}/{videos_per_day}) | 100 Days of GK Snippets 🎯 #Shorts"
+        caption = (
+            f"✨ Day {day:02d} | 100 Days of GK Snippets (Part {slot}/{videos_per_day})\n\n"
+            f"❓ {q['question']}\n\n"
+            f"👇 Drop your answer in comments & Follow to win the Sunday Study Giveaway! 🎁\n"
+            f"📄 Join Telegram for Exclusive Current Affairs PDFs & Memorization Tricks!\n\n"
+            f"#gksnippets #gkquiz #generalknowledge #currentaffairs #dailygk #shorts #reels #quiz"
+        )
+        tags = ["GK Snippets", "GK Quiz", "General Knowledge", "SSC CGL", "UPSC", "Shorts"]
+        ig_caption = caption
+        fb_caption = caption
 
     if not have_youtube:
         print("WARNING: YouTube credentials not fully set -- skipping YouTube upload.")
@@ -132,9 +168,19 @@ def main():
     if have_youtube:
         try:
             from upload_youtube import upload_short
-            yt_id = upload_short(out_mp4, title, caption)
+            yt_id = upload_short(out_mp4, title, caption, tags=tags)
             if yt_id:
                 yt_url = f"https://youtube.com/shorts/{yt_id}"
+                # Record in state for SEO historical tracking
+                history = state.get("published_history", [])
+                history.append({
+                    "id": q["id"],
+                    "yt_id": yt_id,
+                    "title": title,
+                    "day": day,
+                    "slot": slot
+                })
+                state["published_history"] = history[-20:]
         except Exception as e:
             print(f"  YouTube upload FAILED for {q['id']}: {e}")
 
@@ -144,12 +190,12 @@ def main():
             tag_name = f"assets-{today}"
             public_url = upload_to_github_release(out_mp4, tag_name, os.path.basename(out_mp4))
             print(f"  Hosted at: {public_url}")
-            _, ig_url = publish_reel(public_url, caption)
+            _, ig_url = publish_reel(public_url, ig_caption)
 
             # Also publish directly to Facebook Page
             try:
                 from upload_facebook import publish_facebook_video
-                fb_id = publish_facebook_video(public_url, title, caption)
+                fb_id = publish_facebook_video(public_url, title, fb_caption)
                 if fb_id:
                     page_id = os.environ.get("FB_PAGE_ID", "1268289243039491")
                     fb_url = f"https://www.facebook.com/{page_id}/videos/{fb_id}"
@@ -170,12 +216,13 @@ def main():
     if q["id"] not in published_ids:
         published_ids.append(q["id"])
     state["published_ids"] = published_ids
+    state["videos_per_day"] = videos_per_day
     state["total_published"] = total_published + 1
-    state["current_day"] = ((total_published + 1) // 4) + 1
-    state["current_slot"] = ((total_published + 1) % 4) + 1
+    state["current_day"] = ((total_published + 1) // videos_per_day) + 1
+    state["current_slot"] = ((total_published + 1) % videos_per_day) + 1
 
     save_json(STATE_PATH, state)
-    print(f"Success! Published {q['id']}. Next up: Day {state['current_day']} (Part {state['current_slot']}/4). Total published: {state['total_published']}.")
+    print(f"Success! Published {q['id']}. Next up: Day {state['current_day']} (Part {state['current_slot']}/{videos_per_day}). Total published: {state['total_published']}.")
 
 
 if __name__ == "__main__":
