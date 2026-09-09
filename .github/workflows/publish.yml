@@ -2,9 +2,9 @@ name: Publish GK Reels
 
 on:
   schedule:
-    # 2 videos/day at 08:00 and 18:00 IST = 02:30 and 12:30 UTC
-    - cron: "30 2 * * *"
-    - cron: "30 12 * * *"
+    # 2 videos/day at ~08:00 and ~18:00 IST = 02:27 and 12:27 UTC (odd minute to avoid GitHub Actions queue congestion)
+    - cron: "27 2 * * *"
+    - cron: "27 12 * * *"
   workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
 
 permissions:
