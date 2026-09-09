@@ -8,7 +8,12 @@ on:
     # Odd minutes (:47) prevent GitHub Actions queue congestion.
     - cron: "47 7 * * *"
     - cron: "47 13 * * *"
-  workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force publish (bypass daily quota)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write   # needed to commit data/state.json and create releases
@@ -44,6 +49,7 @@ jobs:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FORCE_PUBLISH: ${{ inputs.force }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/run_pipeline.py

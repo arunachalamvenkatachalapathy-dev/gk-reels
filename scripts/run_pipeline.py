@@ -82,6 +82,12 @@ def get_slot_track(slot):
     return tracks[0] if tracks else os.path.join(BASE, "assets", "tension_bed.mp3")
 
 
+def get_ist_date():
+    """Return current date in Indian Standard Time (UTC+05:30)."""
+    ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+    return datetime.datetime.now(ist).date().isoformat()
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -89,9 +95,29 @@ def main():
     state = load_json(STATE_PATH)
 
     videos_per_day = state.get("videos_per_day", 2)
-    total_published = state.get("total_published", 0)
-    day = (total_published // videos_per_day) + 1
-    slot = (total_published % videos_per_day) + 1
+    today_ist = get_ist_date()
+    last_date = state.get("last_published_date")
+    current_day = state.get("current_day", 4)
+    published_today = state.get("published_today_count", 0)
+
+    # Support manual override via CLI --force or env FORCE_PUBLISH=true
+    force = ("--force" in sys.argv) or (os.environ.get("FORCE_PUBLISH", "").lower() in ("true", "1"))
+
+    # ── CALENDAR-DATE LOCKED PROGRESSION ─────────────────────────────────
+    # A new Day number only unlocks when the calendar date changes in IST.
+    if last_date != today_ist:
+        # Brand new calendar day in India -> Advance day, reset slot to 1
+        day = (current_day + 1) if last_date is not None else current_day
+        slot = 1
+        published_today = 0
+    else:
+        # Same calendar day in India
+        if published_today >= videos_per_day and not force:
+            print(f"Daily quota of {videos_per_day} videos already reached for today ({today_ist}, Day {current_day}).")
+            print(f"Holding Day {current_day + 1} until tomorrow morning. Exiting gracefully without error.")
+            return
+        day = current_day
+        slot = published_today + 1
 
     # Non-repetition question pick
     q = pick_next_question(questions, state)
@@ -211,18 +237,20 @@ def main():
     except Exception as te:
         print(f"  Telegram notification FAILED: {te}")
 
-    # Advance state with strict non-repetition
+    # Advance state with strict non-repetition and calendar-date locking
     published_ids = state.get("published_ids", [])
     if q["id"] not in published_ids:
         published_ids.append(q["id"])
     state["published_ids"] = published_ids
     state["videos_per_day"] = videos_per_day
-    state["total_published"] = total_published + 1
-    state["current_day"] = ((total_published + 1) // videos_per_day) + 1
-    state["current_slot"] = ((total_published + 1) % videos_per_day) + 1
+    state["total_published"] = state.get("total_published", 0) + 1
+    state["last_published_date"] = today_ist
+    state["published_today_count"] = published_today + 1
+    state["current_day"] = day
+    state["current_slot"] = slot
 
     save_json(STATE_PATH, state)
-    print(f"Success! Published {q['id']}. Next up: Day {state['current_day']} (Part {state['current_slot']}/{videos_per_day}). Total published: {state['total_published']}.")
+    print(f"Success! Published {q['id']} as Day {day} (Part {slot}/{videos_per_day}). Total published: {state['total_published']}.")
 
 
 if __name__ == "__main__":

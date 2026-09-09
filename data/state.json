@@ -12,8 +12,10 @@
   ],
   "palette_cursor": 2,
   "audio_cursor": 0,
-  "current_day": 5,
-  "current_slot": 1,
+  "current_day": 4,
+  "current_slot": 2,
+  "last_published_date": "2026-09-09",
+  "published_today_count": 2,
   "total_published": 8,
   "published_ids": [
     "q0000",
