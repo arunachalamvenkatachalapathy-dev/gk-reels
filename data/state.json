@@ -1,5 +1,5 @@
 {
-  "next_index": 7,
+  "next_index": 8,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,11 +10,11 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 1,
+  "palette_cursor": 2,
   "audio_cursor": 0,
-  "current_day": 4,
-  "current_slot": 2,
-  "total_published": 7,
+  "current_day": 5,
+  "current_slot": 1,
+  "total_published": 8,
   "published_ids": [
     "q0000",
     "q0001",
@@ -22,7 +22,8 @@
     "q0003",
     "q0004",
     "q0005",
-    "q0006"
+    "q0006",
+    "q0007"
   ],
   "published_history": [
     {
@@ -39,6 +40,13 @@
       "id": "q0006",
       "yt_id": "NIFqZNCcCA0",
       "title": "Day 02 | 100 Days of GK Snippets 🎯 Daily Quiz #Shorts"
+    },
+    {
+      "id": "q0007",
+      "yt_id": "rSPj32M6nbM",
+      "title": "Test Your Memory! ⚡ Medieval Indian History Quiz • Day 04 #Shorts",
+      "day": 4,
+      "slot": 2
     }
   ]
 }
