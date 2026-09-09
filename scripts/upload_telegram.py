@@ -9,8 +9,8 @@ import requests
 
 
 def send_telegram_update(day, slot, q, yt_url=None, ig_url=None, fb_url=None):
-    bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
-    chat_id   = os.environ.get("TELEGRAM_CHAT_ID")
+    bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip().replace("\ufeff", "")
+    chat_id   = os.environ.get("TELEGRAM_CHAT_ID", "").strip().replace("\ufeff", "")
 
     if not bot_token or not chat_id:
         print("WARNING: Telegram credentials not set -- skipping Telegram post.")
