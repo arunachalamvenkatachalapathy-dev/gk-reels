@@ -1,5 +1,5 @@
 {
-  "next_index": 8,
+  "next_index": 9,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 2,
+  "palette_cursor": 3,
   "audio_cursor": 0,
-  "current_day": 4,
-  "current_slot": 2,
-  "last_published_date": "2026-09-09",
-  "published_today_count": 2,
-  "total_published": 8,
+  "current_day": 5,
+  "current_slot": 1,
+  "last_published_date": "2026-09-10",
+  "published_today_count": 1,
+  "total_published": 9,
   "published_ids": [
     "q0000",
     "q0001",
@@ -25,7 +25,8 @@
     "q0004",
     "q0005",
     "q0006",
-    "q0007"
+    "q0007",
+    "q0008"
   ],
   "published_history": [
     {
@@ -49,6 +50,13 @@
       "title": "Test Your Memory! ⚡ Medieval Indian History Quiz • Day 04 #Shorts",
       "day": 4,
       "slot": 2
+    },
+    {
+      "id": "q0008",
+      "yt_id": "cVOVVEmxehU",
+      "title": "90% Fail This General Knowledge Question! 🎯 • Day 05 #Shorts",
+      "day": 5,
+      "slot": 1
     }
   ]
 }
