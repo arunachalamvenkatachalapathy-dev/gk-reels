@@ -1,5 +1,5 @@
 {
-  "next_index": 9,
+  "next_index": 10,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 5,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-10",
-  "published_today_count": 1,
-  "total_published": 9,
+  "published_today_count": 2,
+  "total_published": 10,
   "published_ids": [
     "q0000",
     "q0001",
@@ -26,7 +26,8 @@
     "q0005",
     "q0006",
     "q0007",
-    "q0008"
+    "q0008",
+    "q0009"
   ],
   "published_history": [
     {
@@ -57,6 +58,13 @@
       "title": "90% Fail This General Knowledge Question! 🎯 • Day 05 #Shorts",
       "day": 5,
       "slot": 1
+    },
+    {
+      "id": "q0009",
+      "yt_id": "dkaX8VpFJZI",
+      "title": "90% Fail This Medieval Indian History Question! 🎯 • Day 05 #Shorts",
+      "day": 5,
+      "slot": 2
     }
   ]
 }
