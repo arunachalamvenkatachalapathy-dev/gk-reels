@@ -48,7 +48,7 @@ def get_audio_duration(path):
         return 3.5
 
 
-def build_html(question, options, correct_index, accent, show_answer, q_id="q0000", day=1, slot=1):
+def build_html(question, options, correct_index, accent, show_answer, q_id="q0000", day=1, slot=1, total_count=283):
     options_html = []
     for i, opt in enumerate(options):
         is_correct = (i == correct_index)
@@ -83,7 +83,7 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
         q_num = int(str(q_id).replace("q", "")) + 1
     except Exception:
         q_num = 1
-    q_tracker = f"QUESTION #{q_num:03d} OF 387"
+    q_tracker = f"QUESTION #{q_num:03d} OF {total_count}"
     series_banner = (
         f'<div class="series-capsule">'
         f'<span class="series-sparkle">✨</span>'
@@ -103,11 +103,14 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
     else:
         logo_uri = ""
 
+    q_size_class = "compact" if len(question) > 75 else ""
+
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)
     tpl = tpl.replace("{{SERIES_BANNER}}", series_banner)
     tpl = tpl.replace("{{TIMER_BADGE}}", timer_badge)
     tpl = tpl.replace("{{QUESTION_TRACKER}}", q_tracker)
+    tpl = tpl.replace("{{Q_SIZE_CLASS}}", q_size_class)
     tpl = tpl.replace("{{QUESTION}}", _esc(question))
     tpl = tpl.replace("{{OPTIONS}}", "\n".join(options_html))
     tpl = tpl.replace("{{ANSWER_TAG}}", answer_tag)
@@ -124,6 +127,8 @@ def format_question_for_speech(text):
     s = text.strip()
     s = re.sub(r'\(s\)', 's', s)
     s = re.sub(r'\(es\)', 'es', s)
+    if s.endswith(':'):
+        s = s[:-1].strip() + '?'
     # Ensure closing directive/question has a period pause before it
     s = re.sub(r'([a-zA-Z0-9])\s+(Which\b|Choose\b|Select\b|What\b|In the context\b)', r'\1. \2', s, flags=re.IGNORECASE)
     # Reformat numbered items: " 1. " -> ", 1: " to force clean micro-pauses in TTS
