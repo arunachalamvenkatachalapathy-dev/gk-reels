@@ -1,5 +1,5 @@
 {
-  "next_index": 10,
+  "next_index": 11,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 4,
+  "palette_cursor": 5,
   "audio_cursor": 0,
-  "current_day": 5,
-  "current_slot": 2,
-  "last_published_date": "2026-09-10",
-  "published_today_count": 2,
-  "total_published": 10,
+  "current_day": 6,
+  "current_slot": 1,
+  "last_published_date": "2026-09-11",
+  "published_today_count": 1,
+  "total_published": 11,
   "published_ids": [
     "q0000",
     "q0001",
@@ -27,7 +27,8 @@
     "q0006",
     "q0007",
     "q0008",
-    "q0009"
+    "q0009",
+    "q0010"
   ],
   "published_history": [
     {
@@ -65,6 +66,13 @@
       "title": "90% Fail This Medieval Indian History Question! 🎯 • Day 05 #Shorts",
       "day": 5,
       "slot": 2
+    },
+    {
+      "id": "q0010",
+      "yt_id": "hz2JGtrmYVA",
+      "title": "He was the first sovereign real ruler of the? 99% Fail! ❌ #Shorts",
+      "day": 6,
+      "slot": 1
     }
   ]
 }
