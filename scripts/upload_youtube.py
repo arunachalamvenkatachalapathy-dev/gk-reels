@@ -14,11 +14,14 @@ from googleapiclient.http import MediaFileUpload
 
 
 def get_youtube_client():
+    client_id = os.environ["YT_CLIENT_ID"].strip().strip('"\'')
+    client_secret = os.environ["YT_CLIENT_SECRET"].strip().strip('"\'')
+    refresh_token = os.environ["YT_REFRESH_TOKEN"].strip().strip('"\'')
     creds = Credentials(
         token=None,
-        refresh_token=os.environ["YT_REFRESH_TOKEN"],
-        client_id=os.environ["YT_CLIENT_ID"],
-        client_secret=os.environ["YT_CLIENT_SECRET"],
+        refresh_token=refresh_token,
+        client_id=client_id,
+        client_secret=client_secret,
         token_uri="https://oauth2.googleapis.com/token",
         scopes=["https://www.googleapis.com/auth/youtube.upload"],
     )
