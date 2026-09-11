@@ -112,12 +112,14 @@ UNIVERSAL_HASHTAGS = [
     "#DailyGK", "#QuizTime", "#UPSC", "#SSCCGL", "#RRBNTPC", "#StudyMotivation"
 ]
 
-HOOK_TEMPLATES = [
-    ("{q}? 99% Fail This! ❌ #Shorts", 68),
-    ("{q}? Can You Answer in 5s? 🧠 #Shorts", 68),
-    ("{q}? Tricky Exam Question! 🎯 #Shorts", 68),
-    ("{q}? Test Your Brain! ⚡ #Shorts", 68),
-    ("{q}? Only 1% Know This! 🤯 #Shorts", 68)
+KEYWORD_TEMPLATES_EN = [
+    ("{q} | GK Questions and Answers | GK Quiz #Shorts", 68),
+    ("{q} Important Questions | General Knowledge Quiz #Shorts", 68),
+    ("{q} | GK Questions and Answers | SSC UPSC #Shorts", 68),
+    ("{q} | General Knowledge Questions | Daily GK #Shorts", 68),
+    ("{q} Important MCQs | GK Quiz for Competitive Exams #Shorts", 68),
+    ("{q} | General Knowledge Quiz #Shorts", 68),
+    ("{q} | GK Questions and Answers #Shorts", 68)
 ]
 
 
@@ -143,6 +145,7 @@ def clean_question_for_title(q_text, fallback_topic="General Knowledge"):
         q_clean = q_clean[0].upper() + q_clean[1:]
 
     q_clean = re.sub(r'[\?।!:,]+$', '', q_clean).strip()
+    q_clean = re.sub(r'\s+(of|in|the|regarding|about|is|are|and|to|for|was|were)\s*$', '', q_clean, flags=re.IGNORECASE).strip()
     q_clean = re.sub(r'\s+', ' ', q_clean)
     return q_clean
 
@@ -235,11 +238,12 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
     options = q.get("options", [])
     short_topic = topic_name.replace(" & Everyday Tech", "").replace(" & Freedom Struggle", "").replace(" & Constitution", "")
     q_clean = clean_question_for_title(question_text, fallback_topic=short_topic)
+    if len(q_clean) < 6 or q_clean.lower() in ["correct", "statements", "pairs", "true", "matching"]:
+        q_clean = short_topic
 
-    # ── 1. QUESTION-FIRST VIRAL TITLE (< 68 chars strictly with #Shorts) ───
-    # Pick a rotating hook template deterministically
-    hook_idx = (day * 2 + slot) % len(HOOK_TEMPLATES)
-    ordered_hooks = HOOK_TEMPLATES[hook_idx:] + HOOK_TEMPLATES[:hook_idx]
+    # ── 1. HIGH-REACH KEYWORD-RICH TITLE (< 68 CHARACTERS) ──────────────────
+    hook_idx = (day * 2 + slot) % len(KEYWORD_TEMPLATES_EN)
+    ordered_hooks = KEYWORD_TEMPLATES_EN[hook_idx:] + KEYWORD_TEMPLATES_EN[:hook_idx]
 
     title = None
     for tpl, max_len in ordered_hooks:
@@ -249,19 +253,18 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
             break
 
     if not title:
-        # Try compact fallback hook first
-        compact_title = f"{q_clean}? 99% Fail! ❌ #Shorts"
-        if len(compact_title) <= 68:
-            title = compact_title
+        words = q_clean.split()
+        shortened = ""
+        for w in words:
+            if len(shortened + " " + w) > 24:
+                break
+            shortened = (shortened + " " + w).strip()
+        shortened = re.sub(r'\s+(of|in|the|regarding|about|is|are|and|to|for|was|were)\s*$', '', shortened, flags=re.IGNORECASE).strip()
+        compact_cand = f"{shortened} | GK Questions and Answers #Shorts"
+        if len(compact_cand) <= 68:
+            title = compact_cand
         else:
-            # If still over 68 chars, trim cleanly at word boundary (~45 chars)
-            words = q_clean.split()
-            shortened = ""
-            for w in words:
-                if len(shortened + " " + w) > 45:
-                    break
-                shortened = (shortened + " " + w).strip()
-            title = f"{shortened}? 99% Fail! ❌ #Shorts"
+            title = f"{shortened} | General Knowledge Quiz #Shorts"
 
     # ── 2. HIGH-ENGAGEMENT DESCRIPTION WITH TIMESTAMPS & OPTIONS ──────────
     options_str = " | ".join([f"({chr(65+i)}) {opt}" for i, opt in enumerate(options)]) if options else "Drop your answer below!"

@@ -171,7 +171,7 @@ def main():
     else:
         # High quality static fallback
         opts_preview = " | ".join([f"({chr(65+i)}) {opt}" for i, opt in enumerate(q.get("options", []))])
-        title = f"{q['question'][:40]}? 99% Fail! ❌ #Shorts"
+        title = f"{q['question'][:28].rsplit(' ', 1)[0]} | GK Questions and Answers #Shorts"
         caption = (
             f"❓ {q['question']}\n"
             f"👉 Drop your answer in the comments: {opts_preview}\n\n"
