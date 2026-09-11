@@ -2,11 +2,21 @@ name: Publish GK Reels
 
 on:
   schedule:
-    # 2 videos/day in global LOW-LOAD GitHub Actions windows:
-    #   - Morning Drill: 07:43 AM IST (02:13 UTC - US/EU overnight lull, near-zero queue)
-    #   - Early Evening: 05:18 PM IST (11:48 UTC - before peak 13:00-16:00 UTC US/EU surge)
+    # 2 videos/day with automatic retry backup triggers if GitHub delays runner queues:
+    # Morning Slot:
+    #   - Primary: 07:43 AM IST (02:13 UTC)
+    #   - Retry 1: 08:13 AM IST (02:43 UTC)
+    #   - Retry 2: 08:43 AM IST (03:13 UTC)
     - cron: "13 2 * * *"
+    - cron: "43 2 * * *"
+    - cron: "13 3 * * *"
+    # Evening Slot:
+    #   - Primary: 05:18 PM IST (11:48 UTC)
+    #   - Retry 1: 05:48 PM IST (12:18 UTC)
+    #   - Retry 2: 06:18 PM IST (12:48 UTC)
     - cron: "48 11 * * *"
+    - cron: "18 12 * * *"
+    - cron: "48 12 * * *"
   workflow_dispatch:
     inputs:
       force:
