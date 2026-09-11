@@ -108,17 +108,43 @@ UNIVERSAL_TAGS = [
 ]
 
 UNIVERSAL_HASHTAGS = [
-    "#gksnippets", "#gkquiz", "#generalknowledge", "#currentaffairs",
-    "#dailygk", "#shorts", "#reels", "#quiz", "#upsc", "#ssccgl"
+    "#Shorts", "#ShortsFeed", "#YouTubeShorts", "#GKQuiz", "#GeneralKnowledge",
+    "#DailyGK", "#QuizTime", "#UPSC", "#SSCCGL", "#RRBNTPC", "#StudyMotivation"
 ]
 
 HOOK_TEMPLATES = [
-    "90% Fail This {topic} Question! 🎯",
-    "Can You Answer in 5 Seconds? 🧠 {topic}",
-    "Test Your Memory! ⚡ {topic} Quiz",
-    "Tricky Exam Question! 🏛️ {topic}",
-    "Only 5% Get All 4 Right! 🔥 {topic}"
+    ("{q}? 99% Fail This! ❌ #Shorts", 68),
+    ("{q}? Can You Answer in 5s? 🧠 #Shorts", 68),
+    ("{q}? Tricky Exam Question! 🎯 #Shorts", 68),
+    ("{q}? Test Your Brain! ⚡ #Shorts", 68),
+    ("{q}? Only 1% Know This! 🤯 #Shorts", 68)
 ]
+
+
+def clean_question_for_title(q_text, fallback_topic="General Knowledge"):
+    """Strip filler question words and numbered prompts to extract the core subject for high-impact titles."""
+    parts = re.split(r'[:\?]?\s*(?:\(?1[\.\)]|Which of the statement|Choose the right|Which are those)', q_text, flags=re.IGNORECASE)
+    main_part = parts[0].strip() if parts else q_text
+    if not main_part or len(main_part) < 8:
+        main_part = q_text
+
+    q_clean = re.sub(
+        r'^(Which (one )?(among |of )?the following (provisions was not made in the |statements? (is|are|was) (not )?(a feature of the |correct about |true about )?|pairs? (is|are) correctly matched\??|was not a reason for |is not true about |are |is |was )?(true about |correct about )?|'
+        r'Who among the following|What is the|In which year|Where is the|'
+        r'Consider the following (statements regarding |landmarks in |princely states of the |pairs:? )?|'
+        r'Some of the following (place \(s\) has/have revealed )?)\s*',
+        '', main_part, flags=re.IGNORECASE
+    ).strip()
+
+    if not q_clean or len(q_clean) < 5:
+        q_clean = fallback_topic
+
+    if q_clean and q_clean[0].islower():
+        q_clean = q_clean[0].upper() + q_clean[1:]
+
+    q_clean = re.sub(r'[\?।!:,]+$', '', q_clean).strip()
+    q_clean = re.sub(r'\s+', ' ', q_clean)
+    return q_clean
 
 
 # ── PERFORMANCE AUDIT HELPER ──────────────────────────────────────────────────
@@ -206,50 +232,85 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
     question_text = q.get("question", "")
     topic_name, topic_tags, topic_hashtags = detect_topic(question_text)
 
-    # 3. Formulate High-CTR Title (< 70 chars for mobile Shorts feed)
-    hook_tpl = random.choice(HOOK_TEMPLATES)
+    options = q.get("options", [])
     short_topic = topic_name.replace(" & Everyday Tech", "").replace(" & Freedom Struggle", "").replace(" & Constitution", "")
-    title_hook = hook_tpl.format(topic=short_topic)
+    q_clean = clean_question_for_title(question_text, fallback_topic=short_topic)
 
-    title_candidate = f"{title_hook} • Day {day:02d} #Shorts"
-    if len(title_candidate) > 70:
-        title_candidate = f"Day {day:02d} Quiz: {short_topic} 🎯 #Shorts"
-    if len(title_candidate) > 70:
-        title_candidate = f"Day {day:02d} | 100 Days of GK Snippets 🎯 #Shorts"
+    # ── 1. QUESTION-FIRST VIRAL TITLE (< 68 chars strictly with #Shorts) ───
+    # Pick a rotating hook template deterministically
+    hook_idx = (day * 2 + slot) % len(HOOK_TEMPLATES)
+    ordered_hooks = HOOK_TEMPLATES[hook_idx:] + HOOK_TEMPLATES[:hook_idx]
 
-    title = title_candidate
+    title = None
+    for tpl, max_len in ordered_hooks:
+        cand = tpl.format(q=q_clean)
+        if len(cand) <= max_len:
+            title = cand
+            break
 
-    # 4. Formulate Rich Search-Optimized Description
-    all_hashtags = list(dict.fromkeys(topic_hashtags + UNIVERSAL_HASHTAGS))
-    hashtag_string = " ".join(all_hashtags[:12])
+    if not title:
+        # Try compact fallback hook first
+        compact_title = f"{q_clean}? 99% Fail! ❌ #Shorts"
+        if len(compact_title) <= 68:
+            title = compact_title
+        else:
+            # If still over 68 chars, trim cleanly at word boundary (~45 chars)
+            words = q_clean.split()
+            shortened = ""
+            for w in words:
+                if len(shortened + " " + w) > 45:
+                    break
+                shortened = (shortened + " " + w).strip()
+            title = f"{shortened}? 99% Fail! ❌ #Shorts"
+
+    # ── 2. HIGH-ENGAGEMENT DESCRIPTION WITH TIMESTAMPS & OPTIONS ──────────
+    options_str = " | ".join([f"({chr(65+i)}) {opt}" for i, opt in enumerate(options)]) if options else "Drop your answer below!"
+    all_hashtags = list(dict.fromkeys(UNIVERSAL_HASHTAGS[:6] + topic_hashtags + UNIVERSAL_HASHTAGS[6:]))
+    hashtag_str = " ".join(all_hashtags[:12])
 
     description = (
-        f"🎯 Day {day:02d} (Part {slot}/{videos_per_day}) | 100 Days of GK Snippets\n\n"
-        f"❓ {question_text}\n\n"
-        f"⏱️ Test your speed! Drop your answer in the comments before the 10-second countdown ends.\n\n"
-        f"📚 Topic: {topic_name}\n"
-        f"🎯 Target Exams: UPSC CSE, SSC CGL 2026, RRB NTPC, State PSCs, NDA, CDS, Banking & AFCAT.\n\n"
+        f"❓ {question_text}\n"
+        f"👉 Drop your answer in the comments: {options_str}\n\n"
+        f"🎯 100 Days of GK Snippets • Day {day:02d} (Part {slot}/{videos_per_day})\n"
+        f"📚 Topic: {topic_name}\n\n"
+        f"⏱️ Video Timeline:\n"
+        f"00:00 🎯 Question Challenge\n"
+        f"00:05 ⏳ 10s Timer Challenge (Countdown)\n"
+        f"00:15 🎉 Correct Answer & Explanation\n\n"
+        f"🏆 Target Exams:\n"
+        f"UPSC CSE | SSC CGL 2026 | RRB NTPC | CDS | NDA | State PSCs | Bank PO | All Competitive Exams\n\n"
+        f"🔍 Top Search Keywords:\n"
+        f"• {topic_name} Important MCQs\n"
+        f"• GK Questions 2026 for Competitive Exams\n"
+        f"• General Knowledge Quiz with Answers\n"
+        f"• Daily GK Practice by GK Snippets\n\n"
         f"🎁 SUNDAY GIVEAWAY: Like, Subscribe & Comment your answer daily to win exclusive study materials!\n"
-        f"📲 Join our Telegram Channel for daily PDF notes & quiz alerts: @GK_Snippets\n\n"
-        f"{hashtag_string}\n\n"
-        f"#Shorts"
+        f"📄 Join our Telegram Channel for daily PDF notes & quiz alerts: @GK_Snippets\n\n"
+        f"{hashtag_str}"
     )
 
-    # 5. Formulate 15-20 Target Tags for YouTube Video Snippet
-    tags = list(dict.fromkeys(topic_tags + UNIVERSAL_TAGS))[:20]
+    # ── 3. HIGH-VOLUME 20 TARGET TAGS (TOPIC + EXAMS + QUESTION) ───────────
+    tags = list(dict.fromkeys(
+        [q_clean[:30]] +
+        topic_tags +
+        UNIVERSAL_TAGS +
+        ["UPSC Prelims 2026", "SSC CGL GK", "Daily Quiz", "Study IQ GK", "Khan Sir GK Style"]
+    ))[:20]
 
-    # 6. Instagram & Facebook Optimized Captions
+    # ── 4. ENGAGING INSTAGRAM & FACEBOOK REELS CAPTIONS ───────────────────
     ig_caption = (
-        f"✨ Day {day:02d} | 100 Days of GK Snippets (Part {slot}/{videos_per_day})\n\n"
-        f"❓ {question_text}\n\n"
-        f"👇 Comment your answer (A, B, C, or D) below!\n"
-        f"🎁 Follow @GK_Snippets & share with a study buddy to win the Sunday Study Gift!\n\n"
+        f"🔥 {question_text}\n\n"
+        f"👇 Drop your answer below: {options_str}\n"
+        f"⏱️ Can you answer in 10 seconds?\n\n"
+        f"🎯 Day {day:02d} • 100 Days of GK Snippets (Part {slot}/{videos_per_day})\n"
+        f"🎁 Follow @GK_Snippets & comment daily to win the Sunday Study Gift!\n\n"
         f"{' '.join(all_hashtags[:15])}"
     )
 
     fb_caption = (
         f"🎯 100 Days of GK Snippets • Day {day:02d} (Part {slot}/{videos_per_day})\n\n"
-        f"❓ {question_text}\n\n"
+        f"❓ {question_text}\n"
+        f"👉 Options: {options_str}\n\n"
         f"👇 Watch the 18-second video to check if your answer is correct!\n"
         f"🎁 Comment below to enter the weekly giveaway.\n\n"
         f"{' '.join(all_hashtags[:10])}"

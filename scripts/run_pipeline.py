@@ -170,15 +170,22 @@ def main():
         fb_caption = seo_data["fb_caption"]
     else:
         # High quality static fallback
-        title = f"Day {day:02d} (Part {slot}/{videos_per_day}) | 100 Days of GK Snippets 🎯 #Shorts"
+        opts_preview = " | ".join([f"({chr(65+i)}) {opt}" for i, opt in enumerate(q.get("options", []))])
+        title = f"{q['question'][:40]}? 99% Fail! ❌ #Shorts"
         caption = (
-            f"✨ Day {day:02d} | 100 Days of GK Snippets (Part {slot}/{videos_per_day})\n\n"
-            f"❓ {q['question']}\n\n"
-            f"👇 Drop your answer in comments & Follow to win the Sunday Study Giveaway! 🎁\n"
-            f"📄 Join Telegram for Exclusive Current Affairs PDFs & Memorization Tricks!\n\n"
-            f"#gksnippets #gkquiz #generalknowledge #currentaffairs #dailygk #shorts #reels #quiz"
+            f"❓ {q['question']}\n"
+            f"👉 Drop your answer in the comments: {opts_preview}\n\n"
+            f"🎯 100 Days of GK Snippets • Day {day:02d} (Part {slot}/{videos_per_day})\n\n"
+            f"⏱️ Video Timeline:\n"
+            f"00:00 🎯 Question Challenge\n"
+            f"00:05 ⏳ 10s Timer Challenge\n"
+            f"00:15 🎉 Correct Answer & Explanation\n\n"
+            f"🏆 Target Exams: UPSC CSE | SSC CGL 2026 | RRB NTPC | NDA | CDS | State PSCs\n\n"
+            f"🎁 SUNDAY GIVEAWAY: Like, Subscribe & Comment your answer daily to win exclusive study materials!\n"
+            f"📄 Join Telegram for daily PDF notes & quiz alerts: @GK_Snippets\n\n"
+            f"#Shorts #ShortsFeed #YouTubeShorts #GKQuiz #GeneralKnowledge #DailyGK #UPSC #SSCCGL"
         )
-        tags = ["GK Snippets", "GK Quiz", "General Knowledge", "SSC CGL", "UPSC", "Shorts"]
+        tags = ["GK Snippets", "GK Quiz", "General Knowledge", "SSC CGL", "UPSC", "Shorts", "Daily GK"]
         ig_caption = caption
         fb_caption = caption
 
