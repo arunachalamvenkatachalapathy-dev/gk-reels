@@ -1,5 +1,5 @@
 {
-  "next_index": 11,
+  "next_index": 12,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 5,
+  "palette_cursor": 0,
   "audio_cursor": 0,
   "current_day": 6,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-11",
-  "published_today_count": 1,
-  "total_published": 11,
+  "published_today_count": 2,
+  "total_published": 12,
   "published_ids": [
     "q0000",
     "q0001",
@@ -28,7 +28,8 @@
     "q0007",
     "q0008",
     "q0009",
-    "q0010"
+    "q0010",
+    "q0011"
   ],
   "published_history": [
     {
@@ -73,6 +74,13 @@
       "title": "He was the first sovereign real ruler of the? 99% Fail! ❌ #Shorts",
       "day": 6,
       "slot": 1
+    },
+    {
+      "id": "q0011",
+      "yt_id": "e4k9l9_ZMy4",
+      "title": "The Mughal Mansabdari System? Only 1% Know This! 🤯 #Shorts",
+      "day": 6,
+      "slot": 2
     }
   ]
 }
