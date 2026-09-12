@@ -1,5 +1,5 @@
 {
-  "next_index": 12,
+  "next_index": 13,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 0,
+  "palette_cursor": 1,
   "audio_cursor": 0,
-  "current_day": 6,
-  "current_slot": 2,
-  "last_published_date": "2026-09-11",
-  "published_today_count": 2,
-  "total_published": 12,
+  "current_day": 7,
+  "current_slot": 1,
+  "last_published_date": "2026-09-12",
+  "published_today_count": 1,
+  "total_published": 13,
   "published_ids": [
     "q0000",
     "q0001",
@@ -29,7 +29,8 @@
     "q0008",
     "q0009",
     "q0010",
-    "q0011"
+    "q0011",
+    "q0012"
   ],
   "published_history": [
     {
@@ -81,6 +82,13 @@
       "title": "The Mughal Mansabdari System? Only 1% Know This! 🤯 #Shorts",
       "day": 6,
       "slot": 2
+    },
+    {
+      "id": "q0012",
+      "yt_id": "NSvrZVIdWk0",
+      "title": "Indian companies have | GK Questions and Answers #Shorts",
+      "day": 7,
+      "slot": 1
     }
   ]
 }
