@@ -326,14 +326,18 @@ Day: {day}, Slot: {slot}
 Rules:
 1. "title": MUST be strictly <= 68 characters including "#Shorts". Front-load the key entity/concept. Never use cheap clickbait or cut-off words. It must sound natural, authoritative, and engaging.
 2. "tags": 15-20 highly relevant search tags for competitive exams.
-3. "ig_hook": Engaging 1-2 sentence hook for Instagram Reels.
-4. "fb_hook": Engaging conversational discussion prompt for Facebook Page Reels.
+3. "yt_hook": An intriguing, curiosity-driven 1-sentence hook explaining why this concept is fascinating or high-yield for exams.
+4. "yt_fact": A 1-2 sentence bite-sized high-yield educational explanation of the correct concept.
+5. "ig_hook": Engaging 1-2 sentence hook for Instagram Reels.
+6. "fb_hook": Engaging conversational discussion prompt for Facebook Page Reels.
 
 Respond ONLY with a valid JSON object:
 {{
   "entity": "...",
   "title": "...",
   "tags": ["..."],
+  "yt_hook": "...",
+  "yt_fact": "...",
   "ig_hook": "...",
   "fb_hook": "..."
 }}"""
@@ -400,6 +404,8 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
     if ai_result and ai_result.get("title"):
         title = ai_result["title"]
         entity = ai_result.get("entity", topic_name)
+        yt_hook = ai_result.get("yt_hook")
+        yt_fact = ai_result.get("yt_fact")
         ig_hook = ai_result.get("ig_hook")
         fb_hook = ai_result.get("fb_hook")
         ai_tags = ai_result.get("tags")
@@ -409,6 +415,8 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
             tags = None
     else:
         title, entity = format_smart_title_en(q, day, slot, topic_name)
+        yt_hook = None
+        yt_fact = None
         ig_hook = None
         fb_hook = None
         tags = None
@@ -418,7 +426,14 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
     all_hashtags = list(dict.fromkeys(UNIVERSAL_HASHTAGS[:6] + topic_hashtags + UNIVERSAL_HASHTAGS[6:]))
     hashtag_str = " ".join(all_hashtags[:12])
 
+    yt_header = ""
+    if yt_hook:
+        yt_header += f"🔥 {yt_hook}\n"
+    if yt_fact:
+        yt_header += f"💡 Quick Exam Fact: {yt_fact}\n\n"
+
     description = (
+        f"{yt_header}"
         f"❓ {question_text}\n"
         f"👉 Drop your answer in the comments: {options_str}\n\n"
         f"🎯 100 Days of GK Snippets • Day {day:02d} (Part {slot}/{videos_per_day})\n"
