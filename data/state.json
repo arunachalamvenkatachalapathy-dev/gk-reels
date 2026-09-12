@@ -1,5 +1,5 @@
 {
-  "next_index": 13,
+  "next_index": 14,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 1,
+  "palette_cursor": 2,
   "audio_cursor": 0,
   "current_day": 7,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-12",
-  "published_today_count": 1,
-  "total_published": 13,
+  "published_today_count": 2,
+  "total_published": 14,
   "published_ids": [
     "q0000",
     "q0001",
@@ -30,7 +30,8 @@
     "q0009",
     "q0010",
     "q0011",
-    "q0012"
+    "q0012",
+    "q0013"
   ],
   "published_history": [
     {
@@ -89,6 +90,13 @@
       "title": "Indian companies have | GK Questions and Answers #Shorts",
       "day": 7,
       "slot": 1
+    },
+    {
+      "id": "q0013",
+      "yt_id": "jIPP8T313yY",
+      "title": "Union ministries | GK Questions and Answers #Shorts",
+      "day": 7,
+      "slot": 2
     }
   ]
 }
