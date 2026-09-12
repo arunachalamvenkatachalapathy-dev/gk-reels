@@ -112,42 +112,87 @@ UNIVERSAL_HASHTAGS = [
     "#DailyGK", "#QuizTime", "#UPSC", "#SSCCGL", "#RRBNTPC", "#StudyMotivation"
 ]
 
-KEYWORD_TEMPLATES_EN = [
-    ("{q} | GK Questions and Answers | GK Quiz #Shorts", 68),
-    ("{q} Important Questions | General Knowledge Quiz #Shorts", 68),
-    ("{q} | GK Questions and Answers | SSC UPSC #Shorts", 68),
-    ("{q} | General Knowledge Questions | Daily GK #Shorts", 68),
-    ("{q} Important MCQs | GK Quiz for Competitive Exams #Shorts", 68),
-    ("{q} | General Knowledge Quiz #Shorts", 68),
-    ("{q} | GK Questions and Answers #Shorts", 68)
-]
+MONTHS = {"january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"}
+STOPWORDS = {"which", "what", "who", "where", "when", "the", "some", "consider", "indian", "union", "following", "while", "in", "on", "at", "from", "since", "under", "after", "before", "a", "an"}
 
 
-def clean_question_for_title(q_text, fallback_topic="General Knowledge"):
-    """Strip filler question words and numbered prompts to extract the core subject for high-impact titles."""
-    parts = re.split(r'[:\?]?\s*(?:\(?1[\.\)]|Which of the statement|Choose the right|Which are those)', q_text, flags=re.IGNORECASE)
-    main_part = parts[0].strip() if parts else q_text
-    if not main_part or len(main_part) < 8:
-        main_part = q_text
+def extract_core_entity(q_text, topic="General Knowledge"):
+    """
+    Extracts the key conceptual entity or proper noun phrase from a competitive exam question.
+    Prevents truncated sentence fragments or cutting off mid-clause.
+    """
+    # 1. Quoted terms (often the exact concept or moniker tested)
+    quotes = re.findall(r"[\'\‘\“\"]([^\'\’\”\"]{3,35})[\'\’\”\"]", q_text)
+    if quotes:
+        valid_q = [q.strip() for q in quotes if len(q.strip()) > 3 and not re.match(r"^[a-d1-4]$", q.strip(), re.I)]
+        if valid_q:
+            return valid_q[0]
 
-    q_clean = re.sub(
-        r'^(Which (one )?(among |of )?the following (provisions was not made in the |statements? (is|are|was) (not )?(a feature of the |correct about |true about )?|pairs? (is|are) correctly matched\??|was not a reason for |is not true about |are |is |was )?(true about |correct about )?|'
-        r'Who among the following|What is the|In which year|Where is the|'
-        r'Consider the following (statements regarding |landmarks in |princely states of the |pairs:? )?|'
-        r'Some of the following (place \(s\) has/have revealed )?)\s*',
-        '', main_part, flags=re.IGNORECASE
+    clean = q_text.strip()
+
+    # Remove introductory date/time clauses e.g. "In December 2013, ..."
+    clean = re.sub(r'^(In|On|During)\s+[A-Za-z]+\s+\d{4},\s*', '', clean, flags=re.I)
+
+    # Remove introductory conditional clauses e.g. "If a new state of the Indian Union is to be created, ..."
+    if clean.lower().startswith("if ") and "," in clean:
+        cond_part, rest = clean.split(",", 1)
+        if any(term in cond_part.lower() for term in ["created", "suppose", "assumed", "given"]):
+            clean = rest.strip()
+
+    # Clean preambles and numbered clauses
+    clean = re.sub(
+        r"^(Which (one )?(among |of )?(the )?following\s*(provisions was not made in the |committees recommended the |statements? (is|are|was) (not )?(a feature of the |correct about |true about )?|pairs? (is|are) correctly matched\??|was not a reason for |is not true about |are |is |was |(places? \(s\) )?has/have revealed )?|Who among the following|What is the|In which year|Where is the|Consider the following (statements regarding |landmarks in |princely states of the |pairs:? )?|Some of the following)\s*",
+        "", clean, flags=re.I
     ).strip()
+    clean = re.split(r"[:\?]?\s*(?:\(?1[\.\)]|Which of the statement|Choose the right|Which are those)", clean)[0].strip()
 
-    if not q_clean or len(q_clean) < 5:
-        q_clean = fallback_topic
+    # Remove subordinating leading clauses (e.g. "While tinning of brass utensils, ...")
+    if clean.lower().startswith("while ") and "," in clean:
+        clean = clean.split(",", 1)[1].strip()
+    if clean.lower().startswith("when ") and "," in clean:
+        clean = clean.split(",", 1)[1].strip()
 
-    if q_clean and q_clean[0].islower():
-        q_clean = q_clean[0].upper() + q_clean[1:]
+    # Look for capitalized sequences and proper noun phrases (e.g. Cartagena Protocol, Schedules of the Constitution)
+    caps = re.findall(r"\b[A-Z][a-zA-Z0-9\-]*(?:\s+(?:of|the|and|in|for|on|de)\s+[A-Z][a-zA-Z0-9\-]*|\s+[A-Z][a-zA-Z0-9\-]*)+\b", clean)
+    caps_filtered = []
+    for c in caps:
+        c_clean = re.sub(r"\s+(of|in|the|regarding|about|is|are|and|to|for|was|were|have|has|had|with|by|from)\s*$", "", c, flags=re.I).strip()
+        words = c_clean.split()
+        if not all(w.lower() in STOPWORDS or w.lower() in MONTHS for w in words):
+            while words and (words[0].lower() in STOPWORDS or words[0].lower() in MONTHS):
+                words.pop(0)
+            if words:
+                cand = " ".join(words)
+                cand = re.sub(r"\s+(of|in|the|regarding|about|is|are|and|to|for|was|were|have|has|had|with|by|from)\s*$", "", cand, flags=re.I).strip()
+                if len(cand) >= 5:
+                    caps_filtered.append(cand)
+    if caps_filtered:
+        best_cap = max(caps_filtered, key=len)
+        if len(best_cap) >= 6:
+            return best_cap
 
-    q_clean = re.sub(r'[\?।!:,]+$', '', q_clean).strip()
-    q_clean = re.sub(r'\s+(of|in|the|regarding|about|is|are|and|to|for|was|were)\s*$', '', q_clean, flags=re.IGNORECASE).strip()
-    q_clean = re.sub(r'\s+', ' ', q_clean)
-    return q_clean
+    # Look for key noun phrases after verbs/prepositions
+    np_match = re.search(r'\b(market capitalization|nuclear reactor|rings of Saturn|supply-side economics|ammonium chloride|biosafety|national income|first sovereign real ruler|research station|antarctica)\b', clean, re.I)
+    if np_match:
+        return np_match.group(0).strip().title()
+
+    # Meaningful clause extraction up to 35 characters
+    words = clean.split()
+    cand = ""
+    for w in words:
+        if len(cand + " " + w) > 35:
+            break
+        cand = (cand + " " + w).strip()
+
+    # Clean trailing prepositions/auxiliary verbs in a loop to prevent hanging words
+    while re.search(r"\s+(of|in|the|regarding|about|is|are|and|to|for|was|were|have|has|had|with|by|from|must|should|can|could|would|will|shall|may|might)\s*$", cand, flags=re.I):
+        cand = re.sub(r"\s+(of|in|the|regarding|about|is|are|and|to|for|was|were|have|has|had|with|by|from|must|should|can|could|would|will|shall|may|might)\s*$", "", cand, flags=re.I).strip()
+
+    cand = re.sub(r'[\?।!:,]+$', '', cand).strip()
+    if len(cand) >= 6 and cand.lower() not in ["indian companies", "while tinning", "the credit"]:
+        return cand.title()
+
+    return topic
 
 
 # ── PERFORMANCE AUDIT HELPER ──────────────────────────────────────────────────
@@ -219,6 +264,40 @@ def detect_topic(question_text):
     )
 
 
+def format_smart_title_en(q, day, slot, topic_name):
+    """
+    Rotates deterministically across 8 high-reach archetypes.
+    Guarantees title <= 68 characters, contains #Shorts, and front-loads key entities.
+    """
+    short_topic = topic_name.replace(" & Everyday Tech", "").replace(" & Freedom Struggle", "").replace(" & Constitution", "")
+    q_text = q.get("question", "").strip()
+    entity = extract_core_entity(q_text, topic=short_topic)
+
+    direct_q = re.sub(r'[:\?]+$', '', q_text).strip()
+    direct_q = re.sub(r'^(In which year|Where is|What is|Who was|Who is|What are)\s+', r'\g<0> ', direct_q, flags=re.I)
+    is_direct_usable = len(direct_q) <= 50 and ("?" in q_text or re.match(r'^(what|who|where|when|why|how|which)\b', q_text, re.I))
+
+    templates = [
+        f"{entity} | GK Questions and Answers #Shorts",
+        f"{entity} | Important Exam GK Quiz #Shorts",
+        f"{direct_q}? #Shorts" if is_direct_usable else f"{entity} Explained | UPSC & SSC GK #Shorts",
+        f"{entity} MCQs | Can You Answer This? #Shorts",
+        f"{entity} | {short_topic} GK Questions #Shorts",
+        f"The Truth About {entity} | GK Facts #Shorts",
+        f"{entity} | Top Repeated Exam MCQs #Shorts",
+        f"{entity} Quiz | Test Your GK Score #Shorts",
+    ]
+
+    idx = (day * 3 + slot) % len(templates)
+    title = templates[idx]
+    if len(title) > 68:
+        title = f"{entity} | GK Quiz #Shorts"
+        if len(title) > 68:
+            title = f"{short_topic} GK Questions #Shorts"
+
+    return title, entity
+
+
 # ── SEO METADATA GENERATOR ───────────────────────────────────────────────────
 
 def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_history=None):
@@ -231,40 +310,12 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
     if yt_client and published_history:
         audit = audit_recent_performance(yt_client, published_history)
 
-    # 2. Detect Question Topic
+    # 2. Detect Question Topic & Format Smart Title
     question_text = q.get("question", "")
     topic_name, topic_tags, topic_hashtags = detect_topic(question_text)
-
     options = q.get("options", [])
-    short_topic = topic_name.replace(" & Everyday Tech", "").replace(" & Freedom Struggle", "").replace(" & Constitution", "")
-    q_clean = clean_question_for_title(question_text, fallback_topic=short_topic)
-    if len(q_clean) < 6 or q_clean.lower() in ["correct", "statements", "pairs", "true", "matching"]:
-        q_clean = short_topic
 
-    # ── 1. HIGH-REACH KEYWORD-RICH TITLE (< 68 CHARACTERS) ──────────────────
-    hook_idx = (day * 2 + slot) % len(KEYWORD_TEMPLATES_EN)
-    ordered_hooks = KEYWORD_TEMPLATES_EN[hook_idx:] + KEYWORD_TEMPLATES_EN[:hook_idx]
-
-    title = None
-    for tpl, max_len in ordered_hooks:
-        cand = tpl.format(q=q_clean)
-        if len(cand) <= max_len:
-            title = cand
-            break
-
-    if not title:
-        words = q_clean.split()
-        shortened = ""
-        for w in words:
-            if len(shortened + " " + w) > 24:
-                break
-            shortened = (shortened + " " + w).strip()
-        shortened = re.sub(r'\s+(of|in|the|regarding|about|is|are|and|to|for|was|were)\s*$', '', shortened, flags=re.IGNORECASE).strip()
-        compact_cand = f"{shortened} | GK Questions and Answers #Shorts"
-        if len(compact_cand) <= 68:
-            title = compact_cand
-        else:
-            title = f"{shortened} | General Knowledge Quiz #Shorts"
+    title, entity = format_smart_title_en(q, day, slot, topic_name)
 
     # ── 2. HIGH-ENGAGEMENT DESCRIPTION WITH TIMESTAMPS & OPTIONS ──────────
     options_str = " | ".join([f"({chr(65+i)}) {opt}" for i, opt in enumerate(options)]) if options else "Drop your answer below!"
@@ -294,7 +345,7 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
 
     # ── 3. HIGH-VOLUME 20 TARGET TAGS (TOPIC + EXAMS + QUESTION) ───────────
     tags = list(dict.fromkeys(
-        [q_clean[:30]] +
+        [entity[:30]] +
         topic_tags +
         UNIVERSAL_TAGS +
         ["UPSC Prelims 2026", "SSC CGL GK", "Daily Quiz", "Study IQ GK", "Khan Sir GK Style"]

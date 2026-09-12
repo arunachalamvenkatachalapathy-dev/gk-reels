@@ -217,6 +217,7 @@ def main():
         except Exception as e:
             print(f"  YouTube upload FAILED for {q['id']}: {e}")
 
+    public_url = None
     if have_instagram:
         try:
             from upload_instagram import upload_to_github_release, publish_reel
@@ -224,18 +225,18 @@ def main():
             public_url = upload_to_github_release(out_mp4, tag_name, os.path.basename(out_mp4))
             print(f"  Hosted at: {public_url}")
             _, ig_url = publish_reel(public_url, ig_caption)
-
-            # Also publish directly to Facebook Page
-            try:
-                from upload_facebook import publish_facebook_video
-                fb_id = publish_facebook_video(public_url, title, fb_caption)
-                if fb_id:
-                    page_id = os.environ.get("FB_PAGE_ID", "1268289243039491")
-                    fb_url = f"https://www.facebook.com/{page_id}/videos/{fb_id}"
-            except Exception as fe:
-                print(f"  Facebook upload FAILED for {q['id']}: {fe}")
         except Exception as e:
             print(f"  Instagram upload FAILED for {q['id']}: {e}")
+
+    # Publish to Facebook Page Reels (tab-specific Reels upload via Meta Graph API)
+    if os.environ.get("IG_ACCESS_TOKEN"):
+        try:
+            from upload_facebook import publish_facebook_reel
+            fb_id = publish_facebook_reel(out_mp4, title, fb_caption, public_url=public_url)
+            if fb_id:
+                fb_url = f"https://www.facebook.com/reel/{fb_id}"
+        except Exception as fe:
+            print(f"  Facebook Reels upload FAILED for {q['id']}: {fe}")
 
     # Send instant update to Telegram channel
     try:
