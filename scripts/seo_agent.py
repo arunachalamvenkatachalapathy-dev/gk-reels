@@ -348,7 +348,7 @@ Respond ONLY with a valid JSON object:
                     "temperature": 0.3
                 }
             },
-            timeout=15
+            timeout=25
         )
         if resp.status_code == 200:
             data = resp.json()
