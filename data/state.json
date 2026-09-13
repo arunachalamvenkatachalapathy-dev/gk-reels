@@ -1,5 +1,5 @@
 {
-  "next_index": 15,
+  "next_index": 16,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 8,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-13",
-  "published_today_count": 1,
-  "total_published": 15,
+  "published_today_count": 2,
+  "total_published": 16,
   "published_ids": [
     "q0000",
     "q0001",
@@ -32,7 +32,8 @@
     "q0011",
     "q0012",
     "q0013",
-    "q0014"
+    "q0014",
+    "q0015"
   ],
   "published_history": [
     {
@@ -105,6 +106,13 @@
       "title": "Ammonium Chloride | Important Exam GK Quiz #Shorts",
       "day": 8,
       "slot": 1
+    },
+    {
+      "id": "q0015",
+      "yt_id": "tq53wzWazK8",
+      "title": "Dadasaheb Phalke Award Explained | UPSC & SSC GK #Shorts",
+      "day": 8,
+      "slot": 2
     }
   ]
 }
