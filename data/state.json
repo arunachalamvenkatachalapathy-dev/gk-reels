@@ -1,5 +1,5 @@
 {
-  "next_index": 17,
+  "next_index": 18,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 5,
+  "palette_cursor": 0,
   "audio_cursor": 0,
   "current_day": 9,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-14",
-  "published_today_count": 1,
-  "total_published": 17,
+  "published_today_count": 2,
+  "total_published": 18,
   "published_ids": [
     "q0000",
     "q0001",
@@ -34,7 +34,8 @@
     "q0013",
     "q0014",
     "q0015",
-    "q0016"
+    "q0016",
+    "q0017"
   ],
   "published_history": [
     {
@@ -121,6 +122,13 @@
       "title": "Nuclear Reactor | General Knowledge GK Questions #Shorts",
       "day": 9,
       "slot": 1
+    },
+    {
+      "id": "q0017",
+      "yt_id": "AOiLFR6mYZs",
+      "title": "The Truth About Rings Of Saturn | GK Facts #Shorts",
+      "day": 9,
+      "slot": 2
     }
   ]
 }
