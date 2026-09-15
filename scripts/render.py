@@ -1,16 +1,17 @@
 """
-Renders a high-retention quiz video from a question dict with guaranteed buffer outro.
+Renders a dynamic, high-retention quiz video with animated countdown timer and game-show sound effects.
 
-Timing Architecture:
-  - Slide 1 (Question + Countdown):
-    * Duration dynamically adapts so question is fully read + at least 4.5s of thinking countdown.
-    * For standard questions: exactly 10.0 seconds.
-  - Slide 2 (Answer Reveal + 4.5s Buffer Outro):
-    * Held for 8.0 seconds.
-    * Chime Ding plays at the exact frame of slide transition.
-    * Prabhat announces full answer (e.g. "The correct answer is Option A: Kosi").
-    * 4.5+ seconds of buffer outro after answer narration finishes!
-    * Smooth music fade-out at the final second.
+Timing Architecture (Total: 9.5s - 12.0s):
+  - Slide 1 (Question + 4.0s Animated Countdown):
+    * Question spoken briskly at +14% speed.
+    * Animated gold progress bar shrinks across screen during the 4.0s countdown window.
+    * Synchronized clock ticking audio creates urgency.
+    * Duration: ~7.0s - 8.0s.
+  - Slide 2 (Answer Reveal + Celebration):
+    * Celebration chime / pop ding plays at transition frame.
+    * Correct answer lights up in green with checkmark badge.
+    * Spoken answer narration.
+    * Duration: ~3.2s - 3.5s.
 """
 import os
 import html
@@ -25,12 +26,26 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_PATH = os.path.join(BASE, "templates", "slide.html")
 ASSETS = os.path.join(BASE, "assets")
 FALLBACK_MUSIC = os.path.join(ASSETS, "audio", "slot1_one_answer_left.mp3")
-CELEBRATION_POP = os.path.join(ASSETS, "audio", "celebration_pop.mp3")
+CELEBRATION_POP = os.path.join(ASSETS, "celebration_pop.mp3")
 if not os.path.exists(CELEBRATION_POP):
-    CELEBRATION_POP = os.path.join(ASSETS, "celebration_pop.mp3")
+    CELEBRATION_POP = os.path.join(ASSETS, "audio", "celebration_pop.mp3")
 DING = CELEBRATION_POP if os.path.exists(CELEBRATION_POP) else os.path.join(ASSETS, "reveal_ding.mp3")
+COUNTDOWN_TICK = os.path.join(ASSETS, "audio", "countdown_tick.mp3")
+if not os.path.exists(COUNTDOWN_TICK):
+    COUNTDOWN_TICK = os.path.join(ASSETS, "countdown_tick.mp3")
 
 LETTERS = ["A", "B", "C", "D"]
+
+TOPIC_BADGES = {
+    "Ancient Indian History": ("⚔️ ANCIENT HISTORY", "#F5A623", "rgba(245, 166, 35, 0.15)", "rgba(245, 166, 35, 0.45)"),
+    "Medieval Indian History": ("⚔️ MEDIEVAL HISTORY", "#F5A623", "rgba(245, 166, 35, 0.15)", "rgba(245, 166, 35, 0.45)"),
+    "Modern Indian History & Freedom Struggle": ("🇮🇳 FREEDOM STRUGGLE", "#F59E0B", "rgba(245, 158, 11, 0.15)", "rgba(245, 158, 11, 0.45)"),
+    "Indian Polity & Constitution": ("🏛️ INDIAN POLITY", "#A855F7", "rgba(168, 85, 247, 0.15)", "rgba(168, 85, 247, 0.45)"),
+    "Geography & Environment": ("🌍 GEOGRAPHY", "#10B981", "rgba(16, 185, 129, 0.15)", "rgba(16, 185, 129, 0.45)"),
+    "General Science & Everyday Tech": ("🧬 GENERAL SCIENCE", "#06B6D4", "rgba(6, 182, 212, 0.15)", "rgba(6, 182, 212, 0.45)"),
+    "Economics & Banking": ("📈 INDIAN ECONOMY", "#F43F5E", "rgba(244, 63, 94, 0.15)", "rgba(244, 63, 94, 0.45)"),
+    "Art, Culture & Literature": ("🎨 ART & CULTURE", "#EC4899", "rgba(236, 72, 153, 0.15)", "rgba(236, 72, 153, 0.45)"),
+}
 
 
 def _esc(s):
@@ -48,7 +63,7 @@ def get_audio_duration(path):
         return 3.5
 
 
-def build_html(question, options, correct_index, accent, show_answer, q_id="q0000", day=1, slot=1, total_count=283):
+def build_html(question, options, correct_index, accent, show_answer, q_id="q0000", day=1, slot=1, total_count=283, topic_name=None):
     options_html = []
     for i, opt in enumerate(options):
         is_correct = (i == correct_index)
@@ -75,9 +90,9 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
         '<span>CORRECT ANSWER REVEALED</span>'
         '<span class="pop-emoji">✨</span>'
         '</div>'
-        '<div class="share-cta">Tap Share &amp; Tag a Friend! 👥</div>'
+        '<div class="share-cta">👉 Share &amp; Challenge a Friend! 👥</div>'
     ) if show_answer else ""
-    timer_badge = "<span style=\"color: #F87171;\">🔥 Time's Up!</span>" if show_answer else "<span>⏳ 10s Challenge</span>"
+    timer_badge = '<span style="color: #F87171;">🔥 Time\'s Up!</span>' if show_answer else '<span>⏳ 5s Challenge</span>'
 
     try:
         q_num = int(str(q_id).replace("q", "")) + 1
@@ -94,7 +109,11 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
         f'</div>'
     )
 
-    # Embed logo as Base64 data URI to guarantee 100% reliable rendering
+    badge_data = TOPIC_BADGES.get(topic_name, ("🎯 GENERAL KNOWLEDGE", "#F97316", "rgba(249, 115, 22, 0.15)", "rgba(249, 115, 22, 0.45)"))
+    cat_label, cat_color, cat_bg, cat_border = badge_data
+    category_badge = f'<div class="category-pill" style="background: {cat_bg}; border: 1.5px solid {cat_border}; color: {cat_color};"><span>{cat_label}</span></div>'
+
+    # Embed logo as Base64 data URI
     logo_path = os.path.join(ASSETS, "logo.jpg")
     if os.path.exists(logo_path):
         with open(logo_path, "rb") as lf:
@@ -110,6 +129,7 @@ def build_html(question, options, correct_index, accent, show_answer, q_id="q000
     tpl = tpl.replace("{{SERIES_BANNER}}", series_banner)
     tpl = tpl.replace("{{TIMER_BADGE}}", timer_badge)
     tpl = tpl.replace("{{QUESTION_TRACKER}}", q_tracker)
+    tpl = tpl.replace("{{CATEGORY_BADGE}}", category_badge)
     tpl = tpl.replace("{{Q_SIZE_CLASS}}", q_size_class)
     tpl = tpl.replace("{{QUESTION}}", _esc(question))
     tpl = tpl.replace("{{OPTIONS}}", "\n".join(options_html))
@@ -129,9 +149,7 @@ def format_question_for_speech(text):
     s = re.sub(r'\(es\)', 'es', s)
     if s.endswith(':'):
         s = s[:-1].strip() + '?'
-    # Ensure closing directive/question has a period pause before it
     s = re.sub(r'([a-zA-Z0-9])\s+(Which\b|Choose\b|Select\b|What\b|In the context\b)', r'\1. \2', s, flags=re.IGNORECASE)
-    # Reformat numbered items: " 1. " -> ", 1: " to force clean micro-pauses in TTS
     s = re.sub(r'\s*(\d+)\.\s*', r', \1: ', s)
     s = re.sub(r'^,\s*', '', s)
     s = re.sub(r'[,:\s]+([,.])', r'\1', s)
@@ -141,26 +159,22 @@ def format_question_for_speech(text):
 
 async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice_path):
     voice = "en-IN-PrabhatNeural"
-    
-    # 1. Question voiceover (brisk rate +12%)
-    comm_q = edge_tts.Communicate(question_text, voice, rate="+12%")
+    comm_q = edge_tts.Communicate(question_text, voice, rate="+14%")
     await comm_q.save(q_voice_path)
-
-    # 2. Answer voiceover (energetic rate +16%)
     comm_ans = edge_tts.Communicate(answer_text, voice, rate="+16%")
     await comm_ans.save(ans_voice_path)
 
 
-def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, slot=1):
+def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, slot=1, topic_name=None):
     os.makedirs(tmp_dir, exist_ok=True)
     slide1_png = os.path.join(tmp_dir, "slide1.png")
     slide2_png = os.path.join(tmp_dir, "slide2.png")
 
     q_id = question_obj.get("id", "q0000")
     html1 = build_html(question_obj["question"], question_obj["options"],
-                        question_obj["correct_index"], accent, show_answer=False, q_id=q_id, day=day, slot=slot)
+                        question_obj["correct_index"], accent, show_answer=False, q_id=q_id, day=day, slot=slot, topic_name=topic_name)
     html2 = build_html(question_obj["question"], question_obj["options"],
-                        question_obj["correct_index"], accent, show_answer=True, q_id=q_id, day=day, slot=slot)
+                        question_obj["correct_index"], accent, show_answer=True, q_id=q_id, day=day, slot=slot, topic_name=topic_name)
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -169,18 +183,15 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
         screenshot_html(html2, slide2_png, page)
         browser.close()
 
-    # Generate voiceover for question and full answer
     correct_letter = LETTERS[question_obj["correct_index"]]
     correct_opt_text = question_obj["options"][question_obj["correct_index"]]
     
-    # If option text is over 12 words, take first 10 words to fit cleanly
     opt_words = correct_opt_text.strip().split()
     clean_opt_text = " ".join(opt_words[:10]) if len(opt_words) > 12 else correct_opt_text
     ans_spoken_phrase = f"The correct answer is Option {correct_letter}: {clean_opt_text}."
 
     q_voice_mp3 = os.path.join(tmp_dir, "q_voice.mp3")
     ans_voice_mp3 = os.path.join(tmp_dir, "ans_voice.mp3")
-
     speech_q_text = format_question_for_speech(question_obj["question"])
 
     try:
@@ -190,66 +201,93 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
         print(f"Warning: Edge-TTS generation failed ({e}), falling back to music-only audio.")
         has_voice = False
 
-    # Calculate dynamic timing to guarantee zero cutoff & 4.5s buffer outro
+    # 10s High-Retention Pacing
+    countdown_dur = 4.0
     if has_voice:
         q_dur = get_audio_duration(q_voice_mp3)
         ans_dur = get_audio_duration(ans_voice_mp3)
-        slide1_time = max(10, int(round(q_dur + 4.5)))
-        slide2_time = 8  # 3.2s answer + 4.8s buffer outro
+        slide1_time = round(max(7.0, q_dur + countdown_dur), 1)
+        slide2_time = round(max(3.2, ans_dur + 1.2), 1)
     else:
-        slide1_time = 10
-        slide2_time = 8
+        slide1_time = 7.0
+        slide2_time = 3.5
 
-    total_time = slide1_time + slide2_time
+    total_time = round(slide1_time + slide2_time, 1)
+    timer_start = round(slide1_time - countdown_dur, 2)
     ding_time = slide1_time
-    ding_ms = ding_time * 1000
-    ans_ms = ding_ms + 350
-    fade_start = total_time - 1
+    ding_ms = int(ding_time * 1000)
+    ans_ms = ding_ms + 300
+    tick_ms = int(timer_start * 1000)
 
-    # Build silent video track with exact dynamic slide hold durations
+    # Dynamic animated countdown bar filter
     video_only = os.path.join(tmp_dir, "video_only.mp4")
+    vf_slide1 = (
+        f"[0:v]fps=30,format=yuv420p,"
+        f"drawbox=x=54:y=266:w='if(lt(t,{timer_start}), 972, max(0, 972*(1-(t-{timer_start})/{countdown_dur})))':"
+        f"h=14:color='#F5A623':t=fill[v0];"
+        f"[1:v]fps=30,format=yuv420p[v1];"
+        f"[v0][v1]concat=n=2:v=1:a=0[v]"
+    )
+
     subprocess.run([
         "ffmpeg", "-y",
         "-loop", "1", "-t", str(slide1_time), "-i", slide1_png,
         "-loop", "1", "-t", str(slide2_time), "-i", slide2_png,
-        "-filter_complex",
-        "[0:v]fps=30,format=yuv420p[v0];[1:v]fps=30,format=yuv420p[v1];[v0][v1]concat=n=2:v=1:a=0[v]",
+        "-filter_complex", vf_slide1,
         "-map", "[v]",
         "-c:v", "libx264", "-pix_fmt", "yuv420p",
         video_only,
     ], check=True)
 
-    # Pick background music track
     music_file = bg_music if (bg_music and os.path.exists(bg_music)) else FALLBACK_MUSIC
+    has_ticks = os.path.exists(COUNTDOWN_TICK)
 
     if has_voice:
-        # Mix with dynamic synchronization:
-        # - Question voice at 0.3s
-        # - Celebration pop & chime at exact transition frame (ding_ms)
-        # - Full answer spoken at ans_ms
-        # - Background music plays continuously until the end of the video
-        filter_str = (
-            f"[1:a]atempo=1.15,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.35[bg];"
-            f"[2:a]adelay=300|300,volume=1.8[vq];"
-            f"[3:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
-            f"[4:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
-            f"[bg][vq][ding][va]amix=inputs=4:duration=first:dropout_transition=0:normalize=0[out]"
-        )
-        subprocess.run([
-            "ffmpeg", "-y",
-            "-i", video_only,
-            "-i", music_file,
-            "-i", q_voice_mp3,
-            "-i", DING,
-            "-i", ans_voice_mp3,
-            "-filter_complex", filter_str,
-            "-map", "0:v", "-map", "[out]",
-            "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
-            "-t", str(total_time),
-            out_mp4,
-        ], check=True)
+        if has_ticks:
+            filter_str = (
+                f"[1:a]atempo=1.15,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.30[bg];"
+                f"[2:a]adelay=300|300,volume=1.8[vq];"
+                f"[3:a]adelay={tick_ms}|{tick_ms},volume=1.4[tick];"
+                f"[4:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
+                f"[5:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
+                f"[bg][vq][tick][ding][va]amix=inputs=5:duration=first:dropout_transition=0:normalize=0[out]"
+            )
+            subprocess.run([
+                "ffmpeg", "-y",
+                "-i", video_only,
+                "-i", music_file,
+                "-i", q_voice_mp3,
+                "-i", COUNTDOWN_TICK,
+                "-i", DING,
+                "-i", ans_voice_mp3,
+                "-filter_complex", filter_str,
+                "-map", "0:v", "-map", "[out]",
+                "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+                "-t", str(total_time),
+                out_mp4,
+            ], check=True)
+        else:
+            filter_str = (
+                f"[1:a]atempo=1.15,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.32[bg];"
+                f"[2:a]adelay=300|300,volume=1.8[vq];"
+                f"[3:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
+                f"[4:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
+                f"[bg][vq][ding][va]amix=inputs=4:duration=first:dropout_transition=0:normalize=0[out]"
+            )
+            subprocess.run([
+                "ffmpeg", "-y",
+                "-i", video_only,
+                "-i", music_file,
+                "-i", q_voice_mp3,
+                "-i", DING,
+                "-i", ans_voice_mp3,
+                "-filter_complex", filter_str,
+                "-map", "0:v", "-map", "[out]",
+                "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+                "-t", str(total_time),
+                out_mp4,
+            ], check=True)
     else:
-        # Fallback music-only mix (plays until the end of the video)
         filter_str = (
             f"[1:a]atempo=1.15,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.85[music];"
             f"[2:a]adelay={ding_ms}|{ding_ms},volume=1.4[ding];"
@@ -267,17 +305,5 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
             out_mp4,
         ], check=True)
 
+    print(f"Successfully rendered video ({total_time}s): {out_mp4}")
     return out_mp4
-
-
-if __name__ == "__main__":
-    import json, sys
-    q = {
-        "id": "q0001",
-        "question": "Which river is known as the 'Sorrow of Bihar'?",
-        "options": ["Kosi", "Gandak", "Son", "Ganga"],
-        "correct_index": 0,
-    }
-    music = os.path.join(BASE, "assets", "audio", "slot1_one_answer_left.mp3")
-    out = render_video(q, "#4D96FF", os.path.join(BASE, "output_test.mp4"), os.path.join(BASE, "tmp_test"), bg_music=music, day=1, slot=1)
-    print("Rendered:", out)

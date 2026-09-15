@@ -46,6 +46,20 @@ def save_json(path, obj):
         json.dump(obj, f, indent=2, ensure_ascii=False)
 
 
+def is_suitable_short_question(q):
+    text = q.get("question", "").strip()
+    opts = q.get("options", [])
+    if len(text.split()) > 22:
+        return False
+    if " 1. " in text and " 2. " in text:
+        return False
+    if any("1 and 2" in str(o) or "1, 2" in str(o) or "Both (a)" in str(o) or "None of the" in str(o) for o in opts):
+        return False
+    if any(len(str(o).split()) > 10 for o in opts):
+        return False
+    return True
+
+
 def pick_next_question(questions, state):
     published_ids = set(state.get("published_ids", []))
     
@@ -56,9 +70,12 @@ def pick_next_question(questions, state):
         state["published_ids"] = []
         state["next_index"] = 0
 
-    # Strictly sequential: iterate through the question bank in order (0 to 386)
     for i, q in enumerate(questions):
         if q["id"] not in published_ids:
+            if not is_suitable_short_question(q):
+                print(f"Skipping unsuitable multi-clause question {q['id']} for short-form video.")
+                published_ids.add(q["id"])
+                continue
             state["next_index"] = (i + 1) % len(questions)
             return q
 
@@ -124,16 +141,25 @@ def main():
     accent = next_accent(state)
     bg_music = get_slot_track(slot)
 
+    # Detect topic for category badge and branding
+    topic_name = "General Knowledge & Daily Trivia"
+    try:
+        from seo_agent import detect_topic
+        topic_name, _, _ = detect_topic(q.get("question", ""))
+    except Exception:
+        pass
+
     today = datetime.date.today().isoformat()
     out_mp4 = os.path.join(OUT_DIR, f"{today}_{q['id']}.mp4")
     tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
 
     print(f"=== Publishing Day {day} (Part {slot}/{videos_per_day}) ===")
     print(f"Question ID: {q['id']}")
+    print(f"Topic: {topic_name}")
     print(f"Audio Track: {os.path.basename(bg_music)}")
-    print(f"Rendering 18s Video with ~4.5s Buffer Outro...")
+    print(f"Rendering Dynamic High-Retention Video (10-12s) with Animated Timer...")
 
-    render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music, day=day, slot=slot)
+    render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music, day=day, slot=slot, topic_name=topic_name)
 
     have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"))
     have_instagram = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY"))
