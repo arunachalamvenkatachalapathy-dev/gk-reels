@@ -28,7 +28,31 @@ def get_youtube_client():
     return build("youtube", "v3", credentials=creds)
 
 
-def upload_short(video_path, title, description, tags=None):
+def post_pinned_comment(youtube, video_id, comment_text):
+    """Posts an interactive / challenge comment on the uploaded video to drive APV and comment velocity."""
+    if not comment_text:
+        return None
+    try:
+        body = {
+            "snippet": {
+                "videoId": video_id,
+                "topLevelComment": {
+                    "snippet": {
+                        "textOriginal": comment_text
+                    }
+                }
+            }
+        }
+        res = youtube.commentThreads().insert(part="snippet", body=body).execute()
+        comment_id = res.get("id")
+        print(f"  Interactive challenge comment posted: {comment_text[:60]}...")
+        return comment_id
+    except Exception as ce:
+        print(f"  [Notice] Comment posting skipped or requires youtube.force-ssl scope: {ce}")
+        return None
+
+
+def upload_short(video_path, title, description, tags=None, pinned_comment=None):
     """Uploads video_path as a public YouTube Short. Returns the video id."""
     youtube = get_youtube_client()
 
@@ -61,6 +85,10 @@ def upload_short(video_path, title, description, tags=None):
 
     video_id = response["id"]
     print(f"  YouTube Short published: https://youtube.com/shorts/{video_id}")
+
+    if pinned_comment:
+        post_pinned_comment(youtube, video_id, pinned_comment)
+
     return video_id
 
 

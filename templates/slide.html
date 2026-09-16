@@ -258,36 +258,46 @@
     margin-bottom: 30px;
   }
 
+  @keyframes badgePop {
+    0% { transform: scale(0.92); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1.0); }
+  }
+
   .option {
     display: flex;
     align-items: center;
     gap: 26px;
     padding: 26px 32px;
     border-radius: 24px;
-    background: #121A2B;
+    background: #101827;
     border: 2px solid rgba(255, 255, 255, 0.12);
-    border-left: 5px solid rgba(245, 166, 35, 0.4);
+    border-left: 6px solid #F5A623;
     border-bottom: 6px solid #080C14;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
   }
 
-  .option .letter {
+  .option .letter,
+  .option .option-badge {
     flex: 0 0 auto;
     width: 68px;
     height: 68px;
     border-radius: 50%;
-    background: rgba(245, 166, 35, 0.14);
-    border: 2.5px solid rgba(245, 166, 35, 0.45);
+    background: rgba(245, 166, 35, 0.18);
+    border: 2.5px solid #F5A623;
     color: #F5A623;
     font-size: 32px;
     font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 16px rgba(245, 166, 35, 0.35);
+    animation: badgePop 0.35s ease-out;
   }
 
-  .option .text {
+  .option .text,
+  .option .option-text {
     font-size: 38px;
     font-weight: 700;
     color: #FFFFFF;
@@ -297,26 +307,30 @@
 
   /* When revealed: Correct */
   .option.correct {
-    background: linear-gradient(90deg, rgba(16, 185, 129, 0.28) 0%, rgba(5, 150, 105, 0.15) 100%);
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.35) 0%, rgba(5, 150, 105, 0.18) 100%);
     border: 2.5px solid #10B981;
-    border-left: 8px solid #34D399;
+    border-left: 10px solid #34D399;
     border-bottom: 6px solid #064E3B;
     box-shadow:
-      0 12px 28px rgba(16, 185, 129, 0.35),
-      0 0 35px rgba(16, 185, 129, 0.25),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      0 12px 32px rgba(16, 185, 129, 0.45),
+      0 0 45px rgba(16, 185, 129, 0.30),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transform: scale(1.02);
   }
 
-  .option.correct .letter {
+  .option.correct .letter,
+  .option.correct .option-badge {
     background: #10B981;
     border-color: #34D399;
     color: #064E3B;
-    box-shadow: 0 0 16px rgba(16, 185, 129, 0.6);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
   }
 
-  .option.correct .text {
+  .option.correct .text,
+  .option.correct .option-text {
     color: #FFFFFF;
     font-weight: 800;
+    text-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
   }
 
   .correct-badge {
@@ -342,9 +356,11 @@
     font-weight: 900;
   }
 
-  /* When revealed: Wrong */
+  /* When revealed: Dimmed / Wrong */
+  .option.dimmed,
   .option.wrong {
-    opacity: 0.45;
+    opacity: 0.35;
+    transform: scale(0.98);
   }
 
   .answer-tag-slot {

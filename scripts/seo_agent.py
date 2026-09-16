@@ -399,27 +399,57 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
     topic_name, topic_tags, topic_hashtags = detect_topic(question_text)
     options = q.get("options", [])
 
-    # Try Gemini AI Agent first
-    ai_result = query_gemini_ai_agent(question_text, options, topic_name, day, slot, language="English")
-    if ai_result and ai_result.get("title"):
-        title = ai_result["title"]
-        entity = ai_result.get("entity", topic_name)
-        yt_hook = ai_result.get("yt_hook")
-        yt_fact = ai_result.get("yt_fact")
-        ig_hook = ai_result.get("ig_hook")
-        fb_hook = ai_result.get("fb_hook")
-        ai_tags = ai_result.get("tags")
+    # Try OpenRouter AI engine for viral package first
+    try:
+        from ai_engine import generate_viral_package
+        viral_pkg = generate_viral_package(q, day, slot, language="English")
+    except Exception as e:
+        print(f"[SEO Agent] OpenRouter viral package generation failed: {e}")
+        viral_pkg = None
+
+    viral_badge = None
+    pinned_comment = None
+
+    if viral_pkg and viral_pkg.get("title"):
+        title = viral_pkg["title"]
+        entity = viral_pkg.get("entity", topic_name)
+        yt_hook = viral_pkg.get("viral_hook")
+        yt_fact = viral_pkg.get("short_fact")
+        viral_badge = viral_pkg.get("badge_text", "🔥 90% FAIL THIS")
+        pinned_comment = viral_pkg.get("pinned_comment")
+        ig_hook = None
+        fb_hook = None
+        ai_tags = viral_pkg.get("tags")
         if ai_tags and isinstance(ai_tags, list):
             tags = list(dict.fromkeys(ai_tags + UNIVERSAL_TAGS))[:20]
         else:
             tags = None
     else:
-        title, entity = format_smart_title_en(q, day, slot, topic_name)
-        yt_hook = None
-        yt_fact = None
-        ig_hook = None
-        fb_hook = None
-        tags = None
+        # Try Gemini AI Agent next
+        ai_result = query_gemini_ai_agent(question_text, options, topic_name, day, slot, language="English")
+        if ai_result and ai_result.get("title"):
+            title = ai_result["title"]
+            entity = ai_result.get("entity", topic_name)
+            yt_hook = ai_result.get("yt_hook")
+            yt_fact = ai_result.get("yt_fact")
+            viral_badge = ai_result.get("badge_text", "🔥 90% FAIL THIS")
+            pinned_comment = ai_result.get("pinned_comment")
+            ig_hook = ai_result.get("ig_hook")
+            fb_hook = ai_result.get("fb_hook")
+            ai_tags = ai_result.get("tags")
+            if ai_tags and isinstance(ai_tags, list):
+                tags = list(dict.fromkeys(ai_tags + UNIVERSAL_TAGS))[:20]
+            else:
+                tags = None
+        else:
+            title, entity = format_smart_title_en(q, day, slot, topic_name)
+            viral_badge = "🔥 90% FAIL THIS"
+            pinned_comment = "Did you get it right before the timer? Drop your answer below! 👇"
+            yt_hook = None
+            yt_fact = None
+            ig_hook = None
+            fb_hook = None
+            tags = None
 
     # ── 2. HIGH-ENGAGEMENT DESCRIPTION WITH TIMESTAMPS & OPTIONS ──────────
     options_str = " | ".join([f"({chr(65+i)}) {opt}" for i, opt in enumerate(options)]) if options else "Drop your answer below!"
@@ -492,7 +522,9 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
         "tags": tags,
         "ig_caption": ig_caption,
         "fb_caption": fb_caption,
-        "audit": audit
+        "audit": audit,
+        "viral_badge": viral_badge,
+        "pinned_comment": pinned_comment
     }
 
 
