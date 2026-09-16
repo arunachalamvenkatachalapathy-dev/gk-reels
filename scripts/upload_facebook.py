@@ -58,18 +58,40 @@ def publish_facebook_reel(video_path, title, description, public_url=None):
             print(f"  [Facebook Reels] Step 3/3: Publishing Reel (video_id {video_id})...")
             finish_resp = requests.post(
                 f"{GRAPH}/{page_id}/video_reels",
-                params={
+                data={
                     "upload_phase": "finish",
                     "access_token": token,
                     "video_id": video_id,
                     "video_state": "PUBLISHED",
                     "description": description,
+                    "title": title[:100] if title else "",
                 },
                 timeout=30,
             )
             finish_resp.raise_for_status()
+
+            # Poll Meta transcoding status
+            import time
+            for attempt in range(6):
+                time.sleep(3)
+                try:
+                    s_resp = requests.get(
+                        f"{GRAPH}/{video_id}",
+                        params={"fields": "status", "access_token": token},
+                        timeout=15,
+                    )
+                    if s_resp.status_code == 200:
+                        s_data = s_resp.json().get("status", {})
+                        v_status = s_data.get("video_status")
+                        print(f"  [Facebook Reels] Transcoding status: {v_status}")
+                        if v_status == "ready":
+                            break
+                except Exception:
+                    pass
+
             print(f"  🎉 Facebook Reel published successfully!")
-            print(f"  Reel URL: https://www.facebook.com/reel/{video_id}")
+            print(f"  Direct Reel URL: https://www.facebook.com/reel/{video_id}")
+            print(f"  Page Reels Feed: https://www.facebook.com/{page_id}/reels")
             return video_id
         except Exception as e:
             print(f"  [Facebook Reels] Notice: video_reels upload failed ({e}). Trying fallback to standard video...")
