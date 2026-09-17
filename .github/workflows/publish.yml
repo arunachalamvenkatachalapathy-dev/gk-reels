@@ -17,6 +17,8 @@ on:
     - cron: "35 13 * * *"
     - cron: "5 14 * * *"
     - cron: "35 14 * * *"
+  repository_dispatch:
+    types: [publish-reel, scheduled-publish]
   workflow_dispatch:
     inputs:
       force:
@@ -60,7 +62,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          FORCE_PUBLISH: ${{ inputs.force }}
+          FORCE_PUBLISH: ${{ inputs.force || github.event.client_payload.force }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/run_pipeline.py
