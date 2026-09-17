@@ -1,5 +1,5 @@
 {
-  "next_index": 23,
+  "next_index": 25,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 5,
+  "palette_cursor": 0,
   "audio_cursor": 0,
   "current_day": 12,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-17",
-  "published_today_count": 1,
-  "total_published": 23,
+  "published_today_count": 2,
+  "total_published": 24,
   "published_ids": [
     "q0000",
     "q0001",
@@ -40,7 +40,8 @@
     "q0019",
     "q0020",
     "q0021",
-    "q0022"
+    "q0022",
+    "q0024"
   ],
   "published_history": [
     {
@@ -169,6 +170,13 @@
       "title": "🚨 Which Industry Status is CORRECT? | GK Quiz Challenge #Shorts",
       "day": 12,
       "slot": 1
+    },
+    {
+      "id": "q0024",
+      "yt_id": "T13ivZWdwUw",
+      "title": "🚨 90% FAIL THIS GK QUIZ! 🤯 (National Saffron Mission) #Shorts",
+      "day": 12,
+      "slot": 2
     }
   ]
 }
