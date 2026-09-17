@@ -20,10 +20,31 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = os.path.join(BASE, "assets")
 AUDIO_DIR = os.path.join(ASSETS, "audio")
 TEMPLATE_PATH = os.path.join(BASE, "templates", "slide.html")
-FALLBACK_MUSIC = os.path.join(ASSETS, "tension_bed.mp3")
-REVEAL_DING = os.path.join(ASSETS, "celebration_pop.mp3") if os.path.exists(os.path.join(ASSETS, "celebration_pop.mp3")) else os.path.join(ASSETS, "reveal_ding.mp3")
-COUNTDOWN_TICK = os.path.join(AUDIO_DIR, "countdown_tick.mp3") if os.path.exists(os.path.join(AUDIO_DIR, "countdown_tick.mp3")) else os.path.join(ASSETS, "countdown_tick.mp3")
-HOOK_SOUND = os.path.join(AUDIO_DIR, "hook_swoosh.mp3") if os.path.exists(os.path.join(AUDIO_DIR, "hook_swoosh.mp3")) else os.path.join(ASSETS, "hook_swoosh.mp3")
+
+def _resolve_audio_file(*candidates):
+    for c in candidates:
+        if c and os.path.exists(c):
+            return c
+    return None
+
+FALLBACK_MUSIC = _resolve_audio_file(
+    os.path.join(AUDIO_DIR, "slot1_one_answer_left.mp3"),
+    os.path.join(AUDIO_DIR, "track1_simplex.mp3"),
+    os.path.join(ASSETS, "tension_bed.mp3")
+)
+REVEAL_DING = _resolve_audio_file(
+    os.path.join(AUDIO_DIR, "celebration_pop.mp3"),
+    os.path.join(ASSETS, "celebration_pop.mp3"),
+    os.path.join(ASSETS, "reveal_ding.mp3")
+)
+COUNTDOWN_TICK = _resolve_audio_file(
+    os.path.join(AUDIO_DIR, "countdown_tick.mp3"),
+    os.path.join(ASSETS, "countdown_tick.mp3")
+)
+HOOK_SOUND = _resolve_audio_file(
+    os.path.join(AUDIO_DIR, "hook_swoosh.mp3"),
+    os.path.join(ASSETS, "hook_swoosh.mp3")
+)
 
 LETTERS = ["A", "B", "C", "D"]
 
@@ -82,7 +103,7 @@ def build_html(question, options, correct_index, accent, show_answer=False, q_id
         '<span>CORRECT ANSWER REVEALED</span>'
         '<span class="pop-emoji">✨</span>'
         '</div>'
-        '<div class="share-cta">👉 Drop your score in the comments! 👇</div>'
+        '<div class="share-cta">💾 Save for Revision • Follow for Daily Quiz!</div>'
     ) if show_answer else ""
     timer_badge = '<span style="color: #F87171;">🔥 Time\'s Up!</span>' if show_answer else '<span>⏳ 3s Challenge</span>'
 
@@ -229,144 +250,79 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
     ], check=True)
 
     music_file = bg_music if (bg_music and os.path.exists(bg_music)) else FALLBACK_MUSIC
-    has_ticks = os.path.exists(COUNTDOWN_TICK)
-    has_hook = os.path.exists(HOOK_SOUND)
 
-    if has_voice:
-        if has_ticks and has_hook:
-            filter_str = (
-                f"[1:a]atempo=1.20,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.30[bg];"
-                f"[2:a]adelay=150|150,volume=1.8[vq];"
-                f"[3:a]adelay={tick_ms}|{tick_ms},volume=1.4[tick];"
-                f"[4:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
-                f"[5:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
-                f"[6:a]adelay=0|0,volume=1.4[hook];"
-                f"[bg][hook][vq][tick][ding][va]amix=inputs=6:duration=first:dropout_transition=0:normalize=0[out]"
-            )
-            subprocess.run([
-                "ffmpeg", "-y",
-                "-i", video_only,
-                "-i", music_file,
-                "-i", q_voice_mp3,
-                "-i", COUNTDOWN_TICK,
-                "-i", REVEAL_DING,
-                "-i", ans_voice_mp3,
-                "-i", HOOK_SOUND,
-                "-filter_complex", filter_str,
-                "-map", "0:v",
-                "-map", "[out]",
-                "-c:v", "copy",
-                "-c:a", "aac", "-b:a", "192k",
-                "-shortest",
-                out_mp4,
-            ], check=True)
-        elif has_ticks:
-            filter_str = (
-                f"[1:a]atempo=1.20,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.30[bg];"
-                f"[2:a]adelay=150|150,volume=1.8[vq];"
-                f"[3:a]adelay={tick_ms}|{tick_ms},volume=1.4[tick];"
-                f"[4:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
-                f"[5:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
-                f"[bg][vq][tick][ding][va]amix=inputs=5:duration=first:dropout_transition=0:normalize=0[out]"
-            )
-            subprocess.run([
-                "ffmpeg", "-y",
-                "-i", video_only,
-                "-i", music_file,
-                "-i", q_voice_mp3,
-                "-i", COUNTDOWN_TICK,
-                "-i", REVEAL_DING,
-                "-i", ans_voice_mp3,
-                "-filter_complex", filter_str,
-                "-map", "0:v",
-                "-map", "[out]",
-                "-c:v", "copy",
-                "-c:a", "aac", "-b:a", "192k",
-                "-shortest",
-                out_mp4,
-            ], check=True)
-        elif has_hook:
-            filter_str = (
-                f"[1:a]atempo=1.20,atrim=0:{total_time},volume=0.35[bg];"
-                f"[2:a]adelay=150|150,volume=1.8[vq];"
-                f"[3:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
-                f"[4:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
-                f"[5:a]adelay=0|0,volume=1.4[hook];"
-                f"[bg][hook][vq][ding][va]amix=inputs=5:duration=first:dropout_transition=0:normalize=0[out]"
-            )
-            subprocess.run([
-                "ffmpeg", "-y",
-                "-i", video_only,
-                "-i", music_file,
-                "-i", q_voice_mp3,
-                "-i", REVEAL_DING,
-                "-i", ans_voice_mp3,
-                "-i", HOOK_SOUND,
-                "-filter_complex", filter_str,
-                "-map", "0:v",
-                "-map", "[out]",
-                "-c:v", "copy",
-                "-c:a", "aac", "-b:a", "192k",
-                "-shortest",
-                out_mp4,
-            ], check=True)
-        else:
-            filter_str = (
-                f"[1:a]atempo=1.20,atrim=0:{total_time},volume=0.35[bg];"
-                f"[2:a]adelay=150|150,volume=1.8[vq];"
-                f"[3:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding];"
-                f"[4:a]adelay={ans_ms}|{ans_ms},volume=1.8[va];"
-                f"[bg][vq][ding][va]amix=inputs=4:duration=first:dropout_transition=0:normalize=0[out]"
-            )
-            subprocess.run([
-                "ffmpeg", "-y",
-                "-i", video_only,
-                "-i", music_file,
-                "-i", q_voice_mp3,
-                "-i", REVEAL_DING,
-                "-i", ans_voice_mp3,
-                "-filter_complex", filter_str,
-                "-map", "0:v",
-                "-map", "[out]",
-                "-c:v", "copy",
-                "-c:a", "aac", "-b:a", "192k",
-                "-shortest",
-                out_mp4,
-            ], check=True)
+    audio_inputs = ["-i", video_only]
+    input_idx = 1
+    filter_parts = []
+    mix_labels = []
+
+    # 1. Background Music
+    if music_file and os.path.exists(music_file):
+        audio_inputs.extend(["-i", music_file])
+        filter_parts.append(
+            f"[{input_idx}:a]atempo=1.20,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.30[bg]"
+        )
+        mix_labels.append("[bg]")
+        input_idx += 1
+
+    # 2. Opening Audio Hook (0.45s at t=0)
+    if HOOK_SOUND and os.path.exists(HOOK_SOUND):
+        audio_inputs.extend(["-i", HOOK_SOUND])
+        filter_parts.append(f"[{input_idx}:a]adelay=0|0,volume=1.4[hook]")
+        mix_labels.append("[hook]")
+        input_idx += 1
+
+    # 3. Question Voice
+    if has_voice and q_voice_mp3 and os.path.exists(q_voice_mp3):
+        audio_inputs.extend(["-i", q_voice_mp3])
+        filter_parts.append(f"[{input_idx}:a]adelay=150|150,volume=1.8[vq]")
+        mix_labels.append("[vq]")
+        input_idx += 1
+
+    # 4. Countdown Ticking
+    if COUNTDOWN_TICK and os.path.exists(COUNTDOWN_TICK):
+        audio_inputs.extend(["-i", COUNTDOWN_TICK])
+        filter_parts.append(f"[{input_idx}:a]adelay={tick_ms}|{tick_ms},volume=1.4[tick]")
+        mix_labels.append("[tick]")
+        input_idx += 1
+
+    # 5. Celebration / Ding Chime on Answer Reveal
+    if REVEAL_DING and os.path.exists(REVEAL_DING):
+        audio_inputs.extend(["-i", REVEAL_DING])
+        filter_parts.append(f"[{input_idx}:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding]")
+        mix_labels.append("[ding]")
+        input_idx += 1
+
+    # 6. Answer Voice
+    if has_voice and ans_voice_mp3 and os.path.exists(ans_voice_mp3):
+        audio_inputs.extend(["-i", ans_voice_mp3])
+        filter_parts.append(f"[{input_idx}:a]adelay={ans_ms}|{ans_ms},volume=1.8[va]")
+        mix_labels.append("[va]")
+        input_idx += 1
+
+    if mix_labels:
+        filter_parts.append(
+            f"{''.join(mix_labels)}amix=inputs={len(mix_labels)}:duration=first:dropout_transition=0:normalize=0[out]"
+        )
+        filter_str = ";".join(filter_parts)
+        subprocess.run([
+            "ffmpeg", "-y",
+            *audio_inputs,
+            "-filter_complex", filter_str,
+            "-map", "0:v",
+            "-map", "[out]",
+            "-c:v", "copy",
+            "-c:a", "aac", "-b:a", "192k",
+            "-shortest",
+            out_mp4,
+        ], check=True)
     else:
-        if has_hook:
-            filter_str = (
-                f"[1:a]atrim=0:{total_time},afade=t=out:st={total_time - 0.5}:d=0.5,volume=0.8[bg];"
-                f"[2:a]adelay=0|0,volume=1.4[hook];"
-                f"[bg][hook]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[out]"
-            )
-            subprocess.run([
-                "ffmpeg", "-y",
-                "-i", video_only,
-                "-i", music_file,
-                "-i", HOOK_SOUND,
-                "-filter_complex", filter_str,
-                "-map", "0:v",
-                "-map", "[out]",
-                "-c:v", "copy",
-                "-c:a", "aac", "-b:a", "192k",
-                "-shortest",
-                out_mp4,
-            ], check=True)
-        else:
-            filter_str = f"[1:a]atrim=0:{total_time},afade=t=out:st={total_time - 0.5}:d=0.5,volume=0.8[out]"
-            subprocess.run([
-                "ffmpeg", "-y",
-                "-i", video_only,
-                "-i", music_file,
-                "-filter_complex", filter_str,
-                "-map", "0:v",
-                "-map", "[out]",
-                "-c:v", "copy",
-                "-c:a", "aac", "-b:a", "192k",
-                "-shortest",
-                out_mp4,
-            ], check=True)
+        subprocess.run([
+            "ffmpeg", "-y",
+            "-i", video_only,
+            "-c:v", "copy",
+            out_mp4,
+        ], check=True)
 
     print(f"Successfully rendered viral video ({total_time}s): {out_mp4}")
     return out_mp4
