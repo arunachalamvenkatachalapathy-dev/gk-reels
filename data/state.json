@@ -1,5 +1,5 @@
 {
-  "next_index": 25,
+  "next_index": 27,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 0,
+  "palette_cursor": 1,
   "audio_cursor": 0,
-  "current_day": 12,
-  "current_slot": 2,
-  "last_published_date": "2026-09-17",
-  "published_today_count": 2,
-  "total_published": 24,
+  "current_day": 13,
+  "current_slot": 1,
+  "last_published_date": "2026-09-18",
+  "published_today_count": 1,
+  "total_published": 25,
   "published_ids": [
     "q0000",
     "q0001",
@@ -41,14 +41,10 @@
     "q0020",
     "q0021",
     "q0022",
-    "q0024"
+    "q0024",
+    "q0026"
   ],
   "published_history": [
-    {
-      "id": "q0000",
-      "yt_id": "ajJxwNznCwo",
-      "title": "Day 01 | 100 Days of GK Snippets 🎯 Daily Quiz #Shorts"
-    },
     {
       "id": "q0005",
       "yt_id": "XjotZ9tXI2c",
@@ -177,6 +173,13 @@
       "title": "🚨 90% FAIL THIS GK QUIZ! 🤯 (National Saffron Mission) #Shorts",
       "day": 12,
       "slot": 2
+    },
+    {
+      "id": "q0026",
+      "yt_id": "DGRL9uA8O3s",
+      "title": "🔥 Which Plan Started India's Green Revolution? #Shorts",
+      "day": 13,
+      "slot": 1
     }
   ]
 }
