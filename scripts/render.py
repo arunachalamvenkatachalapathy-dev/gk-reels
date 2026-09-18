@@ -169,18 +169,17 @@ def format_question_for_speech(text):
 
 
 
-# ── Fish Audio Voice Config (English Channel: Shah Rukh Khan) ────────────────
+# ── Fish Audio Voice Config (English Channel) ────────────────────────────────
 FISH_AUDIO_API_URL = "https://api.fish.audio/v1/tts"
-# Shah Rukh Khan voice — most used English model (10,839 tasks)
-FISH_VOICE_MODEL_ID = "1f51bb552a924f89837c80d6c1b11e03"
-FISH_FALLBACK_MODEL_ID = "2eaa7cb1f3144f50880ea6a7e45c5499"  # backup SRK model
+# User's custom SRK voice model
+FISH_VOICE_MODEL_ID = "f86d3a05bd004b3abb580698dedf2060"
 
 
 def _fish_audio_tts(text: str, out_path: str, api_key: str, model_id: str) -> bool:
     """
-    Call Fish Audio TTS API and save the MP3 to out_path.
+    Call Fish Audio TTS API (S2.1 Pro engine) and save the MP3 to out_path.
     Returns True on success, False on any failure.
-    Fish Audio streams raw MP3 bytes — no special codec needed.
+    S2.1 Pro is passed as HTTP header 'model: s2.1-pro'.
     """
     try:
         import json as _json
@@ -198,17 +197,18 @@ def _fish_audio_tts(text: str, out_path: str, api_key: str, model_id: str) -> bo
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
+                "model": "s2.1-pro",
             },
             method="POST",
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = resp.read()
         if len(data) < 500:
-            print(f"  [Fish Audio] Response too small ({len(data)} bytes) — likely an error, skipping.")
+            print(f"  [Fish Audio] Response too small ({len(data)} bytes), skipping.")
             return False
         with open(out_path, "wb") as f:
             f.write(data)
-        print(f"  [Fish Audio] OK Generated {os.path.basename(out_path)} ({len(data)//1024} KB)")
+        print(f"  [Fish Audio S2.1 Pro] OK {os.path.basename(out_path)} ({len(data)//1024} KB)")
         return True
     except Exception as exc:
         print(f"  [Fish Audio] WARN Failed: {exc}")
@@ -217,26 +217,19 @@ def _fish_audio_tts(text: str, out_path: str, api_key: str, model_id: str) -> bo
 
 async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice_path):
     """
-    Generate voiceover MP3s.
-    Primary: Fish Audio (Shah Rukh Khan voice) — vivid, energetic English narrator.
+    Generate voiceover MP3s for the English channel.
+    Primary:  Fish Audio S2.1 Pro with user's SRK voice (f86d3a05...).
     Fallback: edge-tts en-IN-PrabhatNeural.
     """
     fish_api_key = os.environ.get("FISH_AUDIO_API_KEY", "")
     used_fish = False
 
     if fish_api_key:
-        print("  [Fish Audio] Attempting Shah Rukh Khan voiceover...")
+        print("  [Fish Audio S2.1 Pro] Generating English voiceover...")
         ok_q = _fish_audio_tts(question_text, q_voice_path, fish_api_key, FISH_VOICE_MODEL_ID)
-        ok_a = _fish_audio_tts(answer_text, ans_voice_path, fish_api_key, FISH_VOICE_MODEL_ID)
+        ok_a = _fish_audio_tts(answer_text,   ans_voice_path, fish_api_key, FISH_VOICE_MODEL_ID)
         if ok_q and ok_a:
             used_fish = True
-        else:
-            # Try backup SRK model before falling to edge-tts
-            print("  [Fish Audio] Trying backup model...")
-            ok_q = _fish_audio_tts(question_text, q_voice_path, fish_api_key, FISH_FALLBACK_MODEL_ID)
-            ok_a = _fish_audio_tts(answer_text, ans_voice_path, fish_api_key, FISH_FALLBACK_MODEL_ID)
-            if ok_q and ok_a:
-                used_fish = True
 
     if not used_fish:
         print("  [Edge-TTS] Falling back to en-IN-PrabhatNeural...")
