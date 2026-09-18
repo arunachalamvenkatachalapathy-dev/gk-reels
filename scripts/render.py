@@ -197,7 +197,7 @@ def _fish_audio_tts(text: str, out_path: str, api_key: str, model_id: str) -> bo
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
-                "model": "s2.1-pro",
+                "model": "s2.1-pro-free",
             },
             method="POST",
         )
