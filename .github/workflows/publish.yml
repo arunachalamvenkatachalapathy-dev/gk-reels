@@ -2,21 +2,21 @@ name: Publish GK Reels
 
 on:
   schedule:
-    # 2 videos/day with automatic retry backup triggers if GitHub delays runner queues:
-    # Morning Peak Slot:
-    #   - Primary: 09:05 AM IST (03:35 UTC)
-    #   - Retry 1: 09:35 AM IST (04:05 UTC)
-    #   - Retry 2: 10:05 AM IST (04:35 UTC)
-    - cron: "35 3 * * *"
-    - cron: "5 4 * * *"
-    - cron: "35 4 * * *"
-    # Evening Prime Slot:
-    #   - Primary: 07:05 PM IST (13:35 UTC)
-    #   - Retry 1: 07:35 PM IST (14:05 UTC)
-    #   - Retry 2: 08:05 PM IST (14:35 UTC)
-    - cron: "35 13 * * *"
-    - cron: "5 14 * * *"
-    - cron: "35 14 * * *"
+    # 2 videos/day — 6 AM IST & 3 PM IST (with retry slots for GitHub queue delays):
+    # Morning Slot — 6:00 AM IST:
+    #   - Primary: 06:00 AM IST (00:30 UTC)
+    #   - Retry 1: 06:30 AM IST (01:00 UTC)
+    #   - Retry 2: 07:00 AM IST (01:30 UTC)
+    - cron: "30 0 * * *"
+    - cron: "0 1 * * *"
+    - cron: "30 1 * * *"
+    # Afternoon Slot — 3:00 PM IST:
+    #   - Primary: 03:00 PM IST (09:30 UTC)
+    #   - Retry 1: 03:30 PM IST (10:00 UTC)
+    #   - Retry 2: 04:00 PM IST (10:30 UTC)
+    - cron: "30 9 * * *"
+    - cron: "0 10 * * *"
+    - cron: "30 10 * * *"
   repository_dispatch:
     types: [publish-reel, scheduled-publish]
   workflow_dispatch:
