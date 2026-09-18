@@ -34,18 +34,9 @@ FALLBACK_MUSIC = _resolve_audio_file(
     os.path.join(AUDIO_DIR, "track1_simplex.mp3"),
     os.path.join(ASSETS, "tension_bed.mp3")
 )
-REVEAL_DING = _resolve_audio_file(
-    os.path.join(AUDIO_DIR, "celebration_pop.mp3"),
-    os.path.join(ASSETS, "celebration_pop.mp3"),
-    os.path.join(ASSETS, "reveal_ding.mp3")
-)
 COUNTDOWN_TICK = _resolve_audio_file(
     os.path.join(AUDIO_DIR, "countdown_tick.mp3"),
     os.path.join(ASSETS, "countdown_tick.mp3")
-)
-HOOK_SOUND = _resolve_audio_file(
-    os.path.join(AUDIO_DIR, "hook_swoosh.mp3"),
-    os.path.join(ASSETS, "hook_swoosh.mp3")
 )
 
 LETTERS = ["A", "B", "C", "D"]
@@ -234,9 +225,9 @@ async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice
     if not used_fish:
         print("  [Edge-TTS] Falling back to en-IN-PrabhatNeural...")
         voice = "en-IN-PrabhatNeural"
-        comm_q = edge_tts.Communicate(question_text, voice, rate="+22%")
+        comm_q = edge_tts.Communicate(question_text, voice, rate="+4%")
         await comm_q.save(q_voice_path)
-        comm_ans = edge_tts.Communicate(answer_text, voice, rate="+24%")
+        comm_ans = edge_tts.Communicate(answer_text, voice, rate="+4%")
         await comm_ans.save(ans_voice_path)
         print("  [Edge-TTS] OK Voiceover generated.")
 
@@ -277,25 +268,34 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
         print(f"Warning: Edge-TTS generation failed ({e}), falling back to music-only audio.")
         has_voice = False
 
-    # Ultra-tight 9.5-10.5s Viral Pacing
-    countdown_dur = 3.0
+    # ── Natural, Unrushed Question & Answer Pacing ─────────────────────────
+    q_start_time = 0.4
+    q_start_ms = int(q_start_time * 1000)
+
+    countdown_dur = 3.5             # 3.5s thinking break with timer SFX
+    post_timer_pause = 0.4          # brief beat after timer reaches 0 before revealing answer
+    pre_answer_speech_pause = 0.6   # visual pause on Slide 2 before answer voice speaks
+    post_answer_reading_buffer = 2.0 # unrushed reading buffer after answer voice finishes
+
     if has_voice:
         q_dur = get_audio_duration(q_voice_mp3)
         ans_dur = get_audio_duration(ans_voice_mp3)
-        slide1_time = round(min(7.5, max(6.5, q_dur + countdown_dur - 0.2)), 1)
-        slide2_time = round(min(3.2, max(2.8, ans_dur + 0.5)), 1)
+        # 1. Question voice reads completely without overlap
+        # 2. 0.3s breath, then countdown starts
+        timer_start = round(q_start_time + q_dur + 0.3, 2)
+        slide1_time = round(timer_start + countdown_dur + post_timer_pause, 2)
+        slide2_time = round(pre_answer_speech_pause + ans_dur + post_answer_reading_buffer, 2)
     else:
-        slide1_time = 6.8
-        slide2_time = 2.8
+        timer_start = 4.0
+        slide1_time = 8.0
+        slide2_time = 4.0
 
-    total_time = round(slide1_time + slide2_time, 1)
-    timer_start = round(slide1_time - countdown_dur, 2)
-    ding_time = slide1_time
-    ding_ms = int(ding_time * 1000)
-    ans_ms = ding_ms + 200
+    total_time = round(slide1_time + slide2_time, 2)
     tick_ms = int(timer_start * 1000)
+    ans_start_time = round(slide1_time + pre_answer_speech_pause, 2)
+    ans_ms = int(ans_start_time * 1000)
 
-    # Dynamic animated countdown bar filter (60 FPS)
+    # Dynamic animated countdown bar filter (starts draining only when timer begins)
     video_only = os.path.join(tmp_dir, "video_only.mp4")
     vf_slide1 = (
         f"[0:v]fps=30,format=yuv420p,"
@@ -322,44 +322,32 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
     filter_parts = []
     mix_labels = []
 
-    # 1. Background Music
+    # 1. Background Music (calm, normal tempo, subtle volume)
     if music_file and os.path.exists(music_file):
         audio_inputs.extend(["-i", music_file])
         filter_parts.append(
-            f"[{input_idx}:a]atempo=1.20,atrim=0:{total_time},afade=t=out:st={total_time - 0.3}:d=0.3,volume=0.30[bg]"
+            f"[{input_idx}:a]atempo=1.00,atrim=0:{total_time},afade=t=out:st={max(0, total_time - 0.5)}:d=0.5,volume=0.20[bg]"
         )
         mix_labels.append("[bg]")
         input_idx += 1
 
-    # 2. Opening Audio Hook (0.45s at t=0)
-    if HOOK_SOUND and os.path.exists(HOOK_SOUND):
-        audio_inputs.extend(["-i", HOOK_SOUND])
-        filter_parts.append(f"[{input_idx}:a]adelay=0|0,volume=1.4[hook]")
-        mix_labels.append("[hook]")
-        input_idx += 1
-
-    # 3. Question Voice
+    # 2. Question Voice (starts at 0.4s, plays clearly without any background SFX)
     if has_voice and q_voice_mp3 and os.path.exists(q_voice_mp3):
         audio_inputs.extend(["-i", q_voice_mp3])
-        filter_parts.append(f"[{input_idx}:a]adelay=150|150,volume=1.8[vq]")
+        filter_parts.append(f"[{input_idx}:a]adelay={q_start_ms}|{q_start_ms},volume=1.8[vq]")
         mix_labels.append("[vq]")
         input_idx += 1
 
-    # 4. Countdown Ticking
+    # 3. Timing SFX (Countdown Ticking during the short thinking break only)
     if COUNTDOWN_TICK and os.path.exists(COUNTDOWN_TICK):
         audio_inputs.extend(["-i", COUNTDOWN_TICK])
-        filter_parts.append(f"[{input_idx}:a]adelay={tick_ms}|{tick_ms},volume=1.4[tick]")
+        filter_parts.append(
+            f"[{input_idx}:a]atrim=0:{countdown_dur},adelay={tick_ms}|{tick_ms},volume=1.2[tick]"
+        )
         mix_labels.append("[tick]")
         input_idx += 1
 
-    # 5. Celebration / Ding Chime on Answer Reveal
-    if REVEAL_DING and os.path.exists(REVEAL_DING):
-        audio_inputs.extend(["-i", REVEAL_DING])
-        filter_parts.append(f"[{input_idx}:a]adelay={ding_ms}|{ding_ms},volume=1.6[ding]")
-        mix_labels.append("[ding]")
-        input_idx += 1
-
-    # 6. Answer Voice
+    # 4. Answer Voice (reveals answer calmly on Slide 2, no rush, no chime SFX)
     if has_voice and ans_voice_mp3 and os.path.exists(ans_voice_mp3):
         audio_inputs.extend(["-i", ans_voice_mp3])
         filter_parts.append(f"[{input_idx}:a]adelay={ans_ms}|{ans_ms},volume=1.8[va]")

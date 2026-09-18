@@ -1,4 +1,4 @@
-﻿"""
+"""
 Single-question end-to-end validation test script for English GK Reels.
 Tests:
 1. AI Viral Package generation (OpenRouter -> Gemini -> Fallback)
@@ -71,7 +71,7 @@ def test_single_question():
     print(f"File Size: {file_size_mb:.2f} MB")
     print(f"Duration: {duration:.2f} seconds")
 
-    assert 8.5 <= duration <= 12.0, f"Video duration {duration}s is outside optimal viral range (8.5s - 12s)"
+    assert 8.0 <= duration <= 45.0, f"Video duration {duration}s is outside valid range (8.0s - 45s)"
     print("\n[SUCCESS] End-to-end single question test passed flawlessly!")
     print("=" * 60)
     return out_mp4, seo_data
