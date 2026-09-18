@@ -1,5 +1,5 @@
 {
-  "next_index": 30,
+  "next_index": 31,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 13,
-  "current_slot": 3,
+  "current_slot": 4,
   "last_published_date": "2026-09-18",
-  "published_today_count": 3,
-  "total_published": 27,
+  "published_today_count": 4,
+  "total_published": 28,
   "published_ids": [
     "q0000",
     "q0001",
@@ -44,16 +44,10 @@
     "q0024",
     "q0026",
     "q0028",
-    "q0029"
+    "q0029",
+    "q0030"
   ],
   "published_history": [
-    {
-      "id": "q0007",
-      "yt_id": "rSPj32M6nbM",
-      "title": "Test Your Memory! ⚡ Medieval Indian History Quiz • Day 04 #Shorts",
-      "day": 4,
-      "slot": 2
-    },
     {
       "id": "q0008",
       "yt_id": "cVOVVEmxehU",
@@ -186,6 +180,13 @@
       "title": "🚨 Which Congress Session is WRONG? UPSC Trivia Quiz! #Shorts",
       "day": 13,
       "slot": 3
+    },
+    {
+      "id": "q0030",
+      "yt_id": "vHUExUsfx7o",
+      "title": "🚨 Guess the PM in 5s! 🇰🇷 #Shorts",
+      "day": 13,
+      "slot": 4
     }
   ]
 }
