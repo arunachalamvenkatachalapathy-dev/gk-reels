@@ -1,5 +1,5 @@
 {
-  "next_index": 27,
+  "next_index": 29,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 1,
+  "palette_cursor": 2,
   "audio_cursor": 0,
   "current_day": 13,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-18",
-  "published_today_count": 1,
-  "total_published": 25,
+  "published_today_count": 2,
+  "total_published": 26,
   "published_ids": [
     "q0000",
     "q0001",
@@ -42,14 +42,10 @@
     "q0021",
     "q0022",
     "q0024",
-    "q0026"
+    "q0026",
+    "q0028"
   ],
   "published_history": [
-    {
-      "id": "q0005",
-      "yt_id": "XjotZ9tXI2c",
-      "title": "Day 02 | 100 Days of GK Snippets 🎯 Daily Quiz #Shorts"
-    },
     {
       "id": "q0006",
       "yt_id": "NIFqZNCcCA0",
@@ -180,6 +176,13 @@
       "title": "🔥 Which Plan Started India's Green Revolution? #Shorts",
       "day": 13,
       "slot": 1
+    },
+    {
+      "id": "q0028",
+      "yt_id": "58BVCSusIFE",
+      "title": "🇮🇳 vs 🇬🇧 Parliament Secret? 90% Fail This GK Quiz! #Shorts",
+      "day": 13,
+      "slot": 2
     }
   ]
 }
