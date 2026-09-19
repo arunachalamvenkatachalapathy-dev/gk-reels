@@ -1,5 +1,5 @@
 {
-  "next_index": 31,
+  "next_index": 32,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 4,
+  "palette_cursor": 5,
   "audio_cursor": 0,
-  "current_day": 13,
-  "current_slot": 4,
-  "last_published_date": "2026-09-18",
-  "published_today_count": 4,
-  "total_published": 28,
+  "current_day": 14,
+  "current_slot": 1,
+  "last_published_date": "2026-09-19",
+  "published_today_count": 1,
+  "total_published": 29,
   "published_ids": [
     "q0000",
     "q0001",
@@ -45,16 +45,10 @@
     "q0026",
     "q0028",
     "q0029",
-    "q0030"
+    "q0030",
+    "q0031"
   ],
   "published_history": [
-    {
-      "id": "q0008",
-      "yt_id": "cVOVVEmxehU",
-      "title": "90% Fail This General Knowledge Question! 🎯 • Day 05 #Shorts",
-      "day": 5,
-      "slot": 1
-    },
     {
       "id": "q0009",
       "yt_id": "dkaX8VpFJZI",
@@ -187,6 +181,13 @@
       "title": "🚨 Guess the PM in 5s! 🇰🇷 #Shorts",
       "day": 13,
       "slot": 4
+    },
+    {
+      "id": "q0031",
+      "yt_id": "WplPy9g8qOc",
+      "title": "🔥 What’s REALLY in your gas cylinder? #Shorts | GK Quiz",
+      "day": 14,
+      "slot": 1
     }
   ]
 }
