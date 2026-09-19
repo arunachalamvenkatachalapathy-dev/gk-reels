@@ -38,6 +38,10 @@ COUNTDOWN_TICK = _resolve_audio_file(
     os.path.join(AUDIO_DIR, "countdown_tick.mp3"),
     os.path.join(ASSETS, "countdown_tick.mp3")
 )
+OPENING_SFX = _resolve_audio_file(
+    os.path.join(AUDIO_DIR, "opening_impact.mp3"),
+    r"D:\downloads\1 downloaded\sfx\universfield-horror-impact-hit-567238.mp3"
+)
 
 LETTERS = ["A", "B", "C", "D"]
 
@@ -141,7 +145,7 @@ def build_html(question, options, correct_index, accent, show_answer=False, q_id
 
 
 def screenshot_html(html_str, out_png, page):
-    page.set_content(html_str, wait_until="load")
+    page.set_content(html_str, wait_until="domcontentloaded")
     page.screenshot(path=out_png)
 
 
@@ -331,7 +335,14 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
         mix_labels.append("[bg]")
         input_idx += 1
 
-    # 2. Question Voice (starts at 0.4s, plays clearly without any background SFX)
+    # 2. Opening SFX (User's impact hit at t=0 along with BGM)
+    if OPENING_SFX and os.path.exists(OPENING_SFX):
+        audio_inputs.extend(["-i", OPENING_SFX])
+        filter_parts.append(f"[{input_idx}:a]adelay=0|0,volume=0.75[hit]")
+        mix_labels.append("[hit]")
+        input_idx += 1
+
+    # 3. Question Voice (starts at 0.4s, plays clearly)
     if has_voice and q_voice_mp3 and os.path.exists(q_voice_mp3):
         audio_inputs.extend(["-i", q_voice_mp3])
         filter_parts.append(f"[{input_idx}:a]adelay={q_start_ms}|{q_start_ms},volume=1.8[vq]")
