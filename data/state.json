@@ -1,5 +1,5 @@
 {
-  "next_index": 32,
+  "next_index": 33,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 5,
+  "palette_cursor": 0,
   "audio_cursor": 0,
   "current_day": 14,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-19",
-  "published_today_count": 1,
-  "total_published": 29,
+  "published_today_count": 2,
+  "total_published": 30,
   "published_ids": [
     "q0000",
     "q0001",
@@ -46,16 +46,10 @@
     "q0028",
     "q0029",
     "q0030",
-    "q0031"
+    "q0031",
+    "q0032"
   ],
   "published_history": [
-    {
-      "id": "q0009",
-      "yt_id": "dkaX8VpFJZI",
-      "title": "90% Fail This Medieval Indian History Question! 🎯 • Day 05 #Shorts",
-      "day": 5,
-      "slot": 2
-    },
     {
       "id": "q0010",
       "yt_id": "hz2JGtrmYVA",
@@ -188,6 +182,13 @@
       "title": "🔥 What’s REALLY in your gas cylinder? #Shorts | GK Quiz",
       "day": 14,
       "slot": 1
+    },
+    {
+      "id": "q0032",
+      "yt_id": "lj4zPRCIuUQ",
+      "title": "Hydrogen Bomb Secret Revealed! 💥 #ScienceQuiz #Shorts",
+      "day": 14,
+      "slot": 2
     }
   ]
 }
