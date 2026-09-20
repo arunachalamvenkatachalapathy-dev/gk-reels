@@ -1,5 +1,5 @@
 {
-  "next_index": 34,
+  "next_index": 35,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 1,
+  "palette_cursor": 2,
   "audio_cursor": 0,
   "current_day": 15,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-20",
-  "published_today_count": 1,
-  "total_published": 31,
+  "published_today_count": 2,
+  "total_published": 32,
   "published_ids": [
     "q0000",
     "q0001",
@@ -48,16 +48,10 @@
     "q0030",
     "q0031",
     "q0032",
-    "q0033"
+    "q0033",
+    "q0034"
   ],
   "published_history": [
-    {
-      "id": "q0011",
-      "yt_id": "e4k9l9_ZMy4",
-      "title": "The Mughal Mansabdari System? Only 1% Know This! 🤯 #Shorts",
-      "day": 6,
-      "slot": 2
-    },
     {
       "id": "q0012",
       "yt_id": "NSvrZVIdWk0",
@@ -190,6 +184,13 @@
       "title": "🚀 India’s Mars Mission Purpose? 90% FAIL! #Shorts",
       "day": 15,
       "slot": 1
+    },
+    {
+      "id": "q0034",
+      "yt_id": "PoMxI7Crv0Q",
+      "title": "🚨 Which City-River Pair is WRONG? 🌍 #Shorts",
+      "day": 15,
+      "slot": 2
     }
   ]
 }
