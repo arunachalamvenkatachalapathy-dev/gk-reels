@@ -1,5 +1,5 @@
 {
-  "next_index": 33,
+  "next_index": 34,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 0,
+  "palette_cursor": 1,
   "audio_cursor": 0,
-  "current_day": 14,
-  "current_slot": 2,
-  "last_published_date": "2026-09-19",
-  "published_today_count": 2,
-  "total_published": 30,
+  "current_day": 15,
+  "current_slot": 1,
+  "last_published_date": "2026-09-20",
+  "published_today_count": 1,
+  "total_published": 31,
   "published_ids": [
     "q0000",
     "q0001",
@@ -47,16 +47,10 @@
     "q0029",
     "q0030",
     "q0031",
-    "q0032"
+    "q0032",
+    "q0033"
   ],
   "published_history": [
-    {
-      "id": "q0010",
-      "yt_id": "hz2JGtrmYVA",
-      "title": "He was the first sovereign real ruler of the? 99% Fail! ❌ #Shorts",
-      "day": 6,
-      "slot": 1
-    },
     {
       "id": "q0011",
       "yt_id": "e4k9l9_ZMy4",
@@ -189,6 +183,13 @@
       "title": "Hydrogen Bomb Secret Revealed! 💥 #ScienceQuiz #Shorts",
       "day": 14,
       "slot": 2
+    },
+    {
+      "id": "q0033",
+      "yt_id": "zLIVwyrwUbg",
+      "title": "🚀 India’s Mars Mission Purpose? 90% FAIL! #Shorts",
+      "day": 15,
+      "slot": 1
     }
   ]
 }
