@@ -1,5 +1,5 @@
 {
-  "next_index": 35,
+  "next_index": 36,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 2,
+  "palette_cursor": 3,
   "audio_cursor": 0,
-  "current_day": 15,
-  "current_slot": 2,
-  "last_published_date": "2026-09-20",
-  "published_today_count": 2,
-  "total_published": 32,
+  "current_day": 16,
+  "current_slot": 1,
+  "last_published_date": "2026-09-21",
+  "published_today_count": 1,
+  "total_published": 33,
   "published_ids": [
     "q0000",
     "q0001",
@@ -49,16 +49,10 @@
     "q0031",
     "q0032",
     "q0033",
-    "q0034"
+    "q0034",
+    "q0035"
   ],
   "published_history": [
-    {
-      "id": "q0012",
-      "yt_id": "NSvrZVIdWk0",
-      "title": "Indian companies have | GK Questions and Answers #Shorts",
-      "day": 7,
-      "slot": 1
-    },
     {
       "id": "q0013",
       "yt_id": "jIPP8T313yY",
@@ -191,6 +185,13 @@
       "title": "🚨 Which City-River Pair is WRONG? 🌍 #Shorts",
       "day": 15,
       "slot": 2
+    },
+    {
+      "id": "q0035",
+      "yt_id": "r2g0dVF7CFc",
+      "title": "99% FAIL THIS SIMPLE QUIZ! 🧠 Can You Solve It? #Shorts",
+      "day": 16,
+      "slot": 1
     }
   ]
 }
