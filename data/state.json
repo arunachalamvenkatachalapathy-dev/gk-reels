@@ -1,5 +1,5 @@
 {
-  "next_index": 36,
+  "next_index": 37,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 16,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-09-21",
-  "published_today_count": 1,
-  "total_published": 33,
+  "published_today_count": 2,
+  "total_published": 34,
   "published_ids": [
     "q0000",
     "q0001",
@@ -50,16 +50,10 @@
     "q0032",
     "q0033",
     "q0034",
-    "q0035"
+    "q0035",
+    "q0036"
   ],
   "published_history": [
-    {
-      "id": "q0013",
-      "yt_id": "jIPP8T313yY",
-      "title": "Union ministries | GK Questions and Answers #Shorts",
-      "day": 7,
-      "slot": 2
-    },
     {
       "id": "q0014",
       "yt_id": "PpiDIVpheLo",
@@ -192,6 +186,13 @@
       "title": "99% FAIL THIS SIMPLE QUIZ! 🧠 Can You Solve It? #Shorts",
       "day": 16,
       "slot": 1
+    },
+    {
+      "id": "q0036",
+      "yt_id": "udOuVUw5b8Q",
+      "title": "🤔 Which Committee Identified Creamy Layer? | GK Quiz #Shorts",
+      "day": 16,
+      "slot": 2
     }
   ]
 }
