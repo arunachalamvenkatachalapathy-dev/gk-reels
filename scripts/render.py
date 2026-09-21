@@ -39,8 +39,8 @@ COUNTDOWN_TICK = _resolve_audio_file(
     os.path.join(ASSETS, "countdown_tick.mp3")
 )
 OPENING_SFX = _resolve_audio_file(
-    os.path.join(AUDIO_DIR, "opening_impact.mp3"),
-    r"D:\downloads\1 downloaded\sfx\universfield-horror-impact-hit-567238.mp3"
+    os.path.join(AUDIO_DIR, "opening_sfx.wav"),
+    r"D:\downloads\1 downloaded\a1\opening\mixkit-ui-zoom-in-long-sound-2621.wav"
 )
 
 LETTERS = ["A", "B", "C", "D"]
