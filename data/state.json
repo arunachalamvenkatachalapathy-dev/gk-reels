@@ -1,5 +1,5 @@
 {
-  "next_index": 37,
+  "next_index": 38,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 4,
+  "palette_cursor": 5,
   "audio_cursor": 0,
   "current_day": 16,
-  "current_slot": 2,
+  "current_slot": 3,
   "last_published_date": "2026-09-21",
-  "published_today_count": 2,
-  "total_published": 34,
+  "published_today_count": 3,
+  "total_published": 35,
   "published_ids": [
     "q0000",
     "q0001",
@@ -51,16 +51,10 @@
     "q0033",
     "q0034",
     "q0035",
-    "q0036"
+    "q0036",
+    "q0037"
   ],
   "published_history": [
-    {
-      "id": "q0014",
-      "yt_id": "PpiDIVpheLo",
-      "title": "Ammonium Chloride | Important Exam GK Quiz #Shorts",
-      "day": 8,
-      "slot": 1
-    },
     {
       "id": "q0015",
       "yt_id": "tq53wzWazK8",
@@ -193,6 +187,13 @@
       "title": "🤔 Which Committee Identified Creamy Layer? | GK Quiz #Shorts",
       "day": 16,
       "slot": 2
+    },
+    {
+      "id": "q0037",
+      "yt_id": "i90iwT04mBQ",
+      "title": "🌍 Guess Tirupur’s Global Export! | #Shorts Trivia Challenge 🧠",
+      "day": 16,
+      "slot": 3
     }
   ]
 }
