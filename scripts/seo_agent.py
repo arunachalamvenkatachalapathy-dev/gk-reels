@@ -444,17 +444,23 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
         else:
             title, entity = format_smart_title_en(q, day, slot, topic_name)
             viral_badge = "🔥 90% FAIL THIS"
-            pinned_comment = "Did you get it right before the timer? Drop your answer below! 👇"
+            pinned_comment = "Did you get it right? Like & Subscribe, then comment 'GUIDE' below for free revision notes! 📚👇"
             yt_hook = None
             yt_fact = None
             ig_hook = None
             fb_hook = None
             tags = None
 
+    # Always ensure pinned comment includes the high-converting Outro CTA
+    if not pinned_comment or "GUIDE" not in pinned_comment:
+        pinned_comment = "Did you get it right? Like & Subscribe, then comment 'GUIDE' below for free revision notes! 📚👇"
+
     # ── 2. HIGH-ENGAGEMENT DESCRIPTION WITH TIMESTAMPS & OPTIONS ──────────
     options_str = " | ".join([f"({chr(65+i)}) {opt}" for i, opt in enumerate(options)]) if options else "Drop your answer below!"
     all_hashtags = list(dict.fromkeys(UNIVERSAL_HASHTAGS[:6] + topic_hashtags + UNIVERSAL_HASHTAGS[6:]))
     hashtag_str = " ".join(all_hashtags[:12])
+
+    cta_lead = "🎁 FREE REVISION NOTES: Like, Subscribe, and comment \"GUIDE\" below to get today's free PDF! 👇\n\n"
 
     yt_header = ""
     if yt_hook:
@@ -463,6 +469,7 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
         yt_header += f"💡 Quick Exam Fact: {yt_fact}\n\n"
 
     description = (
+        f"{cta_lead}"
         f"{yt_header}"
         f"❓ {question_text}\n"
         f"👉 Drop your answer in the comments: {options_str}\n\n"

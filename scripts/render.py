@@ -95,13 +95,13 @@ def build_html(question, options, correct_index, accent, show_answer=False, q_id
         )
 
     answer_tag = (
-        '<div class="answer-tag">'
+        '<div class="celebration-pop-banner">'
         '<span class="pop-emoji">✨</span>'
         '<span>CORRECT ANSWER REVEALED</span>'
         '<span class="pop-emoji">✨</span>'
         '</div>'
-        '<div class="share-cta">💾 Save for Revision • Follow for Daily Quiz!</div>'
-    ) if show_answer else ""
+        '<div class="share-cta">❤️ Like &amp; Subscribe • 💬 Comment &quot;GUIDE&quot; for Free Notes 📚</div>'
+    ) if show_answer else '<div class="slide1-prompt">💬 Comment your guess before time runs out! 👇</div>'
     timer_badge = '<span style="color: #F87171;">🔥 Time\'s Up!</span>' if show_answer else '<span>⏳ 3s Challenge</span>'
 
     badge_label = viral_badge if viral_badge else f"🔥 90% FAIL THIS"
@@ -129,6 +129,8 @@ def build_html(question, options, correct_index, accent, show_answer=False, q_id
         logo_uri = ""
 
     q_size_class = "compact" if len(question) > 75 else ""
+    opt_max_len = max(len(opt) for opt in options) if options else 0
+    options_size_class = "compact-options" if (opt_max_len > 45 or len(question) > 90) else ""
 
     tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
     tpl = tpl.replace("{{ACCENT}}", accent)
@@ -137,6 +139,7 @@ def build_html(question, options, correct_index, accent, show_answer=False, q_id
     tpl = tpl.replace("{{QUESTION_TRACKER}}", f"FAST-PACED QUIZ • PART {slot}")
     tpl = tpl.replace("{{CATEGORY_BADGE}}", category_badge)
     tpl = tpl.replace("{{Q_SIZE_CLASS}}", q_size_class)
+    tpl = tpl.replace("{{OPTIONS_SIZE_CLASS}}", options_size_class)
     tpl = tpl.replace("{{QUESTION}}", _esc(question))
     tpl = tpl.replace("{{OPTIONS}}", "\n".join(options_html))
     tpl = tpl.replace("{{ANSWER_TAG}}", answer_tag)
@@ -229,9 +232,9 @@ async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice
     if not used_fish:
         print("  [Edge-TTS] Falling back to en-IN-PrabhatNeural...")
         voice = "en-IN-PrabhatNeural"
-        comm_q = edge_tts.Communicate(question_text, voice, rate="+4%")
+        comm_q = edge_tts.Communicate(question_text, voice, rate="+18%")
         await comm_q.save(q_voice_path)
-        comm_ans = edge_tts.Communicate(answer_text, voice, rate="+4%")
+        comm_ans = edge_tts.Communicate(answer_text, voice, rate="+18%")
         await comm_ans.save(ans_voice_path)
         print("  [Edge-TTS] OK Voiceover generated.")
 
@@ -259,7 +262,7 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
     
     opt_words = correct_opt_text.strip().split()
     clean_opt_text = " ".join(opt_words[:8]) if len(opt_words) > 10 else correct_opt_text
-    ans_spoken_phrase = f"The correct answer is Option {correct_letter}: {clean_opt_text}."
+    ans_spoken_phrase = f"The answer is Option {correct_letter}: {clean_opt_text}."
 
     q_voice_mp3 = os.path.join(tmp_dir, "q_voice.mp3")
     ans_voice_mp3 = os.path.join(tmp_dir, "ans_voice.mp3")
@@ -272,14 +275,14 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
         print(f"Warning: Edge-TTS generation failed ({e}), falling back to music-only audio.")
         has_voice = False
 
-    # ── Natural, Unrushed Question & Answer Pacing ─────────────────────────
+    # ── High-Retention Snappy Question & Answer Pacing (11.5s - 13.5s target) ─
     q_start_time = 0.4
     q_start_ms = int(q_start_time * 1000)
 
-    countdown_dur = 3.5             # 3.5s thinking break with timer SFX
-    post_timer_pause = 0.4          # brief beat after timer reaches 0 before revealing answer
-    pre_answer_speech_pause = 0.6   # visual pause on Slide 2 before answer voice speaks
-    post_answer_reading_buffer = 2.0 # unrushed reading buffer after answer voice finishes
+    countdown_dur = 3.0             # 3.0s focused thinking break with timer SFX
+    post_timer_pause = 0.3          # brief beat after timer reaches 0 before revealing answer
+    pre_answer_speech_pause = 0.3   # quick pause on Slide 2 before answer voice speaks
+    post_answer_reading_buffer = 1.0 # clean outro buffer for loop engagement
 
     if has_voice:
         q_dur = get_audio_duration(q_voice_mp3)
@@ -290,9 +293,9 @@ def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, s
         slide1_time = round(timer_start + countdown_dur + post_timer_pause, 2)
         slide2_time = round(pre_answer_speech_pause + ans_dur + post_answer_reading_buffer, 2)
     else:
-        timer_start = 4.0
-        slide1_time = 8.0
-        slide2_time = 4.0
+        timer_start = 3.5
+        slide1_time = 7.0
+        slide2_time = 3.5
 
     total_time = round(slide1_time + slide2_time, 2)
     tick_ms = int(timer_start * 1000)

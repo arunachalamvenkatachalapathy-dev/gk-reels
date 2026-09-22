@@ -247,7 +247,7 @@
   }
 
   .question-text.compact {
-    font-size: 42px;
+    font-size: 40px;
     line-height: 1.30;
   }
 
@@ -255,7 +255,20 @@
     display: flex;
     flex-direction: column;
     gap: 22px;
-    margin-bottom: 30px;
+    margin-bottom: 26px;
+  }
+
+  .options.compact-options {
+    gap: 16px;
+  }
+
+  .options.compact-options .option {
+    padding: 20px 28px;
+  }
+
+  .options.compact-options .text,
+  .options.compact-options .option-text {
+    font-size: 32px;
   }
 
   @keyframes badgePop {
@@ -364,14 +377,31 @@
   }
 
   .answer-tag-slot {
-    min-height: 80px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 14px;
     margin-top: 10px;
     margin-bottom: auto;
+  }
+
+  .slide1-prompt {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(245, 166, 35, 0.12);
+    border: 2px solid rgba(245, 166, 35, 0.45);
+    border-radius: 9999px;
+    padding: 14px 38px;
+    font-size: 26px;
+    font-weight: 800;
+    color: #FBBF24;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 20px rgba(245, 166, 35, 0.2);
+    animation: badgePop 0.4s ease-out;
   }
 
   .celebration-pop-banner {
@@ -395,10 +425,20 @@
   }
 
   .share-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(245, 166, 35, 0.22) 0%, rgba(16, 185, 129, 0.22) 100%);
+    border: 2px solid rgba(245, 166, 35, 0.65);
+    border-radius: 9999px;
+    padding: 14px 38px;
     font-size: 26px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.75);
+    font-weight: 800;
+    color: #FFFFFF;
     letter-spacing: 0.5px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    animation: badgePop 0.4s ease-out;
   }
 
   /* High-end Minimal Footer */
@@ -492,7 +532,7 @@
       <div class="question-text {{Q_SIZE_CLASS}}">{{QUESTION}}</div>
     </div>
 
-    <div class="options">
+    <div class="options {{OPTIONS_SIZE_CLASS}}">
       {{OPTIONS}}
     </div>
 

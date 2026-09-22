@@ -1,4 +1,4 @@
-﻿import os
+import os
 import sys
 import json
 import requests
@@ -114,7 +114,7 @@ Output ONLY a JSON object with these exact keys:
   "title": "High-CTR mobile Shorts Title with emoji and #Shorts (< 65 chars, curiosity-driven)",
   "badge_text": "Ultra-short 3-4 word punchy badge for top of video (e.g. '🔥 90% FAIL THIS', '⚡ 5-SEC BRAIN TEST', '🎯 UPSC TRIVIA')",
   "tags": ["15-20 high-volume search tags like 'GK Quiz', 'General Knowledge', 'Trivia', 'Shorts', etc."],
-  "pinned_comment": "An irresistible bonus trivia challenge question with 'Drop your guess below 👇' to drive comments",
+  "pinned_comment": "An irresistible challenge comment ending with: Like & Subscribe, then comment 'GUIDE' below for free revision notes! 📚👇",
   "short_fact": "A punchy 1-sentence fascinating fact explaining the correct answer"
 }}"""
 
@@ -138,7 +138,7 @@ Output ONLY a JSON object with these exact keys:
             "title": f"{q_text[:45]} | GK Quiz Hindi #shorts",
             "badge_text": "🔥 99% लोग फेल!",
             "tags": ["gk in hindi", "samanya gyan", "gk quiz", "shorts", "daily gk"],
-            "pinned_comment": f"क्या आपको इसका जवाब पहले से पता था? अपना स्कोर नीचे कमेंट करें! 👇",
+            "pinned_comment": "क्या आपने सही उत्तर दिया? वीडियो लाइक और सब्सक्राइब करें, फिर फ्री नोट्स के लिए नीचे 'GUIDE' कमेंट करें! 📚👇",
             "short_fact": f"सही उत्तर '{correct_opt}' है।"
         }
     else:
@@ -147,6 +147,6 @@ Output ONLY a JSON object with these exact keys:
             "title": f"{q_text[:45]} 🎯 Daily GK Quiz #Shorts",
             "badge_text": "🔥 90% FAIL THIS",
             "tags": ["gk quiz", "general knowledge", "trivia", "shorts", "upsc gk"],
-            "pinned_comment": f"Did you get it right before the timer? Drop your answer below! 👇",
+            "pinned_comment": "Did you get it right? Like & Subscribe, then comment 'GUIDE' below for free revision notes! 📚👇",
             "short_fact": f"The correct answer is {correct_opt}."
         }
