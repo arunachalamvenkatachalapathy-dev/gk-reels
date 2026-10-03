@@ -204,14 +204,12 @@ def main():
             f"00:05 ⏳ 10s Timer Challenge\n"
             f"00:15 🎉 Correct Answer & Explanation\n\n"
             f"🏆 Target Exams: UPSC CSE | SSC CGL 2026 | RRB NTPC | NDA | CDS | State PSCs\n\n"
-            f"🎁 SUNDAY GIVEAWAY: Like, Subscribe & Comment your answer daily to win exclusive study materials!\n"
-            f"📄 Join Telegram for daily PDF notes & quiz alerts: @GK_Snippets\n\n"
             f"#Shorts #ShortsFeed #YouTubeShorts #GKQuiz #GeneralKnowledge #DailyGK #UPSC #SSCCGL"
         )
         tags = ["GK Snippets", "GK Quiz", "General Knowledge", "SSC CGL", "UPSC", "Shorts", "Daily GK"]
         ig_caption = caption
         fb_caption = caption
-        viral_badge = "🔥 90% FAIL THIS"
+        viral_badge = "DAILY GK QUIZ"
         pinned_comment = "Did you get it right before the timer? Drop your answer below! 👇"
 
     import re
