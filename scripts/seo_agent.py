@@ -415,7 +415,7 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
         entity = viral_pkg.get("entity", topic_name)
         yt_hook = viral_pkg.get("viral_hook")
         yt_fact = viral_pkg.get("short_fact")
-        viral_badge = viral_pkg.get("badge_text", "🔥 90% FAIL THIS")
+        viral_badge = viral_pkg.get("badge_text", "DAILY GK QUIZ")
         pinned_comment = viral_pkg.get("pinned_comment")
         ig_hook = None
         fb_hook = None
@@ -432,7 +432,7 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
             entity = ai_result.get("entity", topic_name)
             yt_hook = ai_result.get("yt_hook")
             yt_fact = ai_result.get("yt_fact")
-            viral_badge = ai_result.get("badge_text", "🔥 90% FAIL THIS")
+            viral_badge = ai_result.get("badge_text", "DAILY GK QUIZ")
             pinned_comment = ai_result.get("pinned_comment")
             ig_hook = ai_result.get("ig_hook")
             fb_hook = ai_result.get("fb_hook")
@@ -443,8 +443,8 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
                 tags = None
         else:
             title, entity = format_smart_title_en(q, day, slot, topic_name)
-            viral_badge = "🔥 90% FAIL THIS"
-            pinned_comment = "Did you get it right? Like & Subscribe, then comment 'GUIDE' below for free revision notes! 📚👇"
+            viral_badge = "DAILY GK QUIZ"
+            pinned_comment = "Comment your answer below."
             yt_hook = None
             yt_fact = None
             ig_hook = None
@@ -453,14 +453,14 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
 
     # Always ensure pinned comment includes the high-converting Outro CTA
     if not pinned_comment or "GUIDE" not in pinned_comment:
-        pinned_comment = "Did you get it right? Like & Subscribe, then comment 'GUIDE' below for free revision notes! 📚👇"
+        pinned_comment = "Comment your answer below."
 
     # ── 2. HIGH-ENGAGEMENT DESCRIPTION WITH TIMESTAMPS & OPTIONS ──────────
     options_str = " | ".join([f"({chr(65+i)}) {opt}" for i, opt in enumerate(options)]) if options else "Drop your answer below!"
     all_hashtags = list(dict.fromkeys(UNIVERSAL_HASHTAGS[:6] + topic_hashtags + UNIVERSAL_HASHTAGS[6:]))
     hashtag_str = " ".join(all_hashtags[:12])
 
-    cta_lead = "🎁 FREE REVISION NOTES: Like, Subscribe, and comment \"GUIDE\" below to get today's free PDF! 👇\n\n"
+    cta_lead = "Comment your answer below.\n\n"
 
     yt_header = ""
     if yt_hook:
@@ -488,8 +488,6 @@ def generate_seo(q, day, slot, videos_per_day=2, yt_client=None, published_histo
         f"• GK Questions 2026 for Competitive Exams\n"
         f"• General Knowledge Quiz with Answers\n"
         f"• Daily GK Practice by GK Snippets\n\n"
-        f"🎁 SUNDAY GIVEAWAY: Like, Subscribe & Comment your answer daily to win exclusive study materials!\n"
-        f"📄 Join our Telegram Channel for daily PDF notes & quiz alerts: @GK_Snippets\n\n"
         f"{hashtag_str}"
     )
 

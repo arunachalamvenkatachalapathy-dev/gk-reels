@@ -1,18 +1,4 @@
-"""
-Entry point run by the GitHub Actions workflow, 4x per day.
-
-Scheduled Runs (IST):
-  - 08:00 IST -> Morning Drill (Part 1/4) -> slot1_one_answer_left.mp3
-  - 13:00 IST -> Afternoon Drill (Part 2/4) -> slot2_the_final_second.mp3
-  - 18:00 IST -> Evening Drill (Part 3/4) -> slot3_final_second_alt.mp3
-  - 21:00 IST -> Night Revision (Part 4/4) -> slot4_heavy_hourglass.mp3
-
-Features:
-  1. Strict Non-Repetition: tracks published_ids, so no question is ever repeated.
-  2. Day & Slot Sequencing: Day (total // 4) + 1, Slot (total % 4) + 1.
-  3. 18-second video render with 3+ second buffer outro.
-  4. Automatic rotation across user's 4 distinct tension tracks.
-"""
+"""Render and publish two daily GK slots with persistent per-destination retry state."""
 import os
 import sys
 import json
@@ -63,12 +49,6 @@ def is_suitable_short_question(q):
 def pick_next_question(questions, state):
     published_ids = set(state.get("published_ids", []))
     
-    # If all questions were used, reset cycle and start fresh revision
-    if len(published_ids) >= len(questions):
-        print("All questions in the bank published! Resetting cycle for round 2 revision.")
-        published_ids = set()
-        state["published_ids"] = []
-        state["next_index"] = 0
 
     for i, q in enumerate(questions):
         if q["id"] not in published_ids:
@@ -79,7 +59,7 @@ def pick_next_question(questions, state):
             state["next_index"] = (i + 1) % len(questions)
             return q
 
-    return questions[0]
+    raise RuntimeError("No unpublished suitable questions remain; replenish the bank before publishing.")
 
 
 def next_accent(state):
@@ -136,8 +116,25 @@ def main():
         day = current_day
         slot = published_today + 1
 
+    if not force and datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).hour < 15 and published_today >= 1:
+        print("Morning slot already published; afternoon slot opens at 15:00 IST.")
+        return
+
+    if {"youtube", "instagram", "facebook"}.issubset(set(os.environ.get("PAUSED_DESTINATIONS", "").lower().split(","))):
+        print("PAUSED: No active publishing destinations; question state unchanged.")
+        return
+
     # Non-repetition question pick
-    q = pick_next_question(questions, state)
+    pending = state.get("pending_publication")
+    if pending:
+        if pending.get("date") != today_ist:
+            raise RuntimeError("Unfinished publication from an earlier date; reconcile destinations before continuing.")
+        q = next((item for item in questions if item["id"] == pending["question_id"]), None)
+        if q is None:
+            raise RuntimeError("Pending question is missing from the bank; manual reconciliation required.")
+        day, slot = pending["day"], pending["slot"]
+    else:
+        q = pick_next_question(questions, state)
     accent = next_accent(state)
     bg_music = get_slot_track(slot)
 
@@ -149,12 +146,16 @@ def main():
     except Exception:
         pass
 
-    today = datetime.date.today().isoformat()
+    today = today_ist
     out_mp4 = os.path.join(OUT_DIR, f"{today}_{q['id']}.mp4")
     tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
 
+    paused_destinations = set(os.environ.get("PAUSED_DESTINATIONS", "").lower().split(","))
     have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"))
+    have_youtube = have_youtube and "youtube" not in paused_destinations
     have_instagram = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY"))
+
+    have_instagram = have_instagram and "instagram" not in paused_destinations
 
     # ── SEO SUPER AGENT: Dynamic Optimization & History Retrieval ─────────
     seo_data = None
@@ -203,15 +204,22 @@ def main():
             f"00:05 ⏳ 10s Timer Challenge\n"
             f"00:15 🎉 Correct Answer & Explanation\n\n"
             f"🏆 Target Exams: UPSC CSE | SSC CGL 2026 | RRB NTPC | NDA | CDS | State PSCs\n\n"
-            f"🎁 SUNDAY GIVEAWAY: Like, Subscribe & Comment your answer daily to win exclusive study materials!\n"
-            f"📄 Join Telegram for daily PDF notes & quiz alerts: @GK_Snippets\n\n"
             f"#Shorts #ShortsFeed #YouTubeShorts #GKQuiz #GeneralKnowledge #DailyGK #UPSC #SSCCGL"
         )
         tags = ["GK Snippets", "GK Quiz", "General Knowledge", "SSC CGL", "UPSC", "Shorts", "Daily GK"]
         ig_caption = caption
         fb_caption = caption
-        viral_badge = "🔥 90% FAIL THIS"
+        viral_badge = "DAILY GK QUIZ"
         pinned_comment = "Did you get it right before the timer? Drop your answer below! 👇"
+
+    import re
+    def safe_copy(text):
+        text = re.sub(r"[^\n.!?]*\b(?:90|99)%[^\n.!?]*(?:[.!?]|$)", "", str(text), flags=re.I)
+        lines = [line for line in text.splitlines() if not re.search(r"giveaway|free.*(?:notes|pdf)|pdf.*notes|win.*(?:gift|material)|गिवअवे|फ्री.*(?:नोट्स|PDF)|18[- ]second|00:\d\d", line, re.I)]
+        return "\n".join(lines).replace("9 AM & 7 PM IST", "6 AM & 3 PM IST").replace("9 AM & 7 PM", "6 AM & 3 PM").replace("सुबह 9:00 और शाम 7:00 बजे", "सुबह 6:00 और दोपहर 3:00 बजे").strip() or ("Daily GK quiz" if DATA_PATH.endswith("questions_en.json") else "आज का GK सवाल")
+    title, caption, ig_caption, fb_caption = map(safe_copy, (title, caption, ig_caption, fb_caption))
+    viral_badge = "DAILY GK QUIZ" if DATA_PATH.endswith("questions_en.json") else "आज का GK सवाल"
+    pinned_comment = "Comment your answer below." if DATA_PATH.endswith("questions_en.json") else "अपना उत्तर कमेंट करें।"
 
     print(f"=== Publishing Day {day} (Part {slot}/{videos_per_day}) ===")
     print(f"Question ID: {q['id']}")
@@ -227,11 +235,16 @@ def main():
     if not have_instagram:
         print("WARNING: Instagram credentials not fully set -- skipping Instagram upload.")
 
-    yt_url = None
-    ig_url = None
-    fb_url = None
+    results = dict(pending.get("results", {})) if pending else {}
+    yt_url = results.get("youtube")
+    ig_url = results.get("instagram")
+    fb_url = results.get("facebook")
+    have_facebook = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "FB_PAGE_ID")) and "facebook" not in paused_destinations
+    expected = [name for name, enabled in (("youtube", have_youtube), ("instagram", have_instagram), ("facebook", have_facebook)) if enabled]
+    if not expected:
+        raise RuntimeError("No publishing destination has complete credentials; question remains unpublished.")
 
-    if have_youtube:
+    if have_youtube and not yt_url:
         try:
             from upload_youtube import upload_short
             yt_id = upload_short(out_mp4, title, caption, tags=tags, pinned_comment=pinned_comment)
@@ -251,7 +264,7 @@ def main():
             print(f"  YouTube upload FAILED for {q['id']}: {e}")
 
     public_url = None
-    if have_instagram:
+    if have_instagram and not ig_url:
         try:
             from upload_instagram import upload_to_github_release, publish_reel
             tag_name = f"assets-{today}"
@@ -262,7 +275,7 @@ def main():
             print(f"  Instagram upload FAILED for {q['id']}: {e}")
 
     # Publish to Facebook Page Reels (tab-specific Reels upload via Meta Graph API)
-    if os.environ.get("IG_ACCESS_TOKEN"):
+    if have_facebook and not fb_url:
         try:
             from upload_facebook import publish_facebook_reel
             fb_id = publish_facebook_reel(out_mp4, title, fb_caption, public_url=public_url)
@@ -270,6 +283,14 @@ def main():
                 fb_url = f"https://www.facebook.com/reel/{fb_id}"
         except Exception as fe:
             print(f"  Facebook Reels upload FAILED for {q['id']}: {fe}")
+
+    results.update({name: url for name, url in (("youtube", yt_url), ("instagram", ig_url), ("facebook", fb_url)) if url})
+    missing = [name for name in expected if not results.get(name)]
+    if missing:
+        state["pending_publication"] = {"question_id": q["id"], "date": today_ist, "day": day, "slot": slot, "results": results}
+        save_json(STATE_PATH, state)
+        raise RuntimeError("Publication incomplete on: " + ", ".join(missing) + ". Successful destinations retained; retry will skip them.")
+    state.pop("pending_publication", None)
 
     # Send instant update to Telegram channel
     try:

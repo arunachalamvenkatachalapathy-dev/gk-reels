@@ -100,11 +100,11 @@ def build_html(question, options, correct_index, accent, show_answer=False, q_id
         '<span>CORRECT ANSWER REVEALED</span>'
         '<span class="pop-emoji">✨</span>'
         '</div>'
-        '<div class="share-cta">❤️ Like &amp; Subscribe • 💬 Comment &quot;GUIDE&quot; for Free Notes 📚</div>'
+        '<div class="share-cta">❤️ Like &amp; Subscribe • 💬 Comment your answer</div>'
     ) if show_answer else '<div class="slide1-prompt">💬 Comment your guess before time runs out! 👇</div>'
     timer_badge = '<span style="color: #F87171;">🔥 Time\'s Up!</span>' if show_answer else '<span>⏳ 3s Challenge</span>'
 
-    badge_label = viral_badge if viral_badge else f"🔥 90% FAIL THIS"
+    badge_label = viral_badge if viral_badge else f"DAILY GK QUIZ"
     series_banner = (
         f'<div class="series-capsule">'
         f'<span class="series-sparkle">⚡</span>'
