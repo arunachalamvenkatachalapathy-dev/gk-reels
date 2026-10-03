@@ -120,6 +120,10 @@ def main():
         print("Morning slot already published; afternoon slot opens at 15:00 IST.")
         return
 
+    if {"youtube", "instagram", "facebook"}.issubset(set(os.environ.get("PAUSED_DESTINATIONS", "").lower().split(","))):
+        print("PAUSED: No active publishing destinations; question state unchanged.")
+        return
+
     # Non-repetition question pick
     pending = state.get("pending_publication")
     if pending:
@@ -146,8 +150,12 @@ def main():
     out_mp4 = os.path.join(OUT_DIR, f"{today}_{q['id']}.mp4")
     tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
 
+    paused_destinations = set(os.environ.get("PAUSED_DESTINATIONS", "").lower().split(","))
     have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"))
+    have_youtube = have_youtube and "youtube" not in paused_destinations
     have_instagram = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY"))
+
+    have_instagram = have_instagram and "instagram" not in paused_destinations
 
     # ── SEO SUPER AGENT: Dynamic Optimization & History Retrieval ─────────
     seo_data = None
@@ -206,6 +214,15 @@ def main():
         viral_badge = "🔥 90% FAIL THIS"
         pinned_comment = "Did you get it right before the timer? Drop your answer below! 👇"
 
+    import re
+    def safe_copy(text):
+        text = re.sub(r"[^\n.!?]*\b(?:90|99)%[^\n.!?]*(?:[.!?]|$)", "", str(text), flags=re.I)
+        lines = [line for line in text.splitlines() if not re.search(r"giveaway|free.*(?:notes|pdf)|pdf.*notes|win.*(?:gift|material)|गिवअवे|फ्री.*(?:नोट्स|PDF)|18[- ]second|00:\d\d", line, re.I)]
+        return "\n".join(lines).replace("9 AM & 7 PM IST", "6 AM & 3 PM IST").replace("9 AM & 7 PM", "6 AM & 3 PM").replace("सुबह 9:00 और शाम 7:00 बजे", "सुबह 6:00 और दोपहर 3:00 बजे").strip() or ("Daily GK quiz" if DATA_PATH.endswith("questions_en.json") else "आज का GK सवाल")
+    title, caption, ig_caption, fb_caption = map(safe_copy, (title, caption, ig_caption, fb_caption))
+    viral_badge = "DAILY GK QUIZ" if DATA_PATH.endswith("questions_en.json") else "आज का GK सवाल"
+    pinned_comment = "Comment your answer below." if DATA_PATH.endswith("questions_en.json") else "अपना उत्तर कमेंट करें।"
+
     print(f"=== Publishing Day {day} (Part {slot}/{videos_per_day}) ===")
     print(f"Question ID: {q['id']}")
     print(f"Topic: {topic_name}")
@@ -224,7 +241,7 @@ def main():
     yt_url = results.get("youtube")
     ig_url = results.get("instagram")
     fb_url = results.get("facebook")
-    have_facebook = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "FB_PAGE_ID"))
+    have_facebook = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "FB_PAGE_ID")) and "facebook" not in paused_destinations
     expected = [name for name, enabled in (("youtube", have_youtube), ("instagram", have_instagram), ("facebook", have_facebook)) if enabled]
     if not expected:
         raise RuntimeError("No publishing destination has complete credentials; question remains unpublished.")
