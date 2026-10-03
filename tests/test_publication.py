@@ -25,6 +25,12 @@ class PublicationTests(unittest.TestCase):
             finally:
                 self.saved = save.call_args_list
 
+    def test_all_paused_preserves_state(self):
+        self.run_main({}, {"PAUSED_DESTINATIONS": "youtube,instagram,facebook"})
+        self.assertEqual(self.state["published_ids"], [])
+        self.assertEqual(self.state["total_published"], 0)
+        self.assertEqual(self.saved, [])
+
     def test_exhaustion_does_not_repeat(self):
         with self.assertRaises(RuntimeError):
             p.pick_next_question([self.q], {"published_ids": ["q1"]})
