@@ -1,5 +1,5 @@
 {
-  "next_index": 73,
+  "next_index": 75,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,7 +10,7 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 33,
   "current_slot": 2,
@@ -135,100 +135,110 @@
     {
       "id": "q0022",
       "yt_id": "3NdZ-VC6jGI",
-      "title": "\ud83d\udea8 Which Industry Status is CORRECT? | GK Quiz Challenge #Shorts",
+      "title": "🚨 Which Industry Status is CORRECT? | GK Quiz Challenge #Shorts",
       "day": 12,
       "slot": 1
     },
     {
       "id": "q0024",
       "yt_id": "T13ivZWdwUw",
-      "title": "\ud83d\udea8 90% FAIL THIS GK QUIZ! \ud83e\udd2f (National Saffron Mission) #Shorts",
+      "title": "🚨 90% FAIL THIS GK QUIZ! 🤯 (National Saffron Mission) #Shorts",
       "day": 12,
       "slot": 2
     },
     {
       "id": "q0026",
       "yt_id": "DGRL9uA8O3s",
-      "title": "\ud83d\udd25 Which Plan Started India's Green Revolution? #Shorts",
+      "title": "🔥 Which Plan Started India's Green Revolution? #Shorts",
       "day": 13,
       "slot": 1
     },
     {
       "id": "q0028",
       "yt_id": "58BVCSusIFE",
-      "title": "\ud83c\uddee\ud83c\uddf3 vs \ud83c\uddec\ud83c\udde7 Parliament Secret? 90% Fail This GK Quiz! #Shorts",
+      "title": "🇮🇳 vs 🇬🇧 Parliament Secret? 90% Fail This GK Quiz! #Shorts",
       "day": 13,
       "slot": 2
     },
     {
       "id": "q0029",
       "yt_id": "lPqGtg-Muu0",
-      "title": "\ud83d\udea8 Which Congress Session is WRONG? UPSC Trivia Quiz! #Shorts",
+      "title": "🚨 Which Congress Session is WRONG? UPSC Trivia Quiz! #Shorts",
       "day": 13,
       "slot": 3
     },
     {
       "id": "q0030",
       "yt_id": "vHUExUsfx7o",
-      "title": "\ud83d\udea8 Guess the PM in 5s! \ud83c\uddf0\ud83c\uddf7 #Shorts",
+      "title": "🚨 Guess the PM in 5s! 🇰🇷 #Shorts",
       "day": 13,
       "slot": 4
     },
     {
       "id": "q0031",
       "yt_id": "WplPy9g8qOc",
-      "title": "\ud83d\udd25 What\u2019s REALLY in your gas cylinder? #Shorts | GK Quiz",
+      "title": "🔥 What’s REALLY in your gas cylinder? #Shorts | GK Quiz",
       "day": 14,
       "slot": 1
     },
     {
       "id": "q0032",
       "yt_id": "lj4zPRCIuUQ",
-      "title": "Hydrogen Bomb Secret Revealed! \ud83d\udca5 #ScienceQuiz #Shorts",
+      "title": "Hydrogen Bomb Secret Revealed! 💥 #ScienceQuiz #Shorts",
       "day": 14,
       "slot": 2
     },
     {
       "id": "q0033",
       "yt_id": "zLIVwyrwUbg",
-      "title": "\ud83d\ude80 India\u2019s Mars Mission Purpose? 90% FAIL! #Shorts",
+      "title": "🚀 India’s Mars Mission Purpose? 90% FAIL! #Shorts",
       "day": 15,
       "slot": 1
     },
     {
       "id": "q0034",
       "yt_id": "PoMxI7Crv0Q",
-      "title": "\ud83d\udea8 Which City-River Pair is WRONG? \ud83c\udf0d #Shorts",
+      "title": "🚨 Which City-River Pair is WRONG? 🌍 #Shorts",
       "day": 15,
       "slot": 2
     },
     {
       "id": "q0035",
       "yt_id": "r2g0dVF7CFc",
-      "title": "99% FAIL THIS SIMPLE QUIZ! \ud83e\udde0 Can You Solve It? #Shorts",
+      "title": "99% FAIL THIS SIMPLE QUIZ! 🧠 Can You Solve It? #Shorts",
       "day": 16,
       "slot": 1
     },
     {
       "id": "q0036",
       "yt_id": "udOuVUw5b8Q",
-      "title": "\ud83e\udd14 Which Committee Identified Creamy Layer? | GK Quiz #Shorts",
+      "title": "🤔 Which Committee Identified Creamy Layer? | GK Quiz #Shorts",
       "day": 16,
       "slot": 2
     },
     {
       "id": "q0037",
       "yt_id": "i90iwT04mBQ",
-      "title": "\ud83c\udf0d Guess Tirupur\u2019s Global Export! | #Shorts Trivia Challenge \ud83e\udde0",
+      "title": "🌍 Guess Tirupur’s Global Export! | #Shorts Trivia Challenge 🧠",
       "day": 16,
       "slot": 3
     },
     {
       "id": "q0038",
       "yt_id": "rvgV1QhAFbg",
-      "title": "\ud83c\uddec\ud83c\udde7\ud83e\udd2f Brits in India BANNED from this right? #Shorts #GKQuiz",
+      "title": "🇬🇧🤯 Brits in India BANNED from this right? #Shorts #GKQuiz",
       "day": 17,
       "slot": 1
     }
-  ]
+  ],
+  "pending_publication": {
+    "question_id": "q0074",
+    "date": "2026-10-08",
+    "day": 33,
+    "slot": 3,
+    "results": {
+      "instagram": "https://www.instagram.com/reel/DeO3vftAQWz/",
+      "facebook": "https://www.facebook.com/reel/2164318854433925"
+    }
+  }
 }
