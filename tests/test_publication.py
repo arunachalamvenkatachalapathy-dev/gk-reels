@@ -8,7 +8,7 @@ from unittest.mock import patch
 # Isolate orchestration tests from rendering, API clients and live credentials.
 sys.modules["seo_agent"] = types.SimpleNamespace()
 sys.modules["upload_telegram"] = types.SimpleNamespace(send_telegram_update=lambda *a, **k: False)
-sys.modules["render"] = types.SimpleNamespace(render_video=lambda *a, **k: None)
+sys.modules["render"] = types.SimpleNamespace(render_video=lambda *a, **k: None, REVIEWED={"q1": {}})
 spec = importlib.util.spec_from_file_location("pipeline", Path(__file__).resolve().parents[1] / "scripts" / "run_pipeline.py")
 p = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(p)
@@ -34,6 +34,14 @@ class PublicationTests(unittest.TestCase):
     def test_exhaustion_does_not_repeat(self):
         with self.assertRaises(RuntimeError):
             p.pick_next_question([self.q], {"published_ids": ["q1"]})
+
+    def test_unreviewed_never_consumed_or_picked(self):
+        other = {"id": "q2", "question": "x", "options": ["A", "B"]}
+        state = {"published_ids": []}
+        self.assertEqual(p.pick_next_question([other, self.q], state)["id"], "q1")
+        self.assertEqual(state["published_ids"], [])
+        with self.assertRaisesRegex(RuntimeError, "BUFFER EMPTY"):
+            p.pick_next_question([other], {"published_ids": []})
 
     def test_empty_bank_fails_clearly(self):
         with self.assertRaises(RuntimeError):

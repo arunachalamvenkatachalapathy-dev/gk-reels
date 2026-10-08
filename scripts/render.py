@@ -105,7 +105,8 @@ async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice
 # Reviewed facts are editorial input, never an AI-generated explanation at render time.
 # Unknown queue entries fail closed until an editor supplies a checked explanation.
 LANG = 'en'
-REVIEWED = {'q0075': {'speech_answer': 'Option A, Special Drawing Rights.', 'display_question': 'What does "paper gold" mean?', 'options': ['IMF Special Drawing Rights', 'World Bank loans', 'Gold-backed currencies', 'Deficit financing'], 'correct_index': 0, 'explanation': 'SDRs are reserve assets, not currency or physical gold.', 'source_url': 'https://www.imf.org/en/topics/special-drawing-right', 'source_label': 'Source: IMF | Special Drawing Rights', 'verified_topic': 'ECONOMY', 'memory_key': 'Reserve asset, not gold'}, 'q0077': {'display_question': 'Who was India’s first badminton world number one?', 'speech_question': 'Who was India’s first badminton world number one?', 'options': ['Pullela Gopichand', 'Saina Nehwal', 'Prakash Padukone', 'U. Vimal Kumar'], 'correct_index': 2, 'speech_answer': 'Prakash Padukone.', 'explanation': 'His All England win took him to world number one.', 'memory_key': 'Padukone: All England winner', 'source_url': 'https://www.britannica.com/biography/Prakash-Padukone', 'source_label': 'Source: Britannica | Prakash Padukone', 'verified_topic': 'SPORT'}}
+import json as _json, os as _os
+REVIEWED = _json.load(open(_os.path.join(_os.path.dirname(__file__), '..', 'data', 'reviewed_en.json'), encoding='utf-8'))
 
 STYLE = '''
 *{box-sizing:border-box}body{margin:0;width:1080px;height:1920px;background:#081427;color:#f5f6fa;font-family:"Noto Sans", "Noto Sans Devanagari",Arial,sans-serif}
