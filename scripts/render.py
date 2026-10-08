@@ -161,7 +161,7 @@ def build_card(q, phase='question', number=None):
         path = os.path.join(ASSETS, 'fonts', filename)
         if not os.path.isfile(path): raise ValueError('Bundled font missing: ' + filename)
         encoded = base64.b64encode(open(path, 'rb').read()).decode()
-        font_css += f'@font-face{{font-family:"{face}";src:url(data:font/ttf;base64,{encoded}) format("truetype");font-weight:100 900;}}'
+        font_css += f'@font-face{{font-family:"{face}";src:url(data:font/ttf;base64,{encoded}) format("truetype");font-weight:400;}}'
     return f'<!doctype html><meta charset="utf-8"><style>{font_css}{STYLE}</style><div class="rule"></div><main><header>{logo_html}<b>GK SNIPPETS{" HINDI" if hi else ""}</b></header><div class="topic">{esc(q["topic"])}</div><div class="question">{esc(q["question"])}</div><div class="options">{"".join(opts)}</div>{beat}{explanation}</main>'
 
 
