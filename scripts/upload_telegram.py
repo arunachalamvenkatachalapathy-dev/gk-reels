@@ -29,11 +29,10 @@ def send_telegram_update(day, slot, q, yt_url=None, ig_url=None, fb_url=None):
     links_str = "\n".join(links) if links else "Links updating shortly!"
 
     msg = (
-        f"🎯 <b>100 Days of GK Snippets • Day {day:02d} (Part {slot}/4)</b>\n\n"
+        f"🎯 <b>100 Days of GK Snippets • Day {day:02d} (Part {slot}/2)</b>\n\n"
         f"❓ <b>{q_text}</b>\n\n"
-        f"👇 <b>Watch the 18-second video to find the answer:</b>\n"
+        f"👇 <b>Watch the quiz video to find the answer:</b>\n"
         f"{links_str}\n\n"
-        f"🎁 <i>Comment your answer &amp; follow to win the Sunday study gift!</i>\n"
         f"💡 <b>GK Snippets</b> • Big Knowledge. Short Videos."
     )
 

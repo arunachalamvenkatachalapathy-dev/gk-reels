@@ -93,9 +93,9 @@ Correct Answer: "{correct_opt}"
 Generate a viral metadata package that hooks the viewer in the first 1.5 seconds, drives comments, and forces video loops.
 Output ONLY a JSON object with these exact keys:
 {{
-  "viral_hook": "A short, addictive 1-sentence hook in Hindi to show at the top of the video or voiceover (e.g., '99% लोग गलत जवाब देते हैं! क्या आप जानते हैं?')",
+  "viral_hook": "A short, addictive 1-sentence hook in Hindi to show at the top of the video or voiceover (e.g., 'क्या आप सही उत्तर जानते हैं?')",
   "title": "High-CTR YouTube Shorts Title in Hindi with emoji and #shorts (< 65 chars, provocative/curiosity)",
-  "badge_text": "Ultra-short 3-4 word punchy badge for top of video (e.g. '🔥 99% लोग फेल!', '⚡ 5-सेकंड टेस्ट', '🎯 KBC स्पेशल')",
+  "badge_text": "Ultra-short 3-4 word punchy badge for top of video (e.g. 'आज का GK सवाल', '⚡ 5-सेकंड टेस्ट', '🎯 KBC स्पेशल')",
   "tags": ["15-20 viral Hindi GK exam tags like 'gk in hindi', 'samanya gyan', 'gk quiz', etc."],
   "pinned_comment": "An irresistible bonus trivia question in Hindi with 'Comment your answer below 👇' to trigger 100+ comments",
   "short_fact": "A punchy 1-sentence interesting explanation of why the answer is correct"
@@ -110,11 +110,11 @@ Correct Answer: "{correct_opt}"
 Generate a viral metadata package that stops users from swiping away in the first 1.5 seconds, maximizes Viewed vs Swiped Away (VVSA > 75%), and triggers comment debate.
 Output ONLY a JSON object with these exact keys:
 {{
-  "viral_hook": "An addictive 1-sentence curiosity hook (e.g., '99% of graduates get this basic question WRONG! Can you solve it in 5s?')",
+  "viral_hook": "An addictive 1-sentence curiosity hook (e.g., 'Can you solve this GK question?')",
   "title": "High-CTR mobile Shorts Title with emoji and #Shorts (< 65 chars, curiosity-driven)",
-  "badge_text": "Ultra-short 3-4 word punchy badge for top of video (e.g. '🔥 90% FAIL THIS', '⚡ 5-SEC BRAIN TEST', '🎯 UPSC TRIVIA')",
+  "badge_text": "Ultra-short 3-4 word punchy badge for top of video (e.g. 'DAILY GK QUIZ', '⚡ 5-SEC BRAIN TEST', '🎯 UPSC TRIVIA')",
   "tags": ["15-20 high-volume search tags like 'GK Quiz', 'General Knowledge', 'Trivia', 'Shorts', etc."],
-  "pinned_comment": "An irresistible challenge comment ending with: Like & Subscribe, then comment 'GUIDE' below for free revision notes! 📚👇",
+            "pinned_comment": "Comment your answer below.",
   "short_fact": "A punchy 1-sentence fascinating fact explaining the correct answer"
 }}"""
 
@@ -134,19 +134,19 @@ Output ONLY a JSON object with these exact keys:
     print(f"[AI Engine] Using rule-based viral fallback for {q.get('id')}")
     if language.lower() == "hindi":
         return {
-            "viral_hook": "99% लोग इस सवाल का गलत जवाब देते हैं! क्या आप जानते हैं?",
+            "viral_hook": "क्या आप सही उत्तर जानते हैं?",
             "title": f"{q_text[:45]} | GK Quiz Hindi #shorts",
-            "badge_text": "🔥 99% लोग फेल!",
+            "badge_text": "आज का GK सवाल",
             "tags": ["gk in hindi", "samanya gyan", "gk quiz", "shorts", "daily gk"],
-            "pinned_comment": "क्या आपने सही उत्तर दिया? वीडियो लाइक और सब्सक्राइब करें, फिर फ्री नोट्स के लिए नीचे 'GUIDE' कमेंट करें! 📚👇",
+            "pinned_comment": "Comment your answer below.",
             "short_fact": f"सही उत्तर '{correct_opt}' है।"
         }
     else:
         return {
-            "viral_hook": "90% of people fail this quick quiz! Can you answer in 5 seconds?",
+            "viral_hook": "Can you answer this quick quiz?",
             "title": f"{q_text[:45]} 🎯 Daily GK Quiz #Shorts",
-            "badge_text": "🔥 90% FAIL THIS",
+            "badge_text": "DAILY GK QUIZ",
             "tags": ["gk quiz", "general knowledge", "trivia", "shorts", "upsc gk"],
-            "pinned_comment": "Did you get it right? Like & Subscribe, then comment 'GUIDE' below for free revision notes! 📚👇",
+            "pinned_comment": "Comment your answer below.",
             "short_fact": f"The correct answer is {correct_opt}."
         }

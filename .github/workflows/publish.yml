@@ -29,9 +29,14 @@ on:
 permissions:
   contents: write   # needed to commit data/state.json and create releases
 
+concurrency:
+  group: gk-publish
+  cancel-in-progress: false
+
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -50,8 +55,12 @@ jobs:
       - name: Install Playwright browser
         run: python -m playwright install --with-deps chromium
 
+      - name: Test publication safeguards
+        run: python -m unittest discover -s tests -v
+
       - name: Run pipeline (render + upload)
         env:
+          PAUSED_DESTINATIONS: youtube
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
@@ -77,6 +86,7 @@ jobs:
           retention-days: 7
 
       - name: Commit updated state
+        if: ${{ always() }}
         run: |
           git config user.name "gk-reels-bot"
           git config user.email "actions@github.com"
