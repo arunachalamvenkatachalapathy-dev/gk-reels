@@ -24,3 +24,13 @@ class StyleTests(unittest.TestCase):
   self.assertIn('option correct',build_card(q,'reveal'))
   self.assertIn(q['explanation'],build_card(q,'explain'))
 if __name__=='__main__': unittest.main()
+
+class ProductionStudioTests(unittest.TestCase):
+ def test_production_uses_approved_studio(self):
+  q=prepare_content({'id':'q0075' if LANG=='en' else 'q0062','question':'x','options':['a']*4,'correct_index':0})
+  p=timing_plan(2,2,3)
+  self.assertIn('studio-glow',renderer.studio_html(q,1,p))
+  self.assertIn('FOLLOW FOR THE TRAP' if LANG=='en' else 'रोज़ एक सवाल',renderer.studio_html(q,p['why_start']+.1,p))
+ def test_buffer_coverage(self):
+  for id in (['q0075','q0077'] if LANG=='en' else ['q0062','q0063']):
+   self.assertTrue(prepare_content({'id':id,'question':'x','options':['a']*4,'correct_index':0})['source_url'].startswith('https://'))
