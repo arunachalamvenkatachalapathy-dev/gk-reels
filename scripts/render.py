@@ -1,156 +1,12 @@
-"""
-Renders the 1080x1920 vertical video for GK Reels using Playwright & FFmpeg.
-Features:
-- Ultra-high retention pacing (exact 9.5 - 10.5 seconds)
-- Opening sensory sound hook to maximize Viewed vs. Swiped Away (VVSA)
-- Dynamic 60 FPS countdown bar with synchronized ticking audio
-- Celebration reveal chime & punchy voiceover rate (+22%)
-"""
-import os
-import re
-import sys
-import json
-import base64
-import asyncio
-import subprocess
-import urllib.request
-import urllib.error
+"""Approval-gated quiz renderer: navy/gold, real countdown, checked payoff."""
+import os, re, json, base64, asyncio, subprocess, urllib.request, urllib.error
 from playwright.sync_api import sync_playwright
 import edge_tts
-
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = os.path.join(BASE, "assets")
-AUDIO_DIR = os.path.join(ASSETS, "audio")
-TEMPLATE_PATH = os.path.join(BASE, "templates", "slide.html")
-
-def _resolve_audio_file(*candidates):
-    for c in candidates:
-        if c and os.path.exists(c):
-            return c
-    return None
-
-FALLBACK_MUSIC = _resolve_audio_file(
-    os.path.join(AUDIO_DIR, "slot1_one_answer_left.mp3"),
-    os.path.join(AUDIO_DIR, "track1_simplex.mp3"),
-    os.path.join(ASSETS, "tension_bed.mp3")
-)
-COUNTDOWN_TICK = _resolve_audio_file(
-    os.path.join(AUDIO_DIR, "countdown_tick.mp3"),
-    os.path.join(ASSETS, "countdown_tick.mp3")
-)
-OPENING_SFX = _resolve_audio_file(
-    os.path.join(AUDIO_DIR, "opening_sfx.wav"),
-    r"D:\downloads\1 downloaded\a1\opening\mixkit-ui-zoom-in-long-sound-2621.wav"
-)
-
 LETTERS = ["A", "B", "C", "D"]
-
-TOPIC_BADGES = {
-    "Ancient Indian History": ("⚔️ ANCIENT HISTORY", "#F59E0B", "rgba(245, 158, 11, 0.15)", "rgba(245, 158, 11, 0.45)"),
-    "Medieval Indian History": ("🏰 MEDIEVAL HISTORY", "#EC4899", "rgba(236, 72, 153, 0.15)", "rgba(236, 72, 153, 0.45)"),
-    "Modern Indian History & Freedom Struggle": ("🇮🇳 FREEDOM STRUGGLE", "#EF4444", "rgba(239, 68, 68, 0.15)", "rgba(239, 68, 68, 0.45)"),
-    "Indian Polity & Constitution": ("🏛️ INDIAN POLITY", "#3B82F6", "rgba(59, 130, 246, 0.15)", "rgba(59, 130, 246, 0.45)"),
-    "Geography & Environment": ("🌍 GEOGRAPHY", "#10B981", "rgba(16, 185, 129, 0.15)", "rgba(16, 185, 129, 0.45)"),
-    "General Science & Everyday Tech": ("🧬 GENERAL SCIENCE", "#8B5CF6", "rgba(139, 92, 246, 0.15)", "rgba(139, 92, 246, 0.45)"),
-    "Economics & Banking": ("📈 ECONOMY", "#06B6D4", "rgba(6, 182, 212, 0.15)", "rgba(6, 182, 212, 0.45)"),
-    "Art, Culture & Literature": ("🎨 ART & CULTURE", "#F97316", "rgba(249, 115, 22, 0.15)", "rgba(249, 115, 22, 0.45)"),
-    "General Knowledge": ("🎯 GENERAL KNOWLEDGE", "#F97316", "rgba(249, 115, 22, 0.15)", "rgba(249, 115, 22, 0.45)")
-}
-
-
-def _esc(text):
-    return (text.replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace('"', "&quot;"))
-
-
-def get_audio_duration(file_path):
-    try:
-        res = subprocess.run([
-            "ffprobe", "-v", "error",
-            "-show_entries", "format=duration",
-            "-of", "default=noprint_wrappers=1:nokey=1",
-            file_path
-        ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
-        return float(res.stdout.strip())
-    except Exception:
-        return 3.0
-
-
-def build_html(question, options, correct_index, accent, show_answer=False, q_id="q0000", day=1, slot=1, topic_name=None, viral_badge=None):
-    options_html = []
-    for i, opt in enumerate(options):
-        letter = LETTERS[i]
-        is_correct = (i == correct_index)
-        if show_answer:
-            cls = "option correct" if is_correct else "option dimmed"
-        else:
-            cls = "option"
-        options_html.append(
-            f'<div class="{cls}">'
-            f'<div class="option-badge">{letter}</div>'
-            f'<div class="option-text">{_esc(opt)}</div>'
-            f'</div>'
-        )
-
-    answer_tag = (
-        '<div class="celebration-pop-banner">'
-        '<span class="pop-emoji">✨</span>'
-        '<span>CORRECT ANSWER REVEALED</span>'
-        '<span class="pop-emoji">✨</span>'
-        '</div>'
-        '<div class="share-cta">❤️ Like &amp; Subscribe • 💬 Comment your answer</div>'
-    ) if show_answer else '<div class="slide1-prompt">💬 Comment your guess before time runs out! 👇</div>'
-    timer_badge = '<span style="color: #F87171;">🔥 Time\'s Up!</span>' if show_answer else '<span>⏳ 3s Challenge</span>'
-
-    badge_label = viral_badge if viral_badge else f"DAILY GK QUIZ"
-    series_banner = (
-        f'<div class="series-capsule">'
-        f'<span class="series-sparkle">⚡</span>'
-        f'<span class="series-title-text">{badge_label}</span>'
-        f'<span class="series-divider">•</span>'
-        f'<span class="series-day-pill">DAY {day:02d}</span>'
-        f'<span class="series-sparkle">⚡</span>'
-        f'</div>'
-    )
-
-    badge_data = TOPIC_BADGES.get(topic_name, ("🎯 GENERAL KNOWLEDGE", "#F97316", "rgba(249, 115, 22, 0.15)", "rgba(249, 115, 22, 0.45)"))
-    cat_label, cat_color, cat_bg, cat_border = badge_data
-    category_badge = f'<div class="category-pill" style="background: {cat_bg}; border: 1.5px solid {cat_border}; color: {cat_color};"><span>{cat_label}</span></div>'
-
-    # Embed logo as Base64 data URI
-    logo_path = os.path.join(ASSETS, "logo.jpg")
-    if os.path.exists(logo_path):
-        with open(logo_path, "rb") as lf:
-            logo_b64 = base64.b64encode(lf.read()).decode("utf-8")
-        logo_uri = f"data:image/jpeg;base64,{logo_b64}"
-    else:
-        logo_uri = ""
-
-    q_size_class = "compact" if len(question) > 75 else ""
-    opt_max_len = max(len(opt) for opt in options) if options else 0
-    options_size_class = "compact-options" if (opt_max_len > 45 or len(question) > 90) else ""
-
-    tpl = open(TEMPLATE_PATH, encoding="utf-8").read()
-    tpl = tpl.replace("{{ACCENT}}", accent)
-    tpl = tpl.replace("{{SERIES_BANNER}}", series_banner)
-    tpl = tpl.replace("{{TIMER_BADGE}}", timer_badge)
-    tpl = tpl.replace("{{QUESTION_TRACKER}}", f"FAST-PACED QUIZ • PART {slot}")
-    tpl = tpl.replace("{{CATEGORY_BADGE}}", category_badge)
-    tpl = tpl.replace("{{Q_SIZE_CLASS}}", q_size_class)
-    tpl = tpl.replace("{{OPTIONS_SIZE_CLASS}}", options_size_class)
-    tpl = tpl.replace("{{QUESTION}}", _esc(question))
-    tpl = tpl.replace("{{OPTIONS}}", "\n".join(options_html))
-    tpl = tpl.replace("{{ANSWER_TAG}}", answer_tag)
-    tpl = tpl.replace("{{LOGO_URI}}", logo_uri)
-    return tpl
-
-
-def screenshot_html(html_str, out_png, page):
-    page.set_content(html_str, wait_until="domcontentloaded")
-    page.screenshot(path=out_png)
-
+def get_audio_duration(path):
+    return float(subprocess.check_output(["ffprobe","-v","error","-show_entries","format=duration","-of","default=nw=1:nk=1",path],text=True))
 
 def format_question_for_speech(text):
     s = text.strip()
@@ -213,6 +69,15 @@ def _fish_audio_tts(text: str, out_path: str, api_key: str, model_id: str) -> bo
         return False
 
 
+async def _save_edge(text, voice, path):
+    for attempt in range(3):
+        try:
+            await edge_tts.Communicate(text, voice, rate="+10%").save(path)
+            return
+        except Exception:
+            if attempt == 2: raise
+            await asyncio.sleep(1 + attempt)
+
 async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice_path):
     """
     Generate voiceover MP3s for the English channel.
@@ -232,165 +97,165 @@ async def generate_voiceover(question_text, answer_text, q_voice_path, ans_voice
     if not used_fish:
         print("  [Edge-TTS] Falling back to en-IN-PrabhatNeural...")
         voice = "en-IN-PrabhatNeural"
-        comm_q = edge_tts.Communicate(question_text, voice, rate="+18%")
-        await comm_q.save(q_voice_path)
-        comm_ans = edge_tts.Communicate(answer_text, voice, rate="+18%")
-        await comm_ans.save(ans_voice_path)
+        await _save_edge(question_text, voice, q_voice_path)
+        await _save_edge(answer_text, voice, ans_voice_path)
         print("  [Edge-TTS] OK Voiceover generated.")
 
 
+# Reviewed facts are editorial input, never an AI-generated explanation at render time.
+# Unknown queue entries fail closed until an editor supplies a checked explanation.
+LANG = 'en'
+REVIEWED = {'q0075': {'speech_answer': 'Option A, Special Drawing Rights.', 'display_question': 'What does "paper gold" mean?', 'options': ['IMF Special Drawing Rights', 'World Bank loans', 'Gold-backed currencies', 'Deficit financing'], 'correct_index': 0, 'explanation': 'SDRs are reserve assets, not currency or physical gold.', 'source_url': 'https://www.imf.org/en/topics/special-drawing-right', 'source_label': 'Source: IMF | Special Drawing Rights', 'verified_topic': 'ECONOMY', 'memory_key': 'Reserve asset, not gold'}, 'q0077': {'display_question': 'Who was India’s first badminton world number one?', 'speech_question': 'Who was India’s first badminton world number one?', 'options': ['Pullela Gopichand', 'Saina Nehwal', 'Prakash Padukone', 'U. Vimal Kumar'], 'correct_index': 2, 'speech_answer': 'Prakash Padukone.', 'explanation': 'His All England win took him to world number one.', 'memory_key': 'Padukone: All England winner', 'source_url': 'https://www.britannica.com/biography/Prakash-Padukone', 'source_label': 'Source: Britannica | Prakash Padukone', 'verified_topic': 'SPORT'}}
+
+STYLE = '''
+*{box-sizing:border-box}body{margin:0;width:1080px;height:1920px;background:#081427;color:#f5f6fa;font-family:"Noto Sans", "Noto Sans Devanagari",Arial,sans-serif}
+main{position:absolute;left:72px;top:220px;width:824px;height:1240px}
+header{display:flex;align-items:center;gap:18px;font-size:32px;color:#cbd5e1;letter-spacing:1px}header img{width:64px;height:64px;border-radius:16px}header b{color:#e7bd67}
+.topic{margin-top:30px;font-size:28px;color:#e7bd67;letter-spacing:2px}.question{font-size:70px;line-height:1.25;font-weight:800;margin:20px 0 32px}
+.options{display:grid;gap:18px}.option{min-height:118px;padding:20px 24px;display:flex;align-items:center;gap:22px;border-radius:20px;background:#12243c;border:2px solid #30435b;font-size:44px;line-height:1.2;font-weight:600}
+.letter{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:58px;height:58px;border-radius:13px;border:2px solid #e7bd67;color:#e7bd67;font-size:32px}.correct{background:#163e35;border:3px solid #59d997}.correct .letter{background:#59d997;border-color:#59d997;color:#081427}.dim{opacity:.48}
+.beat{height:138px;margin-top:30px;display:flex;align-items:center;justify-content:space-between;border-top:2px solid #30435b}.beat-label{font-size:32px;color:#d8e0ea}.number{font-size:96px;line-height:1;color:#e7bd67;font-weight:800}
+.explain{margin-top:28px;padding:26px 30px;background:#12243c;border-left:6px solid #59d997;border-radius:12px}.explain b{display:block;font-size:26px;color:#59d997;letter-spacing:2px;margin-bottom:12px}.explain p{font-size:39px;line-height:1.3;margin:0}.source{font-size:22px;color:#b7c6d8;margin-top:16px}
+.follow{font-size:34px;color:#e7bd67;font-weight:700;margin-top:18px}.rule{position:absolute;left:72px;top:170px;width:824px;height:5px;background:#e7bd67}
+'''
+
+
+def prepare_content(q):
+    content = dict(q)
+    if q.get('id') in REVIEWED:
+        content.update(REVIEWED[q['id']])
+    if not content.get('explanation') or not content.get('source_url'):
+        raise ValueError('Source-checked explanation required before rendering: ' + q.get('id', 'unknown'))
+    if len(content['options']) != 4 or not 0 <= content['correct_index'] < 4:
+        raise ValueError('Exactly four options and a valid answer index required')
+    if len(content['explanation'].split()) > 24:
+        raise ValueError('Explanation must be one short sentence (maximum 24 words)')
+    content['question'] = content.get('display_question', content['question'])
+    # Omit category unless editorially verified. Never infer from ambiguous keywords.
+    content['topic'] = content.get('verified_topic', '')
+    return content
+
+
+def build_card(q, phase='question', number=None):
+    import html, math
+    esc = lambda s: html.escape(str(s), quote=True)
+    logo = os.path.join(ASSETS, 'logo.jpg')
+    logo_html = ''
+    if os.path.isfile(logo):
+        logo_html = '<img src="data:image/jpeg;base64,' + base64.b64encode(open(logo,'rb').read()).decode() + '">'
+    is_answer = phase in ('reveal','explain')
+    opts = []
+    for i, opt in enumerate(q['options']):
+        cls = 'correct' if is_answer and i == q['correct_index'] else ('dim' if is_answer else '')
+        opts.append(f'<div class="option {cls}"><span class="letter">{LETTERS[i]}</span><span>{esc(opt)}</span></div>')
+    hi = LANG == 'hi'
+    label = ('सवाल सुनिए' if hi else 'Listen. Then choose.') if phase == 'question' else ('तीन सेकंड - अपना जवाब चुनिए' if hi else '3 seconds. Lock your answer.')
+    if is_answer: label = 'सही जवाब' if hi else 'The answer'
+    beat = f'<div class="beat"><span class="beat-label">{label}</span><span class="number">{esc(number) if number else (LETTERS[q["correct_index"]] if is_answer else "?")}</span></div>'
+    explanation = ''
+    if phase == 'explain':
+        explanation = f'<section class="explain"><b>{"याद रखिए" if hi else "WHY IT MATTERS"}</b><p>{esc(q["explanation"])}</p><div class="source">{esc(q.get("source_label", "Checked source"))}</div></section><div class="follow">{"रोज़ एक सवाल, साथ में वजह।" if hi else "One exam trap every day. Follow."}</div>'
+        beat = ''
+    font_css = ''
+    for face, filename in [('Noto Sans', '1-QuizSans.ttf'), ('Noto Sans Devanagari', '2-QuizHindi.ttf')]:
+        path = os.path.join(ASSETS, 'fonts', filename)
+        if not os.path.isfile(path): raise ValueError('Bundled font missing: ' + filename)
+        encoded = base64.b64encode(open(path, 'rb').read()).decode()
+        font_css += f'@font-face{{font-family:"{face}";src:url(data:font/ttf;base64,{encoded}) format("truetype");font-weight:400;}}'
+    return f'<!doctype html><meta charset="utf-8"><style>{font_css}{STYLE}</style><div class="rule"></div><main><header>{logo_html}<b>GK SNIPPETS{" HINDI" if hi else ""}</b></header><div class="topic">{esc(q["topic"])}</div><div class="question">{esc(q["question"])}</div><div class="options">{"".join(opts)}</div>{beat}{explanation}</main>'
+
+
+def timing_plan(q_duration, answer_duration, why_duration):
+    if min(q_duration, answer_duration, why_duration) <= 0:
+        raise ValueError('All speech segments must exist')
+    timer_start = .15 + q_duration + .15
+    reveal = timer_start + 3.0
+    why_start = reveal + answer_duration + .18
+    total = max(12.0, why_start + why_duration + .65)
+    # Never truncate speech or accelerate it until it is unintelligible.
+    if total > 15.5:
+        raise ValueError(f'{total:.2f}s is too long: shorten editorial wording before publishing')
+    return {'timer_start':timer_start,'reveal':reveal,'why_start':why_start,'total':total}
+
+
+def studio_html(q,t,plan):
+ variant="2-studio-arena"
+ import html, math
+ esc=lambda x:html.escape(str(x),quote=True)
+ logo_data=base64.b64encode(open(os.path.join(ASSETS,'logo.jpg'),'rb').read()).decode()
+ font_name='1-QuizSans.ttf' if LANG=='en' else '3-QuizSans.ttf'
+ font_data=base64.b64encode(open(os.path.join(ASSETS,'fonts',font_name),'rb').read()).decode()
+ c={"bg":"#080f1e","ink":"#f5f6fa","muted":"#b7c6db","accent":"#f5b947","card":"#14253f","line":"#354660"};dark=variant.startswith('2');editorial=variant.startswith('3');reveal=t>=plan['reveal'];why=t>=plan['why_start'];count=plan['timer_start']<=t<plan['reveal'];n=max(1,3-int(t-plan['timer_start']))
+ phase='THE ANSWER' if reveal else ('LOCK IT IN' if count else ('सवाल सुनिए' if LANG=='hi' else 'LISTEN. THEN CHOOSE.'))
+ bg=''
+ if dark:
+  bg=f'<div class="studio-glow" style="transform:translateY({math.sin(t*.8)*28}px)"></div><div class="orbit" style="transform:rotate({t*6}deg)"></div>'
+ else:
+  bg=f'<div class="grid"></div><div class="ghost" style="transform:rotate({-12+t*.8}deg)">?</div>'
+ logo=f'<header><img src="data:image/jpeg;base64,{logo_data}"><span>GK SNIPPETS{" HINDI" if LANG=="hi" else ""}</span><b>{esc(q["topic"])}</b></header>'
+ headline='<h1>What does<br><span>"paper gold"</span><br>mean?</h1>'
+ if dark: headline=f'<div class="kicker">{"अपना जवाब चुनिए" if LANG=="hi" else "CHOOSE YOUR ANSWER"}</div><h1>{esc(q["question"])}</h1>'
+ illustration=''
+ if editorial:
+  headline='<div class="kicker">THE EXAM TRAP</div><h1>"Paper gold"<br>is not gold.</h1><div class="ask">So what is it?</div>'
+  # The spoken question is identical; headline is a source-checked visual hook.
+  illustration='<div class="mini-gold">▰ ▰ ▰ <span>?</span></div>'
+ elif not dark:
+  illustration='<div class="symbol"><span>Au</span><i>?</i></div>'
+ opts=[]
+ for i,text in enumerate(q["options"]):
+  delay=i*.09;progress=min(1,max(0,(t-delay)/.35));dy=(1-progress)*45;opacity=.3+.7*progress
+  cls='choice correct' if reveal and i==q["correct_index"] else ('choice wrong' if reveal else 'choice')
+  opts.append(f'<div class="{cls}" style="transform:translateY({dy:.1f}px);opacity:{opacity}"><b>{"ABCD"[i]}</b><span>{esc(text)}</span>{"<em>✓</em>" if reveal and i==q["correct_index"] else ""}</div>')
+ circumference=2*math.pi*58;fraction=(t-plan['timer_start'])%1 if count else 0
+ timer=f'<div class="timer"><div><b>{phase}</b><span>{"You have 3 seconds." if count else ("Did you get it?" if reveal else "Listen. Then pick A, B, C or D.")}</span></div><svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="58" fill="none" stroke="{c["line"]}" stroke-width="10"/><circle cx="80" cy="80" r="58" fill="none" stroke="{c["accent"]}" stroke-width="10" stroke-dasharray="{circumference}" stroke-dashoffset="{fraction*circumference}" transform="rotate(-90 80 80)"/><text x="80" y="103" text-anchor="middle" fill="{c["ink"]}" font-size="64" font-weight="800">{n if count else ("✓" if reveal else "?")}</text></svg></div>'
+ payoff=f'<section class="payoff"><div class="kicker">{"जवाब की वजह" if LANG=="hi" else "THE TRAP, EXPLAINED"}</div><div class="answer-hero">{esc(q["options"][q["correct_index"]])}</div><div class="compare"><div><b>{esc(q.get("memory_key", "याद रखिए" if LANG=="hi" else "REMEMBER"))}</b><span>✓</span></div></div><p>{esc(q["explanation"])}</p><div class="source">{esc(q.get("source_label","Checked source"))}</div><div class="follow">{"रोज़ एक सवाल, साथ में वजह।" if LANG=="hi" else "FOLLOW FOR THE TRAP"}<small>{"सिर्फ जवाब नहीं, वजह भी।" if LANG=="hi" else "One question. One reason. Every day."}</small></div></section>'
+
+ inner=payoff if why else f'{illustration}{headline}<div class="choices">{"".join(opts)}</div>{timer}'
+ # Small fast scale at the reveal, never shrink the text below safe-area legibility.
+ scale=1+(.015*max(0,1-(t-plan['reveal'])/.25) if reveal and not why else 0)
+ css=f'''
+ @font-face{{font-family:Quiz;src:url(data:font/ttf;base64,{font_data});font-weight:400}}*{{box-sizing:border-box}}body{{margin:0;width:1080px;height:1920px;overflow:hidden;background:{c['bg']};color:{c['ink']};font-family:Quiz,Arial}}.grid{{position:absolute;inset:0;background-image:linear-gradient({c['line']}55 1px,transparent 1px),linear-gradient(90deg,{c['line']}55 1px,transparent 1px);background-size:90px 90px}}.ghost{{position:absolute;font-size:1400px;line-height:1;color:{c['accent']}0c;right:-50px;top:250px;font-weight:900}}.studio-glow{{position:absolute;inset:-60px;background:radial-gradient(ellipse 1000px 600px at 50% 0%,rgba(20,38,77,.9),transparent 70%),radial-gradient(ellipse 800px 600px at 50% 100%,rgba(245,166,35,.2),transparent 75%)}}.orbit{{position:absolute;width:1200px;height:1200px;left:-100px;top:500px;border:2px solid #f5b94722;border-radius:50%;box-shadow:0 0 0 180px #f5b94708,0 0 0 340px #f5b94705}}main{{position:absolute;top:210px;left:72px;width:824px;height:1250px}}header{{height:70px;display:flex;align-items:center;gap:16px;font-size:27px;font-weight:800;letter-spacing:1px}}header img{{width:60px;height:60px;border-radius:15px}}header b{{margin-left:auto;color:{c['accent']};font-size:24px}}.content{{position:relative;margin-top:44px;transform:scale({scale})}}h1{{font-size:{'76' if editorial else '82'}px;line-height:1.09;letter-spacing:-2px;margin:0 0 35px;font-weight:800}}h1 span{{color:{c['accent']}}}.symbol{{position:absolute;right:30px;top:0;width:160px;height:180px;background:#f8dc7b;border:4px solid #d2a337;transform:rotate(8deg);color:#3e3014;padding:24px;box-shadow:12px 14px 0 #e8bd65}}.symbol span{{font-size:68px;font-weight:800}}.symbol i{{display:block;font-size:38px;font-style:normal;text-align:right}}.symbol+h1{{font-size:75px;max-width:650px}}.kicker{{font-size:28px;letter-spacing:3px;color:{c['accent']};font-weight:800;margin-bottom:25px}}.ask{{font-size:48px;font-weight:700;margin-top:-13px;margin-bottom:35px}}.mini-gold{{font-size:75px;color:#d2a337;float:right;margin-right:20px;line-height:1;transform:rotate(-7deg)}}.mini-gold span{{color:{c['ink']}}}.choices{{display:grid;grid-template-columns:{'1fr 1fr' if not editorial and not dark else '1fr'};gap:20px}}.choice{{position:relative;min-height:{'190' if not editorial and not dark else '130'}px;display:flex;align-items:{'flex-start' if not editorial and not dark else 'center'};flex-direction:{'column' if not editorial and not dark else 'row'};gap:16px;background:{c['card']};border:{'3px' if dark else '2px'} solid {c['line']};border-radius:{'26px' if not editorial else '4px'};padding:24px;box-shadow:{'0 12px 24px #0a162309' if not dark else 'none'};font-size:{'39' if not editorial else '42'}px;line-height:1.17;font-weight:700}}.choice b{{display:flex;align-items:center;justify-content:center;background:{c['accent']};color:white;font-size:28px;width:47px;height:47px;border-radius:11px;flex-shrink:0}}.choice.correct{{background:#d6f5e5;color:#124e37;border-color:#16a46b}}.choice.correct b{{background:#16a46b}}.choice em{{position:absolute;right:20px;top:20px;font-style:normal;font-size:40px;color:#168958}}.choice.wrong{{opacity:.35!important}}.timer{{display:flex;justify-content:space-between;align-items:center;border-top:3px solid {c['line']};margin-top:36px;padding-top:22px}}.timer b{{display:block;font-size:33px;color:{c['accent']};margin-bottom:14px}}.timer span{{font-size:29px}}.payoff{{padding-top:5px}}.sdr{{font-size:210px;font-weight:900;line-height:1;color:{c['accent']};letter-spacing:-5px}}.sdr span{{display:block;font-size:33px;letter-spacing:2px;margin-top:16px;color:{c['ink']}}}.compare{{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:55px}}.compare>div{{display:flex;justify-content:space-between;align-items:center;background:#d6f5e5;border-radius:22px;padding:30px;color:#155b3c}}.compare .not{{background:{c['card']};border:2px solid {c['line']};color:{c['muted']}}}.compare b{{font-size:41px;line-height:1.2}}.compare span{{font-size:100px;line-height:1}}.payoff p{{font-size:51px;line-height:1.25;margin:44px 0 27px;font-weight:700}}.source{{font-size:25px;color:{c['muted']}}}.follow{{margin-top:58px;background:{c['accent']};padding:26px;color:white;font-size:38px;line-height:1.3;font-weight:800;border-radius:{'16px' if not editorial else '0'}}}.follow small{{font-size:29px;font-weight:500;display:block;margin-top:9px}}
+ '''
+ css += '.answer-hero{font-size:76px;font-weight:800;line-height:1.15;color:#f5b947}.compare{grid-template-columns:1fr}.compare b{font-size:43px}.payoff p{font-size:49px}.content h1{font-size:74px;line-height:1.13}'
+ if LANG=='hi':
+  hindi_data=base64.b64encode(open(os.path.join(ASSETS,'fonts','4-QuizHindi.ttf'),'rb').read()).decode()
+  css += f'@font-face{{font-family:Hindi;src:url(data:font/ttf;base64,{hindi_data});font-weight:400}}body{{font-family:Hindi,Quiz,Arial}}header{{font-family:Quiz,Arial}}'
+ if editorial: css += 'h1{font-family:Georgia,serif;font-size:79px;line-height:1.05}.choice{border-left:7px solid #315aeb}.sdr{font-family:Georgia,serif}.follow{border-radius:0}'
+ if dark: css += '.choice{min-height:123px;padding:23px 27px;font-size:43px}.content{margin-top:30px}.timer{margin-top:28px}.choice.correct{box-shadow:0 0 45px #16a46b44}.follow{color:#182435}'
+ if LANG=='hi':
+  inner=inner.replace('THE ANSWER','सही जवाब').replace('LOCK IT IN','अपना जवाब चुनिए').replace('QUICK GK / ECONOMY','सवाल सुनिए').replace('You have 3 seconds.','तीन सेकंड।').replace('Did you get it?','आपका जवाब सही था?').replace('Listen. Then pick A, B, C or D.','सुनिए, फिर जवाब चुनिए।')
+ return f'<!doctype html><meta charset="utf-8"><style>{css}</style>{bg}<main>{logo}<div class="content">{inner}</div></main>'
+
 def render_video(question_obj, accent, out_mp4, tmp_dir, bg_music=None, day=1, slot=1, topic_name=None, viral_badge=None):
-    os.makedirs(tmp_dir, exist_ok=True)
-    slide1_png = os.path.join(tmp_dir, "slide1.png")
-    slide2_png = os.path.join(tmp_dir, "slide2.png")
-
-    q_id = question_obj.get("id", "q0000")
-    html1 = build_html(question_obj["question"], question_obj["options"],
-                        question_obj["correct_index"], accent, show_answer=False, q_id=q_id, day=day, slot=slot, topic_name=topic_name, viral_badge=viral_badge)
-    html2 = build_html(question_obj["question"], question_obj["options"],
-                        question_obj["correct_index"], accent, show_answer=True, q_id=q_id, day=day, slot=slot, topic_name=topic_name, viral_badge=viral_badge)
-
+    from pathlib import Path
+    import math
+    q=prepare_content(question_obj)
+    d=Path(tmp_dir);d.mkdir(parents=True,exist_ok=True)
+    paths=[str(d/(n+'.mp3')) for n in ('question','answer','why')]
+    fn=generate_voiceover if LANG=='en' else generate_voiceover_hindi
+    answer=q.get('speech_answer',q['options'][q['correct_index']]+'.')
+    asyncio.run(fn(q.get('speech_question',q['question']).replace(chr(34),''),answer,paths[0],paths[1]))
+    asyncio.run(fn(q['explanation'],q['explanation'],paths[2],str(d/'unused.mp3')))
+    plan=timing_plan(*[get_audio_duration(p) for p in paths])
+    fps=15
     with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page(viewport={"width": 1080, "height": 1920})
-        screenshot_html(html1, slide1_png, page)
-        screenshot_html(html2, slide2_png, page)
-        browser.close()
-
-    correct_letter = LETTERS[question_obj["correct_index"]]
-    correct_opt_text = question_obj["options"][question_obj["correct_index"]]
-    
-    opt_words = correct_opt_text.strip().split()
-    clean_opt_text = " ".join(opt_words[:8]) if len(opt_words) > 10 else correct_opt_text
-    ans_spoken_phrase = f"The answer is Option {correct_letter}: {clean_opt_text}."
-
-    q_voice_mp3 = os.path.join(tmp_dir, "q_voice.mp3")
-    ans_voice_mp3 = os.path.join(tmp_dir, "ans_voice.mp3")
-    speech_q_text = format_question_for_speech(question_obj["question"])
-
-    try:
-        asyncio.run(generate_voiceover(speech_q_text, ans_spoken_phrase, q_voice_mp3, ans_voice_mp3))
-        has_voice = True
-    except Exception as e:
-        print(f"Warning: Edge-TTS generation failed ({e}), falling back to music-only audio.")
-        has_voice = False
-
-    # ── High-Retention Snappy Question & Answer Pacing (11.5s - 13.5s target) ─
-    q_start_time = 0.4
-    q_start_ms = int(q_start_time * 1000)
-
-    countdown_dur = 3.0             # 3.0s focused thinking break with timer SFX
-    post_timer_pause = 0.3          # brief beat after timer reaches 0 before revealing answer
-    pre_answer_speech_pause = 0.3   # quick pause on Slide 2 before answer voice speaks
-    post_answer_reading_buffer = 1.0 # clean outro buffer for loop engagement
-
-    if has_voice:
-        q_dur = get_audio_duration(q_voice_mp3)
-        ans_dur = get_audio_duration(ans_voice_mp3)
-        # 1. Question voice reads completely without overlap
-        # 2. 0.3s breath, then countdown starts
-        timer_start = round(q_start_time + q_dur + 0.3, 2)
-        slide1_time = round(timer_start + countdown_dur + post_timer_pause, 2)
-        slide2_time = round(pre_answer_speech_pause + ans_dur + post_answer_reading_buffer, 2)
-    else:
-        timer_start = 3.5
-        slide1_time = 7.0
-        slide2_time = 3.5
-
-    total_time = round(slide1_time + slide2_time, 2)
-    tick_ms = int(timer_start * 1000)
-    ans_start_time = round(slide1_time + pre_answer_speech_pause, 2)
-    ans_ms = int(ans_start_time * 1000)
-
-    # Dynamic animated countdown bar filter (starts draining only when timer begins)
-    video_only = os.path.join(tmp_dir, "video_only.mp4")
-    vf_slide1 = (
-        f"[0:v]fps=30,format=yuv420p,"
-        f"drawbox=x=54:y=266:w='if(lt(t,{timer_start}), 972, max(0, 972*(1-(t-{timer_start})/{countdown_dur})))':"
-        f"h=14:color='#F5A623':t=fill[v0];"
-        f"[1:v]fps=30,format=yuv420p[v1];"
-        f"[v0][v1]concat=n=2:v=1:a=0[v]"
-    )
-
-    subprocess.run([
-        "ffmpeg", "-y",
-        "-loop", "1", "-t", str(slide1_time), "-i", slide1_png,
-        "-loop", "1", "-t", str(slide2_time), "-i", slide2_png,
-        "-filter_complex", vf_slide1,
-        "-map", "[v]",
-        "-c:v", "libx264", "-pix_fmt", "yuv420p",
-        video_only,
-    ], check=True)
-
-    music_file = bg_music if (bg_music and os.path.exists(bg_music)) else FALLBACK_MUSIC
-
-    audio_inputs = ["-i", video_only]
-    input_idx = 1
-    filter_parts = []
-    mix_labels = []
-
-    # 1. Background Music (calm, normal tempo, subtle volume)
-    if music_file and os.path.exists(music_file):
-        audio_inputs.extend(["-i", music_file])
-        filter_parts.append(
-            f"[{input_idx}:a]atempo=1.00,atrim=0:{total_time},afade=t=out:st={max(0, total_time - 0.5)}:d=0.5,volume=0.20[bg]"
-        )
-        mix_labels.append("[bg]")
-        input_idx += 1
-
-    # 2. Opening SFX (User's impact hit at t=0 along with BGM)
-    if OPENING_SFX and os.path.exists(OPENING_SFX):
-        audio_inputs.extend(["-i", OPENING_SFX])
-        filter_parts.append(f"[{input_idx}:a]adelay=0|0,volume=0.75[hit]")
-        mix_labels.append("[hit]")
-        input_idx += 1
-
-    # 3. Question Voice (starts at 0.4s, plays clearly)
-    if has_voice and q_voice_mp3 and os.path.exists(q_voice_mp3):
-        audio_inputs.extend(["-i", q_voice_mp3])
-        filter_parts.append(f"[{input_idx}:a]adelay={q_start_ms}|{q_start_ms},volume=1.8[vq]")
-        mix_labels.append("[vq]")
-        input_idx += 1
-
-    # 3. Timing SFX (Countdown Ticking during the short thinking break only)
-    if COUNTDOWN_TICK and os.path.exists(COUNTDOWN_TICK):
-        audio_inputs.extend(["-i", COUNTDOWN_TICK])
-        filter_parts.append(
-            f"[{input_idx}:a]atrim=0:{countdown_dur},adelay={tick_ms}|{tick_ms},volume=1.2[tick]"
-        )
-        mix_labels.append("[tick]")
-        input_idx += 1
-
-    # 4. Answer Voice (reveals answer calmly on Slide 2, no rush, no chime SFX)
-    if has_voice and ans_voice_mp3 and os.path.exists(ans_voice_mp3):
-        audio_inputs.extend(["-i", ans_voice_mp3])
-        filter_parts.append(f"[{input_idx}:a]adelay={ans_ms}|{ans_ms},volume=1.8[va]")
-        mix_labels.append("[va]")
-        input_idx += 1
-
-    if mix_labels:
-        filter_parts.append(
-            f"{''.join(mix_labels)}amix=inputs={len(mix_labels)}:duration=first:dropout_transition=0:normalize=0[out]"
-        )
-        filter_str = ";".join(filter_parts)
-        subprocess.run([
-            "ffmpeg", "-y",
-            *audio_inputs,
-            "-filter_complex", filter_str,
-            "-map", "0:v",
-            "-map", "[out]",
-            "-c:v", "copy",
-            "-c:a", "aac", "-b:a", "192k",
-            "-shortest",
-            out_mp4,
-        ], check=True)
-    else:
-        subprocess.run([
-            "ffmpeg", "-y",
-            "-i", video_only,
-            "-c:v", "copy",
-            out_mp4,
-        ], check=True)
-
-    print(f"Successfully rendered viral video ({total_time}s): {out_mp4}")
-    return out_mp4
+        b=p.chromium.launch(args=['--no-sandbox']);page=b.new_page(viewport={'width':1080,'height':1920})
+        for i in range(math.ceil(plan['total']*fps)):
+            page.set_content(studio_html(q,i/fps,plan));page.evaluate('document.fonts.ready')
+            if i in (0,math.ceil(plan['why_start']*fps)+1):
+                overflow=page.evaluate("() => [...document.querySelectorAll('main *')].some(e=>{let r=e.getBoundingClientRect();return r.right>900||r.bottom>1480})")
+                if overflow:raise ValueError('Shorts safe-area overflow; shorten reviewed wording')
+            page.screenshot(path=str(d/f'{i:04d}.png'))
+        b.close()
+    music=bg_music if bg_music and os.path.isfile(bg_music) else os.path.join(ASSETS,'audio','slot1_one_answer_left.mp3')
+    cmd=['ffmpeg','-hide_banner','-loglevel','error','-y','-framerate',str(fps),'-i',str(d/'%04d.png')]
+    for path in paths:cmd+=['-i',path]
+    cmd+=['-stream_loop','-1','-i',music]
+    f=[f'[1:a]adelay=150:all=1[q]',f'[2:a]adelay={round(plan["reveal"]*1000)}:all=1[a]',f'[3:a]adelay={round(plan["why_start"]*1000)}:all=1[w]',f'[4:a]atrim=duration={plan["total"]},volume=0.05,afade=t=out:st={plan["total"]-.6}:d=0.6[bed]']
+    for i in range(3):f.append(f'sine=frequency=1000:duration=0.08,volume=0.12,afade=t=out:d=0.08,adelay={round((plan["timer_start"]+i)*1000)}:all=1[t{i}]')
+    f.append('[q][a][w][bed][t0][t1][t2]amix=inputs=7:duration=longest:normalize=0,apad,alimiter=limit=0.95[mix]')
+    cmd+=['-filter_complex',';'.join(f),'-map','0:v','-map','[mix]','-t',str(plan['total']),'-vf','fps=30,format=yuv420p','-c:v','libx264','-crf','18','-preset','fast','-c:a','aac','-b:a','192k','-movflags','+faststart',out_mp4]
+    subprocess.run(cmd,check=True)
+    (d/'timing.json').write_text(json.dumps(dict(plan,source_url=q['source_url'],question_id=q['id'],style='studio-arena'),indent=2))
+    print(f"Studio arena {LANG}: {plan['total']:.2f}s")
