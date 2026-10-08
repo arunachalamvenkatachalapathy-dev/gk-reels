@@ -65,5 +65,175 @@
   "source_url": "https://science.nasa.gov/solar-system/asteroids/facts/",
   "source_label": "Source: NASA | Asteroid Facts",
   "verified_topic": "SCIENCE"
+ },
+ "q0088": {
+  "display_question": "Who are the Bretton Woods twins?",
+  "speech_question": "Who are the Bretton Woods twins?",
+  "speech_answer": "IMF and World Bank.",
+  "options": [
+   "ITO and WTO",
+   "GATT and UNESCO",
+   "IMF and World Bank",
+   "USA and UK"
+  ],
+  "correct_index": 2,
+  "explanation": "Both were created at Bretton Woods in 1944.",
+  "memory_key": "Twins: IMF + World Bank",
+  "source_url": "https://en.wikipedia.org/wiki/Bretton_Woods_twins",
+  "source_label": "Source: Wikipedia | Bretton Woods twins",
+  "verified_topic": "ECONOMY"
+ },
+ "q0105": {
+  "display_question": "Why is the Sun seen before actual sunrise?",
+  "speech_question": "Why is the Sun seen before actual sunrise?",
+  "speech_answer": "Refraction.",
+  "options": [
+   "Refraction",
+   "Scattering",
+   "Reflection",
+   "Straight-line travel"
+  ],
+  "correct_index": 0,
+  "explanation": "Air bends sunlight over the horizon.",
+  "memory_key": "Air bends light: refraction",
+  "source_url": "https://www.hko.gov.hk/en/education/astronomy-and-time/astronomy/00493-effect-of-atmospheric-refraction-on-the-times-of-sunrise-and-sunset.html",
+  "source_label": "Source: Hong Kong Observatory",
+  "verified_topic": "SCIENCE"
+ },
+ "q0113": {
+  "display_question": "Which state ranks second in population, Census 2011?",
+  "speech_question": "Which state ranks second in population, Census 2011?",
+  "speech_answer": "Maharashtra.",
+  "options": [
+   "Maharashtra",
+   "West Bengal",
+   "Madhya Pradesh",
+   "Bihar"
+  ],
+  "correct_index": 0,
+  "explanation": "Maharashtra had 112 million.",
+  "memory_key": "UP first, Maharashtra second",
+  "source_url": "https://www.pib.gov.in/newsite/PrintRelease.aspx?relid=71383",
+  "source_label": "Source: PIB | Census 2011",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0120": {
+  "display_question": "Biogas mainly consists of which gases?",
+  "speech_question": "Biogas mainly consists of which gases?",
+  "speech_answer": "Methane and carbon dioxide.",
+  "options": [
+   "Hydrogen and oxygen",
+   "Carbon dioxide and hydrogen",
+   "Hydrogen and methane",
+   "Methane and carbon dioxide"
+  ],
+  "correct_index": 3,
+  "explanation": "Methane is 50 to 75 percent.",
+  "memory_key": "Biogas: mostly methane",
+  "source_url": "https://www.epa.gov/agstar/how-does-anaerobic-digestion-work",
+  "source_label": "Source: US EPA | AgSTAR",
+  "verified_topic": "SCIENCE"
+ },
+ "q0103": {
+  "display_question": "Pure water at 100 degrees: what happens to pH?",
+  "speech_question": "Pure water at 100 degrees: what happens to pH?",
+  "speech_answer": "It decreases.",
+  "options": [
+   "It stays 7",
+   "It increases",
+   "It rises, then falls",
+   "It decreases"
+  ],
+  "correct_index": 3,
+  "explanation": "Neutral pH there is 6.14.",
+  "memory_key": "Hotter water: pH below 7",
+  "source_url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Acids_and_Bases/Acids_and_Bases_in_Aqueous_Solutions/The_pH_Scale/Temperature_Dependence_of_the_pH_of_pure_Water",
+  "source_label": "Source: LibreTexts Chemistry | pH of pure water",
+  "verified_topic": "SCIENCE"
+ },
+ "q0092": {
+  "display_question": "Where is the Indian Institute of Horticultural Research?",
+  "speech_question": "Where is the Indian Institute of Horticultural Research?",
+  "speech_answer": "Bengaluru.",
+  "options": [
+   "Bengaluru",
+   "Lucknow",
+   "Jaipur",
+   "Bhopal"
+  ],
+  "correct_index": 0,
+  "explanation": "ICAR-IIHR is at Hesaraghatta, Bengaluru.",
+  "memory_key": "IIHR: Bengaluru",
+  "source_url": "https://www.iihr.res.in/contact-us",
+  "source_label": "Source: ICAR-IIHR | Contact",
+  "verified_topic": "AGRICULTURE"
+ },
+ "q0087": {
+  "display_question": "Who chaired the 1977 Panchayati Raj committee?",
+  "speech_question": "Who chaired the 1977 Panchayati Raj committee?",
+  "speech_answer": "Ashok Mehta.",
+  "options": [
+   "Ashok Mehta",
+   "Madhu Dandawate",
+   "Balwant Rai Mehta",
+   "Swaran Singh"
+  ],
+  "correct_index": 0,
+  "explanation": "The Janata Government appointed it in 1977.",
+  "memory_key": "1977 committee: Ashok Mehta",
+  "source_url": "https://en.wikipedia.org/wiki/Ashok_Mehta_Committee",
+  "source_label": "Source: Wikipedia | Asoka Mehta Committee",
+  "verified_topic": "POLITY"
+ },
+ "q0117": {
+  "display_question": "Who holds office at the President’s pleasure?",
+  "speech_question": "Who holds office at the President’s pleasure?",
+  "speech_answer": "The Attorney General.",
+  "options": [
+   "Attorney General of India",
+   "CAG of India",
+   "UPSC Chairman",
+   "Speaker of Lok Sabha"
+  ],
+  "correct_index": 0,
+  "explanation": "Article 76(4) says so.",
+  "memory_key": "AG: at President’s pleasure",
+  "source_url": "https://constitution.org/1-Constitution/cons/india/p05076.html",
+  "source_label": "Source: Constitution of India | Article 76",
+  "verified_topic": "POLITY"
+ },
+ "q0097": {
+  "display_question": "The Green Revolution mainly means what?",
+  "speech_question": "The Green Revolution mainly means what?",
+  "speech_answer": "Higher output per hectare.",
+  "options": [
+   "New grasslands",
+   "Higher output per hectare",
+   "Urban gardens",
+   "More tree planting"
+  ],
+  "correct_index": 1,
+  "explanation": "High-yield seeds raised wheat and rice output.",
+  "memory_key": "Green Revolution: high-yield seeds",
+  "source_url": "https://www.britannica.com/event/green-revolution",
+  "source_label": "Source: Britannica | Green Revolution",
+  "verified_topic": "AGRICULTURE"
+ },
+ "q0089": {
+  "display_question": "Which ministry runs the National Bamboo Mission?",
+  "speech_question": "Which ministry runs the National Bamboo Mission?",
+  "speech_answer": "Agriculture.",
+  "options": [
+   "Agriculture",
+   "North-Eastern Region",
+   "Science and Technology",
+   "Rural Development"
+  ],
+  "correct_index": 0,
+  "explanation": "It sits under Agriculture and Farmers Welfare.",
+  "memory_key": "Bamboo Mission: Agriculture",
+  "source_url": "https://pib.gov.in/Pressreleaseshare.aspx?PRID=1578975",
+  "source_label": "Source: PIB | National Bamboo Mission",
+  "verified_topic": "AGRICULTURE"
  }
 }
