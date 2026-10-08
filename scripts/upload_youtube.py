@@ -17,17 +17,16 @@ def get_youtube_client():
     client_id = os.environ["YT_CLIENT_ID"].strip().strip('"\'')
     client_secret = os.environ["YT_CLIENT_SECRET"].strip().strip('"\'')
     refresh_token = os.environ["YT_REFRESH_TOKEN"].strip().strip('"\'')
+    # NOTE: no `scopes` here. Passing scopes makes google-auth send them in the
+    # refresh request, and Google rejects the grant (invalid_scope) unless the
+    # refresh token was minted with the exact same set. Omitting scopes lets the
+    # refresh inherit whatever the token was granted.
     creds = Credentials(
         token=None,
         refresh_token=refresh_token,
         client_id=client_id,
         client_secret=client_secret,
         token_uri="https://oauth2.googleapis.com/token",
-        scopes=[
-            "https://www.googleapis.com/auth/youtube.upload",
-            "https://www.googleapis.com/auth/youtube.force-ssl",
-            "https://www.googleapis.com/auth/youtube.readonly",
-        ],
     )
     return build("youtube", "v3", credentials=creds)
 
