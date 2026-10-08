@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 4,
+  "palette_cursor": 5,
   "audio_cursor": 0,
   "current_day": 33,
-  "current_slot": 2,
+  "current_slot": 3,
   "last_published_date": "2026-10-08",
-  "published_today_count": 2,
-  "total_published": 69,
+  "published_today_count": 3,
+  "total_published": 70,
   "published_ids": [
     "q0000",
     "q0001",
@@ -87,16 +87,10 @@
     "q0069",
     "q0071",
     "q0072",
-    "q0073"
+    "q0073",
+    "q0074"
   ],
   "published_history": [
-    {
-      "id": "q0016",
-      "yt_id": "hVlSsrvGrkQ",
-      "title": "Nuclear Reactor | General Knowledge GK Questions #Shorts",
-      "day": 9,
-      "slot": 1
-    },
     {
       "id": "q0017",
       "yt_id": "AOiLFR6mYZs",
@@ -229,16 +223,13 @@
       "title": "🇬🇧🤯 Brits in India BANNED from this right? #Shorts #GKQuiz",
       "day": 17,
       "slot": 1
+    },
+    {
+      "id": "q0074",
+      "yt_id": "iYUxw8I8fFY",
+      "title": "Energy Chain Challenge! ⚡ #ScienceQuiz #Shorts",
+      "day": 33,
+      "slot": 3
     }
-  ],
-  "pending_publication": {
-    "question_id": "q0074",
-    "date": "2026-10-08",
-    "day": 33,
-    "slot": 3,
-    "results": {
-      "instagram": "https://www.instagram.com/reel/DeO3vftAQWz/",
-      "facebook": "https://www.facebook.com/reel/2164318854433925"
-    }
-  }
+  ]
 }
