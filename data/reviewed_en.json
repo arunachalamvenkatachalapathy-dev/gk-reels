@@ -235,5 +235,158 @@
   "source_url": "https://pib.gov.in/Pressreleaseshare.aspx?PRID=1578975",
   "source_label": "Source: PIB | National Bamboo Mission",
   "verified_topic": "AGRICULTURE"
+ },
+ "q0095": {
+  "display_question": "What do Dolby B and Dolby C refer to?",
+  "speech_question": "What do Dolby B and Dolby C refer to?",
+  "speech_answer": "Noise reduction.",
+  "options": [
+   "Frequency modulation",
+   "Noise reduction systems",
+   "Amplitude modulation",
+   "Power supply types"
+  ],
+  "correct_index": 1,
+  "explanation": "They cut tape hiss on cassettes.",
+  "memory_key": "Dolby = noise reduction",
+  "source_url": "https://en.wikipedia.org/wiki/Dolby_noise-reduction_system",
+  "source_label": "Source: Wikipedia | Dolby noise-reduction system",
+  "verified_topic": "SCIENCE"
+ },
+ "q0115": {
+  "display_question": "The Janata Government ended which Five Year Plan?",
+  "speech_question": "The Janata Government ended which Five Year Plan?",
+  "speech_answer": "The Fifth Plan.",
+  "options": [
+   "Seventh Plan",
+   "Eighth Plan",
+   "Fourth Plan",
+   "Fifth Plan"
+  ],
+  "correct_index": 3,
+  "explanation": "It rejected the Fifth Plan in 1978.",
+  "memory_key": "Janata ended the Fifth Plan",
+  "source_url": "https://en.wikipedia.org/wiki/Five-Year_Plans_of_India",
+  "source_label": "Source: Wikipedia | Five-Year Plans of India",
+  "verified_topic": "ECONOMY"
+ },
+ "q0102": {
+  "display_question": "A hotspot needs 1,500 endemic what?",
+  "speech_question": "A hotspot needs 1,500 endemic what?",
+  "speech_answer": "Vascular plant species.",
+  "options": [
+   "Mammal species",
+   "Insect species",
+   "Vascular plant species",
+   "Bird species"
+  ],
+  "correct_index": 2,
+  "explanation": "It must lose 70 percent of habitat.",
+  "memory_key": "Hotspot: 1,500 endemic plants",
+  "source_url": "https://www.cepf.net/our-work/biodiversity-hotspots/hotspots-defined",
+  "source_label": "Source: CEPF | Hotspots defined",
+  "verified_topic": "ENVIRONMENT"
+ },
+ "q0114": {
+  "display_question": "The Special Safeguard Mechanism belongs to which body?",
+  "speech_question": "The Special Safeguard Mechanism belongs to which body?",
+  "speech_answer": "The WTO.",
+  "options": [
+   "G20",
+   "WTO",
+   "UNEP",
+   "World Economic Forum"
+  ],
+  "correct_index": 1,
+  "explanation": "Developing countries can raise tariffs on surges.",
+  "memory_key": "SSM: a WTO tool",
+  "source_url": "https://www.wto.org/english/thewto_e/glossary_e/ssm_e.htm",
+  "source_label": "Source: WTO | Glossary: SSM",
+  "verified_topic": "ECONOMY"
+ },
+ "q0128": {
+  "display_question": "In which state did the Chipko movement begin?",
+  "speech_question": "In which state did the Chipko movement begin?",
+  "speech_answer": "Uttarakhand.",
+  "options": [
+   "Madhya Pradesh",
+   "Uttarakhand",
+   "Rajasthan",
+   "West Bengal"
+  ],
+  "correct_index": 1,
+  "explanation": "Villagers hugged trees to stop logging.",
+  "memory_key": "Chipko: Uttarakhand",
+  "source_url": "https://www.britannica.com/topic/Chipko-movement",
+  "source_label": "Source: Britannica | Chipko movement",
+  "verified_topic": "ENVIRONMENT"
+ },
+ "q0136": {
+  "display_question": "High Court judges’ salaries are charged to which fund?",
+  "speech_question": "High Court judges’ salaries are charged to which fund?",
+  "speech_answer": "Consolidated Fund of the State.",
+  "options": [
+   "Contingency Fund of India",
+   "Contingency Fund of the State",
+   "Consolidated Fund of the State",
+   "Consolidated Fund of India"
+  ],
+  "correct_index": 2,
+  "explanation": "Article 202(3).",
+  "memory_key": "HC judges: State fund",
+  "source_url": "https://www.verdictum.in/pdf_upload/justice-shailendra-singh-v-union-of-indiawatermark-1666475.pdf",
+  "source_label": "Source: Supreme Court judgment on Article 202(3)(d)",
+  "verified_topic": "POLITY"
+ },
+ "q0139": {
+  "display_question": "Radium is obtained from which mineral?",
+  "speech_question": "Radium is obtained from which mineral?",
+  "speech_answer": "Pitchblende.",
+  "options": [
+   "Haematite",
+   "Rutile",
+   "Pitchblende",
+   "Limestone"
+  ],
+  "correct_index": 2,
+  "explanation": "The Curies found it in pitchblende in 1898.",
+  "memory_key": "Radium: pitchblende",
+  "source_url": "https://www.britannica.com/science/radium",
+  "source_label": "Source: Britannica | Radium",
+  "verified_topic": "SCIENCE"
+ },
+ "q0140": {
+  "display_question": "What is the SA node of the heart known as?",
+  "speech_question": "What is the SA node of the heart known as?",
+  "speech_answer": "The pacemaker.",
+  "options": [
+   "Beat regulator",
+   "Time controller",
+   "Autoregulator",
+   "Pacemaker"
+  ],
+  "correct_index": 3,
+  "explanation": "It sets the heartbeat rhythm.",
+  "memory_key": "SA node = pacemaker",
+  "source_url": "https://www.britannica.com/science/sinoatrial-node",
+  "source_label": "Source: Britannica | Sinoatrial node",
+  "verified_topic": "SCIENCE"
+ },
+ "q0159": {
+  "display_question": "Where is the Central Rice Research Institute?",
+  "speech_question": "Where is the Central Rice Research Institute?",
+  "speech_answer": "Cuttack.",
+  "options": [
+   "Kanpur",
+   "Coimbatore",
+   "Cuttack",
+   "Bengaluru"
+  ],
+  "correct_index": 2,
+  "explanation": "Now ICAR-NRRI, in Cuttack, Odisha.",
+  "memory_key": "Rice institute: Cuttack",
+  "source_url": "https://icar-nrri.in/",
+  "source_label": "Source: ICAR-NRRI | Cuttack, Odisha",
+  "verified_topic": "AGRICULTURE"
  }
 }
