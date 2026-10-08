@@ -46,20 +46,28 @@ def is_suitable_short_question(q):
     return True
 
 
-def pick_next_question(questions, state):
+def pick_next_question(questions, state, reviewed=None):
+    """Pick the next unpublished question that has a source-checked entry.
+
+    Unreviewed questions are never published and never marked published: they
+    stay in the backlog and every skip is logged. If nothing reviewed remains,
+    fail loudly so the buffer shortage is visible.
+    """
+    if reviewed is None:
+        from render import REVIEWED as reviewed
     published_ids = set(state.get("published_ids", []))
-    
-
+    skipped = 0
     for i, q in enumerate(questions):
-        if q["id"] not in published_ids:
-            if not is_suitable_short_question(q):
-                print(f"Skipping unsuitable multi-clause question {q['id']} for short-form video.")
-                published_ids.add(q["id"])
-                continue
-            state["next_index"] = (i + 1) % len(questions)
-            return q
-
-    raise RuntimeError("No unpublished suitable questions remain; replenish the bank before publishing.")
+        if q["id"] in published_ids:
+            continue
+        if q["id"] not in reviewed:
+            skipped += 1
+            continue
+        if skipped:
+            print(f"NOTE: {skipped} unreviewed question(s) skipped (not published, not consumed); backlog unchanged.")
+        state["next_index"] = (i + 1) % len(questions)
+        return q
+    raise RuntimeError(f"BUFFER EMPTY: no unpublished source-checked question remains ({skipped} unreviewed in backlog). Add reviewed entries before the next slot.")
 
 
 def next_accent(state):
