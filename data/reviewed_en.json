@@ -1255,5 +1255,328 @@
   "source_url": "https://en.wikipedia.org/wiki/Dispur",
   "source_label": "Source: Wikipedia | Dispur",
   "verified_topic": "GEOGRAPHY"
+ },
+ "q0313": {
+  "display_question": "Which place is among the wettest on Earth, in Meghalaya?",
+  "speech_question": "Which place is among the wettest on Earth, in Meghalaya?",
+  "speech_answer": "Mawsynram.",
+  "options": [
+   "Mawsynram",
+   "Tura",
+   "Shillong",
+   "Cherrapunji"
+  ],
+  "correct_index": 0,
+  "explanation": "Mawsynram records some of the highest rainfall.",
+  "memory_key": "Wettest: Mawsynram",
+  "source_url": "https://en.wikipedia.org/wiki/Mawsynram",
+  "source_label": "Source: Wikipedia | Mawsynram",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0314": {
+  "display_question": "Which desert is the driest non-polar place on Earth?",
+  "speech_question": "Which desert is the driest non-polar place on Earth?",
+  "speech_answer": "The Atacama.",
+  "options": [
+   "The Thar",
+   "The Atacama",
+   "The Gobi",
+   "The Sahara"
+  ],
+  "correct_index": 1,
+  "explanation": "It lies in northern Chile.",
+  "memory_key": "Driest: Atacama",
+  "source_url": "https://en.wikipedia.org/wiki/Atacama_Desert",
+  "source_label": "Source: Wikipedia | Atacama Desert",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0315": {
+  "display_question": "Which is the largest freshwater lake by area?",
+  "speech_question": "Which is the largest freshwater lake by area?",
+  "speech_answer": "Lake Superior.",
+  "options": [
+   "Lake Tanganyika",
+   "Lake Superior",
+   "Lake Victoria",
+   "Lake Baikal"
+  ],
+  "correct_index": 1,
+  "explanation": "It is the largest of the Great Lakes.",
+  "memory_key": "Largest freshwater lake: Superior",
+  "source_url": "https://en.wikipedia.org/wiki/Lake_Superior",
+  "source_label": "Source: Wikipedia | Lake Superior",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0316": {
+  "display_question": "Which is the world’s highest uninterrupted waterfall?",
+  "speech_question": "Which is the world’s highest uninterrupted waterfall?",
+  "speech_answer": "Angel Falls.",
+  "options": [
+   "Jog Falls",
+   "Victoria Falls",
+   "Niagara Falls",
+   "Angel Falls"
+  ],
+  "correct_index": 3,
+  "explanation": "It is in Venezuela.",
+  "memory_key": "Highest waterfall: Angel",
+  "source_url": "https://en.wikipedia.org/wiki/Angel_Falls",
+  "source_label": "Source: Wikipedia | Angel Falls",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0317": {
+  "display_question": "Which is the largest inland water body on Earth?",
+  "speech_question": "Which is the largest inland water body on Earth?",
+  "speech_answer": "The Caspian Sea.",
+  "options": [
+   "Lake Superior",
+   "The Caspian Sea",
+   "Lake Baikal",
+   "The Aral Sea"
+  ],
+  "correct_index": 1,
+  "explanation": "It is a saltwater lake with no ocean outlet.",
+  "memory_key": "Largest lake: Caspian",
+  "source_url": "https://en.wikipedia.org/wiki/Caspian_Sea",
+  "source_label": "Source: Wikipedia | Caspian Sea",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0318": {
+  "display_question": "In which city is the Eden Gardens cricket stadium?",
+  "speech_question": "In which city is the Eden Gardens cricket stadium?",
+  "speech_answer": "Kolkata.",
+  "options": [
+   "Kolkata",
+   "Chennai",
+   "Delhi",
+   "Mumbai"
+  ],
+  "correct_index": 0,
+  "explanation": "It is one of India’s oldest cricket grounds.",
+  "memory_key": "Eden Gardens: Kolkata",
+  "source_url": "https://en.wikipedia.org/wiki/Eden_Gardens",
+  "source_label": "Source: Wikipedia | Eden Gardens",
+  "verified_topic": "SPORT"
+ },
+ "q0319": {
+  "display_question": "The Sudirman Cup is played in which sport?",
+  "speech_question": "The Sudirman Cup is played in which sport?",
+  "speech_answer": "Badminton.",
+  "options": [
+   "Badminton",
+   "Tennis",
+   "Table tennis",
+   "Squash"
+  ],
+  "correct_index": 0,
+  "explanation": "It is a mixed team badminton event.",
+  "memory_key": "Sudirman Cup: badminton",
+  "source_url": "https://en.wikipedia.org/wiki/Sudirman_Cup",
+  "source_label": "Source: Wikipedia | Sudirman Cup",
+  "verified_topic": "SPORT"
+ },
+ "q0320": {
+  "display_question": "Which is India’s oldest football tournament?",
+  "speech_question": "Which is India’s oldest football tournament?",
+  "speech_answer": "The Durand Cup.",
+  "options": [
+   "The IFA Shield",
+   "The Durand Cup",
+   "The Federation Cup",
+   "The Santosh Trophy"
+  ],
+  "correct_index": 1,
+  "explanation": "It started in 1888.",
+  "memory_key": "Oldest tournament: Durand Cup",
+  "source_url": "https://en.wikipedia.org/wiki/Durand_Cup",
+  "source_label": "Source: Wikipedia | Durand Cup",
+  "verified_topic": "SPORT"
+ },
+ "q0321": {
+  "display_question": "Which ground is called the \"Home of Cricket\"?",
+  "speech_question": "Which ground is called the \"Home of Cricket\"?",
+  "speech_answer": "Lord’s.",
+  "options": [
+   "Melbourne",
+   "The Oval",
+   "Lord’s",
+   "Eden Gardens"
+  ],
+  "correct_index": 2,
+  "explanation": "It is in London and owned by the MCC.",
+  "memory_key": "Home of Cricket: Lord’s",
+  "source_url": "https://en.wikipedia.org/wiki/Lord%27s",
+  "source_label": "Source: Wikipedia | Lord's",
+  "verified_topic": "SPORT"
+ },
+ "q0322": {
+  "display_question": "In which city is the Barabati Stadium?",
+  "speech_question": "In which city is the Barabati Stadium?",
+  "speech_answer": "Cuttack.",
+  "options": [
+   "Puri",
+   "Bhubaneswar",
+   "Kolkata",
+   "Cuttack"
+  ],
+  "correct_index": 3,
+  "explanation": "It is a cricket stadium in Odisha.",
+  "memory_key": "Barabati: Cuttack",
+  "source_url": "https://en.wikipedia.org/wiki/Barabati_Stadium",
+  "source_label": "Source: Wikipedia | Barabati Stadium",
+  "verified_topic": "SPORT"
+ },
+ "q0323": {
+  "display_question": "Where are the Dilwara Jain temples?",
+  "speech_question": "Where are the Dilwara Jain temples?",
+  "speech_answer": "Mount Abu.",
+  "options": [
+   "Udaipur",
+   "Palitana",
+   "Khajuraho",
+   "Mount Abu"
+  ],
+  "correct_index": 3,
+  "explanation": "They are in Rajasthan.",
+  "memory_key": "Dilwara: Mount Abu",
+  "source_url": "https://en.wikipedia.org/wiki/Dilwara_Temples",
+  "source_label": "Source: Wikipedia | Dilwara Temples",
+  "verified_topic": "CULTURE"
+ },
+ "q0324": {
+  "display_question": "Which dynasty built the Khajuraho temples?",
+  "speech_question": "Which dynasty built the Khajuraho temples?",
+  "speech_answer": "The Chandelas.",
+  "options": [
+   "The Cholas",
+   "The Guptas",
+   "The Chandelas",
+   "The Palas"
+  ],
+  "correct_index": 2,
+  "explanation": "They were built mostly between 950 and 1050 CE.",
+  "memory_key": "Khajuraho: Chandelas",
+  "source_url": "https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments",
+  "source_label": "Source: Wikipedia | Khajuraho Group of Monuments",
+  "verified_topic": "CULTURE"
+ },
+ "q0325": {
+  "display_question": "Which ruler built the Vijay Stambh at Chittorgarh?",
+  "speech_question": "Which ruler built the Vijay Stambh at Chittorgarh?",
+  "speech_answer": "Rana Kumbha.",
+  "options": [
+   "Maharana Pratap",
+   "Prithviraj Chauhan",
+   "Rana Sanga",
+   "Rana Kumbha"
+  ],
+  "correct_index": 3,
+  "explanation": "He built it at Chittorgarh to mark a victory.",
+  "memory_key": "Vijay Stambh: Rana Kumbha",
+  "source_url": "https://en.wikipedia.org/wiki/Vijay_Stambh",
+  "source_label": "Source: Wikipedia | Vijay Stambh",
+  "verified_topic": "CULTURE"
+ },
+ "q0326": {
+  "display_question": "Who founded the Pala dynasty?",
+  "speech_question": "Who founded the Pala dynasty?",
+  "speech_answer": "Gopala.",
+  "options": [
+   "Gopala",
+   "Dharmapala",
+   "Mahipala",
+   "Devapala"
+  ],
+  "correct_index": 0,
+  "explanation": "He became king around 750 CE in Bengal.",
+  "memory_key": "Pala founder: Gopala",
+  "source_url": "https://en.wikipedia.org/wiki/Pala_Empire",
+  "source_label": "Source: Wikipedia | Pala Empire",
+  "verified_topic": "HISTORY"
+ },
+ "q0327": {
+  "display_question": "Which Pala king founded Vikramshila university?",
+  "speech_question": "Which Pala king founded Vikramshila university?",
+  "speech_answer": "Dharmapala.",
+  "options": [
+   "Devapala",
+   "Gopala",
+   "Dharmapala",
+   "Ashoka"
+  ],
+  "correct_index": 2,
+  "explanation": "It was a Buddhist centre of learning in Bihar.",
+  "memory_key": "Vikramshila: Dharmapala",
+  "source_url": "https://en.wikipedia.org/wiki/Vikramashila",
+  "source_label": "Source: Wikipedia | Vikramashila",
+  "verified_topic": "HISTORY"
+ },
+ "q0328": {
+  "display_question": "Which city was the Yadava capital?",
+  "speech_question": "Which city was the Yadava capital?",
+  "speech_answer": "Devagiri.",
+  "options": [
+   "Devagiri",
+   "Warangal",
+   "Halebidu",
+   "Kanchipuram"
+  ],
+  "correct_index": 0,
+  "explanation": "It is now called Daulatabad.",
+  "memory_key": "Yadava capital: Devagiri",
+  "source_url": "https://en.wikipedia.org/wiki/Seuna_dynasty",
+  "source_label": "Source: Wikipedia | Seuna dynasty",
+  "verified_topic": "HISTORY"
+ },
+ "q0329": {
+  "display_question": "In which country is Mount Vesuvius?",
+  "speech_question": "In which country is Mount Vesuvius?",
+  "speech_answer": "Italy.",
+  "options": [
+   "Spain",
+   "Greece",
+   "Italy",
+   "Iceland"
+  ],
+  "correct_index": 2,
+  "explanation": "It buried Pompeii in 79 CE.",
+  "memory_key": "Vesuvius: Italy",
+  "source_url": "https://en.wikipedia.org/wiki/Mount_Vesuvius",
+  "source_label": "Source: Wikipedia | Mount Vesuvius",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0330": {
+  "display_question": "Who is the Supreme Commander of India’s armed forces?",
+  "speech_question": "Who is the Supreme Commander of India’s armed forces?",
+  "speech_answer": "The President.",
+  "options": [
+   "The President",
+   "The Army Chief",
+   "The Defence Minister",
+   "The Prime Minister"
+  ],
+  "correct_index": 0,
+  "explanation": "The Constitution vests this in the President.",
+  "memory_key": "Supreme Commander: President",
+  "source_url": "https://en.wikipedia.org/wiki/President_of_India",
+  "source_label": "Source: Wikipedia | President of India",
+  "verified_topic": "POLITY"
+ },
+ "q0332": {
+  "display_question": "The Himalayas rose from which ancient sea?",
+  "speech_question": "The Himalayas rose from which ancient sea?",
+  "speech_answer": "The Tethys Sea.",
+  "options": [
+   "The Tethys Sea",
+   "The Panthalassa",
+   "The Arabian Sea",
+   "The Red Sea"
+  ],
+  "correct_index": 0,
+  "explanation": "India’s collision with Asia closed the Tethys.",
+  "memory_key": "Himalayas: Tethys",
+  "source_url": "https://en.wikipedia.org/wiki/Tethys_Ocean",
+  "source_label": "Source: Wikipedia | Tethys Ocean",
+  "verified_topic": "GEOGRAPHY"
  }
 }
