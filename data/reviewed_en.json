@@ -2190,5 +2190,260 @@
   "source_url": "https://en.wikipedia.org/wiki/Ramananda",
   "source_label": "Source: Wikipedia | Ramananda",
   "verified_topic": "HISTORY"
+ },
+ "q0375": {
+  "display_question": "Who was the first person to walk on the Moon?",
+  "speech_question": "Who was the first person to walk on the Moon?",
+  "speech_answer": "Neil Armstrong.",
+  "options": [
+   "Michael Collins",
+   "Neil Armstrong",
+   "Buzz Aldrin",
+   "Yuri Gagarin"
+  ],
+  "correct_index": 1,
+  "explanation": "He stepped onto the Moon on 20 July 1969.",
+  "memory_key": "First on Moon: Armstrong",
+  "source_url": "https://en.wikipedia.org/wiki/Neil_Armstrong",
+  "source_label": "Source: Wikipedia | Neil Armstrong",
+  "verified_topic": "SCIENCE"
+ },
+ "q0376": {
+  "display_question": "The Irani Cup is associated with which sport?",
+  "speech_question": "The Irani Cup is associated with which sport?",
+  "speech_answer": "Cricket.",
+  "options": [
+   "Cricket",
+   "Badminton",
+   "Football",
+   "Hockey"
+  ],
+  "correct_index": 0,
+  "explanation": "It pits the Ranji champions against Rest of India.",
+  "memory_key": "Irani Cup: Cricket",
+  "source_url": "https://en.wikipedia.org/wiki/Irani_Cup",
+  "source_label": "Source: Wikipedia | Irani Cup",
+  "verified_topic": "SPORTS"
+ },
+ "q0378": {
+  "display_question": "In which city did the Constituent Assembly first meet?",
+  "speech_question": "In which city did the Constituent Assembly first meet?",
+  "speech_answer": "Delhi.",
+  "options": [
+   "Allahabad",
+   "Mumbai",
+   "Kolkata",
+   "Delhi"
+  ],
+  "correct_index": 3,
+  "explanation": "It first met on 9 December 1946.",
+  "memory_key": "Assembly first met: Delhi",
+  "source_url": "https://en.wikipedia.org/wiki/Constituent_Assembly_of_India",
+  "source_label": "Source: Wikipedia | Constituent Assembly of India",
+  "verified_topic": "POLITY"
+ },
+ "q0379": {
+  "display_question": "Which party ruled Britain when India became independent?",
+  "speech_question": "Which party ruled Britain when India became independent?",
+  "speech_answer": "The Labour Party.",
+  "options": [
+   "The Labour Party",
+   "The Conservative Party",
+   "The Liberal Party",
+   "The Green Party"
+  ],
+  "correct_index": 0,
+  "explanation": "Clement Attlee was Prime Minister.",
+  "memory_key": "1947 Britain: Labour",
+  "source_url": "https://en.wikipedia.org/wiki/Attlee_ministry",
+  "source_label": "Source: Wikipedia | Attlee ministry",
+  "verified_topic": "HISTORY"
+ },
+ "q0380": {
+  "display_question": "Which country has the longest written national constitution?",
+  "speech_question": "Which country has the longest written national constitution?",
+  "speech_answer": "India.",
+  "options": [
+   "United States",
+   "Japan",
+   "India",
+   "Canada"
+  ],
+  "correct_index": 2,
+  "explanation": "The Indian Constitution is the longest of any country.",
+  "memory_key": "Longest constitution: India",
+  "source_url": "https://en.wikipedia.org/wiki/Constitution_of_India",
+  "source_label": "Source: Wikipedia | Constitution of India",
+  "verified_topic": "POLITY"
+ },
+ "q0381": {
+  "display_question": "Who chairs the National Development Council?",
+  "speech_question": "Who chairs the National Development Council?",
+  "speech_answer": "The Prime Minister.",
+  "options": [
+   "The President",
+   "The Vice-President",
+   "The Prime Minister",
+   "The Finance Minister"
+  ],
+  "correct_index": 2,
+  "explanation": "Chief Ministers are its members.",
+  "memory_key": "NDC chair: Prime Minister",
+  "source_url": "https://en.wikipedia.org/wiki/National_Development_Council_(India)",
+  "source_label": "Source: Wikipedia | National Development Council (India)",
+  "verified_topic": "ECONOMY"
+ },
+ "q0383": {
+  "display_question": "India’s financial year runs from which dates?",
+  "speech_question": "India’s financial year runs from which dates?",
+  "speech_answer": "1 April to 31 March.",
+  "options": [
+   "1 July to 30 June",
+   "1 April to 31 March",
+   "1 October to 30 September",
+   "1 January to 31 December"
+  ],
+  "correct_index": 1,
+  "explanation": "The Union Budget follows this year.",
+  "memory_key": "Indian financial year: Apr-Mar",
+  "source_url": "https://en.wikipedia.org/wiki/Fiscal_year",
+  "source_label": "Source: Wikipedia | Fiscal year",
+  "verified_topic": "ECONOMY"
+ },
+ "q0385": {
+  "display_question": "Who is regarded as the founder of Fascism?",
+  "speech_question": "Who is regarded as the founder of Fascism?",
+  "speech_answer": "Benito Mussolini.",
+  "options": [
+   "Joseph Stalin",
+   "Adolf Hitler",
+   "Benito Mussolini",
+   "Francisco Franco"
+  ],
+  "correct_index": 2,
+  "explanation": "He founded the Fascist movement in Italy in 1919.",
+  "memory_key": "Fascism founder: Mussolini",
+  "source_url": "https://en.wikipedia.org/wiki/Benito_Mussolini",
+  "source_label": "Source: Wikipedia | Benito Mussolini",
+  "verified_topic": "HISTORY"
+ },
+ "q0388": {
+  "display_question": "Which planet is farthest from the Sun?",
+  "speech_question": "Which planet is farthest from the Sun?",
+  "speech_answer": "Neptune.",
+  "options": [
+   "Saturn",
+   "Uranus",
+   "Pluto",
+   "Neptune"
+  ],
+  "correct_index": 3,
+  "explanation": "Pluto is now classed as a dwarf planet.",
+  "memory_key": "Farthest planet: Neptune",
+  "source_url": "https://en.wikipedia.org/wiki/Neptune",
+  "source_label": "Source: Wikipedia | Neptune",
+  "verified_topic": "SCIENCE"
+ },
+ "q0389": {
+  "display_question": "Which planet is called Earth’s sister planet?",
+  "speech_question": "Which planet is called Earth’s sister planet?",
+  "speech_answer": "Venus.",
+  "options": [
+   "Jupiter",
+   "Mercury",
+   "Venus",
+   "Mars"
+  ],
+  "correct_index": 2,
+  "explanation": "Venus is close to Earth in size and mass.",
+  "memory_key": "Earth’s sister: Venus",
+  "source_url": "https://en.wikipedia.org/wiki/Venus",
+  "source_label": "Source: Wikipedia | Venus",
+  "verified_topic": "SCIENCE"
+ },
+ "q0390": {
+  "display_question": "Which gas makes up about 78 percent of Earth’s atmosphere?",
+  "speech_question": "Which gas makes up about 78 percent of Earth’s atmosphere?",
+  "speech_answer": "Nitrogen.",
+  "options": [
+   "Oxygen",
+   "Argon",
+   "Nitrogen",
+   "Carbon dioxide"
+  ],
+  "correct_index": 2,
+  "explanation": "Oxygen makes up about 21 percent.",
+  "memory_key": "Air 78%: Nitrogen",
+  "source_url": "https://en.wikipedia.org/wiki/Atmosphere_of_Earth",
+  "source_label": "Source: Wikipedia | Atmosphere of Earth",
+  "verified_topic": "SCIENCE"
+ },
+ "q0391": {
+  "display_question": "In which country is the volcano Cotopaxi?",
+  "speech_question": "In which country is the volcano Cotopaxi?",
+  "speech_answer": "Ecuador.",
+  "options": [
+   "Ecuador",
+   "Mexico",
+   "Chile",
+   "Peru"
+  ],
+  "correct_index": 0,
+  "explanation": "It is one of the highest active volcanoes.",
+  "memory_key": "Cotopaxi: Ecuador",
+  "source_url": "https://en.wikipedia.org/wiki/Cotopaxi",
+  "source_label": "Source: Wikipedia | Cotopaxi",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0392": {
+  "display_question": "Which is the capital of Lakshadweep?",
+  "speech_question": "Which is the capital of Lakshadweep?",
+  "speech_answer": "Kavaratti.",
+  "options": [
+   "Puducherry",
+   "Port Blair",
+   "Kavaratti",
+   "Daman"
+  ],
+  "correct_index": 2,
+  "explanation": "It lies in the Arabian Sea.",
+  "memory_key": "Lakshadweep capital: Kavaratti",
+  "source_url": "https://en.wikipedia.org/wiki/Kavaratti",
+  "source_label": "Source: Wikipedia | Kavaratti",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0393": {
+  "display_question": "National Sports Day marks whose birthday?",
+  "speech_question": "National Sports Day marks whose birthday?",
+  "speech_answer": "Major Dhyan Chand.",
+  "options": [
+   "Sachin Tendulkar",
+   "Major Dhyan Chand",
+   "P. T. Usha",
+   "Milkha Singh"
+  ],
+  "correct_index": 1,
+  "explanation": "It is observed on 29 August.",
+  "memory_key": "Sports Day: Dhyan Chand",
+  "source_url": "https://en.wikipedia.org/wiki/National_Sports_Day",
+  "source_label": "Source: Wikipedia | National Sports Day",
+  "verified_topic": "SPORTS"
+ },
+ "q0395": {
+  "display_question": "From which country did India take its federal structure?",
+  "speech_question": "From which country did India take its federal structure?",
+  "speech_answer": "Canada.",
+  "options": [
+   "Canada",
+   "France",
+   "Australia",
+   "Ireland"
+  ],
+  "correct_index": 0,
+  "explanation": "A strong Centre follows the Canadian model.",
+  "memory_key": "Federalism from: Canada",
+  "source_url": "https://en.wikipedia.org/wiki/Constitution_of_India",
+  "source_label": "Source: Wikipedia | Constitution of India",
+  "verified_topic": "POLITY"
  }
 }
