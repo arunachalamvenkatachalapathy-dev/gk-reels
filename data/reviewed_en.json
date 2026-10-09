@@ -388,5 +388,209 @@
   "source_url": "https://icar-nrri.in/",
   "source_label": "Source: ICAR-NRRI | Cuttack, Odisha",
   "verified_topic": "AGRICULTURE"
+ },
+ "q0016": {
+  "display_question": "Who led the team that built the first nuclear reactor?",
+  "speech_question": "Who led the team that built the first nuclear reactor?",
+  "speech_answer": "Enrico Fermi.",
+  "options": [
+   "Ernest Rutherford",
+   "Enrico Fermi",
+   "Robert Oppenheimer",
+   "Niels Bohr"
+  ],
+  "correct_index": 1,
+  "explanation": "Fermi led Chicago Pile-1 in December 1942.",
+  "memory_key": "Fermi: Chicago Pile-1",
+  "source_url": "https://en.wikipedia.org/wiki/Chicago_Pile-1",
+  "source_label": "Source: Wikipedia | Chicago Pile-1",
+  "verified_topic": "SCIENCE"
+ },
+ "q0017": {
+  "display_question": "What are Saturn’s rings mostly made of?",
+  "speech_question": "What are Saturn’s rings mostly made of?",
+  "speech_answer": "Ice particles.",
+  "options": [
+   "Hydrogen gas",
+   "Volcanic ash",
+   "Molten metal",
+   "Ice particles"
+  ],
+  "correct_index": 3,
+  "explanation": "Ice with some rocky debris and dust.",
+  "memory_key": "Saturn rings: ice",
+  "source_url": "https://en.wikipedia.org/wiki/Saturn",
+  "source_label": "Source: Wikipedia | Saturn",
+  "verified_topic": "SCIENCE"
+ },
+ "q0032": {
+  "display_question": "A hydrogen bomb works on which process?",
+  "speech_question": "A hydrogen bomb works on which process?",
+  "speech_answer": "Nuclear fusion.",
+  "options": [
+   "Radioactive decay",
+   "Nuclear fusion",
+   "Nuclear fission only",
+   "Chemical burning"
+  ],
+  "correct_index": 1,
+  "explanation": "It is a thermonuclear weapon using fusion.",
+  "memory_key": "H-bomb = fusion",
+  "source_url": "https://en.wikipedia.org/wiki/Thermonuclear_weapon",
+  "source_label": "Source: Wikipedia | Thermonuclear weapon",
+  "verified_topic": "SCIENCE"
+ },
+ "q0043": {
+  "display_question": "Why does a liquid drop form a sphere?",
+  "speech_question": "Why does a liquid drop form a sphere?",
+  "speech_answer": "Surface tension.",
+  "options": [
+   "Buoyancy",
+   "Viscosity",
+   "Surface tension",
+   "Air pressure"
+  ],
+  "correct_index": 2,
+  "explanation": "Surface tension pulls the surface into a sphere.",
+  "memory_key": "Drops: surface tension",
+  "source_url": "https://www.britannica.com/science/surface-tension",
+  "source_label": "Source: Britannica | Surface tension",
+  "verified_topic": "SCIENCE"
+ },
+ "q0055": {
+  "display_question": "Who gave the biodiversity hotspot concept?",
+  "speech_question": "Who gave the biodiversity hotspot concept?",
+  "speech_answer": "Norman Myers.",
+  "options": [
+   "E. O. Wilson",
+   "Gifford Pinchot",
+   "Norman Myers",
+   "Rachel Carson"
+  ],
+  "correct_index": 2,
+  "explanation": "Myers proposed hotspots in a 1988 paper.",
+  "memory_key": "Hotspots: Norman Myers",
+  "source_url": "https://en.wikipedia.org/wiki/Norman_Myers",
+  "source_label": "Source: Wikipedia | Norman Myers",
+  "verified_topic": "ENVIRONMENT"
+ },
+ "q0058": {
+  "display_question": "The Department of Official Language is under which ministry?",
+  "speech_question": "The Department of Official Language is under which ministry?",
+  "speech_answer": "Ministry of Home Affairs.",
+  "options": [
+   "Ministry of Culture",
+   "Ministry of Education",
+   "Ministry of Home Affairs",
+   "Ministry of Law"
+  ],
+  "correct_index": 2,
+  "explanation": "It is a department of the Home Ministry.",
+  "memory_key": "Official Language: MHA",
+  "source_url": "https://en.wikipedia.org/wiki/Department_of_Official_Language",
+  "source_label": "Source: Wikipedia | Department of Official Language",
+  "verified_topic": "POLITY"
+ },
+ "q0060": {
+  "display_question": "What is the S&P 500?",
+  "speech_question": "What is the S&P 500?",
+  "speech_answer": "A US stock index.",
+  "options": [
+   "A credit rating",
+   "A currency basket",
+   "A bond fund",
+   "A US stock index"
+  ],
+  "correct_index": 3,
+  "explanation": "It tracks 500 large listed US companies.",
+  "memory_key": "S&P 500: large-cap index",
+  "source_url": "https://en.wikipedia.org/wiki/S%26P_500",
+  "source_label": "Source: Wikipedia | S&P 500",
+  "verified_topic": "ECONOMY"
+ },
+ "q0063": {
+  "display_question": "Juan Manuel Santos was president of which country?",
+  "speech_question": "Juan Manuel Santos was president of which country?",
+  "speech_answer": "Colombia.",
+  "options": [
+   "Colombia",
+   "Chile",
+   "Peru",
+   "Mexico"
+  ],
+  "correct_index": 0,
+  "explanation": "He served from 2010 to 2018.",
+  "memory_key": "Santos: Colombia",
+  "source_url": "https://en.wikipedia.org/wiki/Juan_Manuel_Santos",
+  "source_label": "Source: Wikipedia | Juan Manuel Santos",
+  "verified_topic": "WORLD"
+ },
+ "q0076": {
+  "display_question": "A solar eclipse occurs when which body is in between?",
+  "speech_question": "A solar eclipse occurs when which body is in between?",
+  "speech_answer": "The Moon.",
+  "options": [
+   "Mars",
+   "Venus",
+   "A comet",
+   "The Moon"
+  ],
+  "correct_index": 3,
+  "explanation": "The Moon passes between Earth and the Sun.",
+  "memory_key": "Solar eclipse: Moon between",
+  "source_url": "https://en.wikipedia.org/wiki/Solar_eclipse",
+  "source_label": "Source: Wikipedia | Solar eclipse",
+  "verified_topic": "SCIENCE"
+ },
+ "q0185": {
+  "display_question": "Which chemical filled older car airbags?",
+  "speech_question": "Which chemical filled older car airbags?",
+  "speech_answer": "Sodium azide.",
+  "options": [
+   "Sodium chloride",
+   "Potassium iodide",
+   "Sodium azide",
+   "Calcium carbide"
+  ],
+  "correct_index": 2,
+  "explanation": "It rapidly releases nitrogen gas on ignition.",
+  "memory_key": "Airbag: sodium azide",
+  "source_url": "https://en.wikipedia.org/wiki/Airbag",
+  "source_label": "Source: Wikipedia | Airbag",
+  "verified_topic": "SCIENCE"
+ },
+ "q0204": {
+  "display_question": "What is Kessler syndrome?",
+  "speech_question": "What is Kessler syndrome?",
+  "speech_answer": "Space debris chain collisions.",
+  "options": [
+   "A satellite launch method",
+   "Space debris chain collisions",
+   "A solar storm effect",
+   "A moon orbit shift"
+  ],
+  "correct_index": 1,
+  "explanation": "Debris collisions create more debris in orbit.",
+  "memory_key": "Kessler: debris cascade",
+  "source_url": "https://en.wikipedia.org/wiki/Kessler_syndrome",
+  "source_label": "Source: Wikipedia | Kessler syndrome",
+  "verified_topic": "SCIENCE"
+ },
+ "q0273": {
+  "display_question": "Which pigment makes urine yellow?",
+  "speech_question": "Which pigment makes urine yellow?",
+  "speech_answer": "Urochrome.",
+  "options": [
+   "Bilirubin",
+   "Melanin",
+   "Carotene",
+   "Urochrome"
+  ],
+  "correct_index": 3,
+  "explanation": "Urochrome, also called urobilin, colours urine yellow.",
+  "memory_key": "Urine colour: urochrome",
+  "source_url": "https://en.wikipedia.org/wiki/Urochrome",
+  "source_label": "Source: Wikipedia | Urobilin",
+  "verified_topic": "SCIENCE"
  }
 }
