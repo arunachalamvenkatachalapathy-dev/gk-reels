@@ -1034,5 +1034,90 @@
   "source_url": "https://en.wikipedia.org/wiki/Ibadat_Khana",
   "source_label": "Source: Wikipedia | Ibadat Khana",
   "verified_topic": "HISTORY"
+ },
+ "q0205": {
+  "display_question": "The World Bank gives loans mainly for what?",
+  "speech_question": "The World Bank gives loans mainly for what?",
+  "speech_answer": "Development of countries.",
+  "options": [
+   "Currency printing",
+   "Trade tariffs",
+   "Military spending",
+   "Development of countries"
+  ],
+  "correct_index": 3,
+  "explanation": "It began by funding post-war reconstruction.",
+  "memory_key": "World Bank: development loans",
+  "source_url": "https://en.wikipedia.org/wiki/World_Bank",
+  "source_label": "Source: Wikipedia | World Bank",
+  "verified_topic": "ECONOMY"
+ },
+ "q0210": {
+  "display_question": "Which House must pass the resolution to remove the Vice-President?",
+  "speech_question": "Which House must pass the resolution to remove the Vice-President?",
+  "speech_answer": "The Rajya Sabha.",
+  "options": [
+   "Both Houses together",
+   "The Rajya Sabha",
+   "The Lok Sabha",
+   "The Supreme Court"
+  ],
+  "correct_index": 1,
+  "explanation": "Article 67(b); the Lok Sabha then agrees.",
+  "memory_key": "VP removal: Rajya Sabha first",
+  "source_url": "https://en.wikipedia.org/wiki/Vice_President_of_India",
+  "source_label": "Source: Wikipedia | Vice President of India",
+  "verified_topic": "POLITY"
+ },
+ "q0234": {
+  "display_question": "Who proposed forward and backward linkages?",
+  "speech_question": "Who proposed forward and backward linkages?",
+  "speech_answer": "Albert Hirschman.",
+  "options": [
+   "John Keynes",
+   "Milton Friedman",
+   "Albert Hirschman",
+   "Amartya Sen"
+  ],
+  "correct_index": 2,
+  "explanation": "He urged backing industries with many linkages.",
+  "memory_key": "Linkages: Hirschman",
+  "source_url": "https://en.wikipedia.org/wiki/Albert_O._Hirschman",
+  "source_label": "Source: Wikipedia | Albert O. Hirschman",
+  "verified_topic": "ECONOMY"
+ },
+ "q0252": {
+  "display_question": "Why is helium preferred to hydrogen in balloons?",
+  "speech_question": "Why is helium preferred to hydrogen in balloons?",
+  "speech_answer": "It is non-flammable.",
+  "options": [
+   "It is heavier",
+   "It is cheaper to make",
+   "It is a metal",
+   "It is non-flammable"
+  ],
+  "correct_index": 3,
+  "explanation": "Helium is an inert gas, so it will not burn.",
+  "memory_key": "Helium: non-flammable",
+  "source_url": "https://www.britannica.com/science/helium-chemical-element",
+  "source_label": "Source: Britannica | Helium",
+  "verified_topic": "SCIENCE"
+ },
+ "q0248": {
+  "display_question": "What does the quaternary sector cover?",
+  "speech_question": "What does the quaternary sector cover?",
+  "speech_answer": "Research and development.",
+  "options": [
+   "Mining",
+   "Research and development",
+   "Manufacturing",
+   "Farming"
+  ],
+  "correct_index": 1,
+  "explanation": "It is the knowledge-based part of the economy.",
+  "memory_key": "Quaternary = research",
+  "source_url": "https://en.wikipedia.org/wiki/Three-sector_model",
+  "source_label": "Source: Wikipedia | Three-sector model",
+  "verified_topic": "ECONOMY"
  }
 }
