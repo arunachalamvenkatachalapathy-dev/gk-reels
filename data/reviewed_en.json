@@ -1935,5 +1935,260 @@
   "source_url": "https://en.wikipedia.org/wiki/Davis_Cup",
   "source_label": "Source: Wikipedia | Davis Cup",
   "verified_topic": "SPORT"
+ },
+ "q0355": {
+  "display_question": "On which continent are the Atlas Mountains?",
+  "speech_question": "On which continent are the Atlas Mountains?",
+  "speech_answer": "Africa.",
+  "options": [
+   "Africa",
+   "Europe",
+   "South America",
+   "Asia"
+  ],
+  "correct_index": 0,
+  "explanation": "They run across Morocco, Algeria and Tunisia.",
+  "memory_key": "Atlas Mountains: Africa",
+  "source_url": "https://en.wikipedia.org/wiki/Atlas_Mountains",
+  "source_label": "Source: Wikipedia | Atlas Mountains",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0356": {
+  "display_question": "In which country is the Dasht-e Kavir desert?",
+  "speech_question": "In which country is the Dasht-e Kavir desert?",
+  "speech_answer": "Iran.",
+  "options": [
+   "Iran",
+   "Afghanistan",
+   "Iraq",
+   "Pakistan"
+  ],
+  "correct_index": 0,
+  "explanation": "It is also called the Great Salt Desert.",
+  "memory_key": "Dasht-e Kavir: Iran",
+  "source_url": "https://en.wikipedia.org/wiki/Dasht-e_Kavir",
+  "source_label": "Source: Wikipedia | Dasht-e Kavir",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0357": {
+  "display_question": "Port Blair lies on which island?",
+  "speech_question": "Port Blair lies on which island?",
+  "speech_answer": "South Andaman.",
+  "options": [
+   "Great Nicobar",
+   "North Andaman",
+   "Car Nicobar",
+   "South Andaman"
+  ],
+  "correct_index": 3,
+  "explanation": "It is the capital of Andaman and Nicobar Islands.",
+  "memory_key": "Port Blair: South Andaman",
+  "source_url": "https://en.wikipedia.org/wiki/Port_Blair",
+  "source_label": "Source: Wikipedia | Port Blair",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0358": {
+  "display_question": "Which strait separates Europe from Africa?",
+  "speech_question": "Which strait separates Europe from Africa?",
+  "speech_answer": "The Strait of Gibraltar.",
+  "options": [
+   "The Strait of Gibraltar",
+   "The Strait of Malacca",
+   "The Palk Strait",
+   "The Bering Strait"
+  ],
+  "correct_index": 0,
+  "explanation": "It links the Atlantic Ocean and the Mediterranean Sea.",
+  "memory_key": "Europe-Africa strait: Gibraltar",
+  "source_url": "https://en.wikipedia.org/wiki/Strait_of_Gibraltar",
+  "source_label": "Source: Wikipedia | Strait of Gibraltar",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0359": {
+  "display_question": "Which of these is a cold ocean current?",
+  "speech_question": "Which of these is a cold ocean current?",
+  "speech_answer": "The Humboldt Current.",
+  "options": [
+   "The Kuroshio Current",
+   "The Gulf Stream",
+   "The Humboldt Current",
+   "The Brazil Current"
+  ],
+  "correct_index": 2,
+  "explanation": "It flows north along the west coast of South America.",
+  "memory_key": "Cold current: Humboldt",
+  "source_url": "https://en.wikipedia.org/wiki/Humboldt_Current",
+  "source_label": "Source: Wikipedia | Humboldt Current",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0360": {
+  "display_question": "Which salt is the most abundant in seawater?",
+  "speech_question": "Which salt is the most abundant in seawater?",
+  "speech_answer": "Sodium chloride.",
+  "options": [
+   "Sodium chloride",
+   "Potassium chloride",
+   "Magnesium chloride",
+   "Calcium sulphate"
+  ],
+  "correct_index": 0,
+  "explanation": "Common salt is the main dissolved salt in seawater.",
+  "memory_key": "Seawater main salt: NaCl",
+  "source_url": "https://en.wikipedia.org/wiki/Seawater",
+  "source_label": "Source: Wikipedia | Seawater",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0361": {
+  "display_question": "Which Constitutional Amendment deals with anti-defection?",
+  "speech_question": "Which Constitutional Amendment deals with anti-defection?",
+  "speech_answer": "The 52nd Amendment.",
+  "options": [
+   "The 73rd Amendment",
+   "The 52nd Amendment",
+   "The 42nd Amendment",
+   "The 61st Amendment"
+  ],
+  "correct_index": 1,
+  "explanation": "It added the Tenth Schedule in 1985.",
+  "memory_key": "Anti-defection: 52nd Amendment",
+  "source_url": "https://en.wikipedia.org/wiki/Anti-defection_law_in_India",
+  "source_label": "Source: Wikipedia | Anti-defection law in India",
+  "verified_topic": "POLITY"
+ },
+ "q0365": {
+  "display_question": "In which year was the Muslim League founded?",
+  "speech_question": "In which year was the Muslim League founded?",
+  "speech_answer": "1906.",
+  "options": [
+   "1906",
+   "1885",
+   "1920",
+   "1916"
+  ],
+  "correct_index": 0,
+  "explanation": "It was founded in Dhaka.",
+  "memory_key": "Muslim League: 1906",
+  "source_url": "https://en.wikipedia.org/wiki/All-India_Muslim_League",
+  "source_label": "Source: Wikipedia | All-India Muslim League",
+  "verified_topic": "HISTORY"
+ },
+ "q0367": {
+  "display_question": "Who started the Bhoodan movement?",
+  "speech_question": "Who started the Bhoodan movement?",
+  "speech_answer": "Vinoba Bhave.",
+  "options": [
+   "Mahatma Gandhi",
+   "Jayaprakash Narayan",
+   "Vinoba Bhave",
+   "Jawaharlal Nehru"
+  ],
+  "correct_index": 2,
+  "explanation": "It began in 1951 at Pochampally.",
+  "memory_key": "Bhoodan: Vinoba Bhave",
+  "source_url": "https://en.wikipedia.org/wiki/Bhoodan_movement",
+  "source_label": "Source: Wikipedia | Bhoodan movement",
+  "verified_topic": "HISTORY"
+ },
+ "q0368": {
+  "display_question": "Which Delhi ruler was called Lakh Baksh?",
+  "speech_question": "Which Delhi ruler was called Lakh Baksh?",
+  "speech_answer": "Qutb ud-din Aibak.",
+  "options": [
+   "Qutb ud-din Aibak",
+   "Razia Sultana",
+   "Balban",
+   "Iltutmish"
+  ],
+  "correct_index": 0,
+  "explanation": "He was known for giving gifts in lakhs.",
+  "memory_key": "Lakh Baksh: Aibak",
+  "source_url": "https://en.wikipedia.org/wiki/Qutb_al-Din_Aibak",
+  "source_label": "Source: Wikipedia | Qutb al-Din Aibak",
+  "verified_topic": "HISTORY"
+ },
+ "q0369": {
+  "display_question": "Who founded the Slave (Mamluk) dynasty of Delhi?",
+  "speech_question": "Who founded the Slave (Mamluk) dynasty of Delhi?",
+  "speech_answer": "Qutb ud-din Aibak.",
+  "options": [
+   "Balban",
+   "Alauddin Khalji",
+   "Iltutmish",
+   "Qutb ud-din Aibak"
+  ],
+  "correct_index": 3,
+  "explanation": "He began the dynasty in 1206.",
+  "memory_key": "Slave dynasty founder: Aibak",
+  "source_url": "https://en.wikipedia.org/wiki/Mamluk_dynasty_(Delhi)",
+  "source_label": "Source: Wikipedia | Mamluk dynasty (Delhi)",
+  "verified_topic": "HISTORY"
+ },
+ "q0370": {
+  "display_question": "Who was the first Sultan of the Tughlaq dynasty?",
+  "speech_question": "Who was the first Sultan of the Tughlaq dynasty?",
+  "speech_answer": "Ghiyasuddin Tughlaq.",
+  "options": [
+   "Ghiyasuddin Tughlaq",
+   "Alauddin Khalji",
+   "Firoz Shah Tughlaq",
+   "Muhammad bin Tughlaq"
+  ],
+  "correct_index": 0,
+  "explanation": "He founded the dynasty in 1320.",
+  "memory_key": "First Tughlaq: Ghiyasuddin",
+  "source_url": "https://en.wikipedia.org/wiki/Ghiyath_al-Din_Tughluq",
+  "source_label": "Source: Wikipedia | Ghiyath al-Din Tughluq",
+  "verified_topic": "HISTORY"
+ },
+ "q0371": {
+  "display_question": "Al-Biruni came to India with which ruler?",
+  "speech_question": "Al-Biruni came to India with which ruler?",
+  "speech_answer": "Mahmud of Ghazni.",
+  "options": [
+   "Babur",
+   "Mahmud of Ghazni",
+   "Muhammad Ghori",
+   "Akbar"
+  ],
+  "correct_index": 1,
+  "explanation": "He wrote the book Kitab al-Hind.",
+  "memory_key": "Al-Biruni: Mahmud of Ghazni",
+  "source_url": "https://en.wikipedia.org/wiki/Al-Biruni",
+  "source_label": "Source: Wikipedia | Al-Biruni",
+  "verified_topic": "HISTORY"
+ },
+ "q0372": {
+  "display_question": "Which Delhi Sultan introduced market price controls?",
+  "speech_question": "Which Delhi Sultan introduced market price controls?",
+  "speech_answer": "Alauddin Khalji.",
+  "options": [
+   "Balban",
+   "Alauddin Khalji",
+   "Firoz Shah Tughlaq",
+   "Iltutmish"
+  ],
+  "correct_index": 1,
+  "explanation": "He fixed prices of grain and cloth.",
+  "memory_key": "Price control: Alauddin Khalji",
+  "source_url": "https://en.wikipedia.org/wiki/Alauddin_Khalji",
+  "source_label": "Source: Wikipedia | Alauddin Khalji",
+  "verified_topic": "HISTORY"
+ },
+ "q0373": {
+  "display_question": "Who is traditionally said to be the guru of Kabir?",
+  "speech_question": "Who is traditionally said to be the guru of Kabir?",
+  "speech_answer": "Ramananda.",
+  "options": [
+   "Ramananda",
+   "Chaitanya",
+   "Ramanuja",
+   "Vallabhacharya"
+  ],
+  "correct_index": 0,
+  "explanation": "Kabir is counted among his disciples.",
+  "memory_key": "Kabir guru: Ramananda",
+  "source_url": "https://en.wikipedia.org/wiki/Ramananda",
+  "source_label": "Source: Wikipedia | Ramananda",
+  "verified_topic": "HISTORY"
  }
 }
