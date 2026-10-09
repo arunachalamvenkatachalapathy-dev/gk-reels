@@ -1578,5 +1578,362 @@
   "source_url": "https://en.wikipedia.org/wiki/Tethys_Ocean",
   "source_label": "Source: Wikipedia | Tethys Ocean",
   "verified_topic": "GEOGRAPHY"
+ },
+ "q0333": {
+  "display_question": "Who founded the medieval Chola Empire?",
+  "speech_question": "Who founded the medieval Chola Empire?",
+  "speech_answer": "Vijayalaya Chola.",
+  "options": [
+   "Vijayalaya Chola",
+   "Rajendra I",
+   "Rajaraja I",
+   "Aditya I"
+  ],
+  "correct_index": 0,
+  "explanation": "He captured Thanjavur in the 9th century.",
+  "memory_key": "Chola founder: Vijayalaya",
+  "source_url": "https://en.wikipedia.org/wiki/Chola_dynasty",
+  "source_label": "Source: Wikipedia | Chola dynasty",
+  "verified_topic": "HISTORY"
+ },
+ "q0334": {
+  "display_question": "Who was the last Sultan of the Lodi dynasty?",
+  "speech_question": "Who was the last Sultan of the Lodi dynasty?",
+  "speech_answer": "Ibrahim Lodi.",
+  "options": [
+   "Bahlul Lodi",
+   "Khizr Khan",
+   "Ibrahim Lodi",
+   "Sikandar Lodi"
+  ],
+  "correct_index": 2,
+  "explanation": "Babur defeated him at Panipat in 1526.",
+  "memory_key": "Last Lodi: Ibrahim",
+  "source_url": "https://en.wikipedia.org/wiki/Ibrahim_Lodi",
+  "source_label": "Source: Wikipedia | Ibrahim Lodi",
+  "verified_topic": "HISTORY"
+ },
+ "q0335": {
+  "display_question": "Which city was the first capital of the Bahmani Sultanate?",
+  "speech_question": "Which city was the first capital of the Bahmani Sultanate?",
+  "speech_answer": "Gulbarga.",
+  "options": [
+   "Bidar",
+   "Gulbarga",
+   "Bijapur",
+   "Golconda"
+  ],
+  "correct_index": 1,
+  "explanation": "Bidar became the capital later.",
+  "memory_key": "Bahmani capital: Gulbarga",
+  "source_url": "https://en.wikipedia.org/wiki/Bahmani_Sultanate",
+  "source_label": "Source: Wikipedia | Bahmani Sultanate",
+  "verified_topic": "HISTORY"
+ },
+ "q0336": {
+  "display_question": "Which continent is called the White Continent?",
+  "speech_question": "Which continent is called the White Continent?",
+  "speech_answer": "Antarctica.",
+  "options": [
+   "Australia",
+   "Asia",
+   "Europe",
+   "Antarctica"
+  ],
+  "correct_index": 3,
+  "explanation": "Ice covers about 98 percent of it.",
+  "memory_key": "White Continent: Antarctica",
+  "source_url": "https://en.wikipedia.org/wiki/Antarctica",
+  "source_label": "Source: Wikipedia | Antarctica",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0337": {
+  "display_question": "Which is the largest ocean?",
+  "speech_question": "Which is the largest ocean?",
+  "speech_answer": "The Pacific Ocean.",
+  "options": [
+   "The Atlantic Ocean",
+   "The Arctic Ocean",
+   "The Indian Ocean",
+   "The Pacific Ocean"
+  ],
+  "correct_index": 3,
+  "explanation": "It covers about a third of Earth’s surface.",
+  "memory_key": "Largest ocean: Pacific",
+  "source_url": "https://en.wikipedia.org/wiki/Pacific_Ocean",
+  "source_label": "Source: Wikipedia | Pacific Ocean",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0338": {
+  "display_question": "Which is the smallest of the world’s oceans?",
+  "speech_question": "Which is the smallest of the world’s oceans?",
+  "speech_answer": "The Arctic Ocean.",
+  "options": [
+   "The Arctic Ocean",
+   "The Southern Ocean",
+   "The Indian Ocean",
+   "The Atlantic Ocean"
+  ],
+  "correct_index": 0,
+  "explanation": "It is also the shallowest.",
+  "memory_key": "Smallest ocean: Arctic",
+  "source_url": "https://en.wikipedia.org/wiki/Arctic_Ocean",
+  "source_label": "Source: Wikipedia | Arctic Ocean",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0339": {
+  "display_question": "Who was the first human in space?",
+  "speech_question": "Who was the first human in space?",
+  "speech_answer": "Yuri Gagarin.",
+  "options": [
+   "Rakesh Sharma",
+   "Yuri Gagarin",
+   "Neil Armstrong",
+   "Alan Shepard"
+  ],
+  "correct_index": 1,
+  "explanation": "He orbited Earth on 12 April 1961.",
+  "memory_key": "First in space: Gagarin",
+  "source_url": "https://en.wikipedia.org/wiki/Yuri_Gagarin",
+  "source_label": "Source: Wikipedia | Yuri Gagarin",
+  "verified_topic": "SCIENCE"
+ },
+ "q0340": {
+  "display_question": "Which city was the first hit by an atomic bomb in war?",
+  "speech_question": "Which city was the first hit by an atomic bomb in war?",
+  "speech_answer": "Hiroshima.",
+  "options": [
+   "Nagasaki",
+   "Tokyo",
+   "Osaka",
+   "Hiroshima"
+  ],
+  "correct_index": 3,
+  "explanation": "It was bombed on 6 August 1945.",
+  "memory_key": "First atomic bomb: Hiroshima",
+  "source_url": "https://en.wikipedia.org/wiki/Atomic_bombings_of_Hiroshima_and_Nagasaki",
+  "source_label": "Source: Wikipedia | Atomic bombings of Hiroshima and Nagasaki",
+  "verified_topic": "HISTORY"
+ },
+ "q0341": {
+  "display_question": "Which is the largest country by area?",
+  "speech_question": "Which is the largest country by area?",
+  "speech_answer": "Russia.",
+  "options": [
+   "China",
+   "Russia",
+   "Canada",
+   "United States"
+  ],
+  "correct_index": 1,
+  "explanation": "It spans eleven time zones.",
+  "memory_key": "Largest country: Russia",
+  "source_url": "https://en.wikipedia.org/wiki/Russia",
+  "source_label": "Source: Wikipedia | Russia",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0342": {
+  "display_question": "Which is the world’s largest island?",
+  "speech_question": "Which is the world’s largest island?",
+  "speech_answer": "Greenland.",
+  "options": [
+   "Borneo",
+   "New Guinea",
+   "Madagascar",
+   "Greenland"
+  ],
+  "correct_index": 3,
+  "explanation": "Australia is counted as a continent.",
+  "memory_key": "Largest island: Greenland",
+  "source_url": "https://en.wikipedia.org/wiki/Greenland",
+  "source_label": "Source: Wikipedia | Greenland",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0343": {
+  "display_question": "Who was India’s first Deputy Prime Minister?",
+  "speech_question": "Who was India’s first Deputy Prime Minister?",
+  "speech_answer": "Sardar Vallabhbhai Patel.",
+  "options": [
+   "Jagjivan Ram",
+   "C. Rajagopalachari",
+   "Sardar Vallabhbhai Patel",
+   "Morarji Desai"
+  ],
+  "correct_index": 2,
+  "explanation": "He served from 1947 until 1950.",
+  "memory_key": "First Deputy PM: Patel",
+  "source_url": "https://en.wikipedia.org/wiki/Vallabhbhai_Patel",
+  "source_label": "Source: Wikipedia | Vallabhbhai Patel",
+  "verified_topic": "HISTORY"
+ },
+ "q0344": {
+  "display_question": "Who was the first Speaker of the Lok Sabha?",
+  "speech_question": "Who was the first Speaker of the Lok Sabha?",
+  "speech_answer": "G. V. Mavalankar.",
+  "options": [
+   "G. V. Mavalankar",
+   "M. A. Ayyangar",
+   "Balram Jakhar",
+   "Hukam Singh"
+  ],
+  "correct_index": 0,
+  "explanation": "He was Speaker from 1952 to 1956.",
+  "memory_key": "First Speaker: Mavalankar",
+  "source_url": "https://en.wikipedia.org/wiki/G._V._Mavalankar",
+  "source_label": "Source: Wikipedia | G. V. Mavalankar",
+  "verified_topic": "POLITY"
+ },
+ "q0345": {
+  "display_question": "Who drew the India-Pakistan boundary in 1947?",
+  "speech_question": "Who drew the India-Pakistan boundary in 1947?",
+  "speech_answer": "Cyril Radcliffe.",
+  "options": [
+   "Lord Mountbatten",
+   "Lord Wavell",
+   "Cyril Radcliffe",
+   "Stafford Cripps"
+  ],
+  "correct_index": 2,
+  "explanation": "It is known as the Radcliffe Line.",
+  "memory_key": "Partition line: Radcliffe",
+  "source_url": "https://en.wikipedia.org/wiki/Radcliffe_Line",
+  "source_label": "Source: Wikipedia | Radcliffe Line",
+  "verified_topic": "HISTORY"
+ },
+ "q0346": {
+  "display_question": "Who led the 1930 Chittagong armoury raid?",
+  "speech_question": "Who led the 1930 Chittagong armoury raid?",
+  "speech_answer": "Surya Sen.",
+  "options": [
+   "Bhagat Singh",
+   "Rash Behari Bose",
+   "Surya Sen",
+   "Chandrashekhar Azad"
+  ],
+  "correct_index": 2,
+  "explanation": "The raid took place on 18 April 1930.",
+  "memory_key": "Chittagong raid: Surya Sen",
+  "source_url": "https://en.wikipedia.org/wiki/Surya_Sen",
+  "source_label": "Source: Wikipedia | Surya Sen",
+  "verified_topic": "HISTORY"
+ },
+ "q0347": {
+  "display_question": "In which city is Dalal Street, home of the BSE?",
+  "speech_question": "In which city is Dalal Street, home of the BSE?",
+  "speech_answer": "Mumbai.",
+  "options": [
+   "Mumbai",
+   "Chennai",
+   "Kolkata",
+   "Delhi"
+  ],
+  "correct_index": 0,
+  "explanation": "The Bombay Stock Exchange is there.",
+  "memory_key": "Dalal Street: Mumbai",
+  "source_url": "https://en.wikipedia.org/wiki/Dalal_Street",
+  "source_label": "Source: Wikipedia | Dalal Street",
+  "verified_topic": "ECONOMY"
+ },
+ "q0348": {
+  "display_question": "Saina Nehwal plays which sport?",
+  "speech_question": "Saina Nehwal plays which sport?",
+  "speech_answer": "Badminton.",
+  "options": [
+   "Badminton",
+   "Squash",
+   "Tennis",
+   "Table tennis"
+  ],
+  "correct_index": 0,
+  "explanation": "She won an Olympic bronze in 2012.",
+  "memory_key": "Saina Nehwal: badminton",
+  "source_url": "https://en.wikipedia.org/wiki/Saina_Nehwal",
+  "source_label": "Source: Wikipedia | Saina Nehwal",
+  "verified_topic": "SPORT"
+ },
+ "q0349": {
+  "display_question": "Which Indian sprinter was called the \"Flying Sikh\"?",
+  "speech_question": "Which Indian sprinter was called the \"Flying Sikh\"?",
+  "speech_answer": "Milkha Singh.",
+  "options": [
+   "Milkha Singh",
+   "P. T. Usha",
+   "Paan Singh Tomar",
+   "Gurbachan Singh"
+  ],
+  "correct_index": 0,
+  "explanation": "He won four Asian Games golds.",
+  "memory_key": "Flying Sikh: Milkha Singh",
+  "source_url": "https://en.wikipedia.org/wiki/Milkha_Singh",
+  "source_label": "Source: Wikipedia | Milkha Singh",
+  "verified_topic": "SPORT"
+ },
+ "q0350": {
+  "display_question": "Where is the National Institute of Sports located?",
+  "speech_question": "Where is the National Institute of Sports located?",
+  "speech_answer": "Patiala.",
+  "options": [
+   "Kolkata",
+   "Bengaluru",
+   "Gandhinagar",
+   "Patiala"
+  ],
+  "correct_index": 3,
+  "explanation": "It is in Punjab and named for Netaji.",
+  "memory_key": "NIS: Patiala",
+  "source_url": "https://en.wikipedia.org/wiki/Netaji_Subhas_National_Institute_of_Sports",
+  "source_label": "Source: Wikipedia | Netaji Subhas National Institute of Sports",
+  "verified_topic": "SPORT"
+ },
+ "q0351": {
+  "display_question": "The Beighton Cup is associated with which sport?",
+  "speech_question": "The Beighton Cup is associated with which sport?",
+  "speech_answer": "Hockey.",
+  "options": [
+   "Football",
+   "Hockey",
+   "Polo",
+   "Cricket"
+  ],
+  "correct_index": 1,
+  "explanation": "It is one of India’s oldest hockey tournaments.",
+  "memory_key": "Beighton Cup: hockey",
+  "source_url": "https://en.wikipedia.org/wiki/Beighton_Cup",
+  "source_label": "Source: Wikipedia | Beighton Cup",
+  "verified_topic": "SPORT"
+ },
+ "q0352": {
+  "display_question": "The Uber Cup is a world team event in which sport?",
+  "speech_question": "The Uber Cup is a world team event in which sport?",
+  "speech_answer": "Badminton.",
+  "options": [
+   "Squash",
+   "Golf",
+   "Badminton",
+   "Tennis"
+  ],
+  "correct_index": 2,
+  "explanation": "It is the women’s team championship.",
+  "memory_key": "Uber Cup: badminton",
+  "source_url": "https://en.wikipedia.org/wiki/Uber_Cup",
+  "source_label": "Source: Wikipedia | Uber Cup",
+  "verified_topic": "SPORT"
+ },
+ "q0353": {
+  "display_question": "The Davis Cup began in which year?",
+  "speech_question": "The Davis Cup began in which year?",
+  "speech_answer": "1900.",
+  "options": [
+   "1924",
+   "1900",
+   "1877",
+   "1946"
+  ],
+  "correct_index": 1,
+  "explanation": "It is the men’s international team event in tennis.",
+  "memory_key": "Davis Cup: 1900",
+  "source_url": "https://en.wikipedia.org/wiki/Davis_Cup",
+  "source_label": "Source: Wikipedia | Davis Cup",
+  "verified_topic": "SPORT"
  }
 }
