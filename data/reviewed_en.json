@@ -592,5 +592,158 @@
   "source_url": "https://en.wikipedia.org/wiki/Urochrome",
   "source_label": "Source: Wikipedia | Urobilin",
   "verified_topic": "SCIENCE"
+ },
+ "q0191": {
+  "display_question": "Modern theory says light has what nature?",
+  "speech_question": "Modern theory says light has what nature?",
+  "speech_answer": "Both wave and particle.",
+  "options": [
+   "Neither",
+   "Both wave and particle",
+   "Only wave",
+   "Only particle"
+  ],
+  "correct_index": 1,
+  "explanation": "Light shows wave and particle behaviour.",
+  "memory_key": "Light: dual nature",
+  "source_url": "https://en.wikipedia.org/wiki/Wave%E2%80%93particle_duality",
+  "source_label": "Source: Wikipedia | Wave-particle duality",
+  "verified_topic": "SCIENCE"
+ },
+ "q0193": {
+  "display_question": "Who wrote The Immortals of Meluha?",
+  "speech_question": "Who wrote The Immortals of Meluha?",
+  "speech_answer": "Amish Tripathi.",
+  "options": [
+   "Amish Tripathi",
+   "Chetan Bhagat",
+   "Ashwin Sanghi",
+   "Devdutt Pattanaik"
+  ],
+  "correct_index": 0,
+  "explanation": "It is the first book of his Shiva Trilogy.",
+  "memory_key": "Meluha: Amish",
+  "source_url": "https://en.wikipedia.org/wiki/The_Immortals_of_Meluha",
+  "source_label": "Source: Wikipedia | The Immortals of Meluha",
+  "verified_topic": "CULTURE"
+ },
+ "q0227": {
+  "display_question": "What is enriched uranium?",
+  "speech_question": "What is enriched uranium?",
+  "speech_answer": "More uranium-235 than natural.",
+  "options": [
+   "Uranium mixed with lead",
+   "More uranium-235 than natural",
+   "More uranium-238 than natural",
+   "Uranium with no isotopes"
+  ],
+  "correct_index": 1,
+  "explanation": "Enrichment raises the share of the isotope U-235.",
+  "memory_key": "Enriched = more U-235",
+  "source_url": "https://en.wikipedia.org/wiki/Enriched_uranium",
+  "source_label": "Source: Wikipedia | Enriched uranium",
+  "verified_topic": "SCIENCE"
+ },
+ "q0239": {
+  "display_question": "What does a high BOD in water show?",
+  "speech_question": "What does a high BOD in water show?",
+  "speech_answer": "More organic pollution.",
+  "options": [
+   "More dissolved salts",
+   "Lower acidity",
+   "Cleaner water",
+   "More organic pollution"
+  ],
+  "correct_index": 3,
+  "explanation": "BOD is a measure of organic water pollution.",
+  "memory_key": "High BOD = organic pollution",
+  "source_url": "https://en.wikipedia.org/wiki/Biochemical_oxygen_demand",
+  "source_label": "Source: Wikipedia | Biochemical oxygen demand",
+  "verified_topic": "ENVIRONMENT"
+ },
+ "q0245": {
+  "display_question": "Sodium stearate is mainly used to make what?",
+  "speech_question": "Sodium stearate is mainly used to make what?",
+  "speech_answer": "Soap.",
+  "options": [
+   "Soap",
+   "Fertiliser",
+   "Glass",
+   "Cement"
+  ],
+  "correct_index": 0,
+  "explanation": "It is the sodium salt of stearic acid.",
+  "memory_key": "Sodium stearate = soap",
+  "source_url": "https://en.wikipedia.org/wiki/Sodium_stearate",
+  "source_label": "Source: Wikipedia | Sodium stearate",
+  "verified_topic": "SCIENCE"
+ },
+ "q0201": {
+  "display_question": "Jiuquan Satellite Launch Centre is in which country?",
+  "speech_question": "Jiuquan Satellite Launch Centre is in which country?",
+  "speech_answer": "China.",
+  "options": [
+   "Japan",
+   "Russia",
+   "South Korea",
+   "China"
+  ],
+  "correct_index": 3,
+  "explanation": "It launched China’s first satellite in 1970.",
+  "memory_key": "Jiuquan: China",
+  "source_url": "https://en.wikipedia.org/wiki/Jiuquan_Satellite_Launch_Center",
+  "source_label": "Source: Wikipedia | Jiuquan Satellite Launch Center",
+  "verified_topic": "SCIENCE"
+ },
+ "q0206": {
+  "display_question": "Why do pendulum clocks run slow in summer?",
+  "speech_question": "Why do pendulum clocks run slow in summer?",
+  "speech_answer": "The pendulum gets longer.",
+  "options": [
+   "Gravity weakens",
+   "The pendulum gets heavier",
+   "The pendulum gets longer",
+   "Air gets thinner"
+  ],
+  "correct_index": 2,
+  "explanation": "Heat expands the rod, so the period increases.",
+  "memory_key": "Summer: longer pendulum",
+  "source_url": "https://en.wikipedia.org/wiki/Pendulum_clock",
+  "source_label": "Source: Wikipedia | Pendulum clock",
+  "verified_topic": "SCIENCE"
+ },
+ "q0229": {
+  "display_question": "What does NASA’s SMAP satellite measure?",
+  "speech_question": "What does NASA’s SMAP satellite measure?",
+  "speech_answer": "Soil moisture.",
+  "options": [
+   "Sea ice",
+   "Ocean salinity",
+   "Ozone levels",
+   "Soil moisture"
+  ],
+  "correct_index": 3,
+  "explanation": "It was launched on 31 January 2015.",
+  "memory_key": "SMAP: soil moisture",
+  "source_url": "https://en.wikipedia.org/wiki/Soil_Moisture_Active_Passive",
+  "source_label": "Source: Wikipedia | SMAP",
+  "verified_topic": "SCIENCE"
+ },
+ "q0214": {
+  "display_question": "Who presides over the National Development Council?",
+  "speech_question": "Who presides over the National Development Council?",
+  "speech_answer": "The Prime Minister.",
+  "options": [
+   "The Prime Minister",
+   "The NITI Aayog CEO",
+   "The President",
+   "The Finance Minister"
+  ],
+  "correct_index": 0,
+  "explanation": "The NDC was set up in August 1952.",
+  "memory_key": "NDC: PM presides",
+  "source_url": "https://en.wikipedia.org/wiki/National_Development_Council_%28India%29",
+  "source_label": "Source: Wikipedia | National Development Council",
+  "verified_topic": "POLITY"
  }
 }
