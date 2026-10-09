@@ -1119,5 +1119,141 @@
   "source_url": "https://en.wikipedia.org/wiki/Three-sector_model",
   "source_label": "Source: Wikipedia | Three-sector model",
   "verified_topic": "ECONOMY"
+ },
+ "q0303": {
+  "display_question": "The French Revolution began in which year?",
+  "speech_question": "The French Revolution began in which year?",
+  "speech_answer": "1789.",
+  "options": [
+   "1776",
+   "1789",
+   "1815",
+   "1848"
+  ],
+  "correct_index": 1,
+  "explanation": "It began with the Estates General of 1789.",
+  "memory_key": "French Revolution: 1789",
+  "source_url": "https://en.wikipedia.org/wiki/French_Revolution",
+  "source_label": "Source: Wikipedia | French Revolution",
+  "verified_topic": "WORLD"
+ },
+ "q0304": {
+  "display_question": "Fundamental Rights are in which part of the Constitution?",
+  "speech_question": "Fundamental Rights are in which part of the Constitution?",
+  "speech_answer": "Part III.",
+  "options": [
+   "Part IV",
+   "Part II",
+   "Part V",
+   "Part III"
+  ],
+  "correct_index": 3,
+  "explanation": "Part III covers Articles 12 to 35.",
+  "memory_key": "Fundamental Rights: Part III",
+  "source_url": "https://en.wikipedia.org/wiki/Fundamental_rights_in_India",
+  "source_label": "Source: Wikipedia | Fundamental rights in India",
+  "verified_topic": "POLITY"
+ },
+ "q0305": {
+  "display_question": "Where did the Buddha attain parinirvana?",
+  "speech_question": "Where did the Buddha attain parinirvana?",
+  "speech_answer": "Kushinagar.",
+  "options": [
+   "Sarnath",
+   "Lumbini",
+   "Kushinagar",
+   "Bodh Gaya"
+  ],
+  "correct_index": 2,
+  "explanation": "He died there; his remains were cremated there.",
+  "memory_key": "Parinirvana: Kushinagar",
+  "source_url": "https://en.wikipedia.org/wiki/Kushinagar",
+  "source_label": "Source: Wikipedia | Kushinagar",
+  "verified_topic": "HISTORY"
+ },
+ "q0306": {
+  "display_question": "NITI Aayog was formed in which year?",
+  "speech_question": "NITI Aayog was formed in which year?",
+  "speech_answer": "2015.",
+  "options": [
+   "2010",
+   "2005",
+   "2015",
+   "2019"
+  ],
+  "correct_index": 2,
+  "explanation": "It was formed on 1 January 2015.",
+  "memory_key": "NITI Aayog: 2015",
+  "source_url": "https://en.wikipedia.org/wiki/NITI_Aayog",
+  "source_label": "Source: Wikipedia | NITI Aayog",
+  "verified_topic": "POLITY"
+ },
+ "q0307": {
+  "display_question": "Who founded the Maurya Empire?",
+  "speech_question": "Who founded the Maurya Empire?",
+  "speech_answer": "Chandragupta Maurya.",
+  "options": [
+   "Chanakya",
+   "Ashoka",
+   "Chandragupta Maurya",
+   "Bindusara"
+  ],
+  "correct_index": 2,
+  "explanation": "He was its first emperor, around 320 BCE.",
+  "memory_key": "Maurya founder: Chandragupta",
+  "source_url": "https://en.wikipedia.org/wiki/Chandragupta_Maurya",
+  "source_label": "Source: Wikipedia | Chandragupta Maurya",
+  "verified_topic": "HISTORY"
+ },
+ "q0308": {
+  "display_question": "Which emperor commissioned the Great Stupa at Sanchi?",
+  "speech_question": "Which emperor commissioned the Great Stupa at Sanchi?",
+  "speech_answer": "Ashoka.",
+  "options": [
+   "Ashoka",
+   "Samudragupta",
+   "Kanishka",
+   "Harsha"
+  ],
+  "correct_index": 0,
+  "explanation": "He built it in the 3rd century BCE.",
+  "memory_key": "Sanchi Stupa: Ashoka",
+  "source_url": "https://en.wikipedia.org/wiki/Sanchi",
+  "source_label": "Source: Wikipedia | Sanchi",
+  "verified_topic": "HISTORY"
+ },
+ "q0309": {
+  "display_question": "How many players are on court per volleyball team?",
+  "speech_question": "How many players are on court per volleyball team?",
+  "speech_answer": "Six.",
+  "options": [
+   "Eight",
+   "Six",
+   "Seven",
+   "Five"
+  ],
+  "correct_index": 1,
+  "explanation": "Two teams of six play across a net.",
+  "memory_key": "Volleyball: six players",
+  "source_url": "https://en.wikipedia.org/wiki/Volleyball",
+  "source_label": "Source: Wikipedia | Volleyball",
+  "verified_topic": "SPORT"
+ },
+ "q0310": {
+  "display_question": "Which city is the capital of Assam?",
+  "speech_question": "Which city is the capital of Assam?",
+  "speech_answer": "Dispur.",
+  "options": [
+   "Guwahati",
+   "Shillong",
+   "Dispur",
+   "Itanagar"
+  ],
+  "correct_index": 2,
+  "explanation": "It became the capital in 1973.",
+  "memory_key": "Assam capital: Dispur",
+  "source_url": "https://en.wikipedia.org/wiki/Dispur",
+  "source_label": "Source: Wikipedia | Dispur",
+  "verified_topic": "GEOGRAPHY"
  }
 }
