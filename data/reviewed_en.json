@@ -746,89 +746,293 @@
   "source_label": "Source: Wikipedia | National Development Council",
   "verified_topic": "POLITY"
  },
- "q0205": {
-  "display_question": "The World Bank gives loans mainly for what?",
-  "speech_question": "The World Bank gives loans mainly for what?",
-  "speech_answer": "Development of countries.",
+ "q0283": {
+  "display_question": "Who founded the Arya Samaj?",
+  "speech_question": "Who founded the Arya Samaj?",
+  "speech_answer": "Dayananda Saraswati.",
   "options": [
-   "Currency printing",
-   "Trade tariffs",
-   "Military spending",
-   "Development of countries"
+   "Swami Vivekananda",
+   "Dayananda Saraswati",
+   "Raja Ram Mohan Roy",
+   "Jyotiba Phule"
   ],
-  "correct_index": 3,
-  "explanation": "It began by funding post-war reconstruction.",
-  "memory_key": "World Bank: development loans",
-  "source_url": "https://en.wikipedia.org/wiki/World_Bank",
-  "source_label": "Source: Wikipedia | World Bank",
-  "verified_topic": "ECONOMY"
+  "correct_index": 1,
+  "explanation": "He founded it in Bombay in April 1875.",
+  "memory_key": "Arya Samaj: Dayananda",
+  "source_url": "https://en.wikipedia.org/wiki/Arya_Samaj",
+  "source_label": "Source: Wikipedia | Arya Samaj",
+  "verified_topic": "HISTORY"
  },
- "q0234": {
-  "display_question": "Who proposed forward and backward linkages?",
-  "speech_question": "Who proposed forward and backward linkages?",
-  "speech_answer": "Albert Hirschman.",
+ "q0284": {
+  "display_question": "Who wrote the Harshacharita?",
+  "speech_question": "Who wrote the Harshacharita?",
+  "speech_answer": "Banabhatta.",
   "options": [
-   "John Keynes",
-   "Milton Friedman",
-   "Albert Hirschman",
-   "Amartya Sen"
+   "Kautilya",
+   "Vishakhadatta",
+   "Banabhatta",
+   "Kalidasa"
   ],
   "correct_index": 2,
-  "explanation": "He urged backing industries with many linkages.",
-  "memory_key": "Linkages: Hirschman",
-  "source_url": "https://en.wikipedia.org/wiki/Albert_O._Hirschman",
-  "source_label": "Source: Wikipedia | Albert O. Hirschman",
-  "verified_topic": "ECONOMY"
+  "explanation": "Bana was the court poet of Emperor Harsha.",
+  "memory_key": "Harshacharita: Banabhatta",
+  "source_url": "https://en.wikipedia.org/wiki/Harshacharita",
+  "source_label": "Source: Wikipedia | Harshacharita",
+  "verified_topic": "HISTORY"
  },
- "q0248": {
-  "display_question": "What does the quaternary sector cover?",
-  "speech_question": "What does the quaternary sector cover?",
-  "speech_answer": "Research and development.",
+ "q0285": {
+  "display_question": "Who was the first Indian to win a Nobel Prize?",
+  "speech_question": "Who was the first Indian to win a Nobel Prize?",
+  "speech_answer": "Rabindranath Tagore.",
   "options": [
-   "Mining",
-   "Research and development",
-   "Manufacturing",
-   "Farming"
+   "Rabindranath Tagore",
+   "Amartya Sen",
+   "C. V. Raman",
+   "Hargobind Khorana"
+  ],
+  "correct_index": 0,
+  "explanation": "He won the 1913 Nobel Prize in Literature.",
+  "memory_key": "First Indian Nobel: Tagore",
+  "source_url": "https://en.wikipedia.org/wiki/Rabindranath_Tagore",
+  "source_label": "Source: Wikipedia | Rabindranath Tagore",
+  "verified_topic": "GENERAL"
+ },
+ "q0286": {
+  "display_question": "Who was the first Indian woman to climb Everest?",
+  "speech_question": "Who was the first Indian woman to climb Everest?",
+  "speech_answer": "Bachendri Pal.",
+  "options": [
+   "Santosh Yadav",
+   "Arunima Sinha",
+   "Bachendri Pal",
+   "Premlata Agarwal"
+  ],
+  "correct_index": 2,
+  "explanation": "She reached the summit in 1984.",
+  "memory_key": "Everest: Bachendri Pal",
+  "source_url": "https://en.wikipedia.org/wiki/Bachendri_Pal",
+  "source_label": "Source: Wikipedia | Bachendri Pal",
+  "verified_topic": "SPORT"
+ },
+ "q0287": {
+  "display_question": "Who chaired the States Reorganisation Commission?",
+  "speech_question": "Who chaired the States Reorganisation Commission?",
+  "speech_answer": "Fazl Ali.",
+  "options": [
+   "G. B. Pant",
+   "Fazl Ali",
+   "K. M. Panikkar",
+   "H. N. Kunzru"
   ],
   "correct_index": 1,
-  "explanation": "It is the knowledge-based part of the economy.",
-  "memory_key": "Quaternary = research",
-  "source_url": "https://en.wikipedia.org/wiki/Three-sector_model",
-  "source_label": "Source: Wikipedia | Three-sector model",
-  "verified_topic": "ECONOMY"
+  "explanation": "The commission reported on state boundaries in 1955.",
+  "memory_key": "SRC chair: Fazl Ali",
+  "source_url": "https://en.wikipedia.org/wiki/Fazal_Ali",
+  "source_label": "Source: Wikipedia | Fazal Ali",
+  "verified_topic": "POLITY"
  },
- "q0252": {
-  "display_question": "Why is helium preferred to hydrogen in balloons?",
-  "speech_question": "Why is helium preferred to hydrogen in balloons?",
-  "speech_answer": "It is non-flammable.",
+ "q0289": {
+  "display_question": "How many languages are in the Eighth Schedule?",
+  "speech_question": "How many languages are in the Eighth Schedule?",
+  "speech_answer": "Twenty-two.",
   "options": [
-   "It is heavier",
-   "It is cheaper to make",
-   "It is a metal",
-   "It is non-flammable"
+   "28",
+   "14",
+   "18",
+   "22"
   ],
   "correct_index": 3,
-  "explanation": "Helium is an inert gas, so it will not burn.",
-  "memory_key": "Helium: non-flammable",
-  "source_url": "https://www.britannica.com/science/helium-chemical-element",
-  "source_label": "Source: Britannica | Helium",
-  "verified_topic": "SCIENCE"
+  "explanation": "Four were added in 2003, making 22.",
+  "memory_key": "Eighth Schedule: 22 languages",
+  "source_url": "https://en.wikipedia.org/wiki/Eighth_Schedule_to_the_Constitution_of_India",
+  "source_label": "Source: Wikipedia | Eighth Schedule",
+  "verified_topic": "POLITY"
  },
- "q0210": {
-  "display_question": "Which House must pass the resolution to remove the Vice-President?",
-  "speech_question": "Which House must pass the resolution to remove the Vice-President?",
-  "speech_answer": "The Rajya Sabha.",
+ "q0290": {
+  "display_question": "To whom does the President submit a resignation?",
+  "speech_question": "To whom does the President submit a resignation?",
+  "speech_answer": "The Vice-President.",
   "options": [
-   "Both Houses together",
-   "The Rajya Sabha",
-   "The Lok Sabha",
-   "The Supreme Court"
+   "The Speaker",
+   "The Vice-President",
+   "The Chief Justice",
+   "The Prime Minister"
   ],
   "correct_index": 1,
-  "explanation": "Article 67(b); the Lok Sabha then agrees.",
-  "memory_key": "VP removal: Rajya Sabha first",
-  "source_url": "https://en.wikipedia.org/wiki/Vice_President_of_India",
-  "source_label": "Source: Wikipedia | Vice President of India",
+  "explanation": "Article 56 says so.",
+  "memory_key": "Resignation goes to VP",
+  "source_url": "https://www.constitutionofindia.net/articles/article-56-term-of-office-of-president/",
+  "source_label": "Source: Constitution of India | Article 56",
   "verified_topic": "POLITY"
+ },
+ "q0291": {
+  "display_question": "The Sundarbans lie in which river delta?",
+  "speech_question": "The Sundarbans lie in which river delta?",
+  "speech_answer": "The Ganges delta.",
+  "options": [
+   "The Godavari delta",
+   "The Ganges delta",
+   "The Indus delta",
+   "The Nile delta"
+  ],
+  "correct_index": 1,
+  "explanation": "It forms where the Ganga, Brahmaputra and Meghna meet.",
+  "memory_key": "Sundarbans: Ganges delta",
+  "source_url": "https://en.wikipedia.org/wiki/Sundarbans",
+  "source_label": "Source: Wikipedia | Sundarbans",
+  "verified_topic": "GEOGRAPHY"
+ },
+ "q0292": {
+  "display_question": "The Statue of Unity honours which leader?",
+  "speech_question": "The Statue of Unity honours which leader?",
+  "speech_answer": "Sardar Vallabhbhai Patel.",
+  "options": [
+   "Sardar Vallabhbhai Patel",
+   "Subhas Chandra Bose",
+   "B. R. Ambedkar",
+   "Jawaharlal Nehru"
+  ],
+  "correct_index": 0,
+  "explanation": "It stands 182 metres tall in Gujarat.",
+  "memory_key": "Statue of Unity: Patel",
+  "source_url": "https://en.wikipedia.org/wiki/Statue_of_Unity",
+  "source_label": "Source: Wikipedia | Statue of Unity",
+  "verified_topic": "GENERAL"
+ },
+ "q0293": {
+  "display_question": "In which year was the Regulating Act passed?",
+  "speech_question": "In which year was the Regulating Act passed?",
+  "speech_answer": "1773.",
+  "options": [
+   "1858",
+   "1813",
+   "1773",
+   "1757"
+  ],
+  "correct_index": 2,
+  "explanation": "It was a British law on the East India Company.",
+  "memory_key": "Regulating Act: 1773",
+  "source_url": "https://en.wikipedia.org/wiki/Regulating_Act_of_1773",
+  "source_label": "Source: Wikipedia | Regulating Act of 1773",
+  "verified_topic": "HISTORY"
+ },
+ "q0295": {
+  "display_question": "The Morley-Minto reforms were passed in which year?",
+  "speech_question": "The Morley-Minto reforms were passed in which year?",
+  "speech_answer": "1909.",
+  "options": [
+   "1919",
+   "1892",
+   "1909",
+   "1935"
+  ],
+  "correct_index": 2,
+  "explanation": "They introduced elections to legislative councils.",
+  "memory_key": "Morley-Minto: 1909",
+  "source_url": "https://en.wikipedia.org/wiki/Indian_Councils_Act_1909",
+  "source_label": "Source: Wikipedia | Indian Councils Act 1909",
+  "verified_topic": "HISTORY"
+ },
+ "q0296": {
+  "display_question": "Which leader is linked to the slogan \"Garibi Hatao\"?",
+  "speech_question": "Which leader is linked to the slogan \"Garibi Hatao\"?",
+  "speech_answer": "Indira Gandhi.",
+  "options": [
+   "Indira Gandhi",
+   "Lal Bahadur Shastri",
+   "Morarji Desai",
+   "Jawaharlal Nehru"
+  ],
+  "correct_index": 0,
+  "explanation": "It was her 1971 election slogan.",
+  "memory_key": "Garibi Hatao: Indira",
+  "source_url": "https://en.wikipedia.org/wiki/Garibi_Hatao",
+  "source_label": "Source: Wikipedia | Garibi Hatao",
+  "verified_topic": "POLITY"
+ },
+ "q0297": {
+  "display_question": "Where did Gandhi lead his first satyagraha in India?",
+  "speech_question": "Where did Gandhi lead his first satyagraha in India?",
+  "speech_answer": "Champaran.",
+  "options": [
+   "Bardoli",
+   "Dandi",
+   "Kheda",
+   "Champaran"
+  ],
+  "correct_index": 3,
+  "explanation": "The Champaran Satyagraha began in 1917.",
+  "memory_key": "First satyagraha: Champaran",
+  "source_url": "https://en.wikipedia.org/wiki/Champaran_Satyagraha",
+  "source_label": "Source: Wikipedia | Champaran Satyagraha",
+  "verified_topic": "HISTORY"
+ },
+ "q0298": {
+  "display_question": "The Rowlatt Act was passed in which year?",
+  "speech_question": "The Rowlatt Act was passed in which year?",
+  "speech_answer": "1919.",
+  "options": [
+   "1942",
+   "1905",
+   "1919",
+   "1930"
+  ],
+  "correct_index": 2,
+  "explanation": "It was passed on 18 March 1919.",
+  "memory_key": "Rowlatt Act: 1919",
+  "source_url": "https://en.wikipedia.org/wiki/Rowlatt_Act",
+  "source_label": "Source: Wikipedia | Rowlatt Act",
+  "verified_topic": "HISTORY"
+ },
+ "q0300": {
+  "display_question": "Who was the last of the ten Sikh Gurus?",
+  "speech_question": "Who was the last of the ten Sikh Gurus?",
+  "speech_answer": "Guru Gobind Singh.",
+  "options": [
+   "Guru Nanak",
+   "Guru Gobind Singh",
+   "Guru Tegh Bahadur",
+   "Guru Arjan"
+  ],
+  "correct_index": 1,
+  "explanation": "He was the tenth and last human Guru.",
+  "memory_key": "Last Sikh Guru: Gobind Singh",
+  "source_url": "https://en.wikipedia.org/wiki/Guru_Gobind_Singh",
+  "source_label": "Source: Wikipedia | Guru Gobind Singh",
+  "verified_topic": "HISTORY"
+ },
+ "q0301": {
+  "display_question": "Which archaeologist excavated Harappa?",
+  "speech_question": "Which archaeologist excavated Harappa?",
+  "speech_answer": "Daya Ram Sahni.",
+  "options": [
+   "Daya Ram Sahni",
+   "Alexander Cunningham",
+   "R. D. Banerji",
+   "Mortimer Wheeler"
+  ],
+  "correct_index": 0,
+  "explanation": "He is known for the Harappa excavations.",
+  "memory_key": "Harappa: Daya Ram Sahni",
+  "source_url": "https://en.wikipedia.org/wiki/Daya_Ram_Sahni",
+  "source_label": "Source: Wikipedia | Daya Ram Sahni",
+  "verified_topic": "HISTORY"
+ },
+ "q0302": {
+  "display_question": "Who built the Ibadat Khana at Fatehpur Sikri?",
+  "speech_question": "Who built the Ibadat Khana at Fatehpur Sikri?",
+  "speech_answer": "Akbar.",
+  "options": [
+   "Aurangzeb",
+   "Shah Jahan",
+   "Akbar",
+   "Humayun"
+  ],
+  "correct_index": 2,
+  "explanation": "It hosted religious debates.",
+  "memory_key": "Ibadat Khana: Akbar",
+  "source_url": "https://en.wikipedia.org/wiki/Ibadat_Khana",
+  "source_label": "Source: Wikipedia | Ibadat Khana",
+  "verified_topic": "HISTORY"
  }
 }
