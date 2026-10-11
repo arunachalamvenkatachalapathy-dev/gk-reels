@@ -1,5 +1,5 @@
 {
-  "next_index": 75,
+  "next_index": 76,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 5,
+  "palette_cursor": 0,
   "audio_cursor": 0,
-  "current_day": 33,
-  "current_slot": 3,
-  "last_published_date": "2026-10-08",
-  "published_today_count": 3,
-  "total_published": 70,
+  "current_day": 34,
+  "current_slot": 1,
+  "last_published_date": "2026-10-11",
+  "published_today_count": 1,
+  "total_published": 71,
   "published_ids": [
     "q0000",
     "q0001",
@@ -88,16 +88,10 @@
     "q0071",
     "q0072",
     "q0073",
-    "q0074"
+    "q0074",
+    "q0075"
   ],
   "published_history": [
-    {
-      "id": "q0017",
-      "yt_id": "AOiLFR6mYZs",
-      "title": "The Truth About Rings Of Saturn | GK Facts #Shorts",
-      "day": 9,
-      "slot": 2
-    },
     {
       "id": "q0018",
       "yt_id": "Os97dfGlaHc",
@@ -230,6 +224,13 @@
       "title": "Energy Chain Challenge! ⚡ #ScienceQuiz #Shorts",
       "day": 33,
       "slot": 3
+    },
+    {
+      "id": "q0075",
+      "yt_id": "sPdx_ewnpF4",
+      "title": "📜 What is ‘Paper Gold’? 🤔 GK Quiz #Shorts",
+      "day": 34,
+      "slot": 1
     }
   ]
 }
