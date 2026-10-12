@@ -13,6 +13,9 @@ DATA_PATH = os.path.join(BASE, "data", "questions_en.json")
 STATE_PATH = os.path.join(BASE, "data", "state.json")
 OUT_DIR = os.path.join(BASE, "output")
 AUDIO_DIR = os.path.join(BASE, "assets", "audio")
+IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+SLOT_OPENS = {1: datetime.time(6, 0), 2: datetime.time(15, 0)}
+MAX_DATE_SLOT_HISTORY = 60
 
 SLOT_TRACKS = {
     1: "slot1_one_answer_left.mp3",
@@ -70,11 +73,23 @@ def pick_next_question(questions, state, reviewed=None):
     raise RuntimeError(f"BUFFER EMPTY: no unpublished source-checked question remains ({skipped} unreviewed in backlog). Add reviewed entries before the next slot.")
 
 
-def next_accent(state):
-    palette = state.get("palette", ["#4D96FF", "#6BCB77", "#FFD93D", "#FF6B6B", "#A66DD4", "#FF9F45"])
-    c = state.get("palette_cursor", 0) % len(palette)
-    state["palette_cursor"] = (c + 1) % len(palette)
-    return palette[c]
+def published_slots_for_date(state, today_ist, videos_per_day=2):
+    """Return slots completed for this IST date, migrating legacy sequential counts."""
+    by_date = state.get("published_slots_by_date") or {}
+    if today_ist in by_date:
+        return sorted({int(slot) for slot in by_date[today_ist] if 1 <= int(slot) <= videos_per_day})
+    if state.get("last_published_date") == today_ist:
+        count = max(0, min(videos_per_day, int(state.get("published_today_count", 0))))
+        return list(range(1, count + 1))
+    return []
+
+
+def next_due_slot(now_ist, published_slots, videos_per_day=2):
+    """Choose earliest unpublished slot whose IST publishing window has opened."""
+    for slot in range(1, videos_per_day + 1):
+        if slot not in published_slots and now_ist.time().replace(tzinfo=None) >= SLOT_OPENS.get(slot, datetime.time(0, 0)):
+            return slot
+    return None
 
 
 def get_slot_track(slot):
@@ -89,8 +104,7 @@ def get_slot_track(slot):
 
 def get_ist_date():
     """Return current date in Indian Standard Time (UTC+05:30)."""
-    ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
-    return datetime.datetime.now(ist).date().isoformat()
+    return datetime.datetime.now(IST).date().isoformat()
 
 
 def main():
@@ -100,49 +114,40 @@ def main():
     state = load_json(STATE_PATH)
 
     videos_per_day = state.get("videos_per_day", 2)
-    today_ist = get_ist_date()
+    now_ist = datetime.datetime.now(IST)
+    today_ist = now_ist.date().isoformat()
     last_date = state.get("last_published_date")
     current_day = state.get("current_day", 4)
-    published_today = state.get("published_today_count", 0)
-
-    # Support manual override via CLI --force or env FORCE_PUBLISH=true
-    force = ("--force" in sys.argv) or (os.environ.get("FORCE_PUBLISH", "").lower() in ("true", "1"))
-
-    # ── CALENDAR-DATE LOCKED PROGRESSION ─────────────────────────────────
-    # A new Day number only unlocks when the calendar date changes in IST.
     if last_date != today_ist:
-        # Brand new calendar day in India -> Advance day, reset slot to 1
         day = (current_day + 1) if last_date is not None else current_day
-        slot = 1
-        published_today = 0
     else:
-        # Same calendar day in India
-        if published_today >= videos_per_day and not force:
-            print(f"Daily quota of {videos_per_day} videos already reached for today ({today_ist}, Day {current_day}).")
-            print(f"Holding Day {current_day + 1} until tomorrow morning. Exiting gracefully without error.")
-            return
         day = current_day
-        slot = published_today + 1
 
-    if not force and datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).hour < 15 and published_today >= 1:
-        print("Morning slot already published; afternoon slot opens at 15:00 IST.")
-        return
+    published_slots = published_slots_for_date(state, today_ist, videos_per_day)
+    published_today = len(published_slots)
+    pending = state.get("pending_publication")
+    if pending:
+        if pending.get("date") != today_ist:
+            raise RuntimeError("Unfinished publication from an earlier date; reconcile destinations before continuing.")
+        slot = int(pending["slot"])
+        if now_ist.time().replace(tzinfo=None) < SLOT_OPENS.get(slot, datetime.time(0, 0)):
+            print(f"Slot {slot} is not due yet; waiting for its IST window. Exiting gracefully without error.")
+            return
+        q = next((item for item in questions if item["id"] == pending["question_id"]), None)
+        if q is None:
+            raise RuntimeError("Pending question is missing from the bank; manual reconciliation required.")
+        day = pending["day"]
+    else:
+        slot = next_due_slot(now_ist, published_slots, videos_per_day)
+        if slot is None:
+            print(f"No unpublished slot is due at {now_ist.strftime('%H:%M')} IST ({today_ist}). Exiting gracefully without error.")
+            return
+        q = pick_next_question(questions, state)
 
     if {"youtube", "instagram", "facebook"}.issubset(set(os.environ.get("PAUSED_DESTINATIONS", "").lower().split(","))):
         print("PAUSED: No active publishing destinations; question state unchanged.")
         return
 
-    # Non-repetition question pick
-    pending = state.get("pending_publication")
-    if pending:
-        if pending.get("date") != today_ist:
-            raise RuntimeError("Unfinished publication from an earlier date; reconcile destinations before continuing.")
-        q = next((item for item in questions if item["id"] == pending["question_id"]), None)
-        if q is None:
-            raise RuntimeError("Pending question is missing from the bank; manual reconciliation required.")
-        day, slot = pending["day"], pending["slot"]
-    else:
-        q = pick_next_question(questions, state)
     accent = next_accent(state)
     bg_music = get_slot_track(slot)
 
@@ -265,15 +270,8 @@ def main():
             yt_id = upload_short(out_mp4, title, caption, tags=tags, pinned_comment=pinned_comment)
             if yt_id:
                 yt_url = f"https://youtube.com/shorts/{yt_id}"
-                # Record in state for SEO historical tracking
                 history = state.get("published_history", [])
-                history.append({
-                    "id": q["id"],
-                    "yt_id": yt_id,
-                    "title": title,
-                    "day": day,
-                    "slot": slot
-                })
+                history.append({"id": q["id"], "yt_id": yt_id, "title": title, "day": day, "slot": slot})
                 state["published_history"] = history[-20:]
         except Exception as e:
             print(f"  YouTube upload FAILED for {q['id']}: {e}")
@@ -289,7 +287,6 @@ def main():
         except Exception as e:
             print(f"  Instagram upload FAILED for {q['id']}: {e}")
 
-    # Publish to Facebook Page Reels (tab-specific Reels upload via Meta Graph API)
     if have_facebook and not fb_url:
         try:
             from upload_facebook import publish_facebook_reel
@@ -300,11 +297,7 @@ def main():
             print(f"  Facebook Reels upload FAILED for {q['id']}: {fe}")
 
     results.update({name: url for name, url in (("youtube", yt_url), ("instagram", ig_url), ("facebook", fb_url)) if url})
-    for platform, url, enabled in (
-        ("YouTube", yt_url, have_youtube),
-        ("Instagram", ig_url, have_instagram),
-        ("Facebook", fb_url, have_facebook),
-    ):
+    for platform, url, enabled in (("YouTube", yt_url, have_youtube), ("Instagram", ig_url, have_instagram), ("Facebook", fb_url, have_facebook)):
         if url:
             print(f"[{platform}] SUCCESS url={url}")
         elif enabled:
@@ -316,14 +309,12 @@ def main():
         raise RuntimeError("Publication incomplete on: " + ", ".join(missing) + ". Successful destinations retained; retry will skip them.")
     state.pop("pending_publication", None)
 
-    # Send instant update to Telegram channel
     try:
         from upload_telegram import send_telegram_update
         send_telegram_update(day, slot, q, yt_url=yt_url, ig_url=ig_url, fb_url=fb_url)
     except Exception as te:
         print(f"  Telegram notification FAILED: {te}")
 
-    # Advance state with strict non-repetition and calendar-date locking
     published_ids = state.get("published_ids", [])
     if q["id"] not in published_ids:
         published_ids.append(q["id"])
@@ -331,7 +322,12 @@ def main():
     state["videos_per_day"] = videos_per_day
     state["total_published"] = state.get("total_published", 0) + 1
     state["last_published_date"] = today_ist
-    state["published_today_count"] = published_today + 1
+    date_slots = set(published_slots_for_date(state, today_ist, videos_per_day))
+    date_slots.add(slot)
+    by_date = state.get("published_slots_by_date") or {}
+    by_date[today_ist] = sorted(date_slots)
+    state["published_slots_by_date"] = dict(sorted(by_date.items())[-MAX_DATE_SLOT_HISTORY:])
+    state["published_today_count"] = len(date_slots)
     state["current_day"] = day
     state["current_slot"] = slot
 
