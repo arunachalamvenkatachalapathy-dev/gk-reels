@@ -1,0 +1,137 @@
+name: Publish GK Reels
+
+on:
+  schedule:
+    # Frequent, off-hour retries. Gate picks the earliest due slot from IST time + state.
+    # Morning window starts at 06:00 IST (00:30 UTC); retries every 10 minutes until 14:52 IST.
+    - cron: "32,42,52 0 * * *"
+    - cron: "2,12,22,32,42,52 1-8 * * *"
+    - cron: "2,12,22 9 * * *"
+    # Afternoon window starts at 15:00 IST (09:30 UTC); retries every 10 minutes until 18:52 IST.
+    - cron: "32,42,52 9 * * *"
+    - cron: "2,12,22,32,42,52 10-12 * * *"
+    - cron: "2,12,22 13 * * *"
+permissions:
+  contents: write   # needed to commit data/state.json and create releases
+
+concurrency:
+  group: gk-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Use the runner's system Python and check the same IST date/slot state as
+      # run_pipeline.py before downloading ffmpeg, Python packages, or Chromium.
+      - name: Check whether an IST slot is due
+        id: slot_gate
+        run: |
+          python3 - <<'PY'
+          import datetime
+          import json
+          import os
+          import sys
+
+          ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+          now = datetime.datetime.now(ist)
+          today = now.date().isoformat()
+          try:
+              with open("data/state.json", encoding="utf-8") as f:
+                  state = json.load(f)
+              videos_per_day = int(state.get("videos_per_day", 2))
+              if videos_per_day < 1:
+                  raise ValueError("videos_per_day must be positive")
+              pending = state.get("pending_publication")
+              if pending:
+                  if pending.get("date") != today:
+                      raise RuntimeError("Unfinished publication from an earlier date; reconcile destinations before continuing.")
+                  slot = int(pending["slot"])
+                  opened = {1: datetime.time(6, 0), 2: datetime.time(15, 0)}.get(slot, datetime.time(0, 0))
+                  due = now.time().replace(tzinfo=None) >= opened
+              else:
+                  by_date = state.get("published_slots_by_date") or {}
+                  if today in by_date:
+                      published = {int(slot) for slot in by_date[today] if 1 <= int(slot) <= videos_per_day}
+                  elif state.get("last_published_date") == today:
+                      count = max(0, min(videos_per_day, int(state.get("published_today_count", 0))))
+                      published = set(range(1, count + 1))
+                  else:
+                      published = set()
+                  opened = {1: datetime.time(6, 0), 2: datetime.time(15, 0)}
+                  due = any(
+                      slot not in published
+                      and now.time().replace(tzinfo=None) >= opened.get(slot, datetime.time(0, 0))
+                      for slot in range(1, videos_per_day + 1)
+                  )
+          except Exception as exc:
+              print(f"Preflight failed: {exc}", file=sys.stderr)
+              sys.exit(1)
+
+          eligible = "true" if due else "false"
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"eligible={eligible}\n")
+          print(f"IST preflight: {today} {now:%H:%M}; slot due={eligible}")
+          PY
+
+      - name: Set up Python
+        if: steps.slot_gate.outputs.eligible == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ffmpeg
+        if: steps.slot_gate.outputs.eligible == 'true'
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Python dependencies
+        if: steps.slot_gate.outputs.eligible == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browser
+        if: steps.slot_gate.outputs.eligible == 'true'
+        run: python -m playwright install --with-deps chromium
+
+      - name: Test publication safeguards
+        if: steps.slot_gate.outputs.eligible == 'true'
+        run: python -m unittest discover -s tests -v
+
+      - name: Run pipeline (render + upload)
+        if: steps.slot_gate.outputs.eligible == 'true'
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          FISH_AUDIO_API_KEY: ${{ secrets.FISH_AUDIO_API_KEY }}
+          FORCE_PUBLISH: "false"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/run_pipeline.py
+
+      - name: Upload Video Artifact
+        uses: actions/upload-artifact@v4
+        if: always() && steps.slot_gate.outputs.eligible == 'true'
+        with:
+          name: gk-reels-video
+          path: output/*.mp4
+          retention-days: 7
+
+      - name: Commit updated state
+        if: always() && steps.slot_gate.outputs.eligible == 'true'
+        run: |
+          git config user.name "gk-reels-bot"
+          git config user.email "actions@github.com"
+          git add data/state.json
+          git diff --staged --quiet || git commit -m "Advance question index [skip ci]"
+          git push
