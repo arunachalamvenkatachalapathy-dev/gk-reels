@@ -3,16 +3,16 @@ name: Publish GK Reels
 on:
   schedule:
     # Frequent, off-hour retries. Gate picks the earliest due slot from IST time + state.
-    # Morning window starts at 06:00 IST; retries every 10 minutes until 14:52 IST.
+    # Morning window starts at 06:00 IST (00:30 UTC); retries every 10 minutes until 14:52 IST.
     - cron: "32,42,52 0 * * *"
     - cron: "2,12,22,32,42,52 1-8 * * *"
     - cron: "2,12,22 9 * * *"
-    # Afternoon window starts at 15:00 IST; retries every 10 minutes until 18:52 IST.
+    # Afternoon window starts at 15:00 IST (09:30 UTC); retries every 10 minutes until 18:52 IST.
     - cron: "32,42,52 9 * * *"
     - cron: "2,12,22,32,42,52 10-12 * * *"
     - cron: "2,12,22 13 * * *"
 permissions:
-  contents: write
+  contents: write   # needed to commit data/state.json and create releases
 
 concurrency:
   group: gk-publish
@@ -26,6 +26,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # Use the runner's system Python and check the same IST date/slot state as
+      # run_pipeline.py before downloading ffmpeg, Python packages, or Chromium.
       - name: Check whether an IST slot is due
         id: slot_gate
         run: |
@@ -34,6 +36,7 @@ jobs:
           import json
           import os
           import sys
+
           ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
           now = datetime.datetime.now(ist)
           today = now.date().isoformat()
@@ -68,6 +71,7 @@ jobs:
           except Exception as exc:
               print(f"Preflight failed: {exc}", file=sys.stderr)
               sys.exit(1)
+
           eligible = "true" if due else "false"
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
               f.write(f"eligible={eligible}\n")
