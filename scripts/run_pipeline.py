@@ -4,19 +4,15 @@ import sys
 import json
 import datetime
 
-
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE, "scripts"))
 
-
 from render import render_video  # noqa: E402
-
 
 DATA_PATH = os.path.join(BASE, "data", "questions_en.json")
 STATE_PATH = os.path.join(BASE, "data", "state.json")
 OUT_DIR = os.path.join(BASE, "output")
 AUDIO_DIR = os.path.join(BASE, "assets", "audio")
-
 
 SLOT_TRACKS = {
     1: "slot1_one_answer_left.mp3",
@@ -36,104 +32,117 @@ def save_json(path, obj):
         json.dump(obj, f, indent=2, ensure_ascii=False)
 
 
-def safe_error_message(exc):
-    """Keep configured secrets out of exception logs."""
-    message = str(exc)
-    for name in (
-        "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN", "IG_ACCESS_TOKEN", "GITHUB_TOKEN",
-        "TELEGRAM_BOT_TOKEN", "GEMINI_API_KEY", "OPENROUTER_API_KEY", "FISH_AUDIO_API_KEY",
-    ):
-        secret = os.environ.get(name)
-        if secret:
-            message = message.replace(secret, "[redacted]")
-    return message
-
-
 def is_suitable_short_question(q):
     text = q.get("question", "").strip()
     opts = q.get("options", [])
-    if len(opts) < 2 or len(opts) > 4:
+    if len(text.split()) > 22:
         return False
-    return len(text) <= 120
+    if " 1. " in text and " 2. " in text:
+        return False
+    if any("1 and 2" in str(o) or "1, 2" in str(o) or "Both (a)" in str(o) or "None of the" in str(o) for o in opts):
+        return False
+    if any(len(str(o).split()) > 10 for o in opts):
+        return False
+    return True
 
 
-def pick_next_question(questions, state):
-    pending = state.get("pending_publication")
-    if pending:
-        today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).date().isoformat()
-        if pending.get("date") != today:
-            raise RuntimeError(f"Publication for earlier date {pending.get('date')} is incomplete; fix configuration and retry before today's slot")
-        pending_id = pending.get("question_id")
-        existing = next((q for q in questions if q.get("id") == pending_id), None)
-        if not existing:
-            raise RuntimeError(f"Pending question {pending_id!r} is not present in the English question bank")
-        return existing
-    published = set(state.get("published_ids", []))
-    reviewed = set(state.get("reviewed_ids", []))
-    used = published | set(state.get("in_progress_ids", []))
-    candidates = [q for q in questions if q.get("id") not in used and q.get("id") in reviewed and is_suitable_short_question(q)]
-    if not candidates:
-        raise RuntimeError("BUFFER EMPTY: No unused reviewed, layout-safe questions are available for this slot.")
-    return candidates[0]
+def pick_next_question(questions, state, reviewed=None):
+    """Pick the next unpublished question that has a source-checked entry.
 
-
-def get_slot_track(slot):
-    """Pick the cached SFX bundle that fits the current day slot."""
-    # Prefer the dedicated track for this slot
-    specific = os.path.join(AUDIO_DIR, SLOT_TRACKS.get(slot, ""))
-    if os.path.exists(specific):
-        return specific
-    # Otherwise pick from the available pool deterministically
-    tracks = [os.path.join(AUDIO_DIR, f) for f in os.listdir(AUDIO_DIR) if f.endswith(".mp3")]
-    if not tracks:
-        from make_audio import generate_audio
-        generate_audio()
-        tracks = [os.path.join(AUDIO_DIR, f) for f in os.listdir(AUDIO_DIR) if f.endswith(".mp3")]
-    tracks.sort()
-    return tracks[(slot - 1) % len(tracks)] if tracks else None
+    Unreviewed questions are never published and never marked published: they
+    stay in the backlog and every skip is logged. If nothing reviewed remains,
+    fail loudly so the buffer shortage is visible.
+    """
+    if reviewed is None:
+        from render import REVIEWED as reviewed
+    published_ids = set(state.get("published_ids", []))
+    skipped = 0
+    for i, q in enumerate(questions):
+        if q["id"] in published_ids:
+            continue
+        if q["id"] not in reviewed:
+            skipped += 1
+            continue
+        if skipped:
+            print(f"NOTE: {skipped} unreviewed question(s) skipped (not published, not consumed); backlog unchanged.")
+        state["next_index"] = (i + 1) % len(questions)
+        return q
+    raise RuntimeError(f"BUFFER EMPTY: no unpublished source-checked question remains ({skipped} unreviewed in backlog). Add reviewed entries before the next slot.")
 
 
 def next_accent(state):
-    """Return and advance the deterministic colour rotation."""
-    palette = state.get("palette", ["#3b82f6", "#ef4444", "#eab308", "#22c55e"])
-    if not palette:
-        palette = ["#3b82f6"]
-    idx = int(state.get("accent_index", 0))
-    state["accent_index"] = (idx + 1) % len(palette)
-    return palette[idx % len(palette)]
+    palette = state.get("palette", ["#4D96FF", "#6BCB77", "#FFD93D", "#FF6B6B", "#A66DD4", "#FF9F45"])
+    c = state.get("palette_cursor", 0) % len(palette)
+    state["palette_cursor"] = (c + 1) % len(palette)
+    return palette[c]
+
+
+def get_slot_track(slot):
+    filename = SLOT_TRACKS.get(slot, "slot1_one_answer_left.mp3")
+    path = os.path.join(AUDIO_DIR, filename)
+    if os.path.exists(path):
+        return path
+    # Fallback to any mp3
+    tracks = [os.path.join(AUDIO_DIR, f) for f in os.listdir(AUDIO_DIR) if f.endswith(".mp3")]
+    return tracks[0] if tracks else os.path.join(BASE, "assets", "tension_bed.mp3")
+
+
+def get_ist_date():
+    """Return current date in Indian Standard Time (UTC+05:30)."""
+    ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+    return datetime.datetime.now(ist).date().isoformat()
 
 
 def main():
-    # Reload state and review marker on every run so scheduled calls see the latest approvals.
+    os.makedirs(OUT_DIR, exist_ok=True)
+
     questions = load_json(DATA_PATH)
     state = load_json(STATE_PATH)
 
-    reviewed = state.get("reviewed_ids", [])
-    if not reviewed:
-        try:
-            from render import REVIEWED
-            reviewed = list(REVIEWED.keys())
-        except Exception:
-            reviewed = []
-
-    pending = state.get("pending_publication")
-    today_ist = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).date().isoformat()
-    if pending and pending.get("date") != today_ist:
-        raise RuntimeError(f"Pending publication is from {pending.get('date')}; will not advance or replace it with today's slot")
-    videos_per_day = int(state.get("videos_per_day", 2))
+    videos_per_day = state.get("videos_per_day", 2)
+    today_ist = get_ist_date()
+    last_date = state.get("last_published_date")
+    current_day = state.get("current_day", 4)
     published_today = state.get("published_today_count", 0)
 
-    if state.get("last_published_date") != today_ist:
+    # Support manual override via CLI --force or env FORCE_PUBLISH=true
+    force = ("--force" in sys.argv) or (os.environ.get("FORCE_PUBLISH", "").lower() in ("true", "1"))
+
+    # ── CALENDAR-DATE LOCKED PROGRESSION ─────────────────────────────────
+    # A new Day number only unlocks when the calendar date changes in IST.
+    if last_date != today_ist:
+        # Brand new calendar day in India -> Advance day, reset slot to 1
+        day = (current_day + 1) if last_date is not None else current_day
+        slot = 1
         published_today = 0
-        state["current_day"] = state.get("current_day", 1) + (1 if state.get("last_published_date") else 0)
-        state["last_published_date"] = today_ist
-    slot = published_today + 1
-    day = state.get("current_day", 1)
-    if slot > videos_per_day:
-        print(f"Daily limit of {videos_per_day} videos reached.")
+    else:
+        # Same calendar day in India
+        if published_today >= videos_per_day and not force:
+            print(f"Daily quota of {videos_per_day} videos already reached for today ({today_ist}, Day {current_day}).")
+            print(f"Holding Day {current_day + 1} until tomorrow morning. Exiting gracefully without error.")
+            return
+        day = current_day
+        slot = published_today + 1
+
+    if not force and datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).hour < 15 and published_today >= 1:
+        print("Morning slot already published; afternoon slot opens at 15:00 IST.")
         return
 
-    q = pick_next_question(questions, state)
+    if {"youtube", "instagram", "facebook"}.issubset(set(os.environ.get("PAUSED_DESTINATIONS", "").lower().split(","))):
+        print("PAUSED: No active publishing destinations; question state unchanged.")
+        return
+
+    # Non-repetition question pick
+    pending = state.get("pending_publication")
+    if pending:
+        if pending.get("date") != today_ist:
+            raise RuntimeError("Unfinished publication from an earlier date; reconcile destinations before continuing.")
+        q = next((item for item in questions if item["id"] == pending["question_id"]), None)
+        if q is None:
+            raise RuntimeError("Pending question is missing from the bank; manual reconciliation required.")
+        day, slot = pending["day"], pending["slot"]
+    else:
+        q = pick_next_question(questions, state)
     accent = next_accent(state)
     bg_music = get_slot_track(slot)
 
@@ -150,8 +159,10 @@ def main():
     tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
 
     paused_destinations = set(os.environ.get("PAUSED_DESTINATIONS", "").lower().split(","))
-    have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN")) and "youtube" not in paused_destinations
+    have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"))
+    have_youtube = have_youtube and "youtube" not in paused_destinations
     have_instagram = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY"))
+
     have_instagram = have_instagram and "instagram" not in paused_destinations
 
     # ── SEO SUPER AGENT: Dynamic Optimization & History Retrieval ─────────
@@ -238,16 +249,12 @@ def main():
         ("Facebook", have_facebook, ("IG_ACCESS_TOKEN", "FB_PAGE_ID")),
     ):
         if enabled:
-            print(f"[{platform}] CONFIGURED: upload will be attempted")
+            print(f"[{platform}] CONFIGURED")
         elif platform.lower() in paused_destinations:
-            print(f"[{platform}] SKIPPED: destination is paused")
+            print(f"[{platform}] SKIPPED: destination paused")
         else:
             missing_credentials = [key for key in required if not os.environ.get(key)]
             print(f"[{platform}] SKIPPED: missing configuration: {', '.join(missing_credentials)}")
-    if have_facebook and not fb_url:
-        print(f"[Facebook] CONFIGURED: attempting Reels upload to FB_PAGE_ID={os.environ['FB_PAGE_ID']}")
-    elif have_facebook and fb_url:
-        print(f"[Facebook] SUCCESS (already recorded) type=reel url={fb_url}")
     expected = [name for name, enabled in (("youtube", have_youtube), ("instagram", have_instagram), ("facebook", have_facebook)) if enabled]
     if not expected:
         raise RuntimeError("No publishing destination has complete credentials; question remains unpublished.")
@@ -258,7 +265,6 @@ def main():
             yt_id = upload_short(out_mp4, title, caption, tags=tags, pinned_comment=pinned_comment)
             if yt_id:
                 yt_url = f"https://youtube.com/shorts/{yt_id}"
-                print(f"[YouTube] SUCCESS url={yt_url}")
                 # Record in state for SEO historical tracking
                 history = state.get("published_history", [])
                 history.append({
@@ -269,12 +275,8 @@ def main():
                     "slot": slot
                 })
                 state["published_history"] = history[-20:]
-            else:
-                print(f"[YouTube] FAILED: upload returned no video ID for {q['id']}")
         except Exception as e:
-            print(f"[YouTube] FAILED for {q['id']}: {type(e).__name__}: {safe_error_message(e)}")
-    elif have_youtube and yt_url:
-        print(f"[YouTube] SUCCESS (already recorded) url={yt_url}")
+            print(f"  YouTube upload FAILED for {q['id']}: {e}")
 
     public_url = None
     if have_instagram and not ig_url:
@@ -284,28 +286,29 @@ def main():
             public_url = upload_to_github_release(out_mp4, tag_name, os.path.basename(out_mp4))
             print(f"  Hosted at: {public_url}")
             _, ig_url = publish_reel(public_url, ig_caption)
-            if ig_url:
-                print(f"[Instagram] SUCCESS type=reel url={ig_url}")
-            else:
-                print(f"[Instagram] FAILED: publish returned no media URL for {q['id']}")
         except Exception as e:
-            print(f"[Instagram] FAILED for {q['id']}: {type(e).__name__}: {safe_error_message(e)}")
-    elif have_instagram and ig_url:
-        print(f"[Instagram] SUCCESS (already recorded) url={ig_url}")
+            print(f"  Instagram upload FAILED for {q['id']}: {e}")
 
     # Publish to Facebook Page Reels (tab-specific Reels upload via Meta Graph API)
     if have_facebook and not fb_url:
         try:
             from upload_facebook import publish_facebook_reel
-            fb_id = publish_facebook_reel(out_mp4, title, fb_caption)
-            if not fb_id:
-                raise RuntimeError("Reels uploader returned no video ID")
-            fb_url = f"https://www.facebook.com/reel/{fb_id}"
-            print(f"[Facebook] SUCCESS type=reel id={fb_id} url={fb_url}")
+            fb_id = publish_facebook_reel(out_mp4, title, fb_caption, public_url=public_url)
+            if fb_id:
+                fb_url = f"https://www.facebook.com/reel/{fb_id}"
         except Exception as fe:
-            print(f"[Facebook] FAILED for {q['id']}: {type(fe).__name__}: {safe_error_message(fe)}")
+            print(f"  Facebook Reels upload FAILED for {q['id']}: {fe}")
 
     results.update({name: url for name, url in (("youtube", yt_url), ("instagram", ig_url), ("facebook", fb_url)) if url})
+    for platform, url, enabled in (
+        ("YouTube", yt_url, have_youtube),
+        ("Instagram", ig_url, have_instagram),
+        ("Facebook", fb_url, have_facebook),
+    ):
+        if url:
+            print(f"[{platform}] SUCCESS url={url}")
+        elif enabled:
+            print(f"[{platform}] FAILED: upload returned no URL/ID")
     missing = [name for name in expected if not results.get(name)]
     if missing:
         state["pending_publication"] = {"question_id": q["id"], "date": today_ist, "day": day, "slot": slot, "results": results}
@@ -334,3 +337,7 @@ def main():
 
     save_json(STATE_PATH, state)
     print(f"Success! Published {q['id']} as Day {day} (Part {slot}/{videos_per_day}). Total published: {state['total_published']}.")
+
+
+if __name__ == "__main__":
+    main()
