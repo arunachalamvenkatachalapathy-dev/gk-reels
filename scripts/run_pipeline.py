@@ -238,16 +238,23 @@ def main():
 
     render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music, day=day, slot=slot, topic_name=topic_name, viral_badge=viral_badge)
 
-    if not have_youtube:
-        print("WARNING: YouTube credentials not fully set -- skipping YouTube upload.")
-    if not have_instagram:
-        print("WARNING: Instagram credentials not fully set -- skipping Instagram upload.")
-
     results = dict(pending.get("results", {})) if pending else {}
     yt_url = results.get("youtube")
     ig_url = results.get("instagram")
     fb_url = results.get("facebook")
     have_facebook = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "FB_PAGE_ID")) and "facebook" not in paused_destinations
+    for platform, enabled, required in (
+        ("YouTube", have_youtube, ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN")),
+        ("Instagram", have_instagram, ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY")),
+        ("Facebook", have_facebook, ("IG_ACCESS_TOKEN", "FB_PAGE_ID")),
+    ):
+        if enabled:
+            print(f"[{platform}] CONFIGURED")
+        elif platform.lower() in paused_destinations:
+            print(f"[{platform}] SKIPPED: destination paused")
+        else:
+            missing_credentials = [key for key in required if not os.environ.get(key)]
+            print(f"[{platform}] SKIPPED: missing configuration: {', '.join(missing_credentials)}")
     expected = [name for name, enabled in (("youtube", have_youtube), ("instagram", have_instagram), ("facebook", have_facebook)) if enabled]
     if not expected:
         raise RuntimeError("No publishing destination has complete credentials; question remains unpublished.")
@@ -293,6 +300,15 @@ def main():
             print(f"  Facebook Reels upload FAILED for {q['id']}: {fe}")
 
     results.update({name: url for name, url in (("youtube", yt_url), ("instagram", ig_url), ("facebook", fb_url)) if url})
+    for platform, url, enabled in (
+        ("YouTube", yt_url, have_youtube),
+        ("Instagram", ig_url, have_instagram),
+        ("Facebook", fb_url, have_facebook),
+    ):
+        if url:
+            print(f"[{platform}] SUCCESS url={url}")
+        elif enabled:
+            print(f"[{platform}] FAILED: upload returned no URL/ID")
     missing = [name for name in expected if not results.get(name)]
     if missing:
         state["pending_publication"] = {"question_id": q["id"], "date": today_ist, "day": day, "slot": slot, "results": results}
