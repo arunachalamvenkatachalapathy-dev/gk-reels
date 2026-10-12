@@ -159,11 +159,19 @@ def main():
     tmp_dir = os.path.join(OUT_DIR, f"tmp_{q['id']}")
 
     paused_destinations = set(os.environ.get("PAUSED_DESTINATIONS", "").lower().split(","))
-    have_youtube = all(os.environ.get(k) for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"))
-    have_youtube = have_youtube and "youtube" not in paused_destinations
-    have_instagram = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY"))
+    required_secrets = {
+        "youtube": ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN"),
+        "instagram": ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY"),
+        "facebook": ("IG_ACCESS_TOKEN", "FB_PAGE_ID"),
+    }
+    def destination_ready(name):
+        return name not in paused_destinations and all(os.environ.get(k) for k in required_secrets[name])
 
-    have_instagram = have_instagram and "instagram" not in paused_destinations
+    def missing_secrets(name):
+        return [key for key in required_secrets[name] if not os.environ.get(key)]
+
+    have_youtube = destination_ready("youtube")
+    have_instagram = destination_ready("instagram")
 
     # ── SEO SUPER AGENT: Dynamic Optimization & History Retrieval ─────────
     seo_data = None
@@ -238,16 +246,18 @@ def main():
 
     render_video(q, accent, out_mp4, tmp_dir, bg_music=bg_music, day=day, slot=slot, topic_name=topic_name, viral_badge=viral_badge)
 
-    if not have_youtube:
-        print("WARNING: YouTube credentials not fully set -- skipping YouTube upload.")
-    if not have_instagram:
-        print("WARNING: Instagram credentials not fully set -- skipping Instagram upload.")
+    for platform in ("youtube", "instagram", "facebook"):
+        if platform in paused_destinations:
+            print(f"{platform.upper()} SKIPPED: paused by PAUSED_DESTINATIONS")
+        elif missing_secrets(platform):
+            print(f"{platform.upper()} SKIPPED: missing secret(s): {', '.join(missing_secrets(platform))}")
 
     results = dict(pending.get("results", {})) if pending else {}
     yt_url = results.get("youtube")
     ig_url = results.get("instagram")
     fb_url = results.get("facebook")
-    have_facebook = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "FB_PAGE_ID")) and "facebook" not in paused_destinations
+    have_facebook = destination_ready("facebook")
+    upload_errors = {}
     expected = [name for name, enabled in (("youtube", have_youtube), ("instagram", have_instagram), ("facebook", have_facebook)) if enabled]
     if not expected:
         raise RuntimeError("No publishing destination has complete credentials; question remains unpublished.")
@@ -269,7 +279,7 @@ def main():
                 })
                 state["published_history"] = history[-20:]
         except Exception as e:
-            print(f"  YouTube upload FAILED for {q['id']}: {e}")
+            upload_errors["youtube"] = e
 
     public_url = None
     if have_instagram and not ig_url:
@@ -280,7 +290,7 @@ def main():
             print(f"  Hosted at: {public_url}")
             _, ig_url = publish_reel(public_url, ig_caption)
         except Exception as e:
-            print(f"  Instagram upload FAILED for {q['id']}: {e}")
+            upload_errors["instagram"] = e
 
     # Publish to Facebook Page Reels (tab-specific Reels upload via Meta Graph API)
     if have_facebook and not fb_url:
@@ -290,9 +300,26 @@ def main():
             if fb_id:
                 fb_url = f"https://www.facebook.com/reel/{fb_id}"
         except Exception as fe:
-            print(f"  Facebook Reels upload FAILED for {q['id']}: {fe}")
+            upload_errors["facebook"] = fe
 
     results.update({name: url for name, url in (("youtube", yt_url), ("instagram", ig_url), ("facebook", fb_url)) if url})
+    for platform in ("youtube", "instagram", "facebook"):
+        url = results.get(platform)
+        if url:
+            print(f"{platform.upper()} SUCCESS: {url}")
+        elif platform in paused_destinations:
+            print(f"{platform.upper()} SKIPPED: paused by PAUSED_DESTINATIONS")
+        elif missing_secrets(platform):
+            print(f"{platform.upper()} SKIPPED: missing secret(s): {', '.join(missing_secrets(platform))}")
+        else:
+            error = upload_errors.get(platform)
+            if error is None:
+                error = "upload returned no URL/ID"
+            error_text = str(error)
+            for env_name, secret_value in os.environ.items():
+                if secret_value and any(word in env_name.upper() for word in ("TOKEN", "SECRET", "API_KEY")):
+                    error_text = error_text.replace(secret_value, "[REDACTED]")
+            print(f"{platform.upper()} FAILED: {error_text}")
     missing = [name for name in expected if not results.get(name)]
     if missing:
         state["pending_publication"] = {"question_id": q["id"], "date": today_ist, "day": day, "slot": slot, "results": results}
