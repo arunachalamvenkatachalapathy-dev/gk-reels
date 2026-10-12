@@ -1,5 +1,5 @@
 {
-  "next_index": 77,
+  "next_index": 78,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 1,
+  "palette_cursor": 2,
   "audio_cursor": 0,
-  "current_day": 34,
-  "current_slot": 2,
-  "last_published_date": "2026-10-11",
-  "published_today_count": 2,
-  "total_published": 72,
+  "current_day": 35,
+  "current_slot": 1,
+  "last_published_date": "2026-10-12",
+  "published_today_count": 1,
+  "total_published": 73,
   "published_ids": [
     "q0000",
     "q0001",
@@ -90,16 +90,10 @@
     "q0073",
     "q0074",
     "q0075",
-    "q0076"
+    "q0076",
+    "q0077"
   ],
   "published_history": [
-    {
-      "id": "q0019",
-      "yt_id": "5sYG-GaKOxw",
-      "title": "Supply-Side Economics | GK Questions and Answers #Shorts",
-      "day": 10,
-      "slot": 2
-    },
     {
       "id": "q0020",
       "yt_id": "C2FK9RbEHQs",
@@ -232,6 +226,13 @@
       "title": "🌞 Solar Eclipse Explained in 5 Secs! #Shorts",
       "day": 34,
       "slot": 2
+    },
+    {
+      "id": "q0077",
+      "yt_id": "wQN82Huk2x4",
+      "title": "🇮🇳 First Indian Badminton World No. 1? #Shorts",
+      "day": 35,
+      "slot": 1
     }
   ]
 }
