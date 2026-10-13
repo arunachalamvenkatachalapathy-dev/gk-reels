@@ -2,15 +2,17 @@ name: Publish GK Reels
 
 on:
   schedule:
-    # Frequent, off-hour retries. Gate picks the earliest due slot from IST time + state.
-    # Morning window starts at 06:00 IST (00:30 UTC); retries every 10 minutes until 14:52 IST.
-    - cron: "32,42,52 0 * * *"
-    - cron: "2,12,22,32,42,52 1-8 * * *"
-    - cron: "2,12,22 9 * * *"
-    # Afternoon window starts at 15:00 IST (09:30 UTC); retries every 10 minutes until 18:52 IST.
-    - cron: "32,42,52 9 * * *"
-    - cron: "2,12,22,32,42,52 10-12 * * *"
-    - cron: "2,12,22 13 * * *"
+    # GH Actions schedule is best-effort. Offset retries every 5 minutes reduce gaps;
+    # state gate still allows only the earliest due, unpublished slot per run.
+    # Measurements are run-start observations; missed cron occurrences have no runner to measure.
+    # Morning IST window: 06:00-14:59. First check at 06:03 IST (00:33 UTC).
+    - cron: "33-58/5 0 * * *"
+    - cron: "3-58/5 1-8 * * *"
+    - cron: "3-28/5 9 * * *"
+    # Afternoon IST window: 15:00-18:59. First check at 15:03 IST (09:33 UTC).
+    - cron: "33-58/5 9 * * *"
+    - cron: "3-58/5 10-12 * * *"
+    - cron: "3-28/5 13 * * *"
 permissions:
   contents: write   # needed to commit data/state.json and create releases
 
@@ -28,55 +30,76 @@ jobs:
 
       # Use the runner's system Python and check the same IST date/slot state as
       # run_pipeline.py before downloading ffmpeg, Python packages, or Chromium.
-      - name: Check whether an IST slot is due
+      - name: Select due slot and measure publish-window timing
         id: slot_gate
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
+          GITHUB_STEP_SUMMARY: ${{ github.step_summary }}
         run: |
-          python3 - <<'PY'
-          import datetime
+          python3 - <<'PYGATE'
+          import datetime as dt
           import json
           import os
           import sys
+          from pathlib import Path
 
-          ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
-          now = datetime.datetime.now(ist)
+          IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
+          SLOT_OPENS = {1: dt.time(6, 0), 2: dt.time(15, 0)}
+          now = dt.datetime.now(IST)
           today = now.date().isoformat()
           try:
-              with open("data/state.json", encoding="utf-8") as f:
+              with open('data/state.json', encoding='utf-8') as f:
                   state = json.load(f)
-              videos_per_day = int(state.get("videos_per_day", 2))
+              videos_per_day = int(state.get('videos_per_day', 2))
               if videos_per_day < 1:
-                  raise ValueError("videos_per_day must be positive")
-              pending = state.get("pending_publication")
+                  raise ValueError('videos_per_day must be positive')
+              pending = state.get('pending_publication')
               if pending:
-                  if pending.get("date") != today:
-                      raise RuntimeError("Unfinished publication from an earlier date; reconcile destinations before continuing.")
-                  slot = int(pending["slot"])
-                  opened = {1: datetime.time(6, 0), 2: datetime.time(15, 0)}.get(slot, datetime.time(0, 0))
-                  due = now.time().replace(tzinfo=None) >= opened
+                  if pending.get('date') != today:
+                      raise RuntimeError('Unfinished publication from an earlier date; reconcile destinations before continuing.')
+                  slot = int(pending['slot'])
+                  if slot not in SLOT_OPENS:
+                      raise ValueError(f'Unknown pending slot: {slot}')
+                  due = now.time().replace(tzinfo=None) >= SLOT_OPENS[slot]
               else:
-                  by_date = state.get("published_slots_by_date") or {}
+                  by_date = state.get('published_slots_by_date') or {}
                   if today in by_date:
-                      published = {int(slot) for slot in by_date[today] if 1 <= int(slot) <= videos_per_day}
-                  elif state.get("last_published_date") == today:
-                      count = max(0, min(videos_per_day, int(state.get("published_today_count", 0))))
+                      published = {int(x) for x in by_date[today] if 1 <= int(x) <= videos_per_day}
+                  elif state.get('last_published_date') == today:
+                      count = max(0, min(videos_per_day, int(state.get('published_today_count', 0))))
                       published = set(range(1, count + 1))
                   else:
                       published = set()
-                  opened = {1: datetime.time(6, 0), 2: datetime.time(15, 0)}
-                  due = any(
-                      slot not in published
-                      and now.time().replace(tzinfo=None) >= opened.get(slot, datetime.time(0, 0))
-                      for slot in range(1, videos_per_day + 1)
-                  )
+                  slot = next((s for s in range(1, videos_per_day + 1)
+                               if s not in published and s in SLOT_OPENS
+                               and now.time().replace(tzinfo=None) >= SLOT_OPENS[s]), None)
+                  due = slot is not None
           except Exception as exc:
-              print(f"Preflight failed: {exc}", file=sys.stderr)
+              print(f'Preflight failed: {exc}', file=sys.stderr)
               sys.exit(1)
 
-          eligible = "true" if due else "false"
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
-              f.write(f"eligible={eligible}\n")
-          print(f"IST preflight: {today} {now:%H:%M}; slot due={eligible}")
-          PY
+          eligible = 'true' if due else 'false'
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
+              f.write(f'eligible={eligible}\n')
+          record = {
+              'ist_date': today,
+              'eligible': due,
+              'due_slot': slot if due else None,
+              'slot_open_ist': SLOT_OPENS[slot].strftime('%H:%M') if due else None,
+              'runner_started_at_utc': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds'),
+              'runner_started_at_ist': now.isoformat(timespec='seconds'),
+              'observed_start_lag_seconds_from_slot_open': int((now - dt.datetime.combine(now.date(), SLOT_OPENS[slot], tzinfo=IST)).total_seconds()) if due else None,
+          }
+          Path(os.environ['RUNNER_TEMP'], 'schedule-timing.json').write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')
+          if os.environ.get('GITHUB_STEP_SUMMARY'):
+              if due:
+                  line = f"Run start vs slot open: {record['observed_start_lag_seconds_from_slot_open']} sec after IST slot {slot} opened ({today} {record['slot_open_ist']} IST). This is not GitHub trigger-delivery drift."
+              else:
+                  line = f"No open unpublished slot at {record['runner_started_at_ist']}; no publish work."
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
+                  f.write(line + '\n')
+          print(json.dumps(record, sort_keys=True))
+          PYGATE
 
       - name: Set up Python
         if: steps.slot_gate.outputs.eligible == 'true'
@@ -126,6 +149,15 @@ jobs:
           name: gk-reels-video
           path: output/*.mp4
           retention-days: 7
+
+      - name: Upload schedule timing record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: schedule-timing-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/schedule-timing.json
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Commit updated state
         if: always() && steps.slot_gate.outputs.eligible == 'true'
