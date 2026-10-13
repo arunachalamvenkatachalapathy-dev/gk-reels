@@ -73,6 +73,13 @@ def pick_next_question(questions, state, reviewed=None):
     raise RuntimeError(f"BUFFER EMPTY: no unpublished source-checked question remains ({skipped} unreviewed in backlog). Add reviewed entries before the next slot.")
 
 
+def next_accent(state):
+    palette = state.get("palette", ["#4D96FF", "#6BCB77", "#FFD93D", "#FF6B6B", "#A66DD4", "#FF9F45"])
+    c = state.get("palette_cursor", 0) % len(palette)
+    state["palette_cursor"] = (c + 1) % len(palette)
+    return palette[c]
+
+
 def published_slots_for_date(state, today_ist, videos_per_day=2):
     """Return slots completed for this IST date, migrating legacy sequential counts."""
     by_date = state.get("published_slots_by_date") or {}
