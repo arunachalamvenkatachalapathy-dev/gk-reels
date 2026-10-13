@@ -6,14 +6,11 @@ on:
     # GH Actions schedule is best-effort. Offset retries every 5 minutes reduce gaps;
     # state gate still allows only the earliest due, unpublished slot per run.
     # Measurements are run-start observations; missed cron occurrences have no runner to measure.
-    # Morning IST window: 06:00-14:59. First check at 06:03 IST (00:33 UTC).
-    - cron: "33-58/5 0 * * *"
-    - cron: "3-58/5 1-8 * * *"
-    - cron: "3-28/5 9 * * *"
-    # Afternoon IST window: 15:00-18:59. First check at 15:03 IST (09:33 UTC).
-    - cron: "33-58/5 9 * * *"
-    - cron: "3-58/5 10-12 * * *"
-    - cron: "3-28/5 13 * * *"
+    # Morning IST window: 07:30-19:29. First retry at 07:33 IST (02:03 UTC).
+    - cron: '3-58/5 2-13 * * *'
+    # Evening IST window: 19:30-23:59. First retry at 19:33 IST (14:03 UTC).
+    - cron: '3-58/5 14-17 * * *'
+    - cron: '3-28/5 18 * * *'
 permissions:
   contents: write   # needed to commit data/state.json and create releases
 
@@ -45,7 +42,7 @@ jobs:
           from pathlib import Path
 
           IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
-          SLOT_OPENS = {1: dt.time(6, 0), 2: dt.time(15, 0)}
+          SLOT_OPENS = {1: dt.time(7, 30), 2: dt.time(19, 30)}
           now = dt.datetime.now(IST)
           today = now.date().isoformat()
           try:
