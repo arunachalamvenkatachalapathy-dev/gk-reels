@@ -1,5 +1,5 @@
 {
-  "next_index": 82,
+  "next_index": 83,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 36,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-10-13",
-  "published_today_count": 1,
-  "total_published": 74,
+  "published_today_count": 2,
+  "total_published": 75,
   "published_ids": [
     "q0000",
     "q0001",
@@ -92,16 +92,10 @@
     "q0075",
     "q0076",
     "q0077",
-    "q0081"
+    "q0081",
+    "q0082"
   ],
   "published_history": [
-    {
-      "id": "q0021",
-      "yt_id": "YvpPRa1Q7_k",
-      "title": "Abid Hussain Committee: Small Scale Industry Reform #Shorts",
-      "day": 11,
-      "slot": 2
-    },
     {
       "id": "q0022",
       "yt_id": "3NdZ-VC6jGI",
@@ -234,11 +228,19 @@
       "title": "🌧️ What Causes Acid Rain? 🧠 #Shorts",
       "day": 36,
       "slot": 1
+    },
+    {
+      "id": "q0082",
+      "yt_id": "hTYY87A9M78",
+      "title": "Where do asteroids REALLY orbit? 🌌 #Shorts #SpaceQuiz",
+      "day": 36,
+      "slot": 2
     }
   ],
   "published_slots_by_date": {
     "2026-10-13": [
-      1
+      1,
+      2
     ]
   }
 }
