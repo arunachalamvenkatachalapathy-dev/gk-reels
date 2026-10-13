@@ -1,6 +1,7 @@
 name: Publish GK Reels
 
 on:
+  workflow_dispatch:
   schedule:
     # GH Actions schedule is best-effort. Offset retries every 5 minutes reduce gaps;
     # state gate still allows only the earliest due, unpublished slot per run.
