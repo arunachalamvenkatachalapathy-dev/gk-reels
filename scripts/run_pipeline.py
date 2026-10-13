@@ -14,7 +14,7 @@ STATE_PATH = os.path.join(BASE, "data", "state.json")
 OUT_DIR = os.path.join(BASE, "output")
 AUDIO_DIR = os.path.join(BASE, "assets", "audio")
 IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
-SLOT_OPENS = {1: datetime.time(6, 0), 2: datetime.time(15, 0)}
+SLOT_OPENS = {1: datetime.time(7, 30), 2: datetime.time(19, 30)}
 MAX_DATE_SLOT_HISTORY = 60
 
 SLOT_TRACKS = {
@@ -236,7 +236,7 @@ def main():
     def safe_copy(text):
         text = re.sub(r"[^\n.!?]*\b(?:90|99)%[^\n.!?]*(?:[.!?]|$)", "", str(text), flags=re.I)
         lines = [line for line in text.splitlines() if not re.search(r"giveaway|free.*(?:notes|pdf)|pdf.*notes|win.*(?:gift|material)|गिवअवे|फ्री.*(?:नोट्स|PDF)|18[- ]second|00:\d\d", line, re.I)]
-        return "\n".join(lines).replace("9 AM & 7 PM IST", "6 AM & 3 PM IST").replace("9 AM & 7 PM", "6 AM & 3 PM").replace("सुबह 9:00 और शाम 7:00 बजे", "सुबह 6:00 और दोपहर 3:00 बजे").strip() or ("Daily GK quiz" if DATA_PATH.endswith("questions_en.json") else "आज का GK सवाल")
+        return "\n".join(lines).replace("9 AM & 7 PM IST", "7:30 AM & 7:30 PM IST").replace("9 AM & 7 PM", "7:30 AM & 7:30 PM").replace("सुबह 9:00 और शाम 7:00 बजे", "सुबह 7:30 और शाम 7:30 बजे").strip() or ("Daily GK quiz" if DATA_PATH.endswith("questions_en.json") else "आज का GK सवाल")
     title, caption, ig_caption, fb_caption = map(safe_copy, (title, caption, ig_caption, fb_caption))
     viral_badge = "DAILY GK QUIZ" if DATA_PATH.endswith("questions_en.json") else "आज का GK सवाल"
     pinned_comment = "Comment your answer below." if DATA_PATH.endswith("questions_en.json") else "अपना उत्तर कमेंट करें।"
