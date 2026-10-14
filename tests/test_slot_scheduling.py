@@ -13,24 +13,29 @@ IST = timezone(timedelta(hours=5, minutes=30))
 
 class SlotSchedulingTests(unittest.TestCase):
     def test_before_morning_window_skips(self):
-        self.assertIsNone(p.next_due_slot(datetime(2026, 10, 12, 5, 59, tzinfo=IST), []))
+        self.assertIsNone(p.next_due_slot(datetime(2026, 10, 12, 7, 29, tzinfo=IST), []))
 
     def test_morning_window_opens_slot_one(self):
-        self.assertEqual(p.next_due_slot(datetime(2026, 10, 12, 6, 0, tzinfo=IST), []), 1)
+        self.assertEqual(p.next_due_slot(datetime(2026, 10, 12, 7, 30, tzinfo=IST), []), 1)
 
     def test_missed_morning_catches_up_before_afternoon(self):
-        self.assertEqual(p.next_due_slot(datetime(2026, 10, 12, 15, 0, tzinfo=IST), []), 1)
+        self.assertEqual(p.next_due_slot(datetime(2026, 10, 12, 12, 30, tzinfo=IST), []), 1)
 
-    def test_after_morning_then_afternoon_due(self):
-        self.assertEqual(p.next_due_slot(datetime(2026, 10, 12, 15, 0, tzinfo=IST), [1]), 2)
+    def test_after_morning_then_evening_due(self):
+        self.assertIsNone(p.next_due_slot(datetime(2026, 10, 12, 12, 30, tzinfo=IST), [1]))
+        self.assertEqual(p.next_due_slot(datetime(2026, 10, 12, 19, 30, tzinfo=IST), [1]), 2)
 
     def test_only_one_slot_per_run_then_catchup(self):
-        now = datetime(2026, 10, 12, 15, 0, tzinfo=IST)
+        now = datetime(2026, 10, 12, 19, 30, tzinfo=IST)
         self.assertEqual(p.next_due_slot(now, []), 1)
         self.assertEqual(p.next_due_slot(now, [1]), 2)
 
+    def test_five_hour_late_fire_catches_up_morning_slot(self):
+        five_hours_after_morning = datetime(2026, 10, 12, 12, 30, tzinfo=IST)
+        self.assertEqual(p.next_due_slot(five_hours_after_morning, []), 1)
+
     def test_no_duplicate_for_completed_slots(self):
-        self.assertIsNone(p.next_due_slot(datetime(2026, 10, 12, 16, 0, tzinfo=IST), [1, 2]))
+        self.assertIsNone(p.next_due_slot(datetime(2026, 10, 12, 20, 0, tzinfo=IST), [1, 2]))
 
     def test_legacy_count_migrates_sequentially(self):
         self.assertEqual(p.published_slots_for_date({'last_published_date':'2026-10-12','published_today_count':1}, '2026-10-12'), [1])
