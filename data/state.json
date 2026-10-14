@@ -1,5 +1,5 @@
 {
-  "next_index": 83,
+  "next_index": 88,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 4,
+  "palette_cursor": 5,
   "audio_cursor": 0,
-  "current_day": 36,
-  "current_slot": 2,
-  "last_published_date": "2026-10-13",
+  "current_day": 37,
+  "current_slot": 1,
+  "last_published_date": "2026-10-14",
   "published_today_count": 2,
-  "total_published": 75,
+  "total_published": 76,
   "published_ids": [
     "q0000",
     "q0001",
@@ -93,16 +93,10 @@
     "q0076",
     "q0077",
     "q0081",
-    "q0082"
+    "q0082",
+    "q0087"
   ],
   "published_history": [
-    {
-      "id": "q0022",
-      "yt_id": "3NdZ-VC6jGI",
-      "title": "🚨 Which Industry Status is CORRECT? | GK Quiz Challenge #Shorts",
-      "day": 12,
-      "slot": 1
-    },
     {
       "id": "q0024",
       "yt_id": "T13ivZWdwUw",
@@ -235,10 +229,21 @@
       "title": "Where do asteroids REALLY orbit? 🌌 #Shorts #SpaceQuiz",
       "day": 36,
       "slot": 2
+    },
+    {
+      "id": "q0087",
+      "yt_id": "YRujVTXNvbg",
+      "title": "🤔 Who chaired the Panchayati Raj Committee in 1977? #Shorts",
+      "day": 37,
+      "slot": 1
     }
   ],
   "published_slots_by_date": {
     "2026-10-13": [
+      1,
+      2
+    ],
+    "2026-10-14": [
       1,
       2
     ]
