@@ -73,6 +73,13 @@ class PublicationTests(unittest.TestCase):
         self.assertIn("youtube", self.state["pending_publication"]["results"])
         self.assertEqual(self.state["published_ids"], [])
 
+    def test_facebook_is_disabled_without_explicit_enable_flag(self):
+        yt = types.SimpleNamespace(upload_short=lambda *a, **k: "video-id", get_youtube_client=lambda: None)
+        fb = types.SimpleNamespace(publish_facebook_reel=lambda *a, **k: self.fail("Facebook must stay disabled by default"))
+        env = {k: "test" for k in ["YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN", "IG_ACCESS_TOKEN", "FB_PAGE_ID"]}
+        self.run_main({"upload_youtube": yt, "upload_facebook": fb}, env)
+        self.assertEqual(self.state["published_ids"], ["q1"])
+
     def test_success_advances_once(self):
         yt = types.SimpleNamespace(upload_short=lambda *a, **k: "video-id", get_youtube_client=lambda: None)
         self.run_main({"upload_youtube": yt}, {"YT_CLIENT_ID": "test", "YT_CLIENT_SECRET": "test", "YT_REFRESH_TOKEN": "test"})

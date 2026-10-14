@@ -254,7 +254,7 @@ def main():
     yt_url = results.get("youtube")
     ig_url = results.get("instagram")
     fb_url = results.get("facebook")
-    have_facebook = all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "FB_PAGE_ID")) and "facebook" not in paused_destinations
+    have_facebook = os.environ.get("ENABLE_FACEBOOK", "false").strip().lower() == "true" and all(os.environ.get(k) for k in ("IG_ACCESS_TOKEN", "FB_PAGE_ID")) and "facebook" not in paused_destinations
     for platform, enabled, required in (
         ("YouTube", have_youtube, ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN")),
         ("Instagram", have_instagram, ("IG_ACCESS_TOKEN", "IG_USER_ID", "GITHUB_TOKEN", "GITHUB_REPOSITORY")),
@@ -301,7 +301,7 @@ def main():
             if fb_id:
                 fb_url = f"https://www.facebook.com/reel/{fb_id}"
         except Exception as fe:
-            print(f"  Facebook Reels upload FAILED for {q['id']}: {fe}")
+            print(f"  Facebook Reels upload FAILED for {q['id']}: {type(fe).__name__} (details redacted)")
 
     results.update({name: url for name, url in (("youtube", yt_url), ("instagram", ig_url), ("facebook", fb_url)) if url})
     for platform, url, enabled in (("YouTube", yt_url, have_youtube), ("Instagram", ig_url, have_instagram), ("Facebook", fb_url, have_facebook)):
