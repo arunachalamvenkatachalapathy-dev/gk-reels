@@ -1,5 +1,5 @@
 {
-  "next_index": 88,
+  "next_index": 89,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 5,
+  "palette_cursor": 0,
   "audio_cursor": 0,
-  "current_day": 37,
+  "current_day": 38,
   "current_slot": 1,
-  "last_published_date": "2026-10-14",
+  "last_published_date": "2026-10-15",
   "published_today_count": 2,
-  "total_published": 76,
+  "total_published": 77,
   "published_ids": [
     "q0000",
     "q0001",
@@ -94,16 +94,10 @@
     "q0077",
     "q0081",
     "q0082",
-    "q0087"
+    "q0087",
+    "q0088"
   ],
   "published_history": [
-    {
-      "id": "q0024",
-      "yt_id": "T13ivZWdwUw",
-      "title": "🚨 90% FAIL THIS GK QUIZ! 🤯 (National Saffron Mission) #Shorts",
-      "day": 12,
-      "slot": 2
-    },
     {
       "id": "q0026",
       "yt_id": "DGRL9uA8O3s",
@@ -236,6 +230,13 @@
       "title": "🤔 Who chaired the Panchayati Raj Committee in 1977? #Shorts",
       "day": 37,
       "slot": 1
+    },
+    {
+      "id": "q0088",
+      "yt_id": "1bWoDo5AjqA",
+      "title": "🤔 GK Quiz: Bretton Woods Twins Explained! #Shorts",
+      "day": 38,
+      "slot": 1
     }
   ],
   "published_slots_by_date": {
@@ -244,6 +245,10 @@
       2
     ],
     "2026-10-14": [
+      1,
+      2
+    ],
+    "2026-10-15": [
       1,
       2
     ]
