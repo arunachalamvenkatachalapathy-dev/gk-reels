@@ -6,8 +6,8 @@ on:
     # GH Actions schedule is best-effort. Offset retries every 5 minutes reduce gaps;
     # state gate still allows only the earliest due, unpublished slot per run.
     # Measurements are run-start observations; missed cron occurrences have no runner to measure.
-    # Morning IST window: 07:30-19:29. First retry at 07:33 IST (02:03 UTC).
-    - cron: '3-58/5 2-13 * * *'
+    # Morning IST window: 07:30-19:29. First trigger at 07:30 IST (02:00 UTC).
+    - cron: '0-58/5 2-13 * * *'
     # Evening IST window: 19:30-23:59. First retry at 19:33 IST (14:03 UTC).
     - cron: '3-58/5 14-17 * * *'
     - cron: '3-28/5 18 * * *'
