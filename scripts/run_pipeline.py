@@ -91,6 +91,17 @@ def published_slots_for_date(state, today_ist, videos_per_day=2):
     return []
 
 
+def mark_published_slot(state, today_ist, slot, videos_per_day=2):
+    """Record this publication without carrying yesterday's count into today."""
+    date_slots = set(published_slots_for_date(state, today_ist, videos_per_day))
+    date_slots.add(slot)
+    by_date = state.get("published_slots_by_date") or {}
+    by_date[today_ist] = sorted(date_slots)
+    state["published_slots_by_date"] = dict(sorted(by_date.items())[-MAX_DATE_SLOT_HISTORY:])
+    state["last_published_date"] = today_ist
+    state["published_today_count"] = len(date_slots)
+
+
 def next_due_slot(now_ist, published_slots, videos_per_day=2):
     """Choose earliest unpublished slot whose IST publishing window has opened."""
     for slot in range(1, videos_per_day + 1):
@@ -328,13 +339,7 @@ def main():
     state["published_ids"] = published_ids
     state["videos_per_day"] = videos_per_day
     state["total_published"] = state.get("total_published", 0) + 1
-    state["last_published_date"] = today_ist
-    date_slots = set(published_slots_for_date(state, today_ist, videos_per_day))
-    date_slots.add(slot)
-    by_date = state.get("published_slots_by_date") or {}
-    by_date[today_ist] = sorted(date_slots)
-    state["published_slots_by_date"] = dict(sorted(by_date.items())[-MAX_DATE_SLOT_HISTORY:])
-    state["published_today_count"] = len(date_slots)
+    mark_published_slot(state, today_ist, slot, videos_per_day)
     state["current_day"] = day
     state["current_slot"] = slot
 
