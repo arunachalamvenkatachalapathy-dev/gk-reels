@@ -15,7 +15,7 @@
   "current_day": 39,
   "current_slot": 1,
   "last_published_date": "2026-10-16",
-  "published_today_count": 2,
+  "published_today_count": 1,
   "total_published": 78,
   "published_ids": [
     "q0000",
@@ -254,8 +254,7 @@
       2
     ],
     "2026-10-16": [
-      1,
-      2
+      1
     ]
   }
 }
