@@ -45,6 +45,20 @@ class SlotSchedulingTests(unittest.TestCase):
         state = {'last_published_date':'2026-10-12','published_today_count':1,'published_slots_by_date':{'2026-10-12':[2]}}
         self.assertEqual(p.published_slots_for_date(state, '2026-10-12'), [2])
 
+    def test_new_date_publication_does_not_reuse_previous_day_count(self):
+        state = {
+            'last_published_date': '2026-10-15',
+            'published_today_count': 2,
+            'published_slots_by_date': {'2026-10-15': [1, 2]},
+        }
+        p.mark_published_slot(state, '2026-10-16', 1)
+        self.assertEqual(state['published_slots_by_date']['2026-10-16'], [1])
+        self.assertEqual(state['published_today_count'], 1)
+        self.assertEqual(state['last_published_date'], '2026-10-16')
+        p.mark_published_slot(state, '2026-10-16', 2)
+        self.assertEqual(state['published_slots_by_date']['2026-10-16'], [1, 2])
+        self.assertEqual(state['published_today_count'], 2)
+
     def test_new_ist_date_starts_empty(self):
         self.assertEqual(p.published_slots_for_date({'last_published_date':'2026-10-11','published_today_count':2}, '2026-10-12'), [])
 
