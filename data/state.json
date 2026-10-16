@@ -1,5 +1,5 @@
 {
-  "next_index": 89,
+  "next_index": 90,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 0,
+  "palette_cursor": 1,
   "audio_cursor": 0,
-  "current_day": 38,
+  "current_day": 39,
   "current_slot": 1,
-  "last_published_date": "2026-10-15",
+  "last_published_date": "2026-10-16",
   "published_today_count": 2,
-  "total_published": 77,
+  "total_published": 78,
   "published_ids": [
     "q0000",
     "q0001",
@@ -95,16 +95,10 @@
     "q0081",
     "q0082",
     "q0087",
-    "q0088"
+    "q0088",
+    "q0089"
   ],
   "published_history": [
-    {
-      "id": "q0026",
-      "yt_id": "DGRL9uA8O3s",
-      "title": "🔥 Which Plan Started India's Green Revolution? #Shorts",
-      "day": 13,
-      "slot": 1
-    },
     {
       "id": "q0028",
       "yt_id": "58BVCSusIFE",
@@ -237,6 +231,13 @@
       "title": "🤔 GK Quiz: Bretton Woods Twins Explained! #Shorts",
       "day": 38,
       "slot": 1
+    },
+    {
+      "id": "q0089",
+      "yt_id": "EPUPioxAMHA",
+      "title": "Bamboo Mission Quiz 🌱 Only 1% Know This Ministry! #Shorts",
+      "day": 39,
+      "slot": 1
     }
   ],
   "published_slots_by_date": {
@@ -249,6 +250,10 @@
       2
     ],
     "2026-10-15": [
+      1,
+      2
+    ],
+    "2026-10-16": [
       1,
       2
     ]
