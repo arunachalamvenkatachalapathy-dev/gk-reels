@@ -1,5 +1,5 @@
 {
-  "next_index": 96,
+  "next_index": 98,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 40,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-10-17",
-  "published_today_count": 1,
-  "total_published": 80,
+  "published_today_count": 2,
+  "total_published": 81,
   "published_ids": [
     "q0000",
     "q0001",
@@ -98,16 +98,10 @@
     "q0088",
     "q0089",
     "q0092",
-    "q0095"
+    "q0095",
+    "q0097"
   ],
   "published_history": [
-    {
-      "id": "q0030",
-      "yt_id": "vHUExUsfx7o",
-      "title": "🚨 Guess the PM in 5s! 🇰🇷 #Shorts",
-      "day": 13,
-      "slot": 4
-    },
     {
       "id": "q0031",
       "yt_id": "WplPy9g8qOc",
@@ -240,6 +234,13 @@
       "title": "What Does Dolby B or C Mean? 🤔 #Shorts",
       "day": 40,
       "slot": 1
+    },
+    {
+      "id": "q0097",
+      "yt_id": "4_vfZckzouY",
+      "title": "🌱 Green Revolution Secret? #Shorts #GKQuiz",
+      "day": 40,
+      "slot": 2
     }
   ],
   "published_slots_by_date": {
@@ -260,7 +261,8 @@
       2
     ],
     "2026-10-17": [
-      1
+      1,
+      2
     ]
   }
 }
