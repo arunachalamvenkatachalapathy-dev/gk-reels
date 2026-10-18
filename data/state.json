@@ -1,5 +1,5 @@
 {
-  "next_index": 98,
+  "next_index": 103,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 4,
+  "palette_cursor": 5,
   "audio_cursor": 0,
-  "current_day": 40,
-  "current_slot": 2,
-  "last_published_date": "2026-10-17",
-  "published_today_count": 2,
-  "total_published": 81,
+  "current_day": 41,
+  "current_slot": 1,
+  "last_published_date": "2026-10-18",
+  "published_today_count": 1,
+  "total_published": 82,
   "published_ids": [
     "q0000",
     "q0001",
@@ -99,16 +99,10 @@
     "q0089",
     "q0092",
     "q0095",
-    "q0097"
+    "q0097",
+    "q0102"
   ],
   "published_history": [
-    {
-      "id": "q0031",
-      "yt_id": "WplPy9g8qOc",
-      "title": "🔥 What’s REALLY in your gas cylinder? #Shorts | GK Quiz",
-      "day": 14,
-      "slot": 1
-    },
     {
       "id": "q0032",
       "yt_id": "lj4zPRCIuUQ",
@@ -241,6 +235,13 @@
       "title": "🌱 Green Revolution Secret? #Shorts #GKQuiz",
       "day": 40,
       "slot": 2
+    },
+    {
+      "id": "q0102",
+      "yt_id": "tDLd13YL_Ls",
+      "title": "🌍 Biodiversity Hotspot Quiz! Can You Answer This? #Shorts",
+      "day": 41,
+      "slot": 1
     }
   ],
   "published_slots_by_date": {
@@ -263,6 +264,9 @@
     "2026-10-17": [
       1,
       2
+    ],
+    "2026-10-18": [
+      1
     ]
   }
 }
