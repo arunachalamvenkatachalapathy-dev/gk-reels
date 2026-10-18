@@ -1,5 +1,5 @@
 {
-  "next_index": 103,
+  "next_index": 104,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 5,
+  "palette_cursor": 0,
   "audio_cursor": 0,
   "current_day": 41,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-10-18",
-  "published_today_count": 1,
-  "total_published": 82,
+  "published_today_count": 2,
+  "total_published": 83,
   "published_ids": [
     "q0000",
     "q0001",
@@ -100,16 +100,10 @@
     "q0092",
     "q0095",
     "q0097",
-    "q0102"
+    "q0102",
+    "q0103"
   ],
   "published_history": [
-    {
-      "id": "q0032",
-      "yt_id": "lj4zPRCIuUQ",
-      "title": "Hydrogen Bomb Secret Revealed! 💥 #ScienceQuiz #Shorts",
-      "day": 14,
-      "slot": 2
-    },
     {
       "id": "q0033",
       "yt_id": "zLIVwyrwUbg",
@@ -242,6 +236,13 @@
       "title": "🌍 Biodiversity Hotspot Quiz! Can You Answer This? #Shorts",
       "day": 41,
       "slot": 1
+    },
+    {
+      "id": "q0103",
+      "yt_id": "MDh1d-hvkFw",
+      "title": "🔥 Does pH of Water Change When Heated? #Shorts",
+      "day": 41,
+      "slot": 2
     }
   ],
   "published_slots_by_date": {
@@ -266,7 +267,8 @@
       2
     ],
     "2026-10-18": [
-      1
+      1,
+      2
     ]
   }
 }
