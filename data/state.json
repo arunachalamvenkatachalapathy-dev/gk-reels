@@ -1,5 +1,5 @@
 {
-  "next_index": 104,
+  "next_index": 106,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 0,
+  "palette_cursor": 1,
   "audio_cursor": 0,
-  "current_day": 41,
-  "current_slot": 2,
-  "last_published_date": "2026-10-18",
-  "published_today_count": 2,
-  "total_published": 83,
+  "current_day": 42,
+  "current_slot": 1,
+  "last_published_date": "2026-10-19",
+  "published_today_count": 1,
+  "total_published": 84,
   "published_ids": [
     "q0000",
     "q0001",
@@ -101,16 +101,10 @@
     "q0095",
     "q0097",
     "q0102",
-    "q0103"
+    "q0103",
+    "q0105"
   ],
   "published_history": [
-    {
-      "id": "q0033",
-      "yt_id": "zLIVwyrwUbg",
-      "title": "🚀 India’s Mars Mission Purpose? 90% FAIL! #Shorts",
-      "day": 15,
-      "slot": 1
-    },
     {
       "id": "q0034",
       "yt_id": "PoMxI7Crv0Q",
@@ -243,6 +237,13 @@
       "title": "🔥 Does pH of Water Change When Heated? #Shorts",
       "day": 41,
       "slot": 2
+    },
+    {
+      "id": "q0105",
+      "yt_id": "11OtFN-ENv4",
+      "title": "Why Do We See the Sun Early? ☀️ #Shorts",
+      "day": 42,
+      "slot": 1
     }
   ],
   "published_slots_by_date": {
@@ -269,6 +270,9 @@
     "2026-10-18": [
       1,
       2
+    ],
+    "2026-10-19": [
+      1
     ]
   }
 }
