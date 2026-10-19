@@ -1,5 +1,5 @@
 {
-  "next_index": 106,
+  "next_index": 114,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 1,
+  "palette_cursor": 2,
   "audio_cursor": 0,
   "current_day": 42,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-10-19",
-  "published_today_count": 1,
-  "total_published": 84,
+  "published_today_count": 2,
+  "total_published": 85,
   "published_ids": [
     "q0000",
     "q0001",
@@ -102,16 +102,10 @@
     "q0097",
     "q0102",
     "q0103",
-    "q0105"
+    "q0105",
+    "q0113"
   ],
   "published_history": [
-    {
-      "id": "q0034",
-      "yt_id": "PoMxI7Crv0Q",
-      "title": "🚨 Which City-River Pair is WRONG? 🌍 #Shorts",
-      "day": 15,
-      "slot": 2
-    },
     {
       "id": "q0035",
       "yt_id": "r2g0dVF7CFc",
@@ -244,6 +238,13 @@
       "title": "Why Do We See the Sun Early? ☀️ #Shorts",
       "day": 42,
       "slot": 1
+    },
+    {
+      "id": "q0113",
+      "yt_id": "G3iEioZ4OA0",
+      "title": "📉 India's Most Populous States Ranked! #Shorts",
+      "day": 42,
+      "slot": 2
     }
   ],
   "published_slots_by_date": {
@@ -272,7 +273,8 @@
       2
     ],
     "2026-10-19": [
-      1
+      1,
+      2
     ]
   }
 }
