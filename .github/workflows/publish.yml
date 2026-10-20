@@ -3,14 +3,10 @@ name: Publish GK Reels
 on:
   workflow_dispatch:
   schedule:
-    # GH Actions schedule is best-effort. Offset retries every 5 minutes reduce gaps;
-    # state gate still allows only the earliest due, unpublished slot per run.
-    # Measurements are run-start observations; missed cron occurrences have no runner to measure.
-    # Morning IST window: 07:30-19:29. First trigger at 07:30 IST (02:00 UTC).
-    - cron: '0-58/5 2-13 * * *'
-    # Evening IST window: 19:30-23:59. First retry at 19:33 IST (14:03 UTC).
-    - cron: '3-58/5 14-17 * * *'
-    - cron: '3-28/5 18 * * *'
+    # Backup only: two slot-start crons. Instinct's external trigger is primary.
+    # The state gate still allows only the earliest due, unpublished slot per run.
+    - cron: '0 2 * * *'   # 07:30 IST morning slot backup
+    - cron: '0 14 * * *'  # 19:30 IST evening slot backup
 permissions:
   contents: write   # needed to commit data/state.json and create releases
 
