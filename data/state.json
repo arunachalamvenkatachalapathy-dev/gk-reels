@@ -1,5 +1,5 @@
 {
-  "next_index": 115,
+  "next_index": 116,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 43,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-10-20",
-  "published_today_count": 1,
-  "total_published": 86,
+  "published_today_count": 2,
+  "total_published": 87,
   "published_ids": [
     "q0000",
     "q0001",
@@ -104,16 +104,10 @@
     "q0103",
     "q0105",
     "q0113",
-    "q0114"
+    "q0114",
+    "q0115"
   ],
   "published_history": [
-    {
-      "id": "q0036",
-      "yt_id": "udOuVUw5b8Q",
-      "title": "🤔 Which Committee Identified Creamy Layer? | GK Quiz #Shorts",
-      "day": 16,
-      "slot": 2
-    },
     {
       "id": "q0037",
       "yt_id": "i90iwT04mBQ",
@@ -246,6 +240,13 @@
       "title": "🌍 GK Quiz: Which Org Uses Safeguard Mechanisms? #Shorts",
       "day": 43,
       "slot": 1
+    },
+    {
+      "id": "q0115",
+      "yt_id": "JMmOkiXvp7M",
+      "title": "Which Five Year Plan was Canceled? 🤔 #Shorts",
+      "day": 43,
+      "slot": 2
     }
   ],
   "published_slots_by_date": {
@@ -278,7 +279,8 @@
       2
     ],
     "2026-10-20": [
-      1
+      1,
+      2
     ]
   }
 }
