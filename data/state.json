@@ -1,5 +1,5 @@
 {
-  "next_index": 116,
+  "next_index": 118,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 4,
+  "palette_cursor": 5,
   "audio_cursor": 0,
-  "current_day": 43,
-  "current_slot": 2,
-  "last_published_date": "2026-10-20",
-  "published_today_count": 2,
-  "total_published": 87,
+  "current_day": 44,
+  "current_slot": 1,
+  "last_published_date": "2026-10-21",
+  "published_today_count": 1,
+  "total_published": 88,
   "published_ids": [
     "q0000",
     "q0001",
@@ -105,16 +105,10 @@
     "q0105",
     "q0113",
     "q0114",
-    "q0115"
+    "q0115",
+    "q0117"
   ],
   "published_history": [
-    {
-      "id": "q0037",
-      "yt_id": "i90iwT04mBQ",
-      "title": "🌍 Guess Tirupur’s Global Export! | #Shorts Trivia Challenge 🧠",
-      "day": 16,
-      "slot": 3
-    },
     {
       "id": "q0038",
       "yt_id": "rvgV1QhAFbg",
@@ -247,6 +241,13 @@
       "title": "Which Five Year Plan was Canceled? 🤔 #Shorts",
       "day": 43,
       "slot": 2
+    },
+    {
+      "id": "q0117",
+      "yt_id": "6qmW32urWKY",
+      "title": "Presidential Power Play! 🤯 Can You Answer This? #Shorts",
+      "day": 44,
+      "slot": 1
     }
   ],
   "published_slots_by_date": {
@@ -281,6 +282,9 @@
     "2026-10-20": [
       1,
       2
+    ],
+    "2026-10-21": [
+      1
     ]
   }
 }
