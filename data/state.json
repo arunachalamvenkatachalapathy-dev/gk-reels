@@ -1,5 +1,5 @@
 {
-  "next_index": 118,
+  "next_index": 121,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 5,
+  "palette_cursor": 0,
   "audio_cursor": 0,
   "current_day": 44,
-  "current_slot": 1,
+  "current_slot": 2,
   "last_published_date": "2026-10-21",
-  "published_today_count": 1,
-  "total_published": 88,
+  "published_today_count": 2,
+  "total_published": 89,
   "published_ids": [
     "q0000",
     "q0001",
@@ -106,16 +106,10 @@
     "q0113",
     "q0114",
     "q0115",
-    "q0117"
+    "q0117",
+    "q0120"
   ],
   "published_history": [
-    {
-      "id": "q0038",
-      "yt_id": "rvgV1QhAFbg",
-      "title": "🇬🇧🤯 Brits in India BANNED from this right? #Shorts #GKQuiz",
-      "day": 17,
-      "slot": 1
-    },
     {
       "id": "q0074",
       "yt_id": "iYUxw8I8fFY",
@@ -248,6 +242,13 @@
       "title": "Presidential Power Play! 🤯 Can You Answer This? #Shorts",
       "day": 44,
       "slot": 1
+    },
+    {
+      "id": "q0120",
+      "yt_id": "Q5HOqnQYd1k",
+      "title": "Biogas Secrets Revealed! 🌍💡 #Shorts",
+      "day": 44,
+      "slot": 2
     }
   ],
   "published_slots_by_date": {
@@ -284,7 +285,8 @@
       2
     ],
     "2026-10-21": [
-      1
+      1,
+      2
     ]
   }
 }
