@@ -1,5 +1,5 @@
 {
-  "next_index": 121,
+  "next_index": 129,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 0,
+  "palette_cursor": 1,
   "audio_cursor": 0,
-  "current_day": 44,
-  "current_slot": 2,
-  "last_published_date": "2026-10-21",
-  "published_today_count": 2,
-  "total_published": 89,
+  "current_day": 45,
+  "current_slot": 1,
+  "last_published_date": "2026-10-22",
+  "published_today_count": 1,
+  "total_published": 90,
   "published_ids": [
     "q0000",
     "q0001",
@@ -107,16 +107,10 @@
     "q0114",
     "q0115",
     "q0117",
-    "q0120"
+    "q0120",
+    "q0128"
   ],
   "published_history": [
-    {
-      "id": "q0074",
-      "yt_id": "iYUxw8I8fFY",
-      "title": "Energy Chain Challenge! ⚡ #ScienceQuiz #Shorts",
-      "day": 33,
-      "slot": 3
-    },
     {
       "id": "q0075",
       "yt_id": "sPdx_ewnpF4",
@@ -249,6 +243,13 @@
       "title": "Biogas Secrets Revealed! 🌍💡 #Shorts",
       "day": 44,
       "slot": 2
+    },
+    {
+      "id": "q0128",
+      "yt_id": "1-hFCG1sqWI",
+      "title": "🌳 Chipko Movement Quiz! Can You Answer? #Shorts",
+      "day": 45,
+      "slot": 1
     }
   ],
   "published_slots_by_date": {
@@ -287,6 +288,9 @@
     "2026-10-21": [
       1,
       2
+    ],
+    "2026-10-22": [
+      1
     ]
   }
 }
