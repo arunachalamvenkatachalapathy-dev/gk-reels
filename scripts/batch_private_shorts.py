@@ -230,6 +230,14 @@ def mode_upload(batch_dir):
             "scheduled": False,
         })
         print(f"[BATCH] PRIVATE upload verified: {v['question_id']} -> {vid}")
+        checkpoint = {
+            "batch_id": manifest.get("batch_id"),
+            "uploaded_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "channel_id": channel_id, "videos": results,
+        }
+        if manifest.get("replaces_batch_id"):
+            checkpoint["replaces_batch_id"] = manifest["replaces_batch_id"]
+        save(bdir / "upload_results.json", checkpoint)
     up = {
         "batch_id": manifest.get("batch_id"),
         "uploaded_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),

@@ -93,10 +93,11 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         run: python scripts/batch_private_shorts.py upload --batch-dir output/private_batch
       - name: Commit reconciliation record (atomic, idempotent)
-        if: inputs.mode == 'upload'
+        if: always() && inputs.mode == 'upload'
         run: |
           git config user.name "gk-reels-bot"
           git config user.email "actions@github.com"
+          test -f output/private_batch/upload_results.json || exit 0
           cp output/private_batch/upload_results.json /tmp/upload_results.json
           for i in 1 2 3 4 5; do
             git fetch origin main
