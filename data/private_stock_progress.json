@@ -1,0 +1,84 @@
+{
+  "as_of": "2026-10-23T10:27:00+05:30",
+  "confirmed_unique_private": 15,
+  "selector_unpublished_last_verified": 939,
+  "unreviewed_last_verified": 171,
+  "active_render_run": "39900775988",
+  "active_ids": [
+    "q1280",
+    "q1282",
+    "q1293",
+    "q1294",
+    "q1295",
+    "q1296",
+    "q1303",
+    "q1304",
+    "q1305",
+    "q1306"
+  ],
+  "set_size": 50,
+  "execution_chunk_size": 10,
+  "next_chunks": {
+    "C1": [
+      "q1262",
+      "q1260",
+      "q1259",
+      "q1258",
+      "q1257",
+      "q1256",
+      "q1266",
+      "q1265",
+      "q1264",
+      "q1263"
+    ],
+    "C2": [
+      "q1261",
+      "q1267",
+      "q1268",
+      "q1247",
+      "q1248",
+      "q1250",
+      "q1252",
+      "q1253",
+      "q1254",
+      "q1255"
+    ]
+  },
+  "needs_correction": {
+    "q1249": "UNFCCC adopted New York 9 May 1992; Rio was opening for signature, not adoption. Do not render old answer."
+  },
+  "parked_for_official_sources": [
+    "q1276",
+    "q1277",
+    "q1278",
+    "q1279",
+    "q1281",
+    "q1283",
+    "q1284",
+    "q1285",
+    "q1286",
+    "q1287",
+    "q1288",
+    "q1289",
+    "q1290",
+    "q1291",
+    "q1292",
+    "q1297",
+    "q1298",
+    "q1299",
+    "q1300",
+    "q1301",
+    "q1302"
+  ],
+  "restrictions": [
+    "PRIVATE only",
+    "no scheduling",
+    "no Meta",
+    "no paid fallback",
+    "serial voice requests",
+    "stop on actual throttling",
+    "official-source fact validation plus visual QA",
+    "old five superseded copies remain private"
+  ],
+  "license_uncertainty": "Model docs include smaller businesses; umbrella ToS conflict unresolved. No claim of legal priority or retained rights."
+}
