@@ -2,7 +2,7 @@
   "as_of": "2026-10-23T11:50:00+05:30",
   "confirmed_unique_private": 35,
   "selector_unpublished_last_verified": 919,
-  "unreviewed_last_verified": 234,
+  "unreviewed_last_verified": 171,
   "active_render_run": "39910685911",
   "active_ids": [
     "q1261",
@@ -102,5 +102,6 @@
   ],
   "last_upload_run": "39910666627",
   "last_reconcile_commit": "139e295",
-  "last_backup_id": "1Ys5NmN0DfMSOk9KSolzq3DJsX_czzN27"
+  "last_backup_id": "1Ys5NmN0DfMSOk9KSolzq3DJsX_czzN27",
+  "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded"
 }
