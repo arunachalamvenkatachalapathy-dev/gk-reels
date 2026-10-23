@@ -632,6 +632,95 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "39920404488",
+      "uploaded_at": "2026-10-23T08:20:14.338282+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1283",
+          "yt_id": "U8-i_Q80y1E",
+          "title": "First Indian musician to win the Ramon Magsaysay Award? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=U8-i_Q80y1E",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1288",
+          "yt_id": "GYbmlGHKWrQ",
+          "title": "Tyagaraja belongs to the Trinity of which music? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=GYbmlGHKWrQ",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1290",
+          "yt_id": "0S5qF3h4bJY",
+          "title": "Kelucharan Mohapatra revived which classical dance? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=0S5qF3h4bJY",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1297",
+          "yt_id": "wE32QvRBqAY",
+          "title": "When did Ravi Shankar receive the Bharat Ratna? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=wE32QvRBqAY",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1299",
+          "yt_id": "xzCc3dpG6D0",
+          "title": "Kishori Amonkar belonged to which gharana? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=xzCc3dpG6D0",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1300",
+          "yt_id": "e2K9C6jh9KY",
+          "title": "Bade Ghulam Ali Khan belonged to which gharana? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=e2K9C6jh9KY",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1275",
+          "yt_id": "B-jdNyB-pqU",
+          "title": "Which playback singer received the Bharat Ratna in 2001? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=B-jdNyB-pqU",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1272",
+          "yt_id": "XU1LNpYjTZU",
+          "title": "Pongal is a harvest festival mainly of which state? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=XU1LNpYjTZU",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1271",
+          "yt_id": "wuMVjecpqB0",
+          "title": "Who was the first chairman of the Sangeet Natak Akademi? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=wuMVjecpqB0",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1269",
+          "yt_id": "FGCnMPzzFgc",
+          "title": "Who was the first musician to receive the Bharat Ratna? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=FGCnMPzzFgc",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
