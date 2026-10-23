@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T12:58:00+05:30",
+  "as_of": "2026-10-23T13:20:00+05:30",
   "confirmed_unique_private": 55,
   "selector_unpublished_last_verified": 899,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39917947808",
+  "active_render_run": "39920404488",
   "active_ids": [
-    "q1249",
-    "q1276",
-    "q1284",
-    "q1285",
-    "q1286",
-    "q1287",
-    "q1289",
-    "q1291",
-    "q1292",
-    "q1301"
+    "q1283",
+    "q1288",
+    "q1290",
+    "q1297",
+    "q1299",
+    "q1300",
+    "q1275",
+    "q1272",
+    "q1271",
+    "q1269"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -107,5 +107,9 @@
   "last_backup_id": "1i4h6L5AK9ilGSnecpKfx-RMr-HI9k3ak",
   "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded",
   "failed_render_run": "39914638143",
-  "failure_reason": "q1249 timing16.77s rejected before render; spoken wording shortened, no upload"
+  "failure_reason": "q1249 timing16.77s rejected before render; spoken wording shortened, no upload",
+  "active_upload_run": "39920397918",
+  "awaiting_upload_batch": "39917947808",
+  "pending_backup_id": "1p02dkY4hFh-IQtVdp8WNS0DSOS4pJiuH",
+  "failure_fix_status": "Corrected C4render39917947808success; QAall10passed; privateuploadpending"
 }
