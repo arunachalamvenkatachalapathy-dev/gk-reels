@@ -543,6 +543,95 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "39917947808",
+      "uploaded_at": "2026-10-23T07:53:25.895697+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1249",
+          "yt_id": "qMsfqrJEw9A",
+          "title": "Where was the UNFCCC adopted in 1992? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=qMsfqrJEw9A",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1276",
+          "yt_id": "DWOWCytcEew",
+          "title": "Which Hindustani vocalist received the Bharat Ratna in 2008? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=DWOWCytcEew",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1284",
+          "yt_id": "Bx0OnXkXrIE",
+          "title": "Bhimsen Joshi belonged to which gharana? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Bx0OnXkXrIE",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1285",
+          "yt_id": "D_EJTEA8Vfg",
+          "title": "Which instrument is Hariprasad Chaurasia famous for? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=D_EJTEA8Vfg",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1286",
+          "yt_id": "fVCYdZ7SpfY",
+          "title": "Which instrument did Shivkumar Sharma play? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=fVCYdZ7SpfY",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1287",
+          "yt_id": "qbh__264HZo",
+          "title": "Who was called the Mallika-e-Ghazal? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=qbh__264HZo",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1289",
+          "yt_id": "kFr-zGL23eE",
+          "title": "Birju Maharaj belonged to which Kathak gharana? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=kFr-zGL23eE",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1291",
+          "yt_id": "R18a75ol6F8",
+          "title": "Zakir Hussain's father was which tabla legend? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=R18a75ol6F8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1292",
+          "yt_id": "ZmQLas5oS6I",
+          "title": "Which instrument does Amjad Ali Khan play? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=ZmQLas5oS6I",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1301",
+          "yt_id": "ROY2Nli4DJc",
+          "title": "Which instrument did Vilayat Khan play? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=ROY2Nli4DJc",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
