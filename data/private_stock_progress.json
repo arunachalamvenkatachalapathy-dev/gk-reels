@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-24T01:32:00+05:30",
+  "as_of": "2026-10-24T01:47:00+05:30",
   "confirmed_unique_private": 96,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "40016100043",
+  "active_render_run": "40018043221",
   "active_ids": [
-    "q0794",
-    "q0793",
-    "q0792",
-    "q0791",
-    "q0790",
-    "q0789",
-    "q0788",
-    "q0787",
-    "q0786",
-    "q0785"
+    "q0784",
+    "q0783",
+    "q0782",
+    "q0781",
+    "q0780",
+    "q0779",
+    "q0778",
+    "q0777",
+    "q0776",
+    "q0775"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -598,6 +598,66 @@
       "q0787",
       "q0786",
       "q0785"
+    ],
+    "L1": [
+      "q0784",
+      "q0783",
+      "q0782",
+      "q0781",
+      "q0780",
+      "q0779",
+      "q0778",
+      "q0777",
+      "q0776",
+      "q0775"
+    ],
+    "L2": [
+      "q0774",
+      "q0773",
+      "q0772",
+      "q0771",
+      "q0770",
+      "q0769",
+      "q0768",
+      "q0767",
+      "q0766",
+      "q0765"
+    ],
+    "L3": [
+      "q0764",
+      "q0763",
+      "q0762",
+      "q0761",
+      "q0760",
+      "q0759",
+      "q0758",
+      "q0757",
+      "q0756",
+      "q0755"
+    ],
+    "L4": [
+      "q0754",
+      "q0753",
+      "q0752",
+      "q0751",
+      "q0750",
+      "q0749",
+      "q0748",
+      "q0747",
+      "q0746",
+      "q0745"
+    ],
+    "L5": [
+      "q0744",
+      "q0743",
+      "q0742",
+      "q0741",
+      "q0740",
+      "q0739",
+      "q0738",
+      "q0737",
+      "q0736",
+      "q0734"
     ]
   },
   "needs_correction": {},
@@ -1374,7 +1434,7 @@
         "q0999"
       ],
       "drive_file_id": "1WCKmjydV5c8nAHFrgVlrYWvQ3Ew1L7zG",
-      "status": "QA_passed_private_Drive_awaiting_YouTube_upload",
+      "status": "ready_with_corrected_asset_overrides_old_versions_superseded",
       "category_repairs": {
         "q0999": "use_corrected_asset_override",
         "q1002": "use_corrected_asset_override",
@@ -1399,7 +1459,7 @@
         "q0989"
       ],
       "drive_file_id": "1PCN3ZFxCYyoCNDkbOrVgAvX5QV0reKYK",
-      "status": "QA_passed_private_Drive_awaiting_YouTube_upload",
+      "status": "ready_with_corrected_asset_overrides_old_versions_superseded",
       "category_repairs": {
         "q0996": "use_corrected_asset_override",
         "q0997": "use_corrected_asset_override",
@@ -1608,7 +1668,7 @@
         "q0845"
       ],
       "drive_file_id": "1M5tn_FQzB08LCiPDiJ7g3h_bKJL0hV9h",
-      "status": "QA_passed_private_Drive_awaiting_YouTube_upload",
+      "status": "ready_with_corrected_asset_overrides_old_versions_superseded",
       "category_repairs": {
         "q0848": "use_corrected_asset_override"
       }
@@ -1679,7 +1739,7 @@
         "q0805"
       ],
       "drive_file_id": "1miFBJM_LqTvxCq_OeSkO4c7YreLqUIlE",
-      "status": "QA_passed_private_Drive_awaiting_YouTube_upload",
+      "status": "ready_with_corrected_asset_overrides_old_versions_superseded",
       "category_repairs": {
         "q0805": "use_corrected_asset_override",
         "q0806": "use_corrected_asset_override"
@@ -1700,7 +1760,7 @@
         "q0795"
       ],
       "drive_file_id": "16IKOYCxrxe3SEAsjBNv7Jgho6DUaDYTu",
-      "status": "QA_passed_private_Drive_awaiting_YouTube_upload",
+      "status": "ready_with_corrected_asset_overrides_old_versions_superseded",
       "category_repairs": {
         "q0795": "use_corrected_asset_override",
         "q0796": "use_corrected_asset_override",
@@ -1729,18 +1789,18 @@
         "q0785"
       ],
       "drive_file_id": "1yPNe-HLyLIl35KzfoQyWNzhCVh1Ie0Vf",
-      "status": "QUARANTINED_category_label_repair_required",
+      "status": "ready_with_corrected_asset_overrides_old_versions_superseded",
       "category_repairs": {
-        "q0785": "QUARANTINED",
-        "q0786": "QUARANTINED",
-        "q0787": "QUARANTINED",
-        "q0788": "QUARANTINED",
-        "q0789": "QUARANTINED",
-        "q0790": "QUARANTINED",
-        "q0791": "QUARANTINED",
-        "q0792": "QUARANTINED",
-        "q0793": "QUARANTINED",
-        "q0794": "QUARANTINED"
+        "q0785": "use_corrected_asset_override",
+        "q0786": "use_corrected_asset_override",
+        "q0787": "use_corrected_asset_override",
+        "q0788": "use_corrected_asset_override",
+        "q0789": "use_corrected_asset_override",
+        "q0790": "use_corrected_asset_override",
+        "q0791": "use_corrected_asset_override",
+        "q0792": "use_corrected_asset_override",
+        "q0793": "use_corrected_asset_override",
+        "q0794": "use_corrected_asset_override"
       }
     }
   ],
@@ -1751,7 +1811,7 @@
     "no_output": true
   },
   "category_repair": {
-    "status": "pending_corrective_render",
+    "status": "complete",
     "corrections": {
       "q0783": "CULTURE",
       "q0784": "CULTURE",
@@ -1823,20 +1883,9 @@
       "q0785"
     ],
     "affected_running_ids": [],
-    "ready_count_excluding_category_repairs": 465,
+    "ready_count_excluding_category_repairs": 475,
     "raw_unique_rendered_count": 475,
-    "remaining_ids": [
-      "q0794",
-      "q0793",
-      "q0792",
-      "q0791",
-      "q0790",
-      "q0789",
-      "q0788",
-      "q0787",
-      "q0786",
-      "q0785"
-    ],
+    "remaining_ids": [],
     "completed_ids": [
       "q1007",
       "q1006",
@@ -1859,7 +1908,17 @@
       "q0798",
       "q0797",
       "q0796",
-      "q0795"
+      "q0795",
+      "q0794",
+      "q0793",
+      "q0792",
+      "q0791",
+      "q0790",
+      "q0789",
+      "q0788",
+      "q0787",
+      "q0786",
+      "q0785"
     ],
     "corrected_batches": [
       {
@@ -1904,10 +1963,27 @@
           "q0796",
           "q0795"
         ]
+      },
+      {
+        "chunk": "CAT4",
+        "render_run": "40016100043",
+        "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+        "question_ids": [
+          "q0794",
+          "q0793",
+          "q0792",
+          "q0791",
+          "q0790",
+          "q0789",
+          "q0788",
+          "q0787",
+          "q0786",
+          "q0785"
+        ]
       }
     ]
   },
-  "usable_ready": 465,
+  "usable_ready": 475,
   "corrected_asset_overrides": {
     "q1007": {
       "render_run": "40011491436",
@@ -2018,6 +2094,56 @@
       "render_run": "40015358488",
       "drive_file_id": "1nFooc9RLUQVe2j0GGLY3JPn6-DxQ9hcm",
       "file": "q0795.mp4"
+    },
+    "q0794": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0794.mp4"
+    },
+    "q0793": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0793.mp4"
+    },
+    "q0792": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0792.mp4"
+    },
+    "q0791": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0791.mp4"
+    },
+    "q0790": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0790.mp4"
+    },
+    "q0789": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0789.mp4"
+    },
+    "q0788": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0788.mp4"
+    },
+    "q0787": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0787.mp4"
+    },
+    "q0786": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0786.mp4"
+    },
+    "q0785": {
+      "render_run": "40016100043",
+      "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
+      "file": "q0785.mp4"
     }
   }
 }
