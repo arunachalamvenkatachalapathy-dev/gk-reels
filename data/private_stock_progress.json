@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T10:27:00+05:30",
-  "confirmed_unique_private": 15,
-  "selector_unpublished_last_verified": 939,
+  "as_of": "2026-10-23T11:26:00+05:30",
+  "confirmed_unique_private": 25,
+  "selector_unpublished_last_verified": 929,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39900775988",
+  "active_render_run": "39905158842",
   "active_ids": [
-    "q1280",
-    "q1282",
-    "q1293",
-    "q1294",
-    "q1295",
-    "q1296",
-    "q1303",
-    "q1304",
-    "q1305",
-    "q1306"
+    "q1262",
+    "q1260",
+    "q1259",
+    "q1258",
+    "q1257",
+    "q1256",
+    "q1266",
+    "q1265",
+    "q1264",
+    "q1263"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -49,10 +49,6 @@
   },
   "parked_for_official_sources": [
     "q1276",
-    "q1277",
-    "q1278",
-    "q1279",
-    "q1281",
     "q1283",
     "q1284",
     "q1285",
@@ -64,11 +60,9 @@
     "q1291",
     "q1292",
     "q1297",
-    "q1298",
     "q1299",
     "q1300",
-    "q1301",
-    "q1302"
+    "q1301"
   ],
   "restrictions": [
     "PRIVATE only",
@@ -80,5 +74,18 @@
     "official-source fact validation plus visual QA",
     "old five superseded copies remain private"
   ],
-  "license_uncertainty": "Model docs include smaller businesses; umbrella ToS conflict unresolved. No claim of legal priority or retained rights."
+  "license_uncertainty": "Model docs include smaller businesses; umbrella ToS conflict unresolved. No claim of legal priority or retained rights.",
+  "completed_batch_ids": [
+    "39891324705",
+    "39895160052",
+    "39900775988"
+  ],
+  "prepared_later_ids": [
+    "q1298",
+    "q1302",
+    "q1277",
+    "q1278",
+    "q1279",
+    "q1281"
+  ]
 }
