@@ -1,0 +1,53 @@
+{
+  "batches": [
+    {
+      "batch_id": "39889784509",
+      "uploaded_at": "2026-10-23T02:40:48+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1317",
+          "yt_id": "Hr8s9F8swbM",
+          "title": "🤔 When did Jantar Mantar join UNESCO? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Hr8s9F8swbM",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1318",
+          "yt_id": "D-jyhXFLt98",
+          "title": "When Did Rajasthan's Hill Forts Join UNESCO? 🤔 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=D-jyhXFLt98",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1319",
+          "yt_id": "EortX7EPnzI",
+          "title": "⚡ Chandigarh's UNESCO secret! #Shorts #GKQuiz",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=EortX7EPnzI",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1320",
+          "yt_id": "akGZlmv6axs",
+          "title": "📚 GK Quiz: When did Victorian Gothic Ensembles join UNESCO? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=akGZlmv6axs",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1321",
+          "yt_id": "6F5KDJQ3VE4",
+          "title": "Temple Trivia Challenge! 🏛️ #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=6F5KDJQ3VE4",
+          "scheduled": false
+        }
+      ]
+    }
+  ]
+}
