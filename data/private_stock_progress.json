@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-10-23T12:07:00+05:30",
-  "confirmed_unique_private": 35,
-  "selector_unpublished_last_verified": 919,
+  "as_of": "2026-10-23T12:12:00+05:30",
+  "confirmed_unique_private": 45,
+  "selector_unpublished_last_verified": 909,
   "unreviewed_last_verified": 171,
   "active_render_run": "39912596243",
   "active_ids": [
@@ -97,14 +97,12 @@
     "39891324705",
     "39895160052",
     "39900775988",
-    "39905158842"
+    "39905158842",
+    "39910685911"
   ],
   "prepared_later_ids": [],
-  "last_upload_run": "39910666627",
-  "last_reconcile_commit": "139e295",
-  "last_backup_id": "1Ys5NmN0DfMSOk9KSolzq3DJsX_czzN27",
-  "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded",
-  "active_upload_run": "39912587996",
-  "awaiting_upload_batch": "39910685911",
-  "pending_backup_id": "1x1_4LzCBlD4KkD4xPxGhk0I5o4F1Cb-x"
+  "last_upload_run": "39912587996",
+  "last_reconcile_commit": "1ba959c",
+  "last_backup_id": "1x1_4LzCBlD4KkD4xPxGhk0I5o4F1Cb-x",
+  "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded"
 }
