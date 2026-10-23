@@ -1,3 +1,4 @@
+import datetime
 import importlib.util
 import sys
 import types
@@ -20,7 +21,15 @@ class PublicationTests(unittest.TestCase):
         self.state = {"published_ids": [], "current_day": 1, "total_published": 0}
 
     def run_main(self, modules, env):
-        with patch.object(p, "load_json", side_effect=[[self.q], self.state]), patch.object(p, "save_json") as save, patch.dict(sys.modules, {"render": RENDER_STUB, **modules}), patch.dict(p.os.environ, env, clear=True), patch.object(p.sys, "argv", ["run_pipeline.py"]):
+        # Exercise publication paths at a due slot, independent of runner time.
+        # Only the test clock is fixed; production scheduling stays unchanged.
+        class DueSlotClock(datetime.datetime):
+            @classmethod
+            def now(cls, tz=None):
+                instant = cls(2026, 10, 23, 20, 0, tzinfo=p.IST)
+                return instant.astimezone(tz) if tz else instant.replace(tzinfo=None)
+
+        with patch.object(p.datetime, "datetime", DueSlotClock), patch.object(p, "load_json", side_effect=[[self.q], self.state]), patch.object(p, "save_json") as save, patch.dict(sys.modules, {"render": RENDER_STUB, **modules}), patch.dict(p.os.environ, env, clear=True), patch.object(p.sys, "argv", ["run_pipeline.py"]):
             try:
                 p.main()
             finally:
