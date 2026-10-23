@@ -1,5 +1,5 @@
 {
-  "next_index": 140,
+  "next_index": 141,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,7 +10,7 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 3,
+  "palette_cursor": 4,
   "audio_cursor": 0,
   "current_day": 46,
   "current_slot": 1,
@@ -394,5 +394,15 @@
     "2026-10-23": [
       1
     ]
+  },
+  "pending_publication": {
+    "question_id": "q0140",
+    "date": "2026-10-23",
+    "day": 46,
+    "slot": 2,
+    "results": {
+      "instagram": "https://www.instagram.com/reel/De2J_KriP8o/",
+      "facebook": "https://www.facebook.com/reel/1086432700877326"
+    }
   }
 }
