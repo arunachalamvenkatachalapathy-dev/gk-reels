@@ -179,6 +179,12 @@ def mode_upload(batch_dir):
             "scheduled": False,
         })
         print(f"[BATCH] PRIVATE upload verified: {v['question_id']} -> {vid}")
+    save(bdir / "upload_results.json", {
+        "batch_id": manifest.get("batch_id"),
+        "uploaded_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "channel_id": channel_id,
+        "videos": results,
+    })
     ledger_path = DATA / "private_batch.json"
     ledger = load(ledger_path) if ledger_path.exists() else {"batches": []}
     ledger["batches"].append({
