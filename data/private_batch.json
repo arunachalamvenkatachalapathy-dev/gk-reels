@@ -454,6 +454,95 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "39912596243",
+      "uploaded_at": "2026-10-23T06:58:19.028166+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1298",
+          "yt_id": "rOyWuCtFOk8",
+          "title": "Pandit Jasraj belonged to which gharana? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=rOyWuCtFOk8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1302",
+          "yt_id": "ryjeT0qA-A4",
+          "title": "Sonal Mansingh is a guru of which two dances? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=ryjeT0qA-A4",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1277",
+          "yt_id": "U-tuxbwVG04",
+          "title": "Which dance academy did Rukmini Devi Arundale found? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=U-tuxbwVG04",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1278",
+          "yt_id": "CLy5tfMn_r0",
+          "title": "In which year was the NSD set up? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=CLy5tfMn_r0",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1279",
+          "yt_id": "wKs449MgjHQ",
+          "title": "In which year was the Sahitya Akademi opened? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=wKs449MgjHQ",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1281",
+          "yt_id": "-GazudwfNss",
+          "title": "The Moidams are burials of which dynasty? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=-GazudwfNss",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1246",
+          "yt_id": "HvpULHAyYx8",
+          "title": "When was the IPCC set up? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=HvpULHAyYx8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1244",
+          "yt_id": "-CZP5KndvEo",
+          "title": "When is World Environment Day observed? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=-CZP5KndvEo",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1242",
+          "yt_id": "mloBQN1OGhI",
+          "title": "Minamata Convention targets which metal? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=mloBQN1OGhI",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1243",
+          "yt_id": "G9z67pDu01s",
+          "title": "When was the Animal Welfare Board set up? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=G9z67pDu01s",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
