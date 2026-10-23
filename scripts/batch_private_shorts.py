@@ -31,6 +31,8 @@ sys.path.insert(0, str(BASE / "scripts"))
 DATA = BASE / "data"
 OUT = BASE / "output" / "private_batch"
 EXPECTED_HANDLE = "@gk_snippets"
+# Authoritative EN channel ID, read from youtube.com/@gk_snippets page HTML (externalId), 2026-10-23.
+EXPECTED_CHANNEL_ID = "UCcaMzi9aIDVCU3qqoqFtmuQ"
 PINNED = "Comment your answer below."
 
 
@@ -87,10 +89,13 @@ def build_metadata(q, day, slot, state):
         opts_preview = " | ".join(f"({chr(65+i)}) {o}" for i, o in enumerate(q.get("options", [])))
         title = f"{q['question'][:28].rsplit(' ', 1)[0]} | GK Questions and Answers #Shorts"
         caption = (f"❓ {q['question']}\n👉 Drop your answer in the comments: {opts_preview}\n\n"
-                   f"🎯 100 Days of GK Snippets • Day {day:02d} (Part {slot}/2)\n\n"
                    f"#Shorts #GKQuiz #GeneralKnowledge #DailyGK #UPSC #SSCCGL")
         tags = ["GK Snippets", "GK Quiz", "General Knowledge", "SSC CGL", "UPSC", "Shorts", "Daily GK"]
-    return topic, safe_copy(title), safe_copy(caption), tags
+    caption = "\n".join(
+        line for line in safe_copy(caption).splitlines()
+        if not re.search(r"100 Days of GK|Day\s*\d+", line)
+    )
+    return topic, safe_copy(title), caption, tags
 
 
 def mode_render(count):
@@ -110,7 +115,7 @@ def mode_render(count):
         "videos": [],
     }
     for i, q in enumerate(picked):
-        day = base_day + 1 + i  # provisional; refreshed when the owner schedules
+        day = base_day + 1 + i  # legacy arg only; no day/date text is put into batch metadata
         topic, title, caption, tags = build_metadata(q, day, 1, state)
         accent = palette[(cursor + i) % len(palette)]
         out_mp4 = OUT / f"{q['id']}.mp4"
@@ -150,8 +155,8 @@ def mode_upload(batch_dir):
         raise RuntimeError("OAuth identity has no YouTube channel; aborting before any upload")
     handle = items[0]["snippet"].get("customUrl", "").lower()
     channel_id = items[0]["id"]
-    if handle != EXPECTED_HANDLE:
-        raise RuntimeError(f"WRONG CHANNEL: {handle or '(no handle)'} != {EXPECTED_HANDLE}; aborting before any upload")
+    if channel_id != EXPECTED_CHANNEL_ID or handle != EXPECTED_HANDLE:
+        raise RuntimeError(f"WRONG CHANNEL: id={channel_id} handle={handle or '(none)'}; expected {EXPECTED_CHANNEL_ID} {EXPECTED_HANDLE}; aborting before any upload")
     print(f"[BATCH] channel verified: {handle} ({channel_id})")
     results = []
     for v in manifest["videos"]:
@@ -190,16 +195,48 @@ def mode_upload(batch_dir):
     print(json.dumps({"private_uploads": [r["watch_url"] for r in results]}, indent=2))
 
 
+def mode_reconcile(batch_dir):
+    """Idempotently merge upload results into data/ (run after `git reset --hard origin/main`).
+
+    Union published_ids (never removes), append the ledger batch only if its
+    batch_id is absent, so retry loops can re-run this safely. No slot, day,
+    index or counter fields are touched.
+    """
+    res = load(Path(batch_dir) / "upload_results.json")
+    ledger_path = DATA / "private_batch.json"
+    ledger = load(ledger_path) if ledger_path.exists() else {"batches": []}
+    if not any(b.get("batch_id") == res["batch_id"] for b in ledger["batches"]):
+        ledger["batches"].append({
+            "batch_id": res["batch_id"],
+            "uploaded_at": res["uploaded_at"],
+            "destination_handle": EXPECTED_HANDLE,
+            "channel_id": res["channel_id"],
+            "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+            "videos": res["videos"],
+        })
+        save(ledger_path, ledger)
+    state_path = DATA / "state.json"
+    state = load(state_path)
+    ids = state.setdefault("published_ids", [])
+    for r in res["videos"]:
+        if r["question_id"] not in ids:
+            ids.append(r["question_id"])
+    save(state_path, state)
+    print(f"[BATCH] reconciled {len(res['videos'])} private uploads into state + ledger")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["render", "upload"])
+    ap.add_argument("mode", choices=["render", "upload", "reconcile"])
     ap.add_argument("--count", type=int, default=5)
     ap.add_argument("--batch-dir", default=str(OUT))
     args = ap.parse_args()
     if args.mode == "render":
         mode_render(args.count)
-    else:
+    elif args.mode == "upload":
         mode_upload(args.batch_dir)
+    else:
+        mode_reconcile(args.batch_dir)
 
 
 if __name__ == "__main__":

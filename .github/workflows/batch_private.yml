@@ -69,16 +69,21 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         run: python scripts/batch_private_shorts.py upload --batch-dir output/private_batch
-      - name: Commit reconciliation record
+      - name: Commit reconciliation record (atomic, idempotent)
         if: inputs.mode == 'upload'
         run: |
           git config user.name "gk-reels-bot"
           git config user.email "actions@github.com"
-          git add data/private_batch.json data/state.json
-          if git diff --staged --quiet; then echo "No reconciliation changes"; exit 0; fi
-          git commit -m "Record private draft batch uploads [skip ci]"
-          for i in 1 2 3; do
-            git pull --rebase && git push && exit 0
+          cp output/private_batch/upload_results.json /tmp/upload_results.json
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p output/private_batch && cp /tmp/upload_results.json output/private_batch/
+            python scripts/batch_private_shorts.py reconcile --batch-dir output/private_batch
+            git add data/private_batch.json data/state.json
+            git diff --staged --quiet && exit 0
+            git commit -m "Record private draft batch uploads [skip ci]"
+            git push origin HEAD:main && exit 0
             sleep 5
           done
           exit 1
