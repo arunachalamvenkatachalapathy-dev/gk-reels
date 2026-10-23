@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T12:12:00+05:30",
+  "as_of": "2026-10-23T12:27:00+05:30",
   "confirmed_unique_private": 45,
   "selector_unpublished_last_verified": 909,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39912596243",
+  "active_render_run": "39914638143",
   "active_ids": [
-    "q1298",
-    "q1302",
-    "q1277",
-    "q1278",
-    "q1279",
-    "q1281",
-    "q1246",
-    "q1244",
-    "q1242",
-    "q1243"
+    "q1249",
+    "q1276",
+    "q1284",
+    "q1285",
+    "q1286",
+    "q1287",
+    "q1289",
+    "q1291",
+    "q1292",
+    "q1301"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -104,5 +104,8 @@
   "last_upload_run": "39912587996",
   "last_reconcile_commit": "1ba959c",
   "last_backup_id": "1x1_4LzCBlD4KkD4xPxGhk0I5o4F1Cb-x",
-  "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded"
+  "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded",
+  "active_upload_run": "39914631920",
+  "awaiting_upload_batch": "39912596243",
+  "pending_backup_id": "1i4h6L5AK9ilGSnecpKfx-RMr-HI9k3ak"
 }
