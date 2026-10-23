@@ -1,9 +1,9 @@
 {
-  "as_of": "2026-10-24T00:12:00+05:30",
+  "as_of": "2026-10-24T00:27:00+05:30",
   "confirmed_unique_private": 96,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "40005533268",
+  "active_render_run": "40007582610",
   "active_ids": [
     "q0804",
     "q0803",
@@ -1605,5 +1605,11 @@
       "drive_file_id": "1miFBJM_LqTvxCq_OeSkO4c7YreLqUIlE",
       "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
     }
-  ]
+  ],
+  "last_failed_render": {
+    "run_id": "40005533268",
+    "chunk": "K4",
+    "reason": "publication tests used real midnight clock; fixed test-only deterministic due-slot clock in7cc877a",
+    "no_output": true
+  }
 }
