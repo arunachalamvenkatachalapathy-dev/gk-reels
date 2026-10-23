@@ -62,7 +62,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: gk-en-private-batch-${{ github.run_id }}
-          path: output/private_batch/
+          path: |
+            output/private_batch/*.mp4
+            output/private_batch/*.jpg
+            output/private_batch/manifest.json
           retention-days: 1
       - name: Download render artifact
         if: inputs.mode == 'upload'
