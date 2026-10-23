@@ -30,9 +30,11 @@ sys.path.insert(0, str(BASE / "scripts"))
 
 DATA = BASE / "data"
 OUT = BASE / "output" / "private_batch"
-EXPECTED_HANDLE = "@gk_snippets"
-# Authoritative EN channel ID, read from youtube.com/@gk_snippets page HTML (externalId), 2026-10-23.
+# Authoritative EN channel ID. Triple-grounded 2026-10-23: today's confirmed EN
+# production upload (youtube.com/watch?v=1CYS7HJE93Q page channelId) and both
+# handle pages @gk_snippets and @GK_Snippets_English resolve to this same ID.
 EXPECTED_CHANNEL_ID = "UCcaMzi9aIDVCU3qqoqFtmuQ"
+KNOWN_HANDLES = {"@gk_snippets", "@gk_snippets_english"}  # informational; handles change, ID does not
 PINNED = "Comment your answer below."
 
 
@@ -111,7 +113,7 @@ def mode_render(count):
     manifest = {
         "batch_id": os.environ.get("GITHUB_RUN_ID", "local"),
         "created_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "destination_handle": EXPECTED_HANDLE,
+        "destination_channel_id": EXPECTED_CHANNEL_ID,
         "videos": [],
     }
     for i, q in enumerate(picked):
@@ -155,9 +157,11 @@ def mode_upload(batch_dir):
         raise RuntimeError("OAuth identity has no YouTube channel; aborting before any upload")
     handle = items[0]["snippet"].get("customUrl", "").lower()
     channel_id = items[0]["id"]
-    if channel_id != EXPECTED_CHANNEL_ID or handle != EXPECTED_HANDLE:
-        raise RuntimeError(f"WRONG CHANNEL: id={channel_id} handle={handle or '(none)'}; expected {EXPECTED_CHANNEL_ID} {EXPECTED_HANDLE}; aborting before any upload")
-    print(f"[BATCH] channel verified: {handle} ({channel_id})")
+    if channel_id != EXPECTED_CHANNEL_ID:
+        raise RuntimeError(f"WRONG CHANNEL: id={channel_id} handle={handle or '(none)'}; expected channel {EXPECTED_CHANNEL_ID}; aborting before any upload")
+    if handle not in KNOWN_HANDLES:
+        print(f"[BATCH] note: current handle {handle!r} not in known set; channel ID match is authoritative")
+    print(f"[BATCH] channel verified by ID: {channel_id} (current handle {handle})")
     results = []
     for v in manifest["videos"]:
         path = bdir / v["file"]
@@ -180,7 +184,7 @@ def mode_upload(batch_dir):
     ledger["batches"].append({
         "batch_id": manifest.get("batch_id"),
         "uploaded_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "destination_handle": EXPECTED_HANDLE,
+        "destination_channel_id": EXPECTED_CHANNEL_ID,
         "note": "Private drafts pending owner review; scheduling dates decided later. Description day numbers are provisional.",
         "videos": results,
     })
@@ -209,7 +213,7 @@ def mode_reconcile(batch_dir):
         ledger["batches"].append({
             "batch_id": res["batch_id"],
             "uploaded_at": res["uploaded_at"],
-            "destination_handle": EXPECTED_HANDLE,
+            "destination_channel_id": EXPECTED_CHANNEL_ID,
             "channel_id": res["channel_id"],
             "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
             "videos": res["videos"],
