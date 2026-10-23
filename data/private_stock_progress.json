@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-10-23T13:47:00+05:30",
-  "confirmed_unique_private": 65,
-  "selector_unpublished_last_verified": 889,
+  "as_of": "2026-10-23T13:52:00+05:30",
+  "confirmed_unique_private": 75,
+  "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
   "active_render_run": "39923498444",
   "active_ids": [
@@ -160,12 +160,13 @@
     "39905158842",
     "39910685911",
     "39912596243",
-    "39917947808"
+    "39917947808",
+    "39920404488"
   ],
   "prepared_later_ids": [],
-  "last_upload_run": "39920397918",
-  "last_reconcile_commit": "4f79f11",
-  "last_backup_id": "1p02dkY4hFh-IQtVdp8WNS0DSOS4pJiuH",
+  "last_upload_run": "39923491442",
+  "last_reconcile_commit": "4e10d46",
+  "last_backup_id": "12YjEtCPzfKVMsyFtiu_XZP74bh5CDti4",
   "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded",
   "failed_render_run": "39914638143",
   "failure_reason": "q1249 timing16.77s rejected before render; spoken wording shortened, no upload",
@@ -178,7 +179,7 @@
     "needs_short_format_adaptation": 22
   },
   "next_set_policy": "Use supplied bank answers; no new external fact checks. Existing corrections preserved.",
-  "active_upload_run": "39923491442",
-  "awaiting_upload_batch": "39920404488",
-  "pending_backup_id": "12YjEtCPzfKVMsyFtiu_XZP74bh5CDti4"
+  "total_unpublished": 1050,
+  "short_screen_pass_remaining": 1028,
+  "short_format_adaptation_remaining": 22
 }
