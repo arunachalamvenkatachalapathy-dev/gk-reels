@@ -179,6 +179,8 @@ def mode_upload(batch_dir):
     print(f"[BATCH] channel verified by ID: {channel_id} (current handle {handle})")
     results = []
     for v in manifest["videos"]:
+        # Remove unsupported percentage claims from generated batch metadata.
+        v["title"] = re.sub(r"Only\s+\d+(?:\.\d+)?%\s+Get\s+This\s+Right!?", "Test Your GK", v["title"], flags=re.I)
         path = bdir / v["file"]
         if hashlib.sha256(path.read_bytes()).hexdigest() != v["sha256"]:
             raise RuntimeError(f"sha256 mismatch for {v['file']}; refusing upload")
