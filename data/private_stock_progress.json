@@ -1,20 +1,12 @@
 {
-  "as_of": "2026-10-24T01:11:00+05:30",
+  "as_of": "2026-10-24T01:26:00+05:30",
   "confirmed_unique_private": 96,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "40013440953",
+  "active_render_run": "40015358488",
   "active_ids": [
-    "q0806",
-    "q0805",
-    "q0804",
-    "q0803",
-    "q0802",
-    "q0801",
-    "q0800",
-    "q0799",
-    "q0798",
-    "q0797"
+    "q0796",
+    "q0795"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -1681,8 +1673,8 @@
       "drive_file_id": "1miFBJM_LqTvxCq_OeSkO4c7YreLqUIlE",
       "status": "QA_passed_private_Drive_awaiting_YouTube_upload",
       "category_repairs": {
-        "q0805": "QUARANTINED",
-        "q0806": "QUARANTINED"
+        "q0805": "use_corrected_asset_override",
+        "q0806": "use_corrected_asset_override"
       }
     },
     {
@@ -1704,14 +1696,14 @@
       "category_repairs": {
         "q0795": "QUARANTINED",
         "q0796": "QUARANTINED",
-        "q0797": "QUARANTINED",
-        "q0798": "QUARANTINED",
-        "q0799": "QUARANTINED",
-        "q0800": "QUARANTINED",
-        "q0801": "QUARANTINED",
-        "q0802": "QUARANTINED",
-        "q0803": "QUARANTINED",
-        "q0804": "QUARANTINED"
+        "q0797": "use_corrected_asset_override",
+        "q0798": "use_corrected_asset_override",
+        "q0799": "use_corrected_asset_override",
+        "q0800": "use_corrected_asset_override",
+        "q0801": "use_corrected_asset_override",
+        "q0802": "use_corrected_asset_override",
+        "q0803": "use_corrected_asset_override",
+        "q0804": "use_corrected_asset_override"
       }
     },
     {
@@ -1823,19 +1815,9 @@
       "q0785"
     ],
     "affected_running_ids": [],
-    "ready_count_excluding_category_repairs": 453,
+    "ready_count_excluding_category_repairs": 463,
     "raw_unique_rendered_count": 475,
     "remaining_ids": [
-      "q0806",
-      "q0805",
-      "q0804",
-      "q0803",
-      "q0802",
-      "q0801",
-      "q0800",
-      "q0799",
-      "q0798",
-      "q0797",
       "q0796",
       "q0795",
       "q0794",
@@ -1859,7 +1841,17 @@
       "q0998",
       "q0997",
       "q0996",
-      "q0848"
+      "q0848",
+      "q0806",
+      "q0805",
+      "q0804",
+      "q0803",
+      "q0802",
+      "q0801",
+      "q0800",
+      "q0799",
+      "q0798",
+      "q0797"
     ],
     "corrected_batches": [
       {
@@ -1878,10 +1870,27 @@
           "q0996",
           "q0848"
         ]
+      },
+      {
+        "chunk": "CAT2",
+        "render_run": "40013440953",
+        "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+        "question_ids": [
+          "q0806",
+          "q0805",
+          "q0804",
+          "q0803",
+          "q0802",
+          "q0801",
+          "q0800",
+          "q0799",
+          "q0798",
+          "q0797"
+        ]
       }
     ]
   },
-  "usable_ready": 453,
+  "usable_ready": 463,
   "corrected_asset_overrides": {
     "q1007": {
       "render_run": "40011491436",
@@ -1932,6 +1941,56 @@
       "render_run": "40011491436",
       "drive_file_id": "10ct_yrNl0tmU0ylTQJZhBRUBvK1FEWtU",
       "file": "q0848.mp4"
+    },
+    "q0806": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0806.mp4"
+    },
+    "q0805": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0805.mp4"
+    },
+    "q0804": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0804.mp4"
+    },
+    "q0803": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0803.mp4"
+    },
+    "q0802": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0802.mp4"
+    },
+    "q0801": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0801.mp4"
+    },
+    "q0800": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0800.mp4"
+    },
+    "q0799": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0799.mp4"
+    },
+    "q0798": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0798.mp4"
+    },
+    "q0797": {
+      "render_run": "40013440953",
+      "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
+      "file": "q0797.mp4"
     }
   }
 }
