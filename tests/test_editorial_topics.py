@@ -19,3 +19,8 @@ class EditorialTopicTests(unittest.TestCase):
             self.assertEqual(reviewed[f"q{number:04}"]["verified_topic"], "SPORTS")
         for number in [690, 691]:
             self.assertEqual(reviewed[f"q{number:04}"]["verified_topic"], "CULTURE")
+
+    def test_next_literary_authors_are_culture(self):
+        reviewed = json.loads((Path(__file__).resolve().parents[1] / "data" / "reviewed_en.json").read_text())
+        for number in range(640, 645):
+            self.assertEqual(reviewed[f"q{number:04}"]["verified_topic"], "CULTURE")
