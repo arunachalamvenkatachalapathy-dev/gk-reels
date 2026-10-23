@@ -100,12 +100,25 @@ def build_metadata(q, day, slot, state):
     return topic, safe_copy(title), caption, tags
 
 
-def mode_render(count):
+def select_explicit(questions, reviewed, ids):
+    qmap = {q["id"]: q for q in questions}
+    picked = []
+    for qid in ids:
+        q = qmap.get(qid)
+        if q is None:
+            raise RuntimeError(f"Explicit batch id {qid} not in bank")
+        if qid not in reviewed:
+            raise RuntimeError(f"Explicit batch id {qid} is not source-reviewed")
+        picked.append(q)
+    return picked
+
+
+def mode_render(count, ids=None):
     from render import REVIEWED, render_video
     from run_pipeline import get_slot_track
     questions = load(DATA / "questions_en.json")
     state = load(DATA / "state.json")
-    picked = select_batch(questions, state, REVIEWED, count)
+    picked = select_explicit(questions, REVIEWED, ids) if ids else select_batch(questions, state, REVIEWED, count)
     OUT.mkdir(parents=True, exist_ok=True)
     palette = state.get("palette", ["#4D96FF"])
     cursor = int(state.get("palette_cursor", 0))
@@ -116,6 +129,8 @@ def mode_render(count):
         "destination_channel_id": EXPECTED_CHANNEL_ID,
         "videos": [],
     }
+    if os.environ.get("REPLACES_BATCH_ID"):
+        manifest["replaces_batch_id"] = os.environ["REPLACES_BATCH_ID"]
     for i, q in enumerate(picked):
         day = base_day + 1 + i  # legacy arg only; no day/date text is put into batch metadata
         topic, title, caption, tags = build_metadata(q, day, 1, state)
@@ -179,12 +194,15 @@ def mode_upload(batch_dir):
             "scheduled": False,
         })
         print(f"[BATCH] PRIVATE upload verified: {v['question_id']} -> {vid}")
-    save(bdir / "upload_results.json", {
+    up = {
         "batch_id": manifest.get("batch_id"),
         "uploaded_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "channel_id": channel_id,
         "videos": results,
-    })
+    }
+    if manifest.get("replaces_batch_id"):
+        up["replaces_batch_id"] = manifest["replaces_batch_id"]
+    save(bdir / "upload_results.json", up)
     ledger_path = DATA / "private_batch.json"
     ledger = load(ledger_path) if ledger_path.exists() else {"batches": []}
     ledger["batches"].append({
@@ -216,14 +234,18 @@ def mode_reconcile(batch_dir):
     ledger_path = DATA / "private_batch.json"
     ledger = load(ledger_path) if ledger_path.exists() else {"batches": []}
     if not any(b.get("batch_id") == res["batch_id"] for b in ledger["batches"]):
-        ledger["batches"].append({
+        entry = {
             "batch_id": res["batch_id"],
             "uploaded_at": res["uploaded_at"],
             "destination_channel_id": EXPECTED_CHANNEL_ID,
             "channel_id": res["channel_id"],
             "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
             "videos": res["videos"],
-        })
+        }
+        if res.get("replaces_batch_id"):
+            entry["replaces_batch_id"] = res["replaces_batch_id"]
+            entry["note"] = "Corrected re-render replacing batch " + str(res["replaces_batch_id"]) + " (source-label fix). Originals remain private; deletion only on owner approval."
+        ledger["batches"].append(entry)
         save(ledger_path, ledger)
     state_path = DATA / "state.json"
     state = load(state_path)
@@ -239,10 +261,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("mode", choices=["render", "upload", "reconcile"])
     ap.add_argument("--count", type=int, default=5)
+    ap.add_argument("--ids", default="", help="Comma-separated explicit question IDs to render (correction re-render; bypasses published filter)")
     ap.add_argument("--batch-dir", default=str(OUT))
     args = ap.parse_args()
     if args.mode == "render":
-        mode_render(args.count)
+        ids = [x.strip() for x in args.ids.split(",") if x.strip()] or None
+        mode_render(args.count, ids=ids)
     elif args.mode == "upload":
         mode_upload(args.batch_dir)
     else:

@@ -19,6 +19,12 @@ on:
       source_run_id:
         description: Render run ID whose artifact to upload (upload mode)
         default: ""
+      question_ids:
+        description: Optional comma-separated explicit question IDs to render (correction re-render)
+        default: ""
+      replaces_batch_id:
+        description: Optional batch ID this render corrects/replaces (recorded in ledger)
+        default: ""
 
 permissions:
   contents: write
@@ -46,7 +52,11 @@ jobs:
           FISH_AUDIO_API_KEY: ${{ secrets.FISH_AUDIO_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: python scripts/batch_private_shorts.py render --count "${{ inputs.count }}"
+          REPLACES_BATCH_ID: ${{ inputs.replaces_batch_id }}
+        run: |
+          ARGS="--count ${{ inputs.count }}"
+          if [ -n "${{ inputs.question_ids }}" ]; then ARGS="$ARGS --ids ${{ inputs.question_ids }}"; fi
+          python scripts/batch_private_shorts.py render $ARGS
       - name: Upload render artifact
         if: inputs.mode == 'render'
         uses: actions/upload-artifact@v4
