@@ -121,5 +121,12 @@
   "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded",
   "failed_render_run": "39914638143",
   "failure_reason": "q1249 timing16.77s rejected before render; spoken wording shortened, no upload",
-  "failure_fix_status": "Corrected C4render39917947808QApassed and10PRIVATEuploadsverified"
+  "failure_fix_status": "Corrected C4render39917947808QApassed and10PRIVATEuploadsverified",
+  "source_policy": "User 2026-10-23 13:37: supplied answers accepted, no new/repeated external fact checks. Preserve existing corrections; new supplied-only entries labeled as such.",
+  "supplied_remaining_structural": {
+    "total": 171,
+    "four_options_valid_index": 171,
+    "short_suitability_pass": 149,
+    "needs_short_format_adaptation": 22
+  }
 }
