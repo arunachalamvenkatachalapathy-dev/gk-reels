@@ -187,6 +187,95 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "39900775988",
+      "uploaded_at": "2026-10-23T05:32:59.388066+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1280",
+          "yt_id": "nkfccmnMTqQ",
+          "title": "🔥 UNESCO Quiz: When Did Santiniketan Make The List? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=nkfccmnMTqQ",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1282",
+          "yt_id": "FEZcRcYGUeo",
+          "title": "🧠 GK Quiz: When Did Dholavira Join UNESCO? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=FEZcRcYGUeo",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1293",
+          "yt_id": "Hl7chRKKRjk",
+          "title": "📍 Where is Rani ki Vav? Test Your GK! #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Hl7chRKKRjk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1294",
+          "yt_id": "2U5uM8k6v4U",
+          "title": "🧠 GK Quiz: Ramappa Temple’s UNESCO Year? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=2U5uM8k6v4U",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1295",
+          "yt_id": "RRWtYwVWVwE",
+          "title": "🚨 GK Quiz: Hoysalas World Heritage Site Year? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=RRWtYwVWVwE",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1296",
+          "yt_id": "3St5mGzSfeg",
+          "title": "🎯 Jaipur Heritage Quiz! Can You Answer This? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=3St5mGzSfeg",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1303",
+          "yt_id": "AvLTfbAL1Uk",
+          "title": "⚡ GK Quiz: When did Sanchi Stupa become a World Heritage Site? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=AvLTfbAL1Uk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1304",
+          "yt_id": "l59CjJkUCTo",
+          "title": "Qutb Minar Quiz: When Did It Join World Heritage? 🏛️ #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=l59CjJkUCTo",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1305",
+          "yt_id": "qOiIVSqTDMA",
+          "title": "Red Fort Quiz: Test Your GK #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=qOiIVSqTDMA",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1306",
+          "yt_id": "Y7wmO0eL8vA",
+          "title": "⚡ GK Quiz: When Did Nalanda Join World Heritage? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Y7wmO0eL8vA",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
