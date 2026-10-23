@@ -55,8 +55,8 @@ def post_pinned_comment(youtube, video_id, comment_text):
         return None
 
 
-def upload_short(video_path, title, description, tags=None, pinned_comment=None):
-    """Uploads video_path as a public YouTube Short. Returns the video id."""
+def upload_short(video_path, title, description, tags=None, pinned_comment=None, privacy="public"):
+    """Uploads video_path as a YouTube Short (public unless privacy=... says otherwise). Returns the video id."""
     youtube = get_youtube_client()
 
     # '#Shorts' in title/description is what YouTube uses to route a
@@ -72,7 +72,7 @@ def upload_short(video_path, title, description, tags=None, pinned_comment=None)
             "categoryId": "27",  # Education
         },
         "status": {
-            "privacyStatus": "public",
+            "privacyStatus": privacy,
             "selfDeclaredMadeForKids": False,
         },
     }

@@ -1,0 +1,84 @@
+name: GK EN private batch (isolated)
+
+# Isolated stock builder: renders reviewed back-of-bank questions and uploads
+# them as PRIVATE YouTube drafts for owner review. Never runs on a schedule,
+# never touches Instagram/Facebook/Telegram, never alters daily slot state.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: render = build stock + artifact; upload = private YouTube drafts from a render run
+        type: choice
+        required: true
+        options:
+          - render
+          - upload
+      count:
+        description: Number of videos to render (render mode)
+        default: "5"
+      source_run_id:
+        description: Render run ID whose artifact to upload (upload mode)
+        default: ""
+
+permissions:
+  contents: write
+concurrency:
+  group: gk-batch-private
+  cancel-in-progress: false
+
+jobs:
+  batch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: pip install -r requirements.txt
+      - run: python -m playwright install --with-deps chromium
+      - name: Test publication safeguards
+        run: python -m unittest discover -s tests -v
+      - name: Render batch stock (no state changes)
+        if: inputs.mode == 'render'
+        env:
+          FISH_AUDIO_API_KEY: ${{ secrets.FISH_AUDIO_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python scripts/batch_private_shorts.py render --count "${{ inputs.count }}"
+      - name: Upload render artifact
+        if: inputs.mode == 'render'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gk-en-private-batch-${{ github.run_id }}
+          path: output/private_batch/
+          retention-days: 1
+      - name: Download render artifact
+        if: inputs.mode == 'upload'
+        uses: actions/download-artifact@v4
+        with:
+          name: gk-en-private-batch-${{ inputs.source_run_id }}
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: output/private_batch
+      - name: Verify channel and upload as PRIVATE drafts
+        if: inputs.mode == 'upload'
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python scripts/batch_private_shorts.py upload --batch-dir output/private_batch
+      - name: Commit reconciliation record
+        if: inputs.mode == 'upload'
+        run: |
+          git config user.name "gk-reels-bot"
+          git config user.email "actions@github.com"
+          git add data/private_batch.json data/state.json
+          if git diff --staged --quiet; then echo "No reconciliation changes"; exit 0; fi
+          git commit -m "Record private draft batch uploads [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1
