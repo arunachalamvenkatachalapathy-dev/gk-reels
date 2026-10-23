@@ -98,6 +98,95 @@
         }
       ],
       "replaces_batch_id": "39889784509"
+    },
+    {
+      "batch_id": "39895160052",
+      "uploaded_at": "2026-10-23T04:28:55.117998+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1307",
+          "yt_id": "Ww7kttqOAx4",
+          "title": "🚨 GK Quiz: When Did Ahmedabad Join World Heritage List? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Ww7kttqOAx4",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1308",
+          "yt_id": "hnbWUqaIGXk",
+          "title": "🌍 When Did Mahabodhi Temple Become a World Heritage Site? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=hnbWUqaIGXk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1309",
+          "yt_id": "0h-lYXjPzjg",
+          "title": "⏳ #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=0h-lYXjPzjg",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1310",
+          "yt_id": "kEJ98CFfo84",
+          "title": "⚡ GK Quiz: Konark Sun Temple & UNESCO! #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=kEJ98CFfo84",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1311",
+          "yt_id": "0Zc62cEVKHU",
+          "title": "🚨 When Did Hampi Join UNESCO? 🏛️ #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=0Zc62cEVKHU",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1312",
+          "yt_id": "oABz7xbD8rk",
+          "title": "⚡ Can You Solve This GK Quiz? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=oABz7xbD8rk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1313",
+          "yt_id": "VhboARz8ooE",
+          "title": "📜 GK Quiz: Can You Answer This History Question? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=VhboARz8ooE",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1314",
+          "yt_id": "OI-m4Ep4ZVM",
+          "title": "🚂 India's Mountain Railways: When Did It Join UNESCO? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=OI-m4Ep4ZVM",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1315",
+          "yt_id": "x5rZmCluugY",
+          "title": "World Heritage Quiz! 🏛️ #Shorts #GK",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=x5rZmCluugY",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1316",
+          "yt_id": "yU2ZWHN2wPM",
+          "title": "🚩 When did CST join UNESCO? | GK Quiz #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=yU2ZWHN2wPM",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
