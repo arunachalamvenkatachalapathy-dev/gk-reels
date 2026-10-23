@@ -365,6 +365,95 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "39910685911",
+      "uploaded_at": "2026-10-23T06:38:28.366342+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1261",
+          "yt_id": "ZB6pWzegz7o",
+          "title": "Which state is home to Kutiyattam? 🎭 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=ZB6pWzegz7o",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1267",
+          "yt_id": "jhuwg3tMqts",
+          "title": "Sankirtana Quiz!",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=jhuwg3tMqts",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1268",
+          "yt_id": "x2y7KSmpbQk",
+          "title": "Thatheras Craft Belongs To? 🔥 #Shorts #GKQuiz",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=x2y7KSmpbQk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1247",
+          "yt_id": "tlNqYSFimZA",
+          "title": "🌍 Earth Day Date Quiz! #Shorts | GK Trivia Challenge",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=tlNqYSFimZA",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1248",
+          "yt_id": "FKV2fCJoxqo",
+          "title": "GK Quiz: What does CITES regulate? 🌍 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=FKV2fCJoxqo",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1250",
+          "yt_id": "K92pQzHVTLc",
+          "title": "🌍 First UN Environment Conference City? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=K92pQzHVTLc",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1252",
+          "yt_id": "80oG1mTCoeg",
+          "title": "🐘 When Was Project Elephant Launched? #Shorts | GK Quiz",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=80oG1mTCoeg",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1253",
+          "yt_id": "73iErPDP08o",
+          "title": "🌍 Which Org Runs Earth Hour? #Shorts | GK Quiz",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=73iErPDP08o",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1254",
+          "yt_id": "X99l61AN3PU",
+          "title": "🌍 When is World Ozone Day? #Shorts | GK Quiz",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=X99l61AN3PU",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1255",
+          "yt_id": "vR0HgUaYohQ",
+          "title": "🌍 What’s This Toxic Food Chain Process Called? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=vR0HgUaYohQ",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
