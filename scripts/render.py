@@ -125,7 +125,8 @@ def prepare_content(q):
     content = dict(q)
     if q.get('id') in REVIEWED:
         content.update(REVIEWED[q['id']])
-    if not content.get('explanation') or not content.get('source_url'):
+    supplied_private = os.environ.get('PRIVATE_STOCK_SUPPLIED_INPUT') == '1' and content.get('provenance') == 'supplied_question_bank'
+    if not content.get('explanation') or (not content.get('source_url') and not supplied_private):
         raise ValueError('Source-checked explanation required before rendering: ' + q.get('id', 'unknown'))
     if len(content['options']) != 4 or not 0 <= content['correct_index'] < 4:
         raise ValueError('Exactly four options and a valid answer index required')

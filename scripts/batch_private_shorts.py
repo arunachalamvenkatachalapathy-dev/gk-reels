@@ -53,12 +53,30 @@ def safe_copy(text):
     return "\n".join(lines).replace("9 AM & 7 PM IST", "7:30 AM & 7:30 PM IST").replace("9 AM & 7 PM", "7:30 AM & 7:30 PM").strip() or "Daily GK quiz"
 
 
+def stock_content(q):
+    """Existing editorial records win; otherwise use the supplied bank verbatim."""
+    reviewed = load(DATA / "reviewed_en.json")
+    if q["id"] in reviewed:
+        return reviewed[q["id"]]
+    if len(q.get("options", [])) != 4 or not isinstance(q.get("correct_index"), int) or not 0 <= q["correct_index"] < 4:
+        raise ValueError("Four supplied options and a valid answer index required: " + q["id"])
+    return {
+        "display_question": q["question"], "speech_question": q["question"],
+        "options": q["options"], "correct_index": q["correct_index"],
+        "speech_answer": q["options"][q["correct_index"]] + ".",
+        "explanation": "Answer as supplied in the question bank.",
+        "memory_key": "Supplied answer: " + q["options"][q["correct_index"]],
+        "source_url": None, "source_label": "Source: Supplied question bank",
+        "provenance": "supplied_question_bank",
+    }
+
+
 def select_batch(questions, state, reviewed, count):
     from run_pipeline import is_suitable_short_question
     published = set(state.get("published_ids", []))
     picked = []
     for q in reversed(questions):
-        if q["id"] in published or q["id"] not in reviewed:
+        if q["id"] in published:
             continue
         if not is_suitable_short_question(q):
             continue
@@ -107,14 +125,14 @@ def select_explicit(questions, reviewed, ids):
         q = qmap.get(qid)
         if q is None:
             raise RuntimeError(f"Explicit batch id {qid} not in bank")
-        if qid not in reviewed:
-            raise RuntimeError(f"Explicit batch id {qid} is not source-reviewed")
+        stock_content(q)  # structural validation, no external fact checks
         picked.append(q)
     return picked
 
 
 def mode_render(count, ids=None):
     from render import REVIEWED, render_video
+    os.environ["PRIVATE_STOCK_SUPPLIED_INPUT"] = "1"
     from run_pipeline import get_slot_track
     questions = load(DATA / "questions_en.json")
     state = load(DATA / "state.json")
@@ -132,6 +150,7 @@ def mode_render(count, ids=None):
     if os.environ.get("REPLACES_BATCH_ID"):
         manifest["replaces_batch_id"] = os.environ["REPLACES_BATCH_ID"]
     for i, q in enumerate(picked):
+        REVIEWED[q["id"]] = stock_content(q)
         day = base_day + 1 + i  # legacy arg only; no day/date text is put into batch metadata
         topic, title, caption, tags = build_metadata(q, day, 1, state)
         accent = palette[(cursor + i) % len(palette)]
@@ -184,14 +203,14 @@ def mode_upload(batch_dir):
         # Private stock metadata uses reviewed facts, not generated extra claims.
         qid = v["question_id"]
         q = next(q for q in load(DATA / "questions_en.json") if q["id"] == qid)
-        reviewed = load(DATA / "reviewed_en.json")[qid]
+        reviewed = stock_content(q)
         question = reviewed.get("display_question", q["question"])
         v["title"] = question[:90].rstrip() + " #Shorts"
         options = reviewed.get("options", q.get("options", []))
         answer = options[reviewed.get("correct_index", q.get("correct_index", 0))]
         v["description"] = (f"{question}\n\n" + "\n".join(f"{chr(65+i)}. {o}" for i, o in enumerate(options))
                             + f"\n\nAnswer: {answer}\n{reviewed.get('explanation', '')}"
-                            + f"\nSource: {reviewed.get('source_url', '')}\n\n#Shorts #GKQuiz #GeneralKnowledge")
+                            + f"\nSource: {(reviewed.get('source_url') or 'Supplied question bank; not independently verified')}\n\n#Shorts #GKQuiz #GeneralKnowledge")
         path = bdir / v["file"]
         if hashlib.sha256(path.read_bytes()).hexdigest() != v["sha256"]:
             raise RuntimeError(f"sha256 mismatch for {v['file']}; refusing upload")
