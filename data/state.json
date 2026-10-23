@@ -1,5 +1,5 @@
 {
-  "next_index": 137,
+  "next_index": 140,
   "videos_per_run": 1,
   "videos_per_day": 2,
   "palette": [
@@ -10,13 +10,13 @@
     "#A66DD4",
     "#FF9F45"
   ],
-  "palette_cursor": 2,
+  "palette_cursor": 3,
   "audio_cursor": 0,
-  "current_day": 45,
-  "current_slot": 2,
-  "last_published_date": "2026-10-22",
-  "published_today_count": 2,
-  "total_published": 91,
+  "current_day": 46,
+  "current_slot": 1,
+  "last_published_date": "2026-10-23",
+  "published_today_count": 1,
+  "total_published": 92,
   "published_ids": [
     "q0000",
     "q0001",
@@ -109,16 +109,10 @@
     "q0117",
     "q0120",
     "q0128",
-    "q0136"
+    "q0136",
+    "q0139"
   ],
   "published_history": [
-    {
-      "id": "q0076",
-      "yt_id": "IncGgT4GIS8",
-      "title": "🌞 Solar Eclipse Explained in 5 Secs! #Shorts",
-      "day": 34,
-      "slot": 2
-    },
     {
       "id": "q0077",
       "yt_id": "wQN82Huk2x4",
@@ -251,6 +245,13 @@
       "title": "🤔 Where are High Court Judges' salaries charged? | #Shorts",
       "day": 45,
       "slot": 2
+    },
+    {
+      "id": "q0139",
+      "yt_id": "1CYS7HJE93Q",
+      "title": "Radium comes from THIS mineral! 🤯 #Shorts",
+      "day": 46,
+      "slot": 1
     }
   ],
   "published_slots_by_date": {
@@ -293,6 +294,9 @@
     "2026-10-22": [
       1,
       2
+    ],
+    "2026-10-23": [
+      1
     ]
   }
 }
