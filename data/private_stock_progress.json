@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-24T01:47:00+05:30",
+  "as_of": "2026-10-24T02:02:00+05:30",
   "confirmed_unique_private": 96,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "40018043221",
+  "active_render_run": "40019960188",
   "active_ids": [
-    "q0784",
-    "q0783",
-    "q0782",
-    "q0781",
-    "q0780",
-    "q0779",
-    "q0778",
-    "q0777",
-    "q0776",
-    "q0775"
+    "q0774",
+    "q0773",
+    "q0772",
+    "q0771",
+    "q0770",
+    "q0769",
+    "q0768",
+    "q0767",
+    "q0766",
+    "q0765"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -1107,10 +1107,20 @@
     "q0788",
     "q0787",
     "q0786",
-    "q0785"
+    "q0785",
+    "q0784",
+    "q0783",
+    "q0782",
+    "q0781",
+    "q0780",
+    "q0779",
+    "q0778",
+    "q0777",
+    "q0776",
+    "q0775"
   ],
-  "unique_produced": 475,
-  "not_rendered": 650,
+  "unique_produced": 485,
+  "not_rendered": 640,
   "last_rendered_backup_id": "1yPNe-HLyLIl35KzfoQyWNzhCVh1Ie0Vf",
   "rendered_queue_batches": [
     {
@@ -1802,6 +1812,23 @@
         "q0793": "use_corrected_asset_override",
         "q0794": "use_corrected_asset_override"
       }
+    },
+    {
+      "render_run": "40018043221",
+      "question_ids": [
+        "q0784",
+        "q0783",
+        "q0782",
+        "q0781",
+        "q0780",
+        "q0779",
+        "q0778",
+        "q0777",
+        "q0776",
+        "q0775"
+      ],
+      "drive_file_id": "1fu14x5S9XCF24XDO04sYmxTo8GGtqUcQ",
+      "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
     }
   ],
   "last_failed_render": {
@@ -1983,7 +2010,7 @@
       }
     ]
   },
-  "usable_ready": 475,
+  "usable_ready": 485,
   "corrected_asset_overrides": {
     "q1007": {
       "render_run": "40011491436",
