@@ -181,6 +181,16 @@ def mode_upload(batch_dir):
     for v in manifest["videos"]:
         # Remove unsupported percentage claims from generated batch metadata.
         v["title"] = re.sub(r"Only\s+\d+(?:\.\d+)?%\s+Get\s+This\s+Right!?", "Test Your GK", v["title"], flags=re.I)
+        # Private stock metadata uses reviewed facts, not generated extra claims.
+        qid = v["question_id"]
+        q = next(q for q in load(DATA / "questions_en.json") if q["id"] == qid)
+        reviewed = load(DATA / "reviewed_en.json")[qid]
+        question = reviewed.get("display_question", q["question"])
+        options = reviewed.get("options", q.get("options", []))
+        answer = options[reviewed.get("correct_index", q.get("correct_index", 0))]
+        v["description"] = (f"{question}\n\n" + "\n".join(f"{chr(65+i)}. {o}" for i, o in enumerate(options))
+                            + f"\n\nAnswer: {answer}\n{reviewed.get('explanation', '')}"
+                            + f"\nSource: {reviewed.get('source_url', '')}\n\n#Shorts #GKQuiz #GeneralKnowledge")
         path = bdir / v["file"]
         if hashlib.sha256(path.read_bytes()).hexdigest() != v["sha256"]:
             raise RuntimeError(f"sha256 mismatch for {v['file']}; refusing upload")
