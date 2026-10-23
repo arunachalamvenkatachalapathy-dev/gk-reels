@@ -66,6 +66,18 @@
       "q1291",
       "q1292",
       "q1301"
+    ],
+    "C5": [
+      "q1283",
+      "q1288",
+      "q1290",
+      "q1297",
+      "q1299",
+      "q1300",
+      "q1275",
+      "q1272",
+      "q1271",
+      "q1269"
     ]
   },
   "needs_correction": {},
@@ -87,14 +99,7 @@
     "39900775988",
     "39905158842"
   ],
-  "prepared_later_ids": [
-    "q1283",
-    "q1288",
-    "q1290",
-    "q1297",
-    "q1299",
-    "q1300"
-  ],
+  "prepared_later_ids": [],
   "last_upload_run": "39910666627",
   "last_reconcile_commit": "139e295",
   "last_backup_id": "1Ys5NmN0DfMSOk9KSolzq3DJsX_czzN27",
