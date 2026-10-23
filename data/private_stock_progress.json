@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T11:26:00+05:30",
-  "confirmed_unique_private": 25,
-  "selector_unpublished_last_verified": 929,
-  "unreviewed_last_verified": 171,
-  "active_render_run": "39905158842",
+  "as_of": "2026-10-23T11:50:00+05:30",
+  "confirmed_unique_private": 35,
+  "selector_unpublished_last_verified": 919,
+  "unreviewed_last_verified": 234,
+  "active_render_run": "39910685911",
   "active_ids": [
-    "q1262",
-    "q1260",
-    "q1259",
-    "q1258",
-    "q1257",
-    "q1256",
-    "q1266",
-    "q1265",
-    "q1264",
-    "q1263"
+    "q1261",
+    "q1267",
+    "q1268",
+    "q1247",
+    "q1248",
+    "q1250",
+    "q1252",
+    "q1253",
+    "q1254",
+    "q1255"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -42,11 +42,21 @@
       "q1253",
       "q1254",
       "q1255"
+    ],
+    "C3": [
+      "q1298",
+      "q1302",
+      "q1277",
+      "q1278",
+      "q1279",
+      "q1281",
+      "q1246",
+      "q1244",
+      "q1242",
+      "q1243"
     ]
   },
-  "needs_correction": {
-    "q1249": "UNFCCC adopted New York 9 May 1992; Rio was opening for signature, not adoption. Do not render old answer."
-  },
+  "needs_correction": {},
   "parked_for_official_sources": [
     "q1276",
     "q1283",
@@ -78,14 +88,19 @@
   "completed_batch_ids": [
     "39891324705",
     "39895160052",
-    "39900775988"
+    "39900775988",
+    "39905158842"
   ],
   "prepared_later_ids": [
-    "q1298",
-    "q1302",
-    "q1277",
-    "q1278",
-    "q1279",
-    "q1281"
-  ]
+    "q1249",
+    "q1276",
+    "q1284",
+    "q1286",
+    "q1287",
+    "q1289",
+    "q1292"
+  ],
+  "last_upload_run": "39910666627",
+  "last_reconcile_commit": "139e295",
+  "last_backup_id": "1Ys5NmN0DfMSOk9KSolzq3DJsX_czzN27"
 }
