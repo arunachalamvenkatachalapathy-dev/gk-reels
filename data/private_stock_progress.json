@@ -181,5 +181,10 @@
   "next_set_policy": "Use supplied bank answers; no new external fact checks. Existing corrections preserved.",
   "total_unpublished": 1050,
   "short_screen_pass_remaining": 1028,
-  "short_format_adaptation_remaining": 22
+  "short_format_adaptation_remaining": 22,
+  "last_render_failure": {
+    "run": "39923498444",
+    "question": "q1240",
+    "reason": "Safe-area overflow; question shortened without changing input answer. Guard retained."
+  }
 }
