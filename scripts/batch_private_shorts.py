@@ -186,6 +186,7 @@ def mode_upload(batch_dir):
         q = next(q for q in load(DATA / "questions_en.json") if q["id"] == qid)
         reviewed = load(DATA / "reviewed_en.json")[qid]
         question = reviewed.get("display_question", q["question"])
+        v["title"] = question[:90].rstrip() + " #Shorts"
         options = reviewed.get("options", q.get("options", []))
         answer = options[reviewed.get("correct_index", q.get("correct_index", 0))]
         v["description"] = (f"{question}\n\n" + "\n".join(f"{chr(65+i)}. {o}" for i, o in enumerate(options))
