@@ -252,3 +252,56 @@ Answer: M. S. Subbulakshmi
 Explanation: She was a leading Carnatic vocalist.
 Source: https://www.pib.gov.in/PressReleasePage.aspx?PRID=1506543
 
+
+# Next fifty-video set: D1 prepared
+
+## q1251: Which is India's first biosphere reserve?
+Answer: Nilgiri
+Explanation: It was established on 1 September 1986.
+Source: https://v1.wii.gov.in/wildlife_database_list_of_biosphere_reserves_in_india
+
+## q1245: Which year brought the Wildlife Protection Act?
+Answer: 1972
+Explanation: It protects wild animals, birds and plants.
+Source: https://www.indiacode.nic.in/handle/123456789/1726
+
+## q1241: Which report popularised sustainable development?
+Answer: Brundtland Report
+Explanation: Our Common Future was published in 1987.
+Source: https://www.un.org/esa/sustdev/csd/csd15/media/backgrounder_brundtland.pdf
+
+## q1240: How many workdays does MGNREGA guarantee per household yearly?
+Answer: 100 days
+Explanation: At least 100 days per rural household.
+Source: https://nrega.nic.in/mgnrega_new/nrega_home.aspx/
+
+## q1239: When was LIC founded?
+Answer: 1956
+Explanation: LIC was created on 1 September 1956.
+Source: https://licindia.in/history
+
+## q1237: When were 14 banks nationalised?
+Answer: 1969
+Explanation: Fourteen banks were nationalised in 1969.
+Source: https://www.rbi.org.in/Scripts/OurHistory.aspx
+
+## q1236: Which is India's central bank?
+Answer: Reserve Bank of India
+Explanation: The RBI is India's central bank.
+Source: https://www.rbi.org.in/Scripts/OurHistory.aspx
+
+## q1235: Where is the IMF headquartered?
+Answer: Washington, D.C.
+Explanation: Its headquarters are in Washington, D.C.
+Source: https://www.imf.org/en/contacts
+
+## q1234: In which year was the first Lok Sabha constituted?
+Answer: 1952
+Explanation: It was constituted on 17 April 1952.
+Source: https://sansad.in/ls/faq
+
+## q1233: In which year was the NHRC established?
+Answer: 1993
+Explanation: It was established on 12 October 1993.
+Source: https://nhrc.nic.in/about-the-organisation
+
