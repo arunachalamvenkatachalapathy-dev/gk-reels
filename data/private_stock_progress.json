@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T17:25:00+05:30",
+  "as_of": "2026-10-23T17:39:00+05:30",
   "confirmed_unique_private": 93,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39949432601",
+  "active_render_run": "39951129781",
   "active_ids": [
-    "q1115",
-    "q1114",
-    "q1113",
-    "q1111",
-    "q1110",
-    "q1109",
-    "q1107",
-    "q1106",
-    "q1105",
-    "q1104"
+    "q1103",
+    "q1102",
+    "q1100",
+    "q1098",
+    "q1097",
+    "q1096",
+    "q1095",
+    "q1094",
+    "q1093",
+    "q1092"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -324,7 +324,7 @@
       "reported_to_parent": "2026-10-23T14:30:00+05:30"
     }
   },
-  "active_upload_run": null,
+  "active_upload_run": "39949822613",
   "awaiting_upload_batch": "39927094524",
   "youtube_uploads_paused": true,
   "upload_pause_reason": "YouTube uploadLimitExceeded observed 2026-10-23T15:06:00+05:30; reset unknown; no retry",
@@ -420,11 +420,21 @@
     "q1120",
     "q1118",
     "q1117",
-    "q1116"
+    "q1116",
+    "q1115",
+    "q1114",
+    "q1113",
+    "q1111",
+    "q1110",
+    "q1109",
+    "q1107",
+    "q1106",
+    "q1105",
+    "q1104"
   ],
-  "unique_produced": 185,
-  "not_rendered": 940,
-  "last_rendered_backup_id": "19_w2GM-yemh57N_zb8CKPtXIjQbY8jyn",
+  "unique_produced": 195,
+  "not_rendered": 930,
+  "last_rendered_backup_id": "1j6SybpsAz78OjKaCLkuoOQdOwPQSZYIa",
   "rendered_queue_batches": [
     {
       "render_run": "39932945924",
@@ -577,6 +587,23 @@
         "q1116"
       ],
       "drive_file_id": "19_w2GM-yemh57N_zb8CKPtXIjQbY8jyn",
+      "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
+    },
+    {
+      "render_run": "39949432601",
+      "question_ids": [
+        "q1115",
+        "q1114",
+        "q1113",
+        "q1111",
+        "q1110",
+        "q1109",
+        "q1107",
+        "q1106",
+        "q1105",
+        "q1104"
+      ],
+      "drive_file_id": "1j6SybpsAz78OjKaCLkuoOQdOwPQSZYIa",
       "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
     }
   ]
