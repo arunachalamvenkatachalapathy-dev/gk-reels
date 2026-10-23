@@ -90,6 +90,54 @@
       "q1235",
       "q1234",
       "q1233"
+    ],
+    "D2": [
+      "q1274",
+      "q1273",
+      "q1270",
+      "q1238",
+      "q1232",
+      "q1231",
+      "q1230",
+      "q1229",
+      "q1228",
+      "q1227"
+    ],
+    "D3": [
+      "q1226",
+      "q1225",
+      "q1224",
+      "q1223",
+      "q1222",
+      "q1221",
+      "q1220",
+      "q1219",
+      "q1218",
+      "q1217"
+    ],
+    "D4": [
+      "q1216",
+      "q1214",
+      "q1213",
+      "q1212",
+      "q1211",
+      "q1209",
+      "q1208",
+      "q1207",
+      "q1206",
+      "q1205"
+    ],
+    "D5": [
+      "q1204",
+      "q1203",
+      "q1202",
+      "q1201",
+      "q1200",
+      "q1199",
+      "q1198",
+      "q1197",
+      "q1196",
+      "q1195"
     ]
   },
   "needs_correction": {},
@@ -128,5 +176,6 @@
     "four_options_valid_index": 171,
     "short_suitability_pass": 149,
     "needs_short_format_adaptation": 22
-  }
+  },
+  "next_set_policy": "Use supplied bank answers; no new external fact checks. Existing corrections preserved."
 }
