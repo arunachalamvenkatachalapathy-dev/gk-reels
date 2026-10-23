@@ -197,7 +197,11 @@ def mode_upload(batch_dir):
         print(f"[BATCH] note: current handle {handle!r} not in known set; channel ID match is authoritative")
     print(f"[BATCH] channel verified by ID: {channel_id} (current handle {handle})")
     results = []
+    published = set(load(DATA / "state.json").get("published_ids", []))
     for v in manifest["videos"]:
+        if v["question_id"] in published:
+            print(f"[BATCH] already recorded, skipping {v['question_id']}")
+            continue
         # Remove unsupported percentage claims from generated batch metadata.
         v["title"] = re.sub(r"Only\s+\d+(?:\.\d+)?%\s+Get\s+This\s+Right!?", "Test Your GK", v["title"], flags=re.I)
         # Private stock metadata uses reviewed facts, not generated extra claims.
@@ -278,6 +282,16 @@ def mode_reconcile(batch_dir):
             entry["replaces_batch_id"] = res["replaces_batch_id"]
             entry["note"] = "Corrected re-render replacing batch " + str(res["replaces_batch_id"]) + " (source-label fix). Originals remain private; deletion only on owner approval."
         ledger["batches"].append(entry)
+        save(ledger_path, ledger)
+    else:
+        entry = next(b for b in ledger["batches"] if b.get("batch_id") == res["batch_id"])
+        known = {v["question_id"]: v["yt_id"] for v in entry["videos"]}
+        for video in res["videos"]:
+            if video["question_id"] in known:
+                if known[video["question_id"]] != video["yt_id"]:
+                    raise RuntimeError("Conflicting uploaded video identity")
+            else:
+                entry["videos"].append(video)
         save(ledger_path, ledger)
     state_path = DATA / "state.json"
     state = load(state_path)
