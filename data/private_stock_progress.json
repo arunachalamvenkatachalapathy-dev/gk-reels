@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T14:23:00+05:30",
+  "as_of": "2026-10-23T14:40:00+05:30",
   "confirmed_unique_private": 85,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39927094524",
+  "active_render_run": "39929856255",
   "active_ids": [
-    "q1274",
-    "q1273",
-    "q1270",
-    "q1238",
-    "q1232",
-    "q1231",
-    "q1230",
-    "q1229",
-    "q1228",
-    "q1227"
+    "q1226",
+    "q1225",
+    "q1224",
+    "q1223",
+    "q1222",
+    "q1221",
+    "q1220",
+    "q1219",
+    "q1218",
+    "q1217"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -203,5 +203,7 @@
       "original_file_lead": "Disha 1000 Mcq GS (sscstudy.com).pdf",
       "reported_to_parent": "2026-10-23T14:30:00+05:30"
     }
-  }
+  },
+  "active_upload_run": "39929853823",
+  "awaiting_upload_batch": "39927094524"
 }
