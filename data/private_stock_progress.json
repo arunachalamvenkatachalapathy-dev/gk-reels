@@ -658,6 +658,66 @@
       "q0737",
       "q0736",
       "q0734"
+    ],
+    "M1": [
+      "q0732",
+      "q0729",
+      "q0728",
+      "q0727",
+      "q0725",
+      "q0723",
+      "q0722",
+      "q0721",
+      "q0720",
+      "q0718"
+    ],
+    "M2": [
+      "q0717",
+      "q0716",
+      "q0715",
+      "q0714",
+      "q0713",
+      "q0712",
+      "q0711",
+      "q0710",
+      "q0709",
+      "q0707"
+    ],
+    "M3": [
+      "q0706",
+      "q0705",
+      "q0704",
+      "q0703",
+      "q0702",
+      "q0701",
+      "q0700",
+      "q0699",
+      "q0698",
+      "q0697"
+    ],
+    "M4": [
+      "q0696",
+      "q0695",
+      "q0694",
+      "q0693",
+      "q0692",
+      "q0691",
+      "q0690",
+      "q0689",
+      "q0688",
+      "q0687"
+    ],
+    "M5": [
+      "q0686",
+      "q0684",
+      "q0683",
+      "q0682",
+      "q0681",
+      "q0680",
+      "q0679",
+      "q0678",
+      "q0677",
+      "q0676"
     ]
   },
   "needs_correction": {},
@@ -2253,5 +2313,13 @@
       "drive_file_id": "15S1nLFLzGMYQ_aje1aIlWW6aXISFHqkb",
       "file": "q0785.mp4"
     }
-  }
+  },
+  "content_flags": {
+    "q0758": {
+      "reason": "parent flagged potentially stale capital city name Port Blair; current official name unverified",
+      "status": "hold_from_content_ready_pending_user_scope_resolution",
+      "source_answer_preserved": true
+    }
+  },
+  "content_ready_excluding_flagged": 514
 }

@@ -12,3 +12,10 @@ class EditorialTopicTests(unittest.TestCase):
             qid = f'q{number:04}'
             if qid in reviewed:
                 self.assertEqual(reviewed[qid]['verified_topic'], 'SPORTS')
+
+    def test_next_sports_and_culture_boundaries(self):
+        reviewed = json.loads((Path(__file__).resolve().parents[1] / "data" / "reviewed_en.json").read_text())
+        for number in range(692, 703):
+            self.assertEqual(reviewed[f"q{number:04}"]["verified_topic"], "SPORTS")
+        for number in [690, 691]:
+            self.assertEqual(reviewed[f"q{number:04}"]["verified_topic"], "CULTURE")
