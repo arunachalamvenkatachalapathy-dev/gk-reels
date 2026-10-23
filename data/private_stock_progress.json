@@ -105,5 +105,7 @@
   "last_upload_run": "39914631920",
   "last_reconcile_commit": "4d4105e",
   "last_backup_id": "1i4h6L5AK9ilGSnecpKfx-RMr-HI9k3ak",
-  "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded"
+  "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded",
+  "failed_render_run": "39914638143",
+  "failure_reason": "q1249 timing16.77s rejected before render; spoken wording shortened, no upload"
 }
