@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-24T00:42:00+05:30",
+  "as_of": "2026-10-24T00:56:00+05:30",
   "confirmed_unique_private": 96,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "40009542790",
+  "active_render_run": "40011491436",
   "active_ids": [
-    "q0794",
-    "q0793",
-    "q0792",
-    "q0791",
-    "q0790",
-    "q0789",
-    "q0788",
-    "q0787",
-    "q0786",
-    "q0785"
+    "q1007",
+    "q1006",
+    "q1004",
+    "q1003",
+    "q1002",
+    "q0999",
+    "q0998",
+    "q0997",
+    "q0996",
+    "q0848"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -586,6 +586,18 @@
     "CAT3": [
       "q0796",
       "q0795"
+    ],
+    "CAT4": [
+      "q0794",
+      "q0793",
+      "q0792",
+      "q0791",
+      "q0790",
+      "q0789",
+      "q0788",
+      "q0787",
+      "q0786",
+      "q0785"
     ]
   },
   "needs_correction": {},
@@ -1025,11 +1037,21 @@
     "q0798",
     "q0797",
     "q0796",
-    "q0795"
+    "q0795",
+    "q0794",
+    "q0793",
+    "q0792",
+    "q0791",
+    "q0790",
+    "q0789",
+    "q0788",
+    "q0787",
+    "q0786",
+    "q0785"
   ],
-  "unique_produced": 465,
-  "not_rendered": 660,
-  "last_rendered_backup_id": "16IKOYCxrxe3SEAsjBNv7Jgho6DUaDYTu",
+  "unique_produced": 475,
+  "not_rendered": 650,
+  "last_rendered_backup_id": "1yPNe-HLyLIl35KzfoQyWNzhCVh1Ie0Vf",
   "rendered_queue_batches": [
     {
       "render_run": "39932945924",
@@ -1659,6 +1681,23 @@
       ],
       "drive_file_id": "16IKOYCxrxe3SEAsjBNv7Jgho6DUaDYTu",
       "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
+    },
+    {
+      "render_run": "40009542790",
+      "question_ids": [
+        "q0794",
+        "q0793",
+        "q0792",
+        "q0791",
+        "q0790",
+        "q0789",
+        "q0788",
+        "q0787",
+        "q0786",
+        "q0785"
+      ],
+      "drive_file_id": "1yPNe-HLyLIl35KzfoQyWNzhCVh1Ie0Vf",
+      "status": "QUARANTINED_category_label_repair_required"
     }
   ],
   "last_failed_render": {
@@ -1727,9 +1766,7 @@
       "q0798",
       "q0797",
       "q0796",
-      "q0795"
-    ],
-    "affected_running_ids": [
+      "q0795",
       "q0794",
       "q0793",
       "q0792",
@@ -1741,8 +1778,44 @@
       "q0786",
       "q0785"
     ],
+    "affected_running_ids": [],
     "ready_count_excluding_category_repairs": 443,
-    "raw_unique_rendered_count": 465
+    "raw_unique_rendered_count": 475,
+    "remaining_ids": [
+      "q1007",
+      "q1006",
+      "q1004",
+      "q1003",
+      "q1002",
+      "q0999",
+      "q0998",
+      "q0997",
+      "q0996",
+      "q0848",
+      "q0806",
+      "q0805",
+      "q0804",
+      "q0803",
+      "q0802",
+      "q0801",
+      "q0800",
+      "q0799",
+      "q0798",
+      "q0797",
+      "q0796",
+      "q0795",
+      "q0794",
+      "q0793",
+      "q0792",
+      "q0791",
+      "q0790",
+      "q0789",
+      "q0788",
+      "q0787",
+      "q0786",
+      "q0785"
+    ],
+    "completed_ids": []
   },
   "usable_ready": 443
 }
