@@ -276,6 +276,95 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "39905158842",
+      "uploaded_at": "2026-10-23T06:19:31.292973+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1262",
+          "yt_id": "pdHBp_A7fTQ",
+          "title": "When did Vedic chanting join UNESCO? 🤔 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=pdHBp_A7fTQ",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1260",
+          "yt_id": "nessiLIpihA",
+          "title": "🔥 UNESCO Quiz: Can You Guess the Year? #Shorts #GKQuiz",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=nessiLIpihA",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1259",
+          "yt_id": "Ov1lsNLdM9Q",
+          "title": "🤔 UNESCO GK Quiz: Kumbh Mela Heritage Year? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Ov1lsNLdM9Q",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1258",
+          "yt_id": "u5_R_Uj5YR8",
+          "title": "UNESCO Yoga Year? 🤯 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=u5_R_Uj5YR8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1257",
+          "yt_id": "wpr4eWDBvE8",
+          "title": "🎉 UNESCO GK Quiz: Kolkata's Durga Puja Year? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=wpr4eWDBvE8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1256",
+          "yt_id": "ZJj_uJci-us",
+          "title": "When Did Garba Join UNESCO? 🕺🎉 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=ZJj_uJci-us",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1266",
+          "yt_id": "2L_DP2U1uF0",
+          "title": "🤔 Mudiyettu belongs to which state? #Shorts | GK Quiz",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=2L_DP2U1uF0",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1265",
+          "yt_id": "zi7_ilZJwMg",
+          "title": "Kalbelia Dance State? 🤔 #Shorts #GKQuiz",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=zi7_ilZJwMg",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1264",
+          "yt_id": "2zdzsfe79N8",
+          "title": "🧠 Chhau Dance Quiz: Eastern India? 🤔 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=2zdzsfe79N8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1263",
+          "yt_id": "rdpC4hz4hbo",
+          "title": "Ramman Ritual Theatre State? 🤔 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=rdpC4hz4hbo",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
