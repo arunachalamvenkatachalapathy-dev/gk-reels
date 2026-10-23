@@ -721,6 +721,95 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "39924906414",
+      "uploaded_at": "2026-10-23T08:48:10.948326+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1251",
+          "yt_id": "7413R_YqoXc",
+          "title": "Which is India's first biosphere reserve? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=7413R_YqoXc",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1245",
+          "yt_id": "aCSLIBCLf04",
+          "title": "Which year brought the Wildlife Protection Act? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=aCSLIBCLf04",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1241",
+          "yt_id": "hoDDnvhSDls",
+          "title": "Which report popularised sustainable development? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=hoDDnvhSDls",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1240",
+          "yt_id": "UOaXjEHdqOU",
+          "title": "MGNREGA: yearly workdays per rural household? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=UOaXjEHdqOU",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1239",
+          "yt_id": "YqnOykec6F4",
+          "title": "When was LIC founded? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=YqnOykec6F4",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1237",
+          "yt_id": "pScGEbbxH6Q",
+          "title": "When were 14 banks nationalised? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=pScGEbbxH6Q",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1236",
+          "yt_id": "6yXZhBSqqa4",
+          "title": "Which is India's central bank? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=6yXZhBSqqa4",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1235",
+          "yt_id": "rqcwng1dxCE",
+          "title": "Where is the IMF headquartered? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=rqcwng1dxCE",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1234",
+          "yt_id": "b012T_M0pPU",
+          "title": "In which year was the first Lok Sabha constituted? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=b012T_M0pPU",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1233",
+          "yt_id": "gC1d1yEsefg",
+          "title": "In which year was the NHRC established? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=gC1d1yEsefg",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
