@@ -1,12 +1,20 @@
 {
-  "as_of": "2026-10-24T01:26:00+05:30",
+  "as_of": "2026-10-24T01:32:00+05:30",
   "confirmed_unique_private": 96,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "40015358488",
+  "active_render_run": "40016100043",
   "active_ids": [
-    "q0796",
-    "q0795"
+    "q0794",
+    "q0793",
+    "q0792",
+    "q0791",
+    "q0790",
+    "q0789",
+    "q0788",
+    "q0787",
+    "q0786",
+    "q0785"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -1694,8 +1702,8 @@
       "drive_file_id": "16IKOYCxrxe3SEAsjBNv7Jgho6DUaDYTu",
       "status": "QA_passed_private_Drive_awaiting_YouTube_upload",
       "category_repairs": {
-        "q0795": "QUARANTINED",
-        "q0796": "QUARANTINED",
+        "q0795": "use_corrected_asset_override",
+        "q0796": "use_corrected_asset_override",
         "q0797": "use_corrected_asset_override",
         "q0798": "use_corrected_asset_override",
         "q0799": "use_corrected_asset_override",
@@ -1815,11 +1823,9 @@
       "q0785"
     ],
     "affected_running_ids": [],
-    "ready_count_excluding_category_repairs": 463,
+    "ready_count_excluding_category_repairs": 465,
     "raw_unique_rendered_count": 475,
     "remaining_ids": [
-      "q0796",
-      "q0795",
       "q0794",
       "q0793",
       "q0792",
@@ -1851,7 +1857,9 @@
       "q0800",
       "q0799",
       "q0798",
-      "q0797"
+      "q0797",
+      "q0796",
+      "q0795"
     ],
     "corrected_batches": [
       {
@@ -1887,10 +1895,19 @@
           "q0798",
           "q0797"
         ]
+      },
+      {
+        "chunk": "CAT3",
+        "render_run": "40015358488",
+        "drive_file_id": "1nFooc9RLUQVe2j0GGLY3JPn6-DxQ9hcm",
+        "question_ids": [
+          "q0796",
+          "q0795"
+        ]
       }
     ]
   },
-  "usable_ready": 463,
+  "usable_ready": 465,
   "corrected_asset_overrides": {
     "q1007": {
       "render_run": "40011491436",
@@ -1991,6 +2008,16 @@
       "render_run": "40013440953",
       "drive_file_id": "17-MhJitcIWxNDPNATDLBKgsVdjHu0glh",
       "file": "q0797.mp4"
+    },
+    "q0796": {
+      "render_run": "40015358488",
+      "drive_file_id": "1nFooc9RLUQVe2j0GGLY3JPn6-DxQ9hcm",
+      "file": "q0796.mp4"
+    },
+    "q0795": {
+      "render_run": "40015358488",
+      "drive_file_id": "1nFooc9RLUQVe2j0GGLY3JPn6-DxQ9hcm",
+      "file": "q0795.mp4"
     }
   }
 }
