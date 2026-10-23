@@ -48,6 +48,56 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "39891324705",
+      "uploaded_at": "2026-10-23T02:58:02.287969+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Corrected re-render replacing batch 39889784509 (source-label fix). Originals remain private; deletion only on owner approval.",
+      "videos": [
+        {
+          "question_id": "q1317",
+          "yt_id": "qVZ0cXOZwJc",
+          "title": "🤔 When did Jantar Mantar join UNESCO? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=qVZ0cXOZwJc",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1318",
+          "yt_id": "IOd-EapePBY",
+          "title": "🎯 Rajasthan Forts Quiz: Year They Became World Heritage? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=IOd-EapePBY",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1319",
+          "yt_id": "2Vbn4wmerKk",
+          "title": "UNESCO Quiz Fail? 🤔 #Shorts #GKChallenge",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=2Vbn4wmerKk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1320",
+          "yt_id": "ugZk7Yjm0ao",
+          "title": "World Heritage Quiz! 🌍 #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=ugZk7Yjm0ao",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1321",
+          "yt_id": "Xrp9KdWn0po",
+          "title": "Temple Trivia! ⚡ Guess the Year This Wonder Joined UNESCO #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Xrp9KdWn0po",
+          "scheduled": false
+        }
+      ],
+      "replaces_batch_id": "39889784509"
     }
   ]
 }
