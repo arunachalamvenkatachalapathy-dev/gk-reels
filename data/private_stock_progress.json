@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T20:37:00+05:30",
+  "as_of": "2026-10-23T20:52:00+05:30",
   "confirmed_unique_private": 96,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39975573945",
+  "active_render_run": "39977690990",
   "active_ids": [
-    "q0978",
-    "q0976",
-    "q0975",
-    "q0974",
-    "q0973",
-    "q0972",
-    "q0971",
-    "q0968",
-    "q0967",
-    "q0965"
+    "q0963",
+    "q0962",
+    "q0961",
+    "q0960",
+    "q0959",
+    "q0958",
+    "q0957",
+    "q0956",
+    "q0955",
+    "q0954"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -657,11 +657,21 @@
     "q0982",
     "q0981",
     "q0980",
-    "q0979"
+    "q0979",
+    "q0978",
+    "q0976",
+    "q0975",
+    "q0974",
+    "q0973",
+    "q0972",
+    "q0971",
+    "q0968",
+    "q0967",
+    "q0965"
   ],
-  "unique_produced": 305,
-  "not_rendered": 820,
-  "last_rendered_backup_id": "1uWeTBgYSqowFHyarXSm0NKEppR6T_i_N",
+  "unique_produced": 315,
+  "not_rendered": 810,
+  "last_rendered_backup_id": "103AU4Tm9xjnqBbRUDP-SUJS587ZjkLRm",
   "rendered_queue_batches": [
     {
       "render_run": "39932945924",
@@ -1018,6 +1028,23 @@
         "q0979"
       ],
       "drive_file_id": "1uWeTBgYSqowFHyarXSm0NKEppR6T_i_N",
+      "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
+    },
+    {
+      "render_run": "39975573945",
+      "question_ids": [
+        "q0978",
+        "q0976",
+        "q0975",
+        "q0974",
+        "q0973",
+        "q0972",
+        "q0971",
+        "q0968",
+        "q0967",
+        "q0965"
+      ],
+      "drive_file_id": "103AU4Tm9xjnqBbRUDP-SUJS587ZjkLRm",
       "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
     }
   ]
