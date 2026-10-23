@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T16:54:00+05:30",
+  "as_of": "2026-10-23T17:11:00+05:30",
   "confirmed_unique_private": 93,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39945783291",
+  "active_render_run": "39947732328",
   "active_ids": [
-    "q1141",
-    "q1139",
-    "q1138",
-    "q1137",
-    "q1136",
-    "q1135",
-    "q1133",
-    "q1132",
-    "q1131",
-    "q1130"
+    "q1129",
+    "q1128",
+    "q1127",
+    "q1126",
+    "q1125",
+    "q1121",
+    "q1120",
+    "q1118",
+    "q1117",
+    "q1116"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -198,6 +198,66 @@
       "q1132",
       "q1131",
       "q1130"
+    ],
+    "F1": [
+      "q1129",
+      "q1128",
+      "q1127",
+      "q1126",
+      "q1125",
+      "q1121",
+      "q1120",
+      "q1118",
+      "q1117",
+      "q1116"
+    ],
+    "F2": [
+      "q1115",
+      "q1114",
+      "q1113",
+      "q1111",
+      "q1110",
+      "q1109",
+      "q1107",
+      "q1106",
+      "q1105",
+      "q1104"
+    ],
+    "F3": [
+      "q1103",
+      "q1102",
+      "q1100",
+      "q1098",
+      "q1097",
+      "q1096",
+      "q1095",
+      "q1094",
+      "q1093",
+      "q1092"
+    ],
+    "F4": [
+      "q1091",
+      "q1090",
+      "q1089",
+      "q1088",
+      "q1087",
+      "q1086",
+      "q1084",
+      "q1083",
+      "q1082",
+      "q1081"
+    ],
+    "F5": [
+      "q1080",
+      "q1079",
+      "q1078",
+      "q1077",
+      "q1076",
+      "q1075",
+      "q1074",
+      "q1073",
+      "q1072",
+      "q1071"
     ]
   },
   "needs_correction": {},
@@ -340,11 +400,21 @@
     "q1148",
     "q1146",
     "q1143",
-    "q1142"
+    "q1142",
+    "q1141",
+    "q1139",
+    "q1138",
+    "q1137",
+    "q1136",
+    "q1135",
+    "q1133",
+    "q1132",
+    "q1131",
+    "q1130"
   ],
-  "unique_produced": 165,
-  "not_rendered": 960,
-  "last_rendered_backup_id": "1WVVkm9xwVGgxgvSEk659b1jI3oDeVp8N",
+  "unique_produced": 175,
+  "not_rendered": 950,
+  "last_rendered_backup_id": "1sBZiFyK2INjh2TpNcB1seEJvOmHJ8aTk",
   "rendered_queue_batches": [
     {
       "render_run": "39932945924",
@@ -463,6 +533,23 @@
         "q1142"
       ],
       "drive_file_id": "1WVVkm9xwVGgxgvSEk659b1jI3oDeVp8N",
+      "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
+    },
+    {
+      "render_run": "39945783291",
+      "question_ids": [
+        "q1141",
+        "q1139",
+        "q1138",
+        "q1137",
+        "q1136",
+        "q1135",
+        "q1133",
+        "q1132",
+        "q1131",
+        "q1130"
+      ],
+      "drive_file_id": "1sBZiFyK2INjh2TpNcB1seEJvOmHJ8aTk",
       "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
     }
   ]
