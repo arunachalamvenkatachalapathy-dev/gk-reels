@@ -187,5 +187,21 @@
     "run": "39923498444",
     "question": "q1240",
     "reason": "Safe-area overflow; question shortened without changing input answer. Guard retained."
+  },
+  "missing_input": {
+    "q0145": {
+      "status": "awaiting_original_graph",
+      "question_preserved": true,
+      "supplied_answer_preserved": "Zero acceleration",
+      "checked": [
+        "bank schema",
+        "repository assets",
+        "git image/PDF history",
+        "Drive filename search",
+        "stored email attachments"
+      ],
+      "original_file_lead": "Disha 1000 Mcq GS (sscstudy.com).pdf",
+      "reported_to_parent": "2026-10-23T14:30:00+05:30"
+    }
   }
 }
