@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-10-23T13:20:00+05:30",
-  "confirmed_unique_private": 55,
-  "selector_unpublished_last_verified": 899,
+  "as_of": "2026-10-23T13:28:00+05:30",
+  "confirmed_unique_private": 65,
+  "selector_unpublished_last_verified": 889,
   "unreviewed_last_verified": 171,
   "active_render_run": "39920404488",
   "active_ids": [
@@ -99,17 +99,15 @@
     "39900775988",
     "39905158842",
     "39910685911",
-    "39912596243"
+    "39912596243",
+    "39917947808"
   ],
   "prepared_later_ids": [],
-  "last_upload_run": "39914631920",
-  "last_reconcile_commit": "4d4105e",
-  "last_backup_id": "1i4h6L5AK9ilGSnecpKfx-RMr-HI9k3ak",
+  "last_upload_run": "39920397918",
+  "last_reconcile_commit": "4f79f11",
+  "last_backup_id": "1p02dkY4hFh-IQtVdp8WNS0DSOS4pJiuH",
   "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded",
   "failed_render_run": "39914638143",
   "failure_reason": "q1249 timing16.77s rejected before render; spoken wording shortened, no upload",
-  "active_upload_run": "39920397918",
-  "awaiting_upload_batch": "39917947808",
-  "pending_backup_id": "1p02dkY4hFh-IQtVdp8WNS0DSOS4pJiuH",
-  "failure_fix_status": "Corrected C4render39917947808success; QAall10passed; privateuploadpending"
+  "failure_fix_status": "Corrected C4render39917947808QApassed and10PRIVATEuploadsverified"
 }
