@@ -1,6 +1,6 @@
 {
   "as_of": "2026-10-23T17:39:00+05:30",
-  "confirmed_unique_private": 93,
+  "confirmed_unique_private": 95,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
   "active_render_run": "39951129781",
@@ -285,7 +285,7 @@
     "39924906414"
   ],
   "prepared_later_ids": [],
-  "last_upload_run": "39932943192",
+  "last_upload_run": "39949822613",
   "last_reconcile_commit": "c4e0d7e",
   "last_backup_id": "1pAsT0NFWqpX4Ngk1DN_Pxy9W-4v1FgY0",
   "unreviewed_definition": "Unpublished questions lacking reviewed record; published legacy63 excluded",
@@ -300,7 +300,7 @@
     "needs_short_format_adaptation": 22
   },
   "next_set_policy": "Use supplied bank answers; no new external fact checks. Existing corrections preserved.",
-  "total_unpublished": 1032,
+  "total_unpublished": 1030,
   "short_screen_pass_remaining": 1010,
   "short_format_adaptation_remaining": 22,
   "last_render_failure": {
@@ -324,13 +324,11 @@
       "reported_to_parent": "2026-10-23T14:30:00+05:30"
     }
   },
-  "active_upload_run": "39949822613",
+  "active_upload_run": null,
   "awaiting_upload_batch": "39927094524",
   "youtube_uploads_paused": true,
-  "upload_pause_reason": "YouTube uploadLimitExceeded observed 2026-10-23T15:06:00+05:30; reset unknown; no retry",
+  "upload_pause_reason": "User-requested bounded attempt succeeded2 at17:39; awaiting scope to continue rest, reset capacity unknown",
   "rendered_not_uploaded": [
-    "q1228",
-    "q1227",
     "q1226",
     "q1225",
     "q1224",
