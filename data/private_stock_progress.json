@@ -69,10 +69,7 @@
     ]
   },
   "needs_correction": {},
-  "parked_for_official_sources": [
-    "q1299",
-    "q1300"
-  ],
+  "parked_for_official_sources": [],
   "restrictions": [
     "PRIVATE only",
     "no scheduling",
@@ -94,7 +91,9 @@
     "q1283",
     "q1288",
     "q1290",
-    "q1297"
+    "q1297",
+    "q1299",
+    "q1300"
   ],
   "last_upload_run": "39910666627",
   "last_reconcile_commit": "139e295",
