@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T13:28:00+05:30",
+  "as_of": "2026-10-23T13:47:00+05:30",
   "confirmed_unique_private": 65,
   "selector_unpublished_last_verified": 889,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39920404488",
+  "active_render_run": "39923498444",
   "active_ids": [
-    "q1283",
-    "q1288",
-    "q1290",
-    "q1297",
-    "q1299",
-    "q1300",
-    "q1275",
-    "q1272",
-    "q1271",
-    "q1269"
+    "q1251",
+    "q1245",
+    "q1241",
+    "q1240",
+    "q1239",
+    "q1237",
+    "q1236",
+    "q1235",
+    "q1234",
+    "q1233"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -177,5 +177,8 @@
     "short_suitability_pass": 149,
     "needs_short_format_adaptation": 22
   },
-  "next_set_policy": "Use supplied bank answers; no new external fact checks. Existing corrections preserved."
+  "next_set_policy": "Use supplied bank answers; no new external fact checks. Existing corrections preserved.",
+  "active_upload_run": "39923491442",
+  "awaiting_upload_batch": "39920404488",
+  "pending_backup_id": "12YjEtCPzfKVMsyFtiu_XZP74bh5CDti4"
 }
