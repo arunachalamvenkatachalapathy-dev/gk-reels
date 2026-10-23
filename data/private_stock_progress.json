@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-10-23T13:59:00+05:30",
+  "as_of": "2026-10-23T14:17:00+05:30",
   "confirmed_unique_private": 75,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
-  "active_render_run": "39924906414",
+  "active_render_run": "39927094524",
   "active_ids": [
-    "q1251",
-    "q1245",
-    "q1241",
-    "q1240",
-    "q1239",
-    "q1237",
-    "q1236",
-    "q1235",
-    "q1234",
-    "q1233"
+    "q1274",
+    "q1273",
+    "q1270",
+    "q1238",
+    "q1232",
+    "q1231",
+    "q1230",
+    "q1229",
+    "q1228",
+    "q1227"
   ],
   "set_size": 50,
   "execution_chunk_size": 10,
@@ -186,5 +186,8 @@
     "run": "39923498444",
     "question": "q1240",
     "reason": "Safe-area overflow; question shortened without changing input answer. Guard retained."
-  }
+  },
+  "active_upload_run": "39927087018",
+  "awaiting_upload_batch": "39924906414",
+  "pending_backup_id": "1RAFCWkXr1sr0Exhd0wvDCUDeTUrczCnw"
 }
