@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-24T06:10:08.665486+05:30",
+  "as_of": "2026-10-24T06:24:46.026845+05:30",
   "confirmed_unique_private": 96,
   "selector_unpublished_last_verified": 879,
   "unreviewed_last_verified": 171,
@@ -1467,10 +1467,20 @@
     "q0597",
     "q0596",
     "q0595",
-    "q0594"
+    "q0594",
+    "q0593",
+    "q0592",
+    "q0590",
+    "q0589",
+    "q0588",
+    "q0587",
+    "q0586",
+    "q0585",
+    "q0584",
+    "q0583"
   ],
-  "unique_produced": 655,
-  "not_rendered": 470,
+  "unique_produced": 665,
+  "not_rendered": 460,
   "last_rendered_backup_id": "1yPNe-HLyLIl35KzfoQyWNzhCVh1Ie0Vf",
   "rendered_queue_batches": [
     {
@@ -2468,6 +2478,23 @@
       ],
       "drive_file_id": "1UqHe9QcKrr0LXyWjwgifzp7lEOzQ-uV1",
       "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
+    },
+    {
+      "render_run": "40046107110",
+      "question_ids": [
+        "q0593",
+        "q0592",
+        "q0590",
+        "q0589",
+        "q0588",
+        "q0587",
+        "q0586",
+        "q0585",
+        "q0584",
+        "q0583"
+      ],
+      "drive_file_id": "1nlzfMtfNH9yAudEp5Li-FEdPVgGhL7g-",
+      "status": "QA_passed_private_Drive_awaiting_YouTube_upload"
     }
   ],
   "last_failed_render": {
@@ -2649,7 +2676,7 @@
       }
     ]
   },
-  "usable_ready": 655,
+  "usable_ready": 665,
   "corrected_asset_overrides": {
     "q1007": {
       "render_run": "40011491436",
@@ -2819,5 +2846,5 @@
       "source_answer_preserved": true
     }
   },
-  "content_ready_excluding_flagged": 654
+  "content_ready_excluding_flagged": 664
 }
