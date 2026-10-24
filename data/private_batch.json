@@ -1274,6 +1274,31 @@
         }
       ],
       "replaces_batch_id": "category-audit-20261024-CAT4"
+    },
+    {
+      "batch_id": "39935837857",
+      "uploaded_at": "2026-10-24T03:02:25.632063+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q1216",
+          "yt_id": "4xNgp46br8U",
+          "title": "Ultrasound has frequency above how much? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=4xNgp46br8U",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1214",
+          "yt_id": "cUxRB5eypTo",
+          "title": "In the superconducting state, what is a conductor’s resistance? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=cUxRB5eypTo",
+          "scheduled": false
+        }
+      ]
     }
   ]
 }
