@@ -1128,6 +1128,96 @@
         }
       ],
       "replaces_batch_id": "category-audit-20261024-CAT3"
+    },
+    {
+      "batch_id": "40016100043",
+      "uploaded_at": "2026-10-24T02:57:40.585923+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Corrected re-render replacing batch category-audit-20261024-CAT4 (source-label fix). Originals remain private; deletion only on owner approval.",
+      "videos": [
+        {
+          "question_id": "q0794",
+          "yt_id": "CyaInYbYm3Y",
+          "title": "Which musician was among the Navaratnas of Akbar’s court? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=CyaInYbYm3Y",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0793",
+          "yt_id": "7k3C77dmyRk",
+          "title": "Which poet-musician is traditionally credited with inventing the sitar? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=7k3C77dmyRk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0792",
+          "yt_id": "jj2vO0KPjF8",
+          "title": "Sattriya is a classical dance of which state? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=jj2vO0KPjF8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0791",
+          "yt_id": "Fb4nkil4Su8",
+          "title": "Manipuri is a classical dance of which state? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Fb4nkil4Su8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0790",
+          "yt_id": "eznXj_LprPE",
+          "title": "Kuchipudi is a classical dance of which state? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=eznXj_LprPE",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0789",
+          "yt_id": "JFx6F0-JjQ8",
+          "title": "Odissi is a classical dance of which state? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=JFx6F0-JjQ8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0788",
+          "yt_id": "MDrrxvoEbrY",
+          "title": "Bharatanatyam is a classical dance of which state? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=MDrrxvoEbrY",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0787",
+          "yt_id": "J0lhbqi-cEg",
+          "title": "Kathakali is a classical dance-drama of which state? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=J0lhbqi-cEg",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0786",
+          "yt_id": "-FCAJqBdo-w",
+          "title": "Kathak is a classical dance form mainly from which region? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=-FCAJqBdo-w",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0785",
+          "yt_id": "qx7M7VD4owE",
+          "title": "Baisakhi is mainly a harvest festival of which state? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=qx7M7VD4owE",
+          "scheduled": false
+        }
+      ],
+      "replaces_batch_id": "category-audit-20261024-CAT4"
     }
   ]
 }
