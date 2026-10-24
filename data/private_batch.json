@@ -1012,6 +1012,96 @@
         }
       ],
       "replaces_batch_id": "category-audit-20261024-CAT1"
+    },
+    {
+      "batch_id": "40013440953",
+      "uploaded_at": "2026-10-24T02:53:12.930266+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Corrected re-render replacing batch category-audit-20261024-CAT2 (source-label fix). Originals remain private; deletion only on owner approval.",
+      "videos": [
+        {
+          "question_id": "q0806",
+          "yt_id": "IFeSjRuJXEs",
+          "title": "Who wrote the autobiography Wings of Fire? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=IFeSjRuJXEs",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0805",
+          "yt_id": "u3ntKiUNAbU",
+          "title": "Who wrote The Discovery of India? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=u3ntKiUNAbU",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0804",
+          "yt_id": "JAXQ2oBo_qs",
+          "title": "Which novel contains the song Vande Mataram? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=JAXQ2oBo_qs",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0803",
+          "yt_id": "we1D-gjJwIU",
+          "title": "Which collection of poems won Tagore the Nobel Prize? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=we1D-gjJwIU",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0802",
+          "yt_id": "bFwk2-5MC7M",
+          "title": "Who wrote the poem Madhushala? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=bFwk2-5MC7M",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0801",
+          "yt_id": "-Dhdi-_zD40",
+          "title": "Which author created the fictional town of Malgudi? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=-Dhdi-_zD40",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0800",
+          "yt_id": "tOhSCJvu-08",
+          "title": "Which was India’s first sound film (1931)? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=tOhSCJvu-08",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0799",
+          "yt_id": "Q9BAhOgeEpE",
+          "title": "Which was India’s first full-length feature film? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=Q9BAhOgeEpE",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0798",
+          "yt_id": "6bM8xW4NPVc",
+          "title": "Which filmmaker made Pather Panchali? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=6bM8xW4NPVc",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0797",
+          "yt_id": "RiMfx6s-n-8",
+          "title": "Which instrument is Zakir Hussain famous for? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=RiMfx6s-n-8",
+          "scheduled": false
+        }
+      ],
+      "replaces_batch_id": "category-audit-20261024-CAT2"
     }
   ]
 }
