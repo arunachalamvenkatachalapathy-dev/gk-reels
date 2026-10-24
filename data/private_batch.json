@@ -922,6 +922,96 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "40011491436",
+      "uploaded_at": "2026-10-24T02:51:07.273380+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Corrected re-render replacing batch category-audit-20261024-CAT1 (source-label fix). Originals remain private; deletion only on owner approval.",
+      "videos": [
+        {
+          "question_id": "q1007",
+          "yt_id": "5GkjjYwL1dk",
+          "title": "Which Indian tennis player won an Olympic bronze in 1996? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=5GkjjYwL1dk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1006",
+          "yt_id": "3IEDsmrgnZk",
+          "title": "Which Indian became the first Grandmaster of chess in 1988? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=3IEDsmrgnZk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1004",
+          "yt_id": "sh19x3hYRls",
+          "title": "Who was the first Indian woman to win an Olympic medal? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=sh19x3hYRls",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1003",
+          "yt_id": "oSUKbYmsWg0",
+          "title": "Which Indian boxer won an Olympic bronze in 2012? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=oSUKbYmsWg0",
+          "scheduled": false
+        },
+        {
+          "question_id": "q1002",
+          "yt_id": "k9H2ZwCi_Nk",
+          "title": "Which Indian shuttler won Olympic silver in 2016? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=k9H2ZwCi_Nk",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0999",
+          "yt_id": "1HFRGl9RAHg",
+          "title": "How often are the Commonwealth Games held? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=1HFRGl9RAHg",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0998",
+          "yt_id": "a_lDhpfYSjY",
+          "title": "In which year did the Indian Premier League begin? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=a_lDhpfYSjY",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0997",
+          "yt_id": "9BNi4AZyxlc",
+          "title": "Which league popularised kabaddi on TV in India from 2014? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=9BNi4AZyxlc",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0996",
+          "yt_id": "I_TPIVNLOU8",
+          "title": "How many players are on the field for one cricket team? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=I_TPIVNLOU8",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0848",
+          "yt_id": "7Z6hiZYArmQ",
+          "title": "Amritsar was founded by which Sikh Guru? #Shorts",
+          "privacy": "private",
+          "watch_url": "https://www.youtube.com/watch?v=7Z6hiZYArmQ",
+          "scheduled": false
+        }
+      ],
+      "replaces_batch_id": "category-audit-20261024-CAT1"
     }
   ]
 }
