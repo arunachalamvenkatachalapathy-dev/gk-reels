@@ -1,23 +1,32 @@
 name: GK EN private batch (isolated)
 
-# Isolated stock builder: renders reviewed back-of-bank questions and uploads
-# them as PRIVATE YouTube drafts for owner review. Never runs on a schedule,
-# never touches Instagram/Facebook/Telegram, never alters daily slot state.
+# Explicit manual actions only. Existing Drive stock is fetched only after its
+# owner temporarily enables link access; ZIP contents never enter Git history.
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: render = build stock + artifact; upload = private YouTube drafts from a render run
+        description: render = build stock; upload = existing render artifact; drive = existing private Drive ZIP
         type: choice
         required: true
         options:
           - render
           - upload
+          - drive
       count:
         description: Number of videos to render (render mode)
         default: "5"
       source_run_id:
         description: Render run ID whose artifact to upload (upload mode)
+        default: ""
+      drive_file_id:
+        description: Drive file ID for an owner-approved temporary link-access ZIP (drive mode)
+        default: ""
+      drive_video_limit:
+        description: Max private uploads from that ZIP (1-10, choose 5 for a sample)
+        default: "5"
+      drive_sample_ids:
+        description: Optional comma-separated question IDs to limit the sample within the ZIP
         default: ""
       question_ids:
         description: Optional comma-separated explicit question IDs to render (correction re-render)
@@ -85,6 +94,28 @@ jobs:
           run-id: ${{ inputs.source_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: output/private_batch
+      - name: Download owner-approved temporary-link Drive ZIP
+        if: inputs.mode == 'drive'
+        env:
+          DRIVE_FILE_ID: ${{ inputs.drive_file_id }}
+        run: |
+          [[ "$DRIVE_FILE_ID" =~ ^[A-Za-z0-9_-]{10,100}$ ]]
+          mkdir -p output/private_batch
+          curl --fail --location --silent --show-error --max-time 180 \
+            "https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}" \
+            --output output/private_batch/drive_stock.zip
+          python -c 'import zipfile; z=zipfile.ZipFile("output/private_batch/drive_stock.zip"); assert "manifest.json" in z.namelist()'
+      - name: Upload Drive stock privately and verify each video
+        if: inputs.mode == 'drive'
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          DRIVE_VIDEO_LIMIT: ${{ inputs.drive_video_limit }}
+          DRIVE_SAMPLE_IDS: ${{ inputs.drive_sample_ids }}
+        run: |
+          [[ "$DRIVE_VIDEO_LIMIT" =~ ^([1-9]|10)$ ]]
+          python scripts/upload_drive_stock.py --archive output/private_batch/drive_stock.zip --limit "$DRIVE_VIDEO_LIMIT" --ids "$DRIVE_SAMPLE_IDS"
       - name: Verify channel and upload as PRIVATE drafts
         if: inputs.mode == 'upload'
         env:
@@ -93,11 +124,12 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         run: python scripts/batch_private_shorts.py upload --batch-dir output/private_batch
       - name: Commit reconciliation record (atomic, idempotent)
-        if: always() && inputs.mode == 'upload'
+        if: always() && (inputs.mode == 'upload' || inputs.mode == 'drive')
         run: |
           git config user.name "gk-reels-bot"
           git config user.email "actions@github.com"
           test -f output/private_batch/upload_results.json || exit 0
+          python -c 'import json,sys; r=json.load(open("output/private_batch/upload_results.json")); sys.exit(0 if (r.get("videos") or r.get("attempts")) else 1)' || exit 0
           cp output/private_batch/upload_results.json /tmp/upload_results.json
           for i in 1 2 3 4 5; do
             git fetch origin main
