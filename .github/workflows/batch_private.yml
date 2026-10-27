@@ -101,10 +101,24 @@ jobs:
         run: |
           [[ "$DRIVE_FILE_ID" =~ ^[A-Za-z0-9_-]{10,100}$ ]]
           mkdir -p output/private_batch
-          curl --fail --location --silent --show-error --max-time 180 \
-            "https://drive.usercontent.google.com/download?id=${DRIVE_FILE_ID}&export=download" \
-            --output output/private_batch/drive_stock.zip
-          python -c 'import zipfile; z=zipfile.ZipFile("output/private_batch/drive_stock.zip"); assert "manifest.json" in z.namelist()'
+          curl --location --silent --show-error --max-time 180 \
+            --dump-header output/private_batch/drive_response_headers.txt \
+            --output output/private_batch/drive_stock.zip \
+            --write-out 'HTTP_STATUS=%{http_code} CONTENT_TYPE=%{content_type} BYTES=%{size_download} FINAL_URL=%{url_effective}\n' \
+            "https://drive.usercontent.google.com/download?id=${DRIVE_FILE_ID}&export=download"
+          python - <<'PY_DIAG'
+          from pathlib import Path
+          p=Path("output/private_batch/drive_stock.zip")
+          b=p.read_bytes()[:32] if p.exists() else b""
+          print("FIRST_BYTES_HEX=" + b.hex())
+          print("FIRST_BYTES_ASCII=" + repr(b))
+          print("RESPONSE_HEADERS_START")
+          print(Path("output/private_batch/drive_response_headers.txt").read_text(errors="replace")[-2000:])
+          print("RESPONSE_HEADERS_END")
+          import zipfile
+          with zipfile.ZipFile(p) as z:
+              if "manifest.json" not in z.namelist(): raise SystemExit("Drive response ZIP missing manifest.json")
+          PY_DIAG
       - name: Upload Drive stock privately and verify each video
         if: inputs.mode == 'drive'
         env:
