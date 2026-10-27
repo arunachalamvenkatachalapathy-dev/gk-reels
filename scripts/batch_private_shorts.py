@@ -184,6 +184,8 @@ def mode_render(count, ids=None):
 def mode_upload(batch_dir):
     bdir = Path(batch_dir)
     manifest = load(bdir / "manifest.json")
+    if manifest.get("destination_channel_id") != EXPECTED_CHANNEL_ID:
+        raise RuntimeError("manifest destination channel does not match GK English channel; aborting")
     from upload_youtube import get_youtube_client, upload_short
     yt = get_youtube_client()
     items = yt.channels().list(part="snippet", mine=True).execute().get("items", [])
@@ -198,23 +200,25 @@ def mode_upload(batch_dir):
     print(f"[BATCH] channel verified by ID: {channel_id} (current handle {handle})")
     results = []
     published = set(load(DATA / "state.json").get("published_ids", []))
+    ledger = load(DATA / "private_batch.json") if (DATA / "private_batch.json").exists() else {"batches": []}
+    recorded_ids = {v.get("question_id") for b in ledger.get("batches", []) for v in b.get("videos", [])}
+    seen_in_manifest = set()
     for v in manifest["videos"]:
-        if v["question_id"] in published:
-            print(f"[BATCH] already recorded, skipping {v['question_id']}")
+        qid = v.get("question_id")
+        if qid in seen_in_manifest:
+            print(f"[BATCH] duplicate question in manifest, skipping {qid}")
             continue
-        # Remove unsupported percentage claims from generated batch metadata.
-        v["title"] = re.sub(r"Only\s+\d+(?:\.\d+)?%\s+Get\s+This\s+Right!?", "Test Your GK", v["title"], flags=re.I)
-        # Private stock metadata uses reviewed facts, not generated extra claims.
-        qid = v["question_id"]
-        q = next(q for q in load(DATA / "questions_en.json") if q["id"] == qid)
-        reviewed = stock_content(q)
-        question = reviewed.get("display_question", q["question"])
-        v["title"] = question[:90].rstrip() + " #Shorts"
-        options = reviewed.get("options", q.get("options", []))
-        answer = options[reviewed.get("correct_index", q.get("correct_index", 0))]
-        v["description"] = (f"{question}\n\n" + "\n".join(f"{chr(65+i)}. {o}" for i, o in enumerate(options))
-                            + f"\n\nAnswer: {answer}\n{reviewed.get('explanation', '')}"
-                            + f"\nSource: {(reviewed.get('source_url') or 'Supplied question bank; not independently verified')}\n\n#Shorts #GKQuiz #GeneralKnowledge")
+        seen_in_manifest.add(qid)
+        if qid in published or qid in recorded_ids:
+            print(f"[BATCH] already recorded, skipping {qid}")
+            continue
+        # Preserve the exact per-video metadata supplied in the Drive manifest.
+        if not isinstance(v.get("title"), str) or not v["title"].strip() or len(v["title"]) > 100:
+            raise RuntimeError(f"invalid manifest title for {qid}")
+        if not isinstance(v.get("description"), str) or not v["description"].strip() or len(v["description"]) > 5000:
+            raise RuntimeError(f"invalid manifest description for {qid}")
+        if not isinstance(v.get("file"), str) or Path(v["file"]).name != v["file"] or not v["file"].lower().endswith(".mp4"):
+            raise RuntimeError(f"unsafe manifest file for {qid}")
         path = bdir / v["file"]
         if hashlib.sha256(path.read_bytes()).hexdigest() != v["sha256"]:
             raise RuntimeError(f"sha256 mismatch for {v['file']}; refusing upload")
