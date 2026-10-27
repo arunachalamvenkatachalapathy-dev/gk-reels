@@ -1299,6 +1299,46 @@
           "scheduled": false
         }
       ]
+    },
+    {
+      "batch_id": "40054871480",
+      "uploaded_at": "2026-10-27T16:59:54.135247+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q0518",
+          "yt_id": "rmh64WJwe9Y",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0517",
+          "yt_id": "4AH9i5Qa6cE",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0516",
+          "yt_id": "G8UlWfNJ2_s",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0515",
+          "yt_id": "d_0raTs7bMQ",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0514",
+          "yt_id": "UScsnjTCtWc",
+          "privacy": "private",
+          "scheduled": false
+        }
+      ],
+      "unverified_attempts": []
     }
   ]
 }
