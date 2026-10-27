@@ -102,7 +102,7 @@ jobs:
           [[ "$DRIVE_FILE_ID" =~ ^[A-Za-z0-9_-]{10,100}$ ]]
           mkdir -p output/private_batch
           curl --fail --location --silent --show-error --max-time 180 \
-            "https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}" \
+            "https://drive.usercontent.google.com/download?id=${DRIVE_FILE_ID}&export=download" \
             --output output/private_batch/drive_stock.zip
           python -c 'import zipfile; z=zipfile.ZipFile("output/private_batch/drive_stock.zip"); assert "manifest.json" in z.namelist()'
       - name: Upload Drive stock privately and verify each video
