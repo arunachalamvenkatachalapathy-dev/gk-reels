@@ -202,6 +202,7 @@ def mode_upload(batch_dir):
     published = set(load(DATA / "state.json").get("published_ids", []))
     ledger = load(DATA / "private_batch.json") if (DATA / "private_batch.json").exists() else {"batches": []}
     recorded_ids = {v.get("question_id") for b in ledger.get("batches", []) for v in b.get("videos", [])}
+    recorded_ids.update(v.get("question_id") for b in ledger.get("batches", []) for v in b.get("unverified_attempts", []))
     seen_in_manifest = set()
     for v in manifest["videos"]:
         qid = v.get("question_id")
@@ -280,6 +281,9 @@ def mode_reconcile(batch_dir):
     """
     res = load(Path(batch_dir) / "upload_results.json")
     ledger_path = DATA / "private_batch.json"
+    if not res.get("videos") and not res.get("attempts"):
+        print("[BATCH] no upload attempts; nothing to reconcile")
+        return
     ledger = load(ledger_path) if ledger_path.exists() else {"batches": []}
     if not any(b.get("batch_id") == res["batch_id"] for b in ledger["batches"]):
         entry = {
@@ -289,6 +293,7 @@ def mode_reconcile(batch_dir):
             "channel_id": res["channel_id"],
             "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
             "videos": res["videos"],
+            "unverified_attempts": [a for a in res.get("attempts", []) if a.get("state") != "verified_private"],
         }
         if res.get("replaces_batch_id"):
             entry["replaces_batch_id"] = res["replaces_batch_id"]
@@ -298,6 +303,11 @@ def mode_reconcile(batch_dir):
     else:
         entry = next(b for b in ledger["batches"] if b.get("batch_id") == res["batch_id"])
         known = {v["question_id"]: v["yt_id"] for v in entry["videos"]}
+        existing_unverified = {a.get("question_id") for a in entry.get("unverified_attempts", [])}
+        for attempt in res.get("attempts", []):
+            if attempt.get("state") != "verified_private" and attempt.get("question_id") not in existing_unverified:
+                entry.setdefault("unverified_attempts", []).append(attempt)
+                existing_unverified.add(attempt.get("question_id"))
         for video in res["videos"]:
             if video["question_id"] in known:
                 if known[video["question_id"]] != video["yt_id"]:

@@ -87,6 +87,7 @@ def main():
     already = set(state.get("published_ids", [])) | HELD_QUESTION_IDS
     for batch in ledger.get("batches", []):
         already.update(v.get("question_id") for v in batch.get("videos", []) if v.get("question_id"))
+        already.update(v.get("question_id") for v in batch.get("unverified_attempts", []) if v.get("question_id"))
 
     with zipfile.ZipFile(args.archive) as zf:
         manifest, candidates, skipped_duplicates = archive_candidates(zf)
@@ -158,8 +159,11 @@ def main():
                 raise RuntimeError(f"post-upload verification missing for {video_id}")
             chk = chk_items[0]
             privacy = chk.get("status", {}).get("privacyStatus")
-            if privacy != "private" or chk.get("snippet", {}).get("channelId") != channel_id:
+            snippet = chk.get("snippet", {})
+            if privacy != "private" or snippet.get("channelId") != channel_id:
                 raise RuntimeError(f"post-upload verification failed for {video_id}: privacy={privacy}; aborting")
+            if snippet.get("title") != v["title"] or snippet.get("description") != v["description"]:
+                raise RuntimeError(f"post-upload metadata verification failed for {v['question_id']}; aborting")
             results.append({
                 "question_id": v["question_id"], "yt_id": video_id,
                 "privacy": privacy, "scheduled": False,
