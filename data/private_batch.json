@@ -1379,6 +1379,76 @@
         }
       ],
       "unverified_attempts": []
+    },
+    {
+      "batch_id": "40052742421-q0528-q0519",
+      "uploaded_at": "2026-10-28T00:35:29.080785+00:00",
+      "destination_channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+      "note": "Private drafts pending owner review; scheduling dates decided later. No day/date claims in metadata.",
+      "videos": [
+        {
+          "question_id": "q0528",
+          "yt_id": "jml9nAjotyg",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0527",
+          "yt_id": "GnbGB5trxxI",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0526",
+          "yt_id": "e1M5lrFcgdg",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0525",
+          "yt_id": "UzEJRa9Ruko",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0524",
+          "yt_id": "cHJ3IuvpuCM",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0523",
+          "yt_id": "HAs87uAtgYk",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0522",
+          "yt_id": "M3Uc1q1tsBk",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0521",
+          "yt_id": "3XIbRHe4VDY",
+          "privacy": "private",
+          "scheduled": false
+        },
+        {
+          "question_id": "q0520",
+          "yt_id": "dYZ92V37eWo",
+          "privacy": "private",
+          "scheduled": false
+        }
+      ],
+      "unverified_attempts": [
+        {
+          "question_id": "q0519",
+          "yt_id": "QFfqrxnhA7k",
+          "state": "uploaded_unverified"
+        }
+      ]
     }
   ]
 }
