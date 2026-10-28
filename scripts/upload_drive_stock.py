@@ -108,9 +108,10 @@ def main():
         selected = eligible[:args.limit]
         if len({v["question_id"] for v in selected}) != len(selected):
             raise RuntimeError("selected question IDs are not unique")
-        batch_key = str(manifest.get("batch_id", "drive-stock"))
+        source_batch_key = str(manifest.get("batch_id", "drive-stock"))
+        batch_key = source_batch_key + "-" + selected[0]["question_id"] + "-" + selected[-1]["question_id"]
         if any(str(b.get("batch_id")) == batch_key for b in ledger.get("batches", [])):
-            raise RuntimeError("batch_id already reconciled; refusing replay")
+            raise RuntimeError("this exact ZIP question-ID range is already reconciled; refusing replay")
         if len({v["question_id"] for v in selected}) != args.limit:
             raise RuntimeError("selected question IDs are not unique")
 
