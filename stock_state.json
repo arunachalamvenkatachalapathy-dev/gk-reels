@@ -5,13 +5,20 @@
       "slot": "manual",
       "opens_at": "2026-11-02T02:53:30.124078+00:00",
       "drift_seconds": 0,
-      "status": "pending",
+      "status": "published",
       "question_id": "q1218",
       "sha256": "3b0e98decf78ee6f59a5ad1e155820b1172a15e81618296f357bc8fff2dad9f8",
-      "run_id": "41380075551"
+      "run_id": "41380075551",
+      "youtube_id": "ATsEVF5x4eM",
+      "destinations": {
+        "youtube": "ATsEVF5x4eM"
+      },
+      "published_at": "2026-11-02T02:53:44.460294+00:00"
     }
   },
-  "published_ids": [],
+  "published_ids": [
+    "q1218"
+  ],
   "checks": [
     {
       "at": "2026-11-02T02:53:30.124078+00:00",
