@@ -13,7 +13,10 @@
       "destinations": {
         "youtube": "ATsEVF5x4eM"
       },
-      "published_at": "2026-11-02T02:53:44.460294+00:00"
+      "published_at": "2026-11-02T02:53:44.460294+00:00",
+      "destination_errors": {
+        "facebook": "Facebook destination returned no receipt"
+      }
     }
   },
   "published_ids": [
