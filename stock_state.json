@@ -11,12 +11,11 @@
       "run_id": "41380075551",
       "youtube_id": "ATsEVF5x4eM",
       "destinations": {
-        "youtube": "ATsEVF5x4eM"
+        "youtube": "ATsEVF5x4eM",
+        "facebook": "924469533935516"
       },
       "published_at": "2026-11-02T02:53:44.460294+00:00",
-      "destination_errors": {
-        "facebook": "Facebook destination returned no receipt"
-      }
+      "destination_errors": {}
     }
   },
   "published_ids": [
@@ -34,6 +33,13 @@
         "drift_seconds": 0
       },
       "mode": "manual"
+    },
+    {
+      "at": "2026-11-02T02:55:05.737963+00:00",
+      "run_id": "41380205847",
+      "event": "workflow_dispatch",
+      "slot": null,
+      "mode": "facebook-retry"
     }
   ],
   "skipped_external": [
