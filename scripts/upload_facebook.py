@@ -74,3 +74,24 @@ def publish_facebook_reel(video_path, title, description, public_url=None):
         return video_id
     except Exception as e:
         raise RuntimeError(f"Facebook Reels upload failed: {e}") from e
+
+
+def find_recent_reel(title, published_after=None):
+    # Adopt an already-published Page reel by exact title so a retry never
+    # double-posts after a mid-flow failure. Returns the reel id or None.
+    page_id = os.environ.get("FB_PAGE_ID")
+    token = os.environ.get("IG_ACCESS_TOKEN")
+    if not page_id or not token:
+        return None
+    resp = requests.get(
+        f"{GRAPH}/{page_id}/video_reels",
+        params={"fields": "id,title,description,created_time", "limit": "15", "access_token": token},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    for reel in resp.json().get("data", []):
+        if reel.get("title") == title or title in (reel.get("description") or ""):
+            if published_after and reel.get("created_time", "") < published_after:
+                continue
+            return str(reel["id"])
+    return None
