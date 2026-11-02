@@ -1,0 +1,48 @@
+name: Read-only Meta credential identity
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  identity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read Meta token and Instagram linkage only (no token values printed)
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+        run: |
+          python - <<'PY'
+          import json,os,urllib.error,urllib.parse,urllib.request
+          GRAPH='https://graph.facebook.com/v26.0'
+          token=os.environ.get('IG_ACCESS_TOKEN','').strip()
+          def get(path,values):
+              url=GRAPH+'/'+path+'?'+urllib.parse.urlencode(values)
+              req=urllib.request.Request(url,headers={'Authorization':'Bearer '+token})
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:return json.load(r)
+              except urllib.error.HTTPError as e:
+                  return {'http_error':e.code}
+              except Exception:
+                  return {'error':'transport'}
+          out={'token_present':bool(token)}
+          if token:
+              debug=get('debug_token',{'input_token':token}).get('data',{})
+              out['debug']={k:debug.get(k) for k in ('is_valid','type','app_id','profile_id','expires_at','data_access_expires_at')}
+              out['scopes']=debug.get('scopes',[])
+              me=get('me',{'fields':'id,name'})
+              out['page']=me
+              if 'id' in me:
+                  pid=me['id']
+                  out['ig_business_account']=get(pid,{'fields':'instagram_business_account'})
+                  out['connected_instagram_account']=get(pid,{'fields':'connected_instagram_account'})
+                  for key in ('ig_business_account','connected_instagram_account'):
+                      node=out.get(key) or {}
+                      ig=(node.get(key) or {}).get('id') if isinstance(node,dict) else None
+                      if ig:
+                          out[key+'_profile']=get(ig,{'fields':'id,username,name'})
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as s:s.write('```json\n'+json.dumps(out,ensure_ascii=False,indent=2)+'\n```\n')
+          PY
