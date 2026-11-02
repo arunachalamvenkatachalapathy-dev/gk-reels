@@ -125,3 +125,22 @@ if __name__ == "__main__":
     path = sys.argv[1] if len(sys.argv) > 1 else "output_test.mp4"
     tag = "assets-" + datetime.date.today().isoformat()
     upload_reel(path, "Daily GK quiz. Comment your answer before the reveal! #Shorts", tag, os.path.basename(path))
+
+
+def find_recent_reel_by_caption(title_prefix, published_after=None):
+    # Adopt an already-published IG reel whose caption starts with the video
+    # title, so a retry after a mid-flow failure never double-posts.
+    ig_user = os.environ["IG_USER_ID"]
+    token = os.environ["IG_ACCESS_TOKEN"]
+    resp = requests.get(
+        f"{GRAPH}/{ig_user}/media",
+        params={"fields": "id,caption,timestamp,permalink", "limit": "15", "access_token": token},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    for m in resp.json().get("data", []):
+        if (m.get("caption") or "").startswith(title_prefix):
+            if published_after and m.get("timestamp", "") < published_after:
+                continue
+            return {"id": str(m["id"]), "url": m.get("permalink", "")}
+    return None

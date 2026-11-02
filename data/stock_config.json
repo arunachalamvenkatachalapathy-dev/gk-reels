@@ -7,12 +7,14 @@
   },
   "window_minutes": 120,
   "timezone": "Asia/Kolkata",
-  "held_ids": ["q0758"],
+  "held_ids": [
+    "q0758"
+  ],
   "skip_qid_range_end": 92,
   "studio_slots_until": "2026-11-03",
   "state_branch": "en-stock-publication-state",
   "state_file": "stock_state.json",
   "recent_upload_scan": 200,
   "facebook_enabled": true,
-  "instagram_enabled": false
+  "instagram_enabled": true
 }
