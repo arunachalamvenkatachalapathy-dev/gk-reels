@@ -1,0 +1,18 @@
+{
+  "drive_folder_id": "1l_z3sYgWNdGilsacv3qdZVt0NwwqhEl_",
+  "channel_id": "UCcaMzi9aIDVCU3qqoqFtmuQ",
+  "slots": {
+    "morning": "07:30",
+    "afternoon": "19:30"
+  },
+  "window_minutes": 120,
+  "timezone": "Asia/Kolkata",
+  "held_ids": ["q0758"],
+  "skip_qid_range_end": 92,
+  "studio_slots_until": "2026-11-03",
+  "state_branch": "en-stock-publication-state",
+  "state_file": "stock_state.json",
+  "recent_upload_scan": 200,
+  "facebook_enabled": true,
+  "instagram_enabled": false
+}

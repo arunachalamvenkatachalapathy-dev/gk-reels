@@ -1,0 +1,109 @@
+name: EN stock publishing from Drive
+# Owner plan (2026-10-30/31, WhatsApp): publish the finished Drive stock straight
+# from each GK repo's Actions, keyless Drive access, $0, YouTube/Instagram/Facebook
+# per language. EN runs YouTube+Facebook; Instagram waits for the public-URL hosting step.
+# Page exist (none found 2026-11-02; FB publishing stays off).
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Dispatch purpose - manual single publish or current scheduled slot
+        type: choice
+        required: true
+        default: manual
+        options:
+          - manual
+          - scheduled
+  schedule:
+    - cron: '5 2 * * *'   # 07:35 IST morning slot
+    - cron: '5 14 * * *'  # 19:35 IST evening slot
+permissions:
+  contents: write   # durable publication state branch
+  issues: write     # fail-loud issue on publication failure
+concurrency:
+  group: en-stock-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Validate stock-publication gates
+        run: python -m unittest discover -s tests -p 'test_stock_publish.py' -v
+      - name: Prepare durable publication state branch
+        shell: bash
+        run: |
+          git config user.name 'EN GK automation'
+          git config user.email 'actions@users.noreply.github.com'
+          if git ls-remote --exit-code --heads origin en-stock-publication-state >/dev/null; then
+            git fetch origin en-stock-publication-state
+            git worktree add /tmp/en-stock-state FETCH_HEAD
+          else
+            git worktree add --detach /tmp/en-stock-state HEAD
+            cd /tmp/en-stock-state
+            git checkout --orphan en-stock-publication-state
+            git rm -rf .
+            printf '%s\n' '{"slots":{},"published_ids":[],"checks":[]}' > state.json
+            git add state.json
+            git commit -m 'Initialize EN durable publication state'
+            git push origin HEAD:en-stock-publication-state
+          fi
+      - name: Publish next cleared Drive-stock video for the due slot
+        env:
+          PUBLICATION_STATE_DIR: /tmp/en-stock-state
+          DISPATCH_MODE: ${{ inputs.mode }}
+          GDRIVE_SA_KEY_JSON: ${{ secrets.GDRIVE_SA_KEY_JSON }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python scripts/stock_publish.py
+      - name: Verify recorded YouTube receipt and public metadata
+        env:
+          PUBLICATION_STATE_DIR: /tmp/en-stock-state
+          YT_CHANNEL_ID: UCcaMzi9aIDVCU3qqoqFtmuQ
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: |
+          python - <<'PYVERIFY'
+          import json,os,sys
+          sys.path.insert(0,'scripts')
+          from upload_youtube import get_youtube_client
+          state=json.load(open(os.environ['PUBLICATION_STATE_DIR']+'/stock_state.json'))
+          ids=[v['youtube_id'] for v in state.get('slots',{}).values() if v.get('status')=='published']
+          if ids:
+              y=get_youtube_client()
+              items=y.videos().list(part='snippet,status',id=','.join(ids)).execute().get('items',[])
+              for v in items:
+                  assert v['snippet']['channelId']==os.environ['YT_CHANNEL_ID']
+                  assert v['status']['privacyStatus']=='public'
+                  print(json.dumps({'url':'https://www.youtube.com/watch?v='+v['id'],'title':v['snippet']['title'],'status':v['status']},ensure_ascii=False))
+          PYVERIFY
+      - name: Write receipt summary without artifact storage
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PYSUMMARY'
+          import os
+          from pathlib import Path
+          state=Path('/tmp/en-stock-state/stock_state.json')
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as summary:
+              summary.write('## EN stock publication state\n')
+              if state.is_file():
+                  summary.write('```json\n'+state.read_text()+'\n```\n')
+              else:
+                  summary.write('State unavailable: an earlier gate or state setup failed. Inspect the failed step.\n')
+          PYSUMMARY
+      - name: Open a fail-loud issue on publication failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          title="EN stock publishing failed (run ${{ github.run_id }})"
+          gh issue create --title "$title" --body "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} - inspect the failed step, reconcile any pending/ambiguous slot in the en-stock-publication-state branch, then rerun." || true
