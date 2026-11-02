@@ -12,7 +12,11 @@
       "youtube_id": "ATsEVF5x4eM",
       "destinations": {
         "youtube": "ATsEVF5x4eM",
-        "facebook": "924469533935516"
+        "facebook": "924469533935516",
+        "instagram": {
+          "id": "18120757360980350",
+          "url": "https://www.instagram.com/reel/DfOSlmZEuFJ/"
+        }
       },
       "published_at": "2026-11-02T02:53:44.460294+00:00",
       "destination_errors": {}
@@ -40,6 +44,13 @@
       "event": "workflow_dispatch",
       "slot": null,
       "mode": "facebook-retry"
+    },
+    {
+      "at": "2026-11-02T02:59:28.693756+00:00",
+      "run_id": "41380571620",
+      "event": "workflow_dispatch",
+      "slot": null,
+      "mode": "instagram-retry"
     }
   ],
   "skipped_external": [
