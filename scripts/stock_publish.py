@@ -242,7 +242,7 @@ def retry_facebook_failures(sd, state, config, drive, work):
                 if video_path is None:
                     video_path = work / v["file"]
                     video_path.write_bytes(payload)
-                media_id, permalink = upload_reel(str(video_path), build_ig_caption(v), f"ig-host-{key}-{qid}", v["file"])
+                media_id, permalink = upload_reel(str(video_path), build_ig_caption(v), "ig-host-" + key.replace(":", "-") + "-" + qid, v["file"])
                 destinations["instagram"] = {"id": str(media_id), "url": permalink}
             errors.pop("instagram", None)
             persist(sd, state, config, f"Record retried EN stock Instagram receipt for {qid}")
@@ -377,7 +377,7 @@ def main():
     if config.get("instagram_enabled", False):
         try:
             from upload_instagram import upload_reel
-            media_id, permalink = upload_reel(str(video_path), build_ig_caption(v), f"ig-host-{slot['key']}-{qid}", v["file"])
+            media_id, permalink = upload_reel(str(video_path), build_ig_caption(v), "ig-host-" + slot["key"].replace(":", "-") + "-" + qid, v["file"])
             destinations["instagram"] = {"id": str(media_id), "url": permalink}
             state["slots"][slot["key"]]["destinations"] = destinations
             persist(sd, state, config, "Record confirmed EN stock Instagram receipt")
