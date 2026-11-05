@@ -73,7 +73,11 @@
       "youtube_id": "ozx18FdnbOY",
       "destinations": {
         "youtube": "ozx18FdnbOY",
-        "facebook": "29271016749158821"
+        "facebook": "29271016749158821",
+        "instagram": {
+          "id": "18110880311338263",
+          "url": "https://www.instagram.com/reel/DfV6el6AewY/"
+        }
       },
       "published_at": "2026-11-05T02:02:40.019498+00:00"
     }
