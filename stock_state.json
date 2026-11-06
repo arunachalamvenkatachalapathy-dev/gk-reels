@@ -113,7 +113,11 @@
       "youtube_id": "hGBPOdVGpno",
       "destinations": {
         "youtube": "hGBPOdVGpno",
-        "facebook": "1777468456701987"
+        "facebook": "1777468456701987",
+        "instagram": {
+          "id": "18118375886022441",
+          "url": "https://www.instagram.com/reel/DfYfRCBj75C/"
+        }
       },
       "published_at": "2026-11-06T02:02:35.790984+00:00"
     }
