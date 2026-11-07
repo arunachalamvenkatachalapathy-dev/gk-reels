@@ -11,6 +11,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 import zipfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -143,14 +144,35 @@ def download_zip(drive, file_id, dest):
             _, done = downloader.next_chunk()
 
 
+RETRYABLE_STATUSES = {500, 502, 503, 504}
+
+
+def execute_read_with_retry(request, attempts=4, base_delay=2.0, sleep=time.sleep):
+    """Run a read-only Google API request, retrying transient 5xx errors with backoff.
+
+    Only for idempotent reads (no uploads). Non-transient errors and the final
+    failure still raise, so nothing fails silently.
+    """
+    for attempt in range(1, attempts + 1):
+        try:
+            return request.execute()
+        except Exception as exc:  # googleapiclient HttpError exposes .resp.status
+            status = getattr(getattr(exc, "resp", None), "status", None)
+            if status not in RETRYABLE_STATUSES or attempt == attempts:
+                raise
+            delay = base_delay * (2 ** (attempt - 1))
+            print(f"  Transient YouTube read error {status} (attempt {attempt}/{attempts}); retrying in {delay:.0f}s")
+            sleep(delay)
+
+
 def recent_titles(youtube, scan):
-    channels = youtube.channels().list(part="contentDetails", mine=True).execute().get("items", [])
+    channels = execute_read_with_retry(youtube.channels().list(part="contentDetails", mine=True)).get("items", [])
     if len(channels) != 1:
         raise RuntimeError("OAuth identity mismatch while reading uploads playlist")
     uploads = channels[0]["contentDetails"]["relatedPlaylists"]["uploads"]
     titles, token = set(), None
     while len(titles) < scan:
-        resp = youtube.playlistItems().list(part="snippet", playlistId=uploads, maxResults=50, pageToken=token).execute()
+        resp = execute_read_with_retry(youtube.playlistItems().list(part="snippet", playlistId=uploads, maxResults=50, pageToken=token))
         for item in resp.get("items", []):
             titles.add(item["snippet"].get("title", ""))
         token = resp.get("nextPageToken")

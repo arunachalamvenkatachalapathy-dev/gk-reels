@@ -77,5 +77,47 @@ class SlotGate(unittest.TestCase):
         self.assertIsNone(sp.select_slot(ist(2026, 11, 4, 12, 0), CONFIG, {"slots": {}}))
 
 
+class _Resp:
+    def __init__(self, status):
+        self.status = status
+
+
+class _HttpErr(Exception):
+    def __init__(self, status):
+        super().__init__(f"HTTP {status}")
+        self.resp = _Resp(status)
+
+
+class _FlakyRequest:
+    def __init__(self, failures, status):
+        self.failures, self.status, self.calls = failures, status, 0
+
+    def execute(self):
+        self.calls += 1
+        if self.calls <= self.failures:
+            raise _HttpErr(self.status)
+        return {"items": []}
+
+
+class ReadRetry(unittest.TestCase):
+    def test_retries_transient_503_then_succeeds(self):
+        req, waits = _FlakyRequest(2, 503), []
+        self.assertEqual(sp.execute_read_with_retry(req, sleep=waits.append), {"items": []})
+        self.assertEqual(req.calls, 3)
+        self.assertEqual(waits, [2.0, 4.0])
+
+    def test_gives_up_loudly_after_attempts(self):
+        req = _FlakyRequest(99, 503)
+        with self.assertRaises(_HttpErr):
+            sp.execute_read_with_retry(req, attempts=3, sleep=lambda s: None)
+        self.assertEqual(req.calls, 3)
+
+    def test_non_transient_error_not_retried(self):
+        req = _FlakyRequest(99, 403)
+        with self.assertRaises(_HttpErr):
+            sp.execute_read_with_retry(req, sleep=lambda s: None)
+        self.assertEqual(req.calls, 1)
+
+
 if __name__ == "__main__":
     unittest.main()
