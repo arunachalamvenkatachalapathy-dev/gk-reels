@@ -153,7 +153,11 @@
       "youtube_id": "CseeflA8EcU",
       "destinations": {
         "youtube": "CseeflA8EcU",
-        "facebook": "4580060278942210"
+        "facebook": "4580060278942210",
+        "instagram": {
+          "id": "18357151390172835",
+          "url": "https://www.instagram.com/reel/DfbFzWhmMtN/"
+        }
       },
       "published_at": "2026-11-07T02:17:50.581084+00:00"
     }
