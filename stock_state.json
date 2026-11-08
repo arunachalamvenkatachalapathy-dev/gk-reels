@@ -180,6 +180,16 @@
         }
       },
       "published_at": "2026-11-07T14:02:52.007569+00:00"
+    },
+    "2026-11-08:morning": {
+      "key": "2026-11-08:morning",
+      "slot": "morning",
+      "opens_at": "2026-11-08T07:30:00+05:30",
+      "drift_seconds": 141,
+      "status": "pending",
+      "question_id": "q1205",
+      "sha256": "c01a2b1ad2d38956bff07c5263921c26c6ecd0d00730baf2b21af8f395bf58ed",
+      "run_id": "42436769626"
     }
   },
   "published_ids": [
@@ -412,6 +422,18 @@
       "run_id": "42402452235",
       "event": "schedule",
       "slot": null,
+      "mode": "scheduled"
+    },
+    {
+      "at": "2026-11-08T02:02:21.193477+00:00",
+      "run_id": "42436769626",
+      "event": "workflow_dispatch",
+      "slot": {
+        "key": "2026-11-08:morning",
+        "slot": "morning",
+        "opens_at": "2026-11-08T07:30:00+05:30",
+        "drift_seconds": 141
+      },
       "mode": "scheduled"
     }
   ],
@@ -3995,6 +4017,406 @@
       "question_id": "q1214",
       "reason": "title already on channel",
       "at": "2026-11-07T14:02:30.730095+00:00"
+    },
+    {
+      "question_id": "q1262",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1260",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1259",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1258",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1257",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1256",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1266",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1265",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1264",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1263",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1261",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1267",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1268",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1247",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1248",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1250",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1252",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1253",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1254",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1255",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1298",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1302",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1277",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1278",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1279",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1281",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1246",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1244",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1242",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1243",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1249",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1276",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1284",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1285",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1286",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1287",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1289",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1291",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1292",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1301",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1283",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1288",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1290",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1297",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1299",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1300",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1275",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1272",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1271",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1269",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1251",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1245",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1241",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1240",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1239",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1237",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1236",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1235",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1234",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1233",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1274",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1273",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1270",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1238",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1232",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1231",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1230",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1229",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1228",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1227",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1226",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1225",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1224",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1223",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1222",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1221",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1220",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1219",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1216",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
+    },
+    {
+      "question_id": "q1214",
+      "reason": "title already on channel",
+      "at": "2026-11-08T02:02:21.193477+00:00"
     }
   ]
 }
