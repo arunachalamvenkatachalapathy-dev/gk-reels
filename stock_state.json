@@ -186,10 +186,15 @@
       "slot": "morning",
       "opens_at": "2026-11-08T07:30:00+05:30",
       "drift_seconds": 141,
-      "status": "pending",
+      "status": "published",
       "question_id": "q1205",
       "sha256": "c01a2b1ad2d38956bff07c5263921c26c6ecd0d00730baf2b21af8f395bf58ed",
-      "run_id": "42436769626"
+      "run_id": "42436769626",
+      "youtube_id": "6WZbv-zD-QY",
+      "destinations": {
+        "youtube": "6WZbv-zD-QY"
+      },
+      "published_at": "2026-11-08T02:02:43.305434+00:00"
     }
   },
   "published_ids": [
@@ -201,7 +206,8 @@
     "q1209",
     "q1208",
     "q1207",
-    "q1206"
+    "q1206",
+    "q1205"
   ],
   "checks": [
     {
