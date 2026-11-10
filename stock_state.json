@@ -293,7 +293,11 @@
       "youtube_id": "Eg-3yGNSKYw",
       "destinations": {
         "youtube": "Eg-3yGNSKYw",
-        "facebook": "4747112598853539"
+        "facebook": "4747112598853539",
+        "instagram": {
+          "id": "17993405127064674",
+          "url": "https://www.instagram.com/reel/DfkE4QWmvVo/"
+        }
       },
       "published_at": "2026-11-10T14:02:56.907390+00:00"
     }
