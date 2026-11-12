@@ -373,7 +373,11 @@
       "youtube_id": "HBhDDa-rUmY",
       "destinations": {
         "youtube": "HBhDDa-rUmY",
-        "facebook": "1540825941270724"
+        "facebook": "1540825941270724",
+        "instagram": {
+          "id": "18182218564447672",
+          "url": "https://www.instagram.com/reel/DfpOcg5D7bB/"
+        }
       },
       "published_at": "2026-11-12T14:02:42.307163+00:00"
     }
