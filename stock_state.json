@@ -933,6 +933,13 @@
       "event": "workflow_dispatch",
       "slot": null,
       "mode": "scheduled"
+    },
+    {
+      "at": "2026-11-14T08:52:48.270595+00:00",
+      "run_id": "43577863040",
+      "event": "schedule",
+      "slot": null,
+      "mode": "scheduled"
     }
   ],
   "skipped_external": [
