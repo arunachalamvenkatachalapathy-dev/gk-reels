@@ -433,7 +433,11 @@
       "youtube_id": "gJy-ximXyDY",
       "destinations": {
         "youtube": "gJy-ximXyDY",
-        "facebook": "1444730433817207"
+        "facebook": "1444730433817207",
+        "instagram": {
+          "id": "17985599201901413",
+          "url": "https://www.instagram.com/reel/DftGo5agpjk/"
+        }
       },
       "published_at": "2026-11-14T02:11:26.527109+00:00"
     }
