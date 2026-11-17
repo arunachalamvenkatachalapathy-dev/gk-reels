@@ -553,7 +553,11 @@
       "youtube_id": "I0XR_S_vYOM",
       "destinations": {
         "youtube": "I0XR_S_vYOM",
-        "facebook": "1837911434193834"
+        "facebook": "1837911434193834",
+        "instagram": {
+          "id": "18112756847216925",
+          "url": "https://www.instagram.com/reel/Df00MJDCWk0/"
+        }
       },
       "published_at": "2026-11-17T02:03:46.198085+00:00"
     }
