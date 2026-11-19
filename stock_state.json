@@ -653,7 +653,11 @@
       "youtube_id": "RxhoRI86M34",
       "destinations": {
         "youtube": "RxhoRI86M34",
-        "facebook": "40173851105563161"
+        "facebook": "40173851105563161",
+        "instagram": {
+          "id": "17888129994625858",
+          "url": "https://www.instagram.com/reel/Df7QFyYkmoa/"
+        }
       },
       "published_at": "2026-11-19T14:03:27.426292+00:00"
     }
