@@ -733,7 +733,11 @@
       "youtube_id": "_xD-5YEUKIU",
       "destinations": {
         "youtube": "_xD-5YEUKIU",
-        "facebook": "2387642625332503"
+        "facebook": "2387642625332503",
+        "instagram": {
+          "id": "18090269945304766",
+          "url": "https://www.instagram.com/reel/DgAZna2Fc2l/"
+        }
       },
       "published_at": "2026-11-21T14:02:53.343072+00:00"
     }
