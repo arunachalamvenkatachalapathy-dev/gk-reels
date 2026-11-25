@@ -1853,6 +1853,13 @@
         "drift_seconds": 239
       },
       "mode": "scheduled"
+    },
+    {
+      "at": "2026-11-25T23:02:11.908753+00:00",
+      "run_id": "45718108564",
+      "event": "schedule",
+      "slot": null,
+      "mode": "scheduled"
     }
   ],
   "skipped_external": [
