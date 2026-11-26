@@ -913,7 +913,11 @@
       "youtube_id": "rfsa1uRMNs4",
       "destinations": {
         "youtube": "rfsa1uRMNs4",
-        "facebook": "2385212648962020"
+        "facebook": "2385212648962020",
+        "instagram": {
+          "id": "17938724211410235",
+          "url": "https://www.instagram.com/reel/DgL_YNazohR/"
+        }
       },
       "published_at": "2026-11-26T02:03:58.187872+00:00"
     }
