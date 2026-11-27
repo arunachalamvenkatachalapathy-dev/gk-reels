@@ -2013,6 +2013,13 @@
         "drift_seconds": 192
       },
       "mode": "scheduled"
+    },
+    {
+      "at": "2026-11-27T22:38:28.426326+00:00",
+      "run_id": "46077838683",
+      "event": "schedule",
+      "slot": null,
+      "mode": "scheduled"
     }
   ],
   "skipped_external": [
