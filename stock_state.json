@@ -993,7 +993,11 @@
       "youtube_id": "-07GkdXXIOQ",
       "destinations": {
         "youtube": "-07GkdXXIOQ",
-        "facebook": "1190065270026787"
+        "facebook": "1190065270026787",
+        "instagram": {
+          "id": "18122950238004391",
+          "url": "https://www.instagram.com/reel/DgRI2_HKSDr/"
+        }
       },
       "published_at": "2026-11-28T02:03:32.500201+00:00"
     }
