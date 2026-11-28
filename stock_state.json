@@ -1013,7 +1013,11 @@
       "youtube_id": "l4K11Q0Y-Eo",
       "destinations": {
         "youtube": "l4K11Q0Y-Eo",
-        "facebook": "1166901582730119"
+        "facebook": "1166901582730119",
+        "instagram": {
+          "id": "18047659487839128",
+          "url": "https://www.instagram.com/reel/DgSbOA0hcFE/"
+        }
       },
       "published_at": "2026-11-28T14:03:10.343290+00:00"
     }
