@@ -84,11 +84,15 @@ jobs:
           ids=[v['youtube_id'] for v in state.get('slots',{}).values() if v.get('status')=='published']
           if ids:
               y=get_youtube_client()
-              items=y.videos().list(part='snippet,status',id=','.join(ids)).execute().get('items',[])
-              for v in items:
-                  assert v['snippet']['channelId']==os.environ['YT_CHANNEL_ID']
-                  assert v['status']['privacyStatus']=='public'
-                  print(json.dumps({'url':'https://www.youtube.com/watch?v='+v['id'],'title':v['snippet']['title'],'status':v['status']},ensure_ascii=False))
+              for offset in range(0, len(ids), 50):
+                  batch=ids[offset:offset+50]
+                  items=y.videos().list(part='snippet,status',id=','.join(batch)).execute().get('items',[])
+                  assert {v['id'] for v in items} == set(batch), 'Missing recorded YouTube receipt'
+                  for v in items:
+                      assert v['snippet']['channelId']==os.environ['YT_CHANNEL_ID']
+                      assert v['status']['privacyStatus']=='public'
+                      assert v['status']['uploadStatus']=='processed'
+                      print(json.dumps({'url':'https://www.youtube.com/watch?v='+v['id'],'title':v['snippet']['title'],'status':v['status']},ensure_ascii=False))
           PYVERIFY
       - name: Write receipt summary without artifact storage
         if: always()
